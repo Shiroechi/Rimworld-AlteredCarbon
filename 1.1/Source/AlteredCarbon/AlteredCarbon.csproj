@@ -294,6 +294,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CorticalStack.cs" />
+    <Compile Include="Recipe_RemoveCorticalStack.cs" />
+    <Compile Include="Recipe_InstallCorticalStack.cs" />
+    <Compile Include="HediffCompProperties_CorticalStack.cs" />
+    <Compile Include="HediffComp_CorticalStack.cs" />
+    <Compile Include="Hediff_CorticalStack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

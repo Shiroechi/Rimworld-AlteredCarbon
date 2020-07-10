@@ -8,6 +8,7 @@
 		<descriptionHyperlinks>
 			<RecipeDef>AC_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>
+		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/Stacks/EmptyStack</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -25,6 +26,36 @@
 			<Mass>0.3</Mass>
 		</statBases>
 	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
+		<defName>AC_InstallEmptyCorticalStack</defName>
+		<label>install empty cortical stack</label>
+		<description>Install an empty cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_EmptyCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
+		<jobString>Installing cortical stack.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_EmptyCorticalStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_EmptyCorticalStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_CorticalStack</addsHediff>
+	</RecipeDef>
 
 
 </Defs>

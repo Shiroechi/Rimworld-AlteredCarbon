@@ -5,6 +5,7 @@
 		<defName>AC_CorticalStack</defName>
 		<label>cortical stack</label>
 		<labelNoun>a cortical stack</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_CorticalStack</hediffClass>
 		<description>An installed cortical stack.</description>
 		<descriptionHyperlinks>
 			<ThingDef>AC_FilledCorticalStack</ThingDef>
@@ -15,6 +16,9 @@
 			<partEfficiency>1.25</partEfficiency>
 			<betterThanNatural>true</betterThanNatural>
 		</addedPartProps>
+		<comps>
+			<li Class="AlteredCarbon.HediffCompProperties_CorticalStack"/>
+		</comps>
 	</HediffDef>
 
 	<ThingDef ParentName="BodyPartBionicBase">
@@ -24,6 +28,8 @@
 		<descriptionHyperlinks>
 			<RecipeDef>AC_InstallCorticalStack</RecipeDef>
 		</descriptionHyperlinks>
+		<tickerType>Normal</tickerType>
+		<thingClass>AlteredCarbon.CorticalStack</thingClass>
 		<graphicData>
 			<texPath>Things/Item/Stacks/FilledStack</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -41,14 +47,15 @@
 			<Mass>0.3</Mass>
 		</statBases>
 	</ThingDef>
-
-	<RecipeDef ParentName="SurgeryInstallBodyPartArtificialBase">
+	
+	<RecipeDef ParentName="SurgeryInstallImplantBase">
 		<defName>AC_InstallCorticalStack</defName>
-		<label>install cortical stack</label>
+		<label>install filled cortical stack</label>
 		<description>Install a cortical stack.</description>
 		<descriptionHyperlinks>
 			<ThingDef>AC_FilledCorticalStack</ThingDef>
 		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
 		<jobString>Installing cortical stack.</jobString>
 		<ingredients>
 			<li>
@@ -69,6 +76,18 @@
 			<li>Neck</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>AC_CorticalStack</addsHediff>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>AC_RemoveCorticalStack</defName>
+		<label>remove cortical stack</label>
+		<description>Remove cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<workerClass>AlteredCarbon.Recipe_RemoveCorticalStack</workerClass>
+		<jobString>Removing cortical stack.</jobString>
+		<removesHediff>AC_CorticalStack</removesHediff>
 	</RecipeDef>
 
 </Defs>
