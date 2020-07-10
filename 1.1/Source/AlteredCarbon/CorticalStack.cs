@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RimWorld;
 using Verse;
 
@@ -13,6 +14,7 @@ namespace AlteredCarbon
         public Area areaRestriction;
         public MedicalCareCategory medicalCareCategory;
         public bool selfTend;
+        public long ageChronologicalTicks;
         public FoodRestriction foodRestriction;
         public Outfit outfit;
         public DrugPolicy drugPolicy;
@@ -36,25 +38,34 @@ namespace AlteredCarbon
                 this.SavePawnToCorticalStack(pawn);
             }
         }
-        public override string Label
+
+        public override string GetInspectString()
         {
-            get
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("AlteredCarbon.Name".Translate() + ": " + this.name + "\n");
+            stringBuilder.Append("AlteredCarbon.faction".Translate() + ": " + this.faction + "\n");
+
+            Backstory newChildhood = null;
+            BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true);
+            stringBuilder.Append("AlteredCarbon.childhood".Translate() + ": " + newChildhood + "\n");
+
+            if (this.adulthood?.Length > 0)
             {
-                if (this.name != null)
-                {
-                    return base.Label + " (" + this.name + ")";
-                }
-                else
-                {
-                    return base.Label;
-                }
+                Backstory newAdulthood = null;
+                BackstoryDatabase.TryGetWithIdentifier(this.adulthood, out newAdulthood, true);
+                stringBuilder.Append("AlteredCarbon.childhood".Translate() + ": " + newAdulthood + "\n");
             }
+            stringBuilder.Append("AlteredCarbon.ageChronologicalTicks".Translate() + ": " + (int)(this.ageChronologicalTicks / 3600000) + "\n");
+            stringBuilder.Append(base.GetInspectString());
+            return stringBuilder.ToString();
         }
+
         public void SavePawnToCorticalStack(Pawn pawn)
         {
             this.name = pawn.Name;
             this.hostilityMode = (int)pawn.playerSettings.hostilityResponse;
             this.areaRestriction = pawn.playerSettings.AreaRestriction;
+            this.ageChronologicalTicks = pawn.ageTracker.AgeChronologicalTicks;
             this.medicalCareCategory = pawn.playerSettings.medCare;
             this.selfTend = pawn.playerSettings.selfTend;
             this.foodRestriction = pawn.foodRestriction.CurrentFoodRestriction;
@@ -146,6 +157,7 @@ namespace AlteredCarbon
             pawn.foodRestriction.CurrentFoodRestriction = this.foodRestriction;
             pawn.outfits.CurrentOutfit = this.outfit;
             pawn.drugs.CurrentPolicy = this.drugPolicy;
+            pawn.ageTracker.AgeChronologicalTicks = this.ageChronologicalTicks;
         }
 
         public override void ExposeData()
