@@ -15,6 +15,7 @@ namespace AlteredCarbon
         public MedicalCareCategory medicalCareCategory;
         public bool selfTend;
         public long ageChronologicalTicks;
+        public List<TimeAssignmentDef> times;
         public FoodRestriction foodRestriction;
         public Outfit outfit;
         public DrugPolicy drugPolicy;
@@ -47,13 +48,13 @@ namespace AlteredCarbon
 
             Backstory newChildhood = null;
             BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true);
-            stringBuilder.Append("AlteredCarbon.childhood".Translate() + ": " + newChildhood + "\n");
+            stringBuilder.Append("AlteredCarbon.childhood".Translate() + ": " + newChildhood.title.CapitalizeFirst() + "\n");
 
             if (this.adulthood?.Length > 0)
             {
                 Backstory newAdulthood = null;
                 BackstoryDatabase.TryGetWithIdentifier(this.adulthood, out newAdulthood, true);
-                stringBuilder.Append("AlteredCarbon.childhood".Translate() + ": " + newAdulthood + "\n");
+                stringBuilder.Append("AlteredCarbon.adulthood".Translate() + ": " + newAdulthood.title.CapitalizeFirst() + "\n");
             }
             stringBuilder.Append("AlteredCarbon.ageChronologicalTicks".Translate() + ": " + (int)(this.ageChronologicalTicks / 3600000) + "\n");
             stringBuilder.Append(base.GetInspectString());
@@ -71,6 +72,7 @@ namespace AlteredCarbon
             this.foodRestriction = pawn.foodRestriction.CurrentFoodRestriction;
             this.outfit = pawn.outfits.CurrentOutfit;
             this.drugPolicy = pawn.drugs.CurrentPolicy;
+            this.times = pawn.timetable.times;
             this.thoughts = pawn.needs.mood.thoughts.memories.Memories;
             this.faction = pawn.Faction;
             this.traits = pawn.story.traits.allTraits;
@@ -158,6 +160,7 @@ namespace AlteredCarbon
             pawn.outfits.CurrentOutfit = this.outfit;
             pawn.drugs.CurrentPolicy = this.drugPolicy;
             pawn.ageTracker.AgeChronologicalTicks = this.ageChronologicalTicks;
+            pawn.timetable.times = this.times;
         }
 
         public override void ExposeData()
@@ -168,11 +171,13 @@ namespace AlteredCarbon
             Scribe_References.Look<Area>(ref this.areaRestriction, "areaRestriction", false);
             Scribe_Values.Look<MedicalCareCategory>(ref this.medicalCareCategory, "medicalCareCategory", 0, false);
             Scribe_Values.Look<bool>(ref this.selfTend, "selfTend", false, false);
+            Scribe_Values.Look<long>(ref this.ageChronologicalTicks, "ageChronologicalTicks", 0, false);
 
             Scribe_References.Look<Outfit>(ref this.outfit, "outfit", false);
             Scribe_References.Look<FoodRestriction>(ref this.foodRestriction, "foodPolicy", false);
             Scribe_References.Look<DrugPolicy>(ref this.drugPolicy, "drugPolicy", false);
 
+            Scribe_Collections.Look<TimeAssignmentDef>(ref this.times, "times");
             Scribe_Collections.Look<Thought_Memory>(ref this.thoughts, "thoughts");
             Scribe_References.Look<Faction>(ref this.faction, "faction", true);
             Scribe_Values.Look<string>(ref this.childhood, "childhood", null, false);
