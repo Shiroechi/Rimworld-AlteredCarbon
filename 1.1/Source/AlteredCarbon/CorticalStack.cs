@@ -10,11 +10,14 @@ namespace AlteredCarbon
     {
         public Name name;
         public Faction faction;
+        public List<Thought_Memory> thoughts;
         public List<Trait> traits;
         public List<DirectPawnRelation> relations;
         public List<SkillRecord> skills;
         public string childhood;
         public string adulthood;
+        public Dictionary<WorkTypeDef, int> priorities;
+
         public bool hasPawn = false;
 
         public override string Label
@@ -35,25 +38,24 @@ namespace AlteredCarbon
         {
             Log.Message("Saving " + pawn);
             this.name = pawn.Name;
+            this.thoughts = pawn.needs.mood.thoughts.memories.Memories;
             this.faction = pawn.Faction;
             this.traits = pawn.story.traits.allTraits;
             this.relations = pawn.relations.DirectRelations;
             this.skills = pawn.skills.skills;
             this.childhood = pawn.story.childhood.identifier;
             this.adulthood = pawn.story.adulthood.identifier;
+            this.priorities = new Dictionary<WorkTypeDef, int>();
+            foreach (WorkTypeDef w in DefDatabase<WorkTypeDef>.AllDefs)
+            {
+                priorities[w] = pawn.workSettings.GetPriority(w);
+            }
             this.hasPawn = true;
         }
 
         public override void Tick()
         {
             base.Tick();
-            Log.Message("this.name: " + this.name);
-            Log.Message("this.faction: " + this.faction);
-            Log.Message("this.traits: " + this.traits.Count);
-            Log.Message("this.relations: " + this.relations.Count);
-            Log.Message("this.skills: " + this.skills.Count);
-            Log.Message("this.childhood: " + this.childhood);
-            Log.Message("this.adulthood: " + this.adulthood);
         }
 
         public void OverwritePawn(Pawn pawn)
@@ -64,19 +66,47 @@ namespace AlteredCarbon
                 pawn.SetFaction(this.faction);
             }
             pawn.Name = this.name;
-            pawn.story.traits.allTraits = this.traits;
+            for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
+            {
+                pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
+            }
+            foreach (var thought in this.thoughts)
+            {
+                pawn.needs.mood.thoughts.memories.TryGainMemory(thought);
+            }
+
+            pawn.story.traits.allTraits.Clear();
+            foreach (var trait in this.traits)
+            {
+                pawn.story.traits.GainTrait(trait);
+            }
+
             pawn.relations.ClearAllRelations();
             foreach (var rel in this.relations)
             {
-
                 pawn.relations.AddDirectRelation(rel.def, rel.otherPawn);
             }
-            pawn.skills.skills = this.skills;
+            pawn.skills.skills.Clear();
+            foreach (var skill in this.skills)
+            {
+                var newSkill = new SkillRecord(pawn, skill.def);
+                newSkill.passion = skill.passion;
+                newSkill.levelInt = skill.levelInt;
+                newSkill.xpSinceLastLevel = skill.xpSinceLastLevel;
+                newSkill.xpSinceMidnight = skill.xpSinceMidnight;
+                pawn.skills.skills.Add(newSkill);
+            }
 
+            //pawn.skills.skills = this.skills;
+
+            foreach (var priority in priorities)
+            {
+                pawn.workSettings.SetPriority(priority.Key, priority.Value);
+            }
             Backstory newChildhood = null;
             BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true);
             pawn.story.childhood = newChildhood;
-
+            
             Backstory newAdulthood = null;
             BackstoryDatabase.TryGetWithIdentifier(this.adulthood, out newAdulthood, true);
             pawn.story.adulthood = newAdulthood;
@@ -86,12 +116,14 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
+            Scribe_Collections.Look<Thought_Memory>(ref this.thoughts, "thoughts");
             Scribe_References.Look<Faction>(ref this.faction, "faction", true);
             Scribe_Values.Look<string>(ref this.childhood, "childhood", null, false);
             Scribe_Values.Look<string>(ref this.adulthood, "adulthood", null, false);
             Scribe_Collections.Look<Trait>(ref this.traits, "traits");
             Scribe_Collections.Look<SkillRecord>(ref this.skills, "skills");
             Scribe_Collections.Look<DirectPawnRelation>(ref this.relations, "relations");
+            Scribe_Collections.Look<WorkTypeDef, int>(ref this.priorities, "priorities");
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
         }
     }
