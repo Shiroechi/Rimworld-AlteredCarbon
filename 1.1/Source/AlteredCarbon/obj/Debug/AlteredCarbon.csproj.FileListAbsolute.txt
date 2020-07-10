@@ -1,0 +1,4 @@
+D:\GAMES\RimWorld\Mods\RimworldAlteredCarbon\1.1\Assemblies\AlteredCarbon.dll
+D:\GAMES\RimWorld\Mods\RimworldAlteredCarbon\1.1\Source\AlteredCarbon\obj\Debug\AlteredCarbon.csprojAssemblyReference.cache
+D:\GAMES\RimWorld\Mods\RimworldAlteredCarbon\1.1\Source\AlteredCarbon\obj\Debug\AlteredCarbon.csproj.CoreCompileInputs.cache
+D:\GAMES\RimWorld\Mods\RimworldAlteredCarbon\1.1\Source\AlteredCarbon\obj\Debug\AlteredCarbon.dll

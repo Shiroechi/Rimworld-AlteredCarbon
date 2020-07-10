@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>AC_CorticalStack</defName>
+		<label>cortical stack</label>
+		<labelNoun>a cortical stack</labelNoun>
+		<description>An installed cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_FilledCorticalStack</spawnThingOnRemoved>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.25</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBionicBase">
+		<defName>AC_FilledCorticalStack</defName>
+		<label>Filled cortical stack</label>
+		<description>Filled cortical stack.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>AC_InstallCorticalStack</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/Stacks/FilledStack</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+			<color>(189,169,118)</color>
+		</graphicData>
+		<costList>
+			<Plasteel>15</Plasteel>
+			<ComponentSpacer>4</ComponentSpacer>
+		</costList>
+		<thingSetMakerTags>
+			<li>RewardStandardMidFreq</li>
+		</thingSetMakerTags>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryInstallBodyPartArtificialBase">
+		<defName>AC_InstallCorticalStack</defName>
+		<label>install cortical stack</label>
+		<description>Install a cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing cortical stack.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AC_FilledCorticalStack</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AC_FilledCorticalStack</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AC_CorticalStack</addsHediff>
+	</RecipeDef>
+
+</Defs>
