@@ -27,6 +27,15 @@ namespace AlteredCarbon
 
         public bool hasPawn = false;
 
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            base.SpawnSetup(map, respawningAfterLoad);
+            if (!respawningAfterLoad && !hasPawn && this.def.defName == "AC_FilledCorticalStack")
+            {
+                Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
+                this.SavePawnToCorticalStack(pawn);
+            }
+        }
         public override string Label
         {
             get
