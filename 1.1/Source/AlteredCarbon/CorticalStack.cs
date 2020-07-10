@@ -10,6 +10,12 @@ namespace AlteredCarbon
     {
         public Name name;
         public int hostilityMode;
+        public Area areaRestriction;
+        public MedicalCareCategory medicalCareCategory;
+        public bool selfTend;
+        public FoodRestriction foodRestriction;
+        public Outfit outfit;
+        public DrugPolicy drugPolicy;
         public Faction faction;
         public List<Thought_Memory> thoughts;
         public List<Trait> traits;
@@ -27,7 +33,7 @@ namespace AlteredCarbon
             {
                 if (this.name != null)
                 {
-                    return this.name + " - " + base.Label;
+                    return base.Label + " (" + this.name + ")";
                 }
                 else
                 {
@@ -37,36 +43,30 @@ namespace AlteredCarbon
         }
         public void SavePawnToCorticalStack(Pawn pawn)
         {
-            Log.Message("Saving " + pawn);
-            Log.Message(" - SavePawnToCorticalStack - this.name = pawn.Name; - 2", true);
             this.name = pawn.Name;
-            Log.Message(" - SavePawnToCorticalStack - this.hostilityMode = (int)pawn.playerSettings.hostilityResponse; - 3", true);
             this.hostilityMode = (int)pawn.playerSettings.hostilityResponse;
-            Log.Message(" - SavePawnToCorticalStack - this.thoughts = pawn.needs.mood.thoughts.memories.Memories; - 4", true);
+            this.areaRestriction = pawn.playerSettings.AreaRestriction;
+            this.medicalCareCategory = pawn.playerSettings.medCare;
+            this.selfTend = pawn.playerSettings.selfTend;
+            this.foodRestriction = pawn.foodRestriction.CurrentFoodRestriction;
+            this.outfit = pawn.outfits.CurrentOutfit;
+            this.drugPolicy = pawn.drugs.CurrentPolicy;
             this.thoughts = pawn.needs.mood.thoughts.memories.Memories;
-            Log.Message(" - SavePawnToCorticalStack - this.faction = pawn.Faction; - 5", true);
             this.faction = pawn.Faction;
-            Log.Message(" - SavePawnToCorticalStack - this.traits = pawn.story.traits.allTraits; - 6", true);
             this.traits = pawn.story.traits.allTraits;
-            Log.Message(" - SavePawnToCorticalStack - this.relations = pawn.relations.DirectRelations; - 7", true);
             this.relations = pawn.relations.DirectRelations;
-            Log.Message(" - SavePawnToCorticalStack - this.skills = pawn.skills.skills; - 8", true);
             this.skills = pawn.skills.skills;
-            Log.Message(" - SavePawnToCorticalStack - this.childhood = pawn.story.childhood.identifier; - 9", true);
             this.childhood = pawn.story.childhood.identifier;
-            Log.Message(" - SavePawnToCorticalStack - this.adulthood = pawn.story.adulthood.identifier; - 10", true);
             if (pawn.story.adulthood != null)
             {
                 this.adulthood = pawn.story.adulthood.identifier;
             }
-            Log.Message(" - SavePawnToCorticalStack - this.priorities = new Dictionary<WorkTypeDef, int>(); - 11", true);
             this.priorities = new Dictionary<WorkTypeDef, int>();
-            Log.Message(" - SavePawnToCorticalStack - foreach (WorkTypeDef w in DefDatabase<WorkTypeDef>.AllDefs) - 12", true);
             foreach (WorkTypeDef w in DefDatabase<WorkTypeDef>.AllDefs)
             {
-                Log.Message(" - SavePawnToCorticalStack - priorities[w] = pawn.workSettings.GetPriority(w); - 13", true);
                 this.priorities[w] = pawn.workSettings.GetPriority(w);
             }
+
             this.hasPawn = true;
         }
 
@@ -77,7 +77,6 @@ namespace AlteredCarbon
 
         public void OverwritePawn(Pawn pawn)
         {
-            Log.Message("Overwriting " + pawn);
             if (pawn.Faction != this.faction)
             {
                 pawn.SetFaction(this.faction);
@@ -91,13 +90,11 @@ namespace AlteredCarbon
             {
                 pawn.needs.mood.thoughts.memories.TryGainMemory(thought);
             }
-
             pawn.story.traits.allTraits.Clear();
             foreach (var trait in this.traits)
             {
                 pawn.story.traits.GainTrait(trait);
             }
-
             pawn.relations.ClearAllRelations();
             foreach (var rel in this.relations)
             {
@@ -115,8 +112,6 @@ namespace AlteredCarbon
             }
 
             pawn.playerSettings.hostilityResponse = (HostilityResponseMode)this.hostilityMode;
-
-            //pawn.skills.skills = this.skills;
 
             Backstory newChildhood = null;
             BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true);
@@ -136,6 +131,12 @@ namespace AlteredCarbon
             {
                 pawn.workSettings.SetPriority(priority.Key, priority.Value);
             }
+            pawn.playerSettings.AreaRestriction = this.areaRestriction;
+            pawn.playerSettings.medCare = this.medicalCareCategory;
+            pawn.playerSettings.selfTend = this.selfTend;
+            pawn.foodRestriction.CurrentFoodRestriction = this.foodRestriction;
+            pawn.outfits.CurrentOutfit = this.outfit;
+            pawn.drugs.CurrentPolicy = this.drugPolicy;
         }
 
         public override void ExposeData()
@@ -143,6 +144,14 @@ namespace AlteredCarbon
             base.ExposeData();
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
             Scribe_Values.Look<int>(ref this.hostilityMode, "hostilityMode");
+            Scribe_References.Look<Area>(ref this.areaRestriction, "areaRestriction", false);
+            Scribe_Values.Look<MedicalCareCategory>(ref this.medicalCareCategory, "medicalCareCategory", 0, false);
+            Scribe_Values.Look<bool>(ref this.selfTend, "selfTend", false, false);
+
+            Scribe_References.Look<Outfit>(ref this.outfit, "outfit", false);
+            Scribe_References.Look<FoodRestriction>(ref this.foodRestriction, "foodPolicy", false);
+            Scribe_References.Look<DrugPolicy>(ref this.drugPolicy, "drugPolicy", false);
+
             Scribe_Collections.Look<Thought_Memory>(ref this.thoughts, "thoughts");
             Scribe_References.Look<Faction>(ref this.faction, "faction", true);
             Scribe_Values.Look<string>(ref this.childhood, "childhood", null, false);
