@@ -1,76 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-    <RecipeDef ParentName="SurgeryInstallImplantBase">
-        <defName>AC_InstallEmptyCorticalStack</defName>
-        <label>install empty cortical stack</label>
-        <description>Install an empty cortical stack.</description>
-        <descriptionHyperlinks>
-            <ThingDef>AC_EmptyCorticalStack</ThingDef>
-        </descriptionHyperlinks>
-        <workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
-        <jobString>Installing cortical stack.</jobString>
-        <ingredients>
-            <li>
-                <filter>
-                    <thingDefs>
-                        <li>AC_EmptyCorticalStack</li>
-                    </thingDefs>
-                </filter>
-                <count>1</count>
-            </li>
-        </ingredients>
-        <fixedIngredientFilter>
-            <thingDefs>
-                <li>AC_EmptyCorticalStack</li>
-            </thingDefs>
-        </fixedIngredientFilter>
-        <appliedOnFixedBodyParts>
-            <li>Neck</li>
-        </appliedOnFixedBodyParts>
-        <addsHediff>AC_CorticalStack</addsHediff>
-    </RecipeDef>
-
-    <RecipeDef ParentName="SurgeryInstallImplantBase">
-        <defName>AC_InstallCorticalStack</defName>
-        <label>install filled cortical stack</label>
-        <description>Install a cortical stack.</description>
+    <HediffDef ParentName="AddedBodyPartBase">
+        <defName>AC_CorticalStack</defName>
+        <label>cortical stack</label>
+        <labelNoun>a cortical stack</labelNoun>
+        <hediffClass>AlteredCarbon.Hediff_CorticalStack</hediffClass>
+        <description>An installed cortical stack.</description>
         <descriptionHyperlinks>
             <ThingDef>AC_FilledCorticalStack</ThingDef>
         </descriptionHyperlinks>
-        <workerClass>AlteredCarbon.Recipe_InstallCorticalStack</workerClass>
-        <jobString>Installing cortical stack.</jobString>
-        <ingredients>
-            <li>
-                <filter>
-                    <thingDefs>
-                        <li>AC_FilledCorticalStack</li>
-                    </thingDefs>
-                </filter>
-                <count>1</count>
-            </li>
-        </ingredients>
-        <fixedIngredientFilter>
-            <thingDefs>
-                <li>AC_FilledCorticalStack</li>
-            </thingDefs>
-        </fixedIngredientFilter>
-        <appliedOnFixedBodyParts>
-            <li>Neck</li>
-        </appliedOnFixedBodyParts>
-        <addsHediff>AC_CorticalStack</addsHediff>
-    </RecipeDef>
-
-    <RecipeDef ParentName="SurgeryRemoveImplantBase">
-        <defName>AC_RemoveCorticalStack</defName>
-        <label>remove cortical stack</label>
-        <description>Remove cortical stack.</description>
-        <descriptionHyperlinks>
-            <ThingDef>AC_FilledCorticalStack</ThingDef>
-        </descriptionHyperlinks>
-        <workerClass>AlteredCarbon.Recipe_RemoveCorticalStack</workerClass>
-        <jobString>Removing cortical stack.</jobString>
-        <removesHediff>AC_CorticalStack</removesHediff>
-    </RecipeDef>
+        <spawnThingOnRemoved>AC_FilledCorticalStack</spawnThingOnRemoved>
+        <addedPartProps>
+            <solid>true</solid>
+            <partEfficiency>1.25</partEfficiency>
+            <betterThanNatural>true</betterThanNatural>
+        </addedPartProps>
+        <comps>
+            <li Class="AlteredCarbon.HediffCompProperties_CorticalStack" />
+        </comps>
+    </HediffDef>
 
 </Defs>
