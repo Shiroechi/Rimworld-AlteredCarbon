@@ -42,6 +42,9 @@ namespace AlteredCarbon
 						var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
 						corticalStack.SavePawnToCorticalStack(pawn);
 						GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
+						if (ACUtils.ACTracker.stacksIndex == null) ACUtils.ACTracker.stacksIndex = new Dictionary<string, CorticalStack>();
+						ACUtils.ACTracker.stacksIndex[pawn.ThingID + pawn.Name] = corticalStack;
+						ACUtils.ACTracker.pawnsWithStacks.Remove(pawn);
 					}
 					pawn.health.RemoveHediff(hediff);
 				}
