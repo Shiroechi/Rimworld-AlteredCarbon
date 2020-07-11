@@ -11,7 +11,7 @@
                 <li Class="PatchOperationAddModExtension">
                     <xpath>/Defs/PawnKindDef[defName="AncientSoldier"]</xpath>
                     <value>
-                        <li Class="VFECore.FactionDefExtension">
+                        <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
                             <ChanceToSpawnWithStack>100</ChanceToSpawnWithStack>
                         </li>
