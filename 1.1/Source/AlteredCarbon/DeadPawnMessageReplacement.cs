@@ -86,7 +86,6 @@ namespace AlteredCarbon
 	}
 
 	[HarmonyPatch(typeof(ColonistBarColonistDrawer), "HandleClicks")]
-
 	public static class HandleClicks_Patch
 	{
 		[HarmonyPrefix]
@@ -98,19 +97,9 @@ namespace AlteredCarbon
 				if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.clickCount == 2 && Mouse.IsOver(rect))
 				{
 					Event.current.Use();
-					Thing stack = null;
-					if (colonist.Map == null)
+					if (ACUtils.ACTracker.stacksIndex.ContainsKey(colonist.ThingID + colonist.Name))
 					{
-						var corpse = colonist.Corpse;
-						stack = corpse.Map.listerThings.AllThings.Where(x => x is CorticalStack s && s.name?.ToString() == colonist.Name?.ToString()).FirstOrDefault();
-					}
-					else
-					{
-						stack = colonist.Map.listerThings.AllThings.Where(x => x is CorticalStack s && s.name?.ToString() == colonist.Name?.ToString()).FirstOrDefault();
-					}
-					if (stack != null)
-					{
-						CameraJumper.TryJumpAndSelect(stack);
+						CameraJumper.TryJumpAndSelect(ACUtils.ACTracker.stacksIndex[colonist.ThingID + colonist.Name]);
 					}
 					else
 					{
@@ -131,14 +120,14 @@ namespace AlteredCarbon
 	[HarmonyPatch(typeof(ColonistBarColonistDrawer), "DrawColonist")]
 	public static class DrawColonist_Patch
 	{
+		private static readonly Texture2D Icon_StackDead = ContentFinder<Texture2D>.Get("UI/Icons/StackDead");
+
 		[HarmonyPrefix]
 		public static bool Prefix(Rect rect, Pawn colonist, Map pawnMap, bool highlight, bool reordering,
 			Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize, 
 			Texture2D ___MoodBGTex, Vector2[] ___bracketLocs)
 		{
-			var stackHediff = colonist.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
-				x.def == AlteredCarbonDefOf.AC_CorticalStack);
-			if (stackHediff != null && colonist.Dead)
+			if (colonist.Dead && ACUtils.ACTracker.stacksIndex.ContainsKey(colonist.ThingID + colonist.Name))
 			{
 				float alpha = Find.ColonistBar.GetEntryRectAlpha(rect);
 				ApplyEntryInAnotherMapAlphaFactor(pawnMap, ref alpha);
@@ -172,6 +161,9 @@ namespace AlteredCarbon
 				GUI.DrawTexture(GetPawnTextureRect(rect.position, ___PawnTextureSize), PortraitsCache.Get(colonist, ___PawnTextureSize, ColonistBarColonistDrawer.PawnTextureCameraOffset, 1.28205f));
 				GUI.color = new Color(1f, 1f, 1f, alpha * 0.8f);
 
+				float num3 = 20f * Find.ColonistBar.Scale;
+				Vector2 pos2 = new Vector2(rect.x + 1f, rect.yMax - num3 - 1f);
+				DrawIcon(Icon_StackDead, ref pos2, "ActivityIconMedicalRest".Translate());
 				GUI.color = color2;
 
 				float num2 = 4f * Find.ColonistBar.Scale;
@@ -182,6 +174,15 @@ namespace AlteredCarbon
 				return false;
 			}
 			return true;
+		}
+
+		private static void DrawIcon(Texture2D icon, ref Vector2 pos, string tooltip)
+		{
+			float num = 20f * Find.ColonistBar.Scale;
+			Rect rect = new Rect(pos.x, pos.y, num, num);
+			GUI.DrawTexture(rect, icon);
+			TooltipHandler.TipRegion(rect, tooltip);
+			pos.x += num;
 		}
 
 		public static Rect GetPawnTextureRect(Vector2 pos, Vector2 ___PawnTextureSize)

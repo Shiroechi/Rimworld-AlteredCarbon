@@ -311,6 +311,8 @@
     <Compile Include="HediffComp_CorticalStack.cs" />
     <Compile Include="Hediff_CorticalStack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ACManager.cs" />
+    <Compile Include="ACUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

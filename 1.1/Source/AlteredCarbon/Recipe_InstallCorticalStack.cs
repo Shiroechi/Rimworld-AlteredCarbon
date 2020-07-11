@@ -62,6 +62,7 @@ namespace AlteredCarbon
 				{
 					corticalStack.OverwritePawn(pawn);
 				}
+				ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
 				pawn.health.AddHediff(recipe.addsHediff, part);
 			}
 		}
