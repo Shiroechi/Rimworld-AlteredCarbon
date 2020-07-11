@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<JobDef>
+		<defName>AC_ExtractStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
+		<reportString>extracts cortical stack from TargetA</reportString>
+	</JobDef>
+
+</Defs>

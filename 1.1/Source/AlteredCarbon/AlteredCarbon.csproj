@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\..\..\..\..\Files\devmods\SourceDLLs\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\..\Files\devmods\SourceDLLs\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -293,7 +296,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlteredCarbonDefOf.cs" />
+    <Compile Include="JobDriver_ExtractStack.cs" />
+    <Compile Include="FloatMenuMakerMap_Patch.cs" />
     <Compile Include="CorticalStack.cs" />
+    <Compile Include="HarmonyInit.cs" />
     <Compile Include="Recipe_RemoveCorticalStack.cs" />
     <Compile Include="Recipe_InstallCorticalStack.cs" />
     <Compile Include="HediffCompProperties_CorticalStack.cs" />

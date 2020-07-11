@@ -27,7 +27,6 @@ namespace AlteredCarbon
         public string childhood;
         public string adulthood;
         public Dictionary<WorkTypeDef, int> priorities;
-
         public bool hasPawn = false;
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
@@ -65,6 +64,29 @@ namespace AlteredCarbon
             return stringBuilder.ToString().TrimEndNewlines();
         }
 
+        public void SavePawnFromHediff(Hediff_CorticalStack hediff)
+        {
+            this.name = hediff.name;
+            this.hostilityMode = hediff.hostilityMode;
+            this.areaRestriction = hediff.areaRestriction;
+            this.ageChronologicalTicks = hediff.ageChronologicalTicks;
+            this.medicalCareCategory = hediff.medicalCareCategory;
+            this.selfTend = hediff.selfTend;
+            this.foodRestriction = hediff.foodRestriction;
+            this.outfit = hediff.outfit;
+            this.drugPolicy = hediff.drugPolicy;
+            this.times = hediff.times;
+            this.thoughts = hediff.thoughts;
+            this.faction = hediff.faction;
+            this.traits = hediff.traits;
+            this.relations = hediff.relations;
+            this.skills = hediff.skills;
+            this.childhood = hediff.childhood;
+            this.adulthood = hediff.adulthood;
+            this.priorities = hediff.priorities;
+            this.hasPawn = true;
+        }
+
         public void SavePawnToCorticalStack(Pawn pawn)
         {
             this.name = pawn.Name;
@@ -92,7 +114,6 @@ namespace AlteredCarbon
             {
                 this.priorities[w] = pawn.workSettings.GetPriority(w);
             }
-
             this.hasPawn = true;
         }
 
