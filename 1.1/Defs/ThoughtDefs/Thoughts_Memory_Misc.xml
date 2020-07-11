@@ -1,38 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <ThoughtDef>
-    <defName>AC_WrongGender</defName>
-    <durationDays>120</durationDays>
-    <stackLimit>1</stackLimit>
-    <nullifyingTraits>
-      <li>Bisexual</li>
-      <li>Nerves</li>
-    </nullifyingTraits>
-    <stages>
-      <li>
-        <label>Wrong gender</label>
-        <description>Wrong gender</description>
-        <baseMoodEffect>-5</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef>
-  
     <ThoughtDef>
-    <defName>AC_WrongGenderDouble</defName>
-    <durationDays>120</durationDays>
-    <stackLimit>1</stackLimit>
-    <nullifyingTraits>
-      <li>Bisexual</li>
-      <li>Nerves</li>
-    </nullifyingTraits>
-    <stages>
-      <li>
-        <label>Wrong gender</label>
-        <description>Wrong gender</description>
-        <baseMoodEffect>-10</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef>
+        <defName>AC_WrongGender</defName>
+        <durationDays>120</durationDays>
+        <stackLimit>1</stackLimit>
+        <nullifyingTraits>
+            <li>Bisexual</li>
+            <li>Nerves</li>
+            <li>Masochist</li>
+            <li>Asexual</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>Different gender</label>
+                <description>The gender of my sleeve is not my own, this feels wrong.</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>AC_WrongGenderDouble</defName>
+        <durationDays>120</durationDays>
+        <stackLimit>1</stackLimit>
+        <nullifyingTraits>
+            <li>Bisexual</li>
+            <li>Nerves</li>
+            <li>Masochist</li>
+            <li>Asexual</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>Different gender</label>
+                <description>The gender of my sleeve is not my own, this is wrong.</description>
+                <baseMoodEffect>-10</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
 
 </Defs>
