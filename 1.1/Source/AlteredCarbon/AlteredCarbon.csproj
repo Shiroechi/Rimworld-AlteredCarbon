@@ -304,6 +304,7 @@
     <Compile Include="CorticalStack.cs" />
     <Compile Include="HarmonyInit.cs" />
     <Compile Include="Patch_SpawnSetup.cs" />
+    <Compile Include="StackSavingOptionsModExtension.cs" />
     <Compile Include="StackSpawnModExtension.cs" />
     <Compile Include="Recipe_RemoveCorticalStack.cs" />
     <Compile Include="Recipe_InstallCorticalStack.cs" />

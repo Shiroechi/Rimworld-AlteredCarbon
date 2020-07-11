@@ -158,6 +158,7 @@ namespace AlteredCarbon
 
         public void OverwritePawn(Pawn pawn)
         {
+            var extension = this.def.GetModExtension<StackSavingOptionsModExtension>();
             if (pawn.Faction != this.faction)
             {
                 pawn.SetFaction(this.faction);
@@ -174,6 +175,10 @@ namespace AlteredCarbon
             pawn.story.traits.allTraits.Clear();
             foreach (var trait in this.traits)
             {
+                if (extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName))
+                {
+                    continue;
+                }
                 pawn.story.traits.GainTrait(trait);
             }
             pawn.relations.ClearAllRelations();
