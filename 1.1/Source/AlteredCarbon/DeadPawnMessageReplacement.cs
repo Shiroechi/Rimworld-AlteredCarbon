@@ -127,7 +127,8 @@ namespace AlteredCarbon
 			Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize, 
 			Texture2D ___MoodBGTex, Vector2[] ___bracketLocs)
 		{
-			if (colonist.Dead && ACUtils.ACTracker.stacksIndex.ContainsKey(colonist.ThingID + colonist.Name))
+			if (colonist.Dead && (ACUtils.ACTracker.stacksIndex.ContainsKey(colonist.ThingID + colonist.Name)
+					|| ACUtils.ACTracker.pawnsWithStacks.Contains(colonist)))
 			{
 				float alpha = Find.ColonistBar.GetEntryRectAlpha(rect);
 				ApplyEntryInAnotherMapAlphaFactor(pawnMap, ref alpha);
