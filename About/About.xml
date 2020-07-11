@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Altered Carbon</name>
-	<author>Helixien, Taranchuk</author>
-	<supportedVersions>
-		<li>1.1</li>
-	</supportedVersions>
-	<packageId>Helixien.AlteredCarbon</packageId>
-	<description>Altered Carbon.</description>
+    <name>Rimworld: Altered Carbon - Stacks and Sleeves</name>
+    <author>Helixien, Taranchuk</author>
+    <supportedVersions>
+        <li>1.1</li>
+    </supportedVersions>
+    <packageId>Hlx.RimworldAlteredCarbon</packageId>
+    <description>Placeholder</description>
+    <modDependencies>
+        <li>
+            <packageId>brrainz.harmony</packageId>
+            <displayName>Harmony</displayName>
+            <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+            <steamWorkshopUrl>https://steamcommunity.com/workshop/filedetails/?id=2009463077</steamWorkshopUrl>
+        </li>
+    </modDependencies>
+    <loadAfter>
+        <li>Ludeon.RimWorld</li>
+        <li>Ludeon.RimWorld.Royalty</li>
+        <li>brrainz.harmony</li>
+    </loadAfter>
 </ModMetaData>
