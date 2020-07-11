@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-    <HediffDef ParentName="AddedBodyPartBase">
-        <defName>AC_CorticalStack</defName>
-        <label>cortical stack</label>
-        <labelNoun>a cortical stack</labelNoun>
-        <hediffClass>AlteredCarbon.Hediff_CorticalStack</hediffClass>
-        <description>An installed cortical stack.</description>
-        <descriptionHyperlinks>
-            <ThingDef>AC_FilledCorticalStack</ThingDef>
-        </descriptionHyperlinks>
-        <spawnThingOnRemoved>AC_FilledCorticalStack</spawnThingOnRemoved>
-        <addedPartProps>
-            <solid>true</solid>
-            <partEfficiency>1.25</partEfficiency>
-            <betterThanNatural>true</betterThanNatural>
-        </addedPartProps>
-        <comps>
-            <li Class="AlteredCarbon.HediffCompProperties_CorticalStack" />
-        </comps>
-    </HediffDef>
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>AC_CorticalStack</defName>
+		<label>cortical stack</label>
+		<labelNoun>a cortical stack</labelNoun>
+		<hediffClass>AlteredCarbon.Hediff_CorticalStack</hediffClass>
+		<description>An installed cortical stack.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AC_FilledCorticalStack</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AC_FilledCorticalStack</spawnThingOnRemoved>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.25</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+		<comps>
+			<li Class="AlteredCarbon.HediffCompProperties_CorticalStack" />
+		</comps>
+		<modExtensions>
+			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
+				<ignoresTraits>
+					<li>Beautiful</li>
+					<li>Ugly</li>
+				</ignoresTraits> 
+			</li>
+		</modExtensions>
+	</HediffDef>
 
 </Defs>
