@@ -35,5 +35,37 @@ namespace AlteredCarbon
 			return true;
 		}
 	}
+
+	[HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility), "AppendThoughts_ForHumanlike")]
+	public class AppendThoughts_ForHumanlike_Patch
+	{
+		[HarmonyPrefix]
+		public static bool Prefix(ref Pawn victim)
+		{
+			var stackHediff = victim.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
+				x.def == AlteredCarbonDefOf.AC_CorticalStack);
+			if (stackHediff != null)
+			{
+				return false;
+			}
+			return true;
+		}
+	}
+
+	[HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility), "AppendThoughts_Relations")]
+	public class AppendThoughts_Relations_Patch
+	{
+		[HarmonyPrefix]
+		public static bool Prefix(ref Pawn victim)
+		{
+			var stackHediff = victim.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
+				x.def == AlteredCarbonDefOf.AC_CorticalStack);
+			if (stackHediff != null)
+			{
+				return false;
+			}
+			return true;
+		}
+	}
 }
 
