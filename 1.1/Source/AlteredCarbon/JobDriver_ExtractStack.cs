@@ -40,7 +40,7 @@ namespace AlteredCarbon
                             {
                                 corticalStack.SavePawnToCorticalStack(corpse.InnerPawn);
                             }
-                            GenSpawn.Spawn(corticalStack, TargetThingA.Position, GetActor().Map);
+                            GenPlace.TryPlaceThing(corticalStack, TargetThingA.Position, GetActor().Map, ThingPlaceMode.Near);
                         }
                         corpse.InnerPawn.health.RemoveHediff(hediff);
                     }

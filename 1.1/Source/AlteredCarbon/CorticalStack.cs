@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace AlteredCarbon
@@ -64,6 +65,34 @@ namespace AlteredCarbon
             return stringBuilder.ToString().TrimEndNewlines();
         }
 
+        public override IEnumerable<Gizmo> GetGizmos()
+        {
+            foreach (Gizmo gizmo in base.GetGizmos())
+            {
+                yield return gizmo;
+            }
+            IEnumerator<Gizmo> enumerator = null;
+
+            if (this.hasPawn)
+            {
+                Command_Action command_Action = new Command_Action();
+                command_Action.action = new Action(this.EmptyStack);
+                command_Action.defaultLabel = "AlteredCarbon.EmptyStack".Translate();
+                command_Action.defaultDesc = "AlteredCarbon.EmptyStackDesc".Translate();
+                command_Action.hotKey = KeyBindingDefOf.Misc8;
+                command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/PodEject", true);
+                yield return command_Action;
+            }
+            yield break;
+        }
+
+        public void EmptyStack()
+        {
+            var newStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack);
+            GenSpawn.Spawn(newStack, this.Position, this.Map);
+            Find.Selector.Select(newStack);
+            this.Destroy();
+        }
         public void SavePawnFromHediff(Hediff_CorticalStack hediff)
         {
             this.name = hediff.name;

@@ -41,7 +41,7 @@ namespace AlteredCarbon
 					{
 						var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
 						corticalStack.SavePawnToCorticalStack(pawn);
-						GenSpawn.Spawn(corticalStack, billDoer.Position, billDoer.Map);
+						GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
 					}
 					pawn.health.RemoveHediff(hediff);
 				}

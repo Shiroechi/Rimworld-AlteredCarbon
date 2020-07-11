@@ -12,6 +12,10 @@ namespace AlteredCarbon
 	public static class AlteredCarbonDefOf
 	{
 		public static JobDef AC_ExtractStack;
+
+		public static HediffDef AC_CorticalStack;
+
+		public static ThingDef AC_EmptyCorticalStack;
 	}
 }
 
