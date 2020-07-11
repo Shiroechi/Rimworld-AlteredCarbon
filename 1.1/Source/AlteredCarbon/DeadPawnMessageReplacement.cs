@@ -23,9 +23,9 @@ namespace AlteredCarbon
 			{
 				TaggedString taggedString = "";
 				taggedString = (dinfo.HasValue ? dinfo.Value.Def.deathMessage
-					.Formatted(___pawn.LabelShortCap, ___pawn.Named("PAWN")) : ((hediff == null) 
-					? "AlteredCarbon.PawnDied".Translate(___pawn.LabelShortCap, ___pawn.Named("PAWN")) 
-					: "AlteredCarbon.PawnDiedBecauseOf".Translate(___pawn.LabelShortCap, hediff.def.LabelCap, 
+					.Formatted(___pawn.LabelShortCap, ___pawn.Named("PAWN")) : ((hediff == null)
+					? "AlteredCarbon.PawnDied".Translate(___pawn.LabelShortCap, ___pawn.Named("PAWN"))
+					: "AlteredCarbon.PawnDiedBecauseOf".Translate(___pawn.LabelShortCap, hediff.def.LabelCap,
 					___pawn.Named("PAWN"))));
 				taggedString = taggedString.AdjustedFor(___pawn);
 				TaggedString label = "AlteredCarbon.SleeveDeath".Translate() + ": " + ___pawn.LabelShortCap;
@@ -79,6 +79,49 @@ namespace AlteredCarbon
 			if (stackHediff != null && pawn.Dead)
 			{
 				__result = "Sleeve";
+				return false;
+			}
+			return true;
+		}
+	}
+
+	[HarmonyPatch(typeof(ColonistBarColonistDrawer), "HandleClicks")]
+
+	public static class HandleClicks_Patch
+	{
+		[HarmonyPrefix]
+		public static bool Prefix(Rect rect, Pawn colonist, int reorderableGroup, out bool reordering)
+		{
+			reordering = false;
+			if (colonist.Dead)
+			{
+				if (Event.current.type == EventType.MouseDown && Event.current.button == 0 && Event.current.clickCount == 2 && Mouse.IsOver(rect))
+				{
+					Event.current.Use();
+					Thing stack = null;
+					if (colonist.Map == null)
+					{
+						var corpse = colonist.Corpse;
+						stack = corpse.Map.listerThings.AllThings.Where(x => x is CorticalStack s && s.name?.ToString() == colonist.Name?.ToString()).FirstOrDefault();
+					}
+					else
+					{
+						stack = colonist.Map.listerThings.AllThings.Where(x => x is CorticalStack s && s.name?.ToString() == colonist.Name?.ToString()).FirstOrDefault();
+					}
+					if (stack != null)
+					{
+						CameraJumper.TryJumpAndSelect(stack);
+					}
+					else
+					{
+						CameraJumper.TryJump(colonist);
+					}
+				}
+				reordering = ReorderableWidget.Reorderable(reorderableGroup, rect, useRightButton: true);
+				if (Event.current.type == EventType.MouseDown && Event.current.button == 1 && Mouse.IsOver(rect))
+				{
+					Event.current.Use();
+				}
 				return false;
 			}
 			return true;
