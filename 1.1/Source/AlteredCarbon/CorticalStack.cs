@@ -30,6 +30,8 @@ namespace AlteredCarbon
         public Dictionary<WorkTypeDef, int> priorities;
         public bool hasPawn = false;
 
+        public Gender gender;
+
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
@@ -114,6 +116,7 @@ namespace AlteredCarbon
             this.adulthood = hediff.adulthood;
             this.priorities = hediff.priorities;
             this.hasPawn = true;
+            this.gender = hediff.gender;
         }
 
         public void SavePawnToCorticalStack(Pawn pawn)
@@ -144,6 +147,8 @@ namespace AlteredCarbon
                 this.priorities[w] = pawn.workSettings.GetPriority(w);
             }
             this.hasPawn = true;
+
+            this.gender = pawn.gender;
         }
 
         public override void Tick()
@@ -215,6 +220,18 @@ namespace AlteredCarbon
             pawn.drugs.CurrentPolicy = this.drugPolicy;
             pawn.ageTracker.AgeChronologicalTicks = this.ageChronologicalTicks;
             pawn.timetable.times = this.times;
+
+            if (pawn.gender != this.gender)
+            {
+                if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongGenderDouble);
+                }
+                else
+                {
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongGender);
+                }
+            }
         }
 
         public override void ExposeData()
@@ -241,6 +258,9 @@ namespace AlteredCarbon
             Scribe_Collections.Look<DirectPawnRelation>(ref this.relations, "relations");
             Scribe_Collections.Look<WorkTypeDef, int>(ref this.priorities, "priorities");
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
+
+            Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);
+
         }
     }
 }

@@ -28,6 +28,8 @@ namespace AlteredCarbon
         public Dictionary<WorkTypeDef, int> priorities;
         public bool hasPawn = false;
 
+        public Gender gender;
+
         public override void PostMake()
         {
             base.PostMake();
@@ -61,6 +63,8 @@ namespace AlteredCarbon
                 this.priorities[w] = pawn.workSettings.GetPriority(w);
             }
             this.hasPawn = true;
+
+            this.gender = pawn.gender;
         }
 
         public override void Notify_PawnDied()
@@ -114,6 +118,8 @@ namespace AlteredCarbon
             Scribe_Collections.Look<DirectPawnRelation>(ref this.relations, "relations");
             Scribe_Collections.Look<WorkTypeDef, int>(ref this.priorities, "priorities");
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
+            Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);
+
         }
     }
 }
