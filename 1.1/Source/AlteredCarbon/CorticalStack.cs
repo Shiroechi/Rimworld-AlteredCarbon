@@ -82,7 +82,7 @@ namespace AlteredCarbon
                 command_Action.defaultLabel = "AlteredCarbon.EmptyStack".Translate();
                 command_Action.defaultDesc = "AlteredCarbon.EmptyStackDesc".Translate();
                 command_Action.hotKey = KeyBindingDefOf.Misc8;
-                command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/PodEject", true);
+                command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
                 yield return command_Action;
             }
             yield break;
