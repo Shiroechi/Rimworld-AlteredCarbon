@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <ThingDef ParentName="BodyPartBionicBase">
+        <defName>AC_EmptyCorticalStack</defName>
+        <label>Empty cortical stack</label>
+        <description>Empty cortical stack.</description>
+        <descriptionHyperlinks>
+            <RecipeDef>AC_InstallCorticalStack</RecipeDef>
+        </descriptionHyperlinks>
+        <thingClass>AlteredCarbon.CorticalStack</thingClass>
+        <graphicData>
+            <texPath>Things/Item/Stacks/EmptyStack</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <costList>
+            <Plasteel>15</Plasteel>
+            <ComponentSpacer>4</ComponentSpacer>
+        </costList>
+		<stackLimit>1</stackLimit>
+		<tradeNeverStack>true</tradeNeverStack>
+		<useHitPoints>true</useHitPoints>
+        <thingSetMakerTags>
+            <li>RewardStandardLowFreq</li>
+        </thingSetMakerTags>
+        <statBases>
+			<MarketValue>6000</MarketValue>
+            <Mass>0.3</Mass>
+			<DeteriorationRate>0</DeteriorationRate>
+			<MaxHitPoints>125</MaxHitPoints>
+			<Flammability>0</Flammability>
+        </statBases>
+    </ThingDef>
+
+    <ThingDef ParentName="BodyPartBionicBase">
+        <defName>AC_FilledCorticalStack</defName>
+        <label>Filled cortical stack</label>
+        <description>Filled cortical stack.</description>
+        <descriptionHyperlinks>
+            <RecipeDef>AC_InstallCorticalStack</RecipeDef>
+        </descriptionHyperlinks>
+        <tickerType>Normal</tickerType>
+        <thingClass>AlteredCarbon.CorticalStack</thingClass>
+        <graphicData>
+            <texPath>Things/Item/Stacks/FilledStack</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <statBases>
+            <Mass>0.3</Mass>
+			<DeteriorationRate>0</DeteriorationRate>
+			<MaxHitPoints>125</MaxHitPoints>
+			<Flammability>0</Flammability>
+        </statBases>
+		<stackLimit>1</stackLimit>
+		<tradeNeverStack>true</tradeNeverStack>
+		<useHitPoints>true</useHitPoints>
+    </ThingDef>
+
+</Defs>
