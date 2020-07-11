@@ -10,5 +10,9 @@
 	<AlteredCarbon.ExtractStack>Extract stack</AlteredCarbon.ExtractStack>
 	<AlteredCarbon.EmptyStack>Empty stack</AlteredCarbon.EmptyStack>
 	<AlteredCarbon.EmptyStackDesc>Empty stack</AlteredCarbon.EmptyStackDesc>
-  
+	<AlteredCarbon.SleeveDeath>Sleeve Death</AlteredCarbon.SleeveDeath>
+	<AlteredCarbon.SleeveDeathDesc>Sleeve Death</AlteredCarbon.SleeveDeathDesc>
+	<AlteredCarbon.PawnDiedBecauseOf>Sleeve of {PAWN_labelShort} has died. Cause: {1}.</AlteredCarbon.PawnDiedBecauseOf>
+	<AlteredCarbon.PawnDied>Sleeve of {1_labelShort} has died.</AlteredCarbon.PawnDied>
+
 </LanguageData>
