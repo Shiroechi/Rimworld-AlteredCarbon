@@ -43,22 +43,26 @@ namespace AlteredCarbon
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("AlteredCarbon.Name".Translate() + ": " + this.name + "\n");
-            stringBuilder.Append("AlteredCarbon.faction".Translate() + ": " + this.faction + "\n");
-
-            Backstory newChildhood = null;
-            BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true);
-            stringBuilder.Append("AlteredCarbon.childhood".Translate() + ": " + newChildhood.title.CapitalizeFirst() + "\n");
-
-            if (this.adulthood?.Length > 0)
+            if (this.hasPawn)
             {
-                Backstory newAdulthood = null;
-                BackstoryDatabase.TryGetWithIdentifier(this.adulthood, out newAdulthood, true);
-                stringBuilder.Append("AlteredCarbon.adulthood".Translate() + ": " + newAdulthood.title.CapitalizeFirst() + "\n");
+                stringBuilder.Append("AlteredCarbon.Name".Translate() + ": " + this.name + "\n");
+                stringBuilder.Append("AlteredCarbon.faction".Translate() + ": " + this.faction + "\n");
+
+                Backstory newChildhood = null;
+                BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true);
+                stringBuilder.Append("AlteredCarbon.childhood".Translate() + ": " + newChildhood.title.CapitalizeFirst() + "\n");
+
+                if (this.adulthood?.Length > 0)
+                {
+                    Backstory newAdulthood = null;
+                    BackstoryDatabase.TryGetWithIdentifier(this.adulthood, out newAdulthood, true);
+                    stringBuilder.Append("AlteredCarbon.adulthood".Translate() + ": " + newAdulthood.title.CapitalizeFirst() + "\n");
+                }
+                stringBuilder.Append("AlteredCarbon.ageChronologicalTicks".Translate() + ": " + (int)(this.ageChronologicalTicks / 3600000) + "\n");
+
             }
-            stringBuilder.Append("AlteredCarbon.ageChronologicalTicks".Translate() + ": " + (int)(this.ageChronologicalTicks / 3600000) + "\n");
             stringBuilder.Append(base.GetInspectString());
-            return stringBuilder.ToString();
+            return stringBuilder.ToString().TrimEndNewlines();
         }
 
         public void SavePawnToCorticalStack(Pawn pawn)
