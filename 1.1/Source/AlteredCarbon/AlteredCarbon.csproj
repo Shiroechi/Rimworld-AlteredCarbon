@@ -297,6 +297,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlteredCarbonDefOf.cs" />
+    <Compile Include="CheckForStateChange_Patch.cs" />
     <Compile Include="JobDriver_ExtractStack.cs" />
     <Compile Include="FloatMenuMakerMap_Patch.cs" />
     <Compile Include="CorticalStack.cs" />
