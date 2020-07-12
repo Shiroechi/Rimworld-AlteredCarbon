@@ -360,7 +360,7 @@ namespace AlteredCarbon
                 Scribe_Collections.Look<Faction, int>(ref this.favor, "favor", 
                     LookMode.Reference, LookMode.Value, 
                     ref this.favorKeys, ref this.favorValues);
-                Scribe_Collections.Look<Faction, Pawn>(ref this.heirs, "favor",
+                Scribe_Collections.Look<Faction, Pawn>(ref this.heirs, "heirs",
                     LookMode.Reference, LookMode.Reference,
                     ref this.heirsKeys, ref this.heirsValues);
                 Scribe_Collections.Look<Thing>(ref this.bondedThings, "bondedThings", LookMode.Reference);
