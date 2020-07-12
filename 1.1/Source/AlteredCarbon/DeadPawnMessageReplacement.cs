@@ -88,14 +88,29 @@ namespace AlteredCarbon
 	public static class Notify_ColonistKilled_Patch
 	{
 		public static bool DisableKilledCounter = false;
+
 		[HarmonyPrefix]
 		public static bool Prefix()
 		{
 			if (DisableKilledCounter)
 			{
+				Notify_ColonistKilled_Patch.DisableKilledCounter = false;
 				return false;
 			}
 			return true;
+		}
+	}
+
+	[HarmonyPatch(typeof(Pawn), "Kill")]
+	public class Pawn_Kill_Patch
+	{
+		public static void Prefix(Pawn __instance)
+		{
+			if (__instance != null && (ACUtils.ACTracker.stacksIndex.ContainsKey(__instance.ThingID + __instance.Name)
+					|| ACUtils.ACTracker.pawnsWithStacks.Contains(__instance)))
+			{
+				Notify_ColonistKilled_Patch.DisableKilledCounter = true;
+			}
 		}
 	}
 
