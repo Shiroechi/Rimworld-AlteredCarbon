@@ -22,7 +22,7 @@
     </ResearchProjectDef>
 
     <ResearchProjectDef>
-        <defName>AC_Sleeve Production</defName>
+        <defName>AC_SleeveProduction</defName>
         <label>human sleeves</label>
         <description>Craft ultra-tech neck implants which store a human's consciousness, effectively removing someone from their body.</description>
         <baseCost>8000</baseCost>
