@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -32,6 +34,11 @@ namespace AlteredCarbon
 
         public Gender gender;
         public string pawnID;
+
+        public List<RoyalTitle> royalTitles;
+        public Dictionary<Faction, int> favor = new Dictionary<Faction, int>();
+        public Dictionary<Faction, Pawn> heirs = new Dictionary<Faction, Pawn>();
+        public List<Thing> bondedThings = new List<Thing>();
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -133,6 +140,11 @@ namespace AlteredCarbon
             this.hasPawn = true;
             this.gender = hediff.gender;
             this.pawnID = hediff.pawnID;
+
+            if (ModLister.RoyaltyInstalled)
+            {
+
+            }
         }
 
         public void SavePawnToCorticalStack(Pawn pawn)
@@ -170,6 +182,24 @@ namespace AlteredCarbon
 
             this.gender = pawn.gender;
             this.pawnID = pawn.ThingID;
+
+            if (ModLister.RoyaltyInstalled)
+            {
+                this.royalTitles = pawn.royalty.AllTitlesForReading;
+                this.favor = Traverse.Create(pawn.royalty).Field("favor").GetValue<Dictionary<Faction, int>>();
+                this.heirs = Traverse.Create(pawn.royalty).Field("heirs").GetValue<Dictionary<Faction, Pawn>>();
+                foreach (var map in Find.Maps)
+                {
+                    foreach (var thing in map.listerThings.AllThings)
+                    {
+                        var comp = thing.TryGetComp<CompBladelinkWeapon>();
+                        if (comp != null && comp.bondedPawn == pawn)
+                        {
+                            this.bondedThings.Add(thing);
+                        }
+                    }
+                }
+            }
         }
 
         public override void Tick()
@@ -271,6 +301,30 @@ namespace AlteredCarbon
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongGender);
                 }
             }
+            if (ModLister.RoyaltyInstalled)
+            {
+                if (pawn.royalty == null) pawn.royalty = new Pawn_RoyaltyTracker(pawn);
+                foreach (var title in this.royalTitles)
+                {
+                    pawn.royalty.SetTitle(title.faction, title.def, false, false, false);
+                }
+                foreach (var heir in this.heirs)
+                {
+                    pawn.royalty.SetHeir(heir.Value, heir.Key);
+                }
+                foreach (var fav in this.favor)
+                {
+                    pawn.royalty.SetFavor(fav.Key, fav.Value);
+                }
+                foreach (var bonded in this.bondedThings)
+                {
+                    var comp = bonded.TryGetComp<CompBladelinkWeapon>();
+                    if (comp != null)
+                    {
+                        comp.bondedPawn = pawn;
+                    }
+                }
+            }
         }
 
         public override void ExposeData()
@@ -301,7 +355,23 @@ namespace AlteredCarbon
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
 
             Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);
-
+            if (ModLister.RoyaltyInstalled)
+            {
+                Scribe_Collections.Look<Faction, int>(ref this.favor, "favor", 
+                    LookMode.Reference, LookMode.Value, 
+                    ref this.favorKeys, ref this.favorValues);
+                Scribe_Collections.Look<Faction, Pawn>(ref this.heirs, "favor",
+                    LookMode.Reference, LookMode.Reference,
+                    ref this.heirsKeys, ref this.heirsValues);
+                Scribe_Collections.Look<Thing>(ref this.bondedThings, "bondedThings", LookMode.Reference);
+                Scribe_Collections.Look<RoyalTitle>(ref this.royalTitles, "royalTitles", LookMode.Reference);
+            }
         }
+
+        private List<Faction> favorKeys = new List<Faction>();
+        private List<int> favorValues = new List<int>();
+
+        private List<Faction> heirsKeys = new List<Faction>();
+        private List<Pawn> heirsValues = new List<Pawn>();
     }
 }

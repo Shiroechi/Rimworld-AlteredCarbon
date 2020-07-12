@@ -32,6 +32,11 @@ namespace AlteredCarbon
 
         public Gender gender;
 
+        public List<RoyalTitle> royalTitles;
+        public Dictionary<Faction, int> favor = new Dictionary<Faction, int>();
+        public Dictionary<Faction, Pawn> heirs = new Dictionary<Faction, Pawn>();
+        public List<Thing> bondedThings = new List<Thing>();
+
         public override void PostMake()
         {
             base.PostMake();
@@ -75,6 +80,24 @@ namespace AlteredCarbon
             this.hasPawn = true;
             this.gender = pawn.gender;
             this.pawnID = pawn.ThingID;
+
+            if (ModLister.RoyaltyInstalled)
+            {
+                this.royalTitles = pawn.royalty.AllTitlesForReading;
+                this.favor = Traverse.Create(pawn.royalty).Field("favor").GetValue<Dictionary<Faction, int>>();
+                this.heirs = Traverse.Create(pawn.royalty).Field("heirs").GetValue<Dictionary<Faction, Pawn>>();
+                foreach (var map in Find.Maps)
+                {
+                    foreach (var thing in map.listerThings.AllThings)
+                    {
+                        var comp = thing.TryGetComp<CompBladelinkWeapon>();
+                        if (comp != null && comp.bondedPawn == pawn)
+                        {
+                            this.bondedThings.Add(thing);
+                        }
+                    }
+                }
+            }
         }
 
         public override void Notify_PawnDied()
@@ -133,6 +156,24 @@ namespace AlteredCarbon
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
             Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);
 
+            if (ModLister.RoyaltyInstalled)
+            {
+                Scribe_Collections.Look<Faction, int>(ref this.favor, "favor",
+                    LookMode.Reference, LookMode.Value,
+                    ref this.favorKeys, ref this.favorValues);
+                Scribe_Collections.Look<Faction, Pawn>(ref this.heirs, "favor",
+                    LookMode.Reference, LookMode.Reference,
+                    ref this.heirsKeys, ref this.heirsValues);
+
+                Scribe_Collections.Look<Thing>(ref this.bondedThings, "bondedThings", LookMode.Reference);
+                Scribe_Collections.Look<RoyalTitle>(ref this.royalTitles, "royalTitles", LookMode.Reference);
+            }
         }
+
+        private List<Faction> favorKeys = new List<Faction>();
+        private List<int> favorValues = new List<int>();
+
+        private List<Faction> heirsKeys = new List<Faction>();
+        private List<Pawn> heirsValues = new List<Pawn>();
     }
 }
