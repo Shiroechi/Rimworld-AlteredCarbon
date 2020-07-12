@@ -69,7 +69,7 @@
             <skillRequirements>
                 <Crafting>8</Crafting>
             </skillRequirements>
-            <researchPrerequisite>Bionics</researchPrerequisite>
+            <researchPrerequisite>AC_CorticalStack</researchPrerequisite>
             <recipeUsers>
                 <li>FabricationBench</li>
             </recipeUsers>
