@@ -91,19 +91,24 @@ namespace AlteredCarbon
 
         public void EmptyStack()
         {
-            var newStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack);
-            GenSpawn.Spawn(newStack, this.Position, this.Map);
-            Find.Selector.Select(newStack);
-            if (this.faction == Faction.OfPlayer)
+            Find.WindowStack.Add(new Dialog_MessageBox("AlteredCarbon.EmptyStackConfirmation".Translate(),
+                "No".Translate(), null, 
+                "Yes".Translate(), delegate ()
             {
-                ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
-                Pawn tempPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
-                this.OverwritePawn(tempPawn);
-                PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(tempPawn, null, PawnDiedOrDownedThoughtsKind.Died);
-                tempPawn.health.NotifyPlayerOfKilled(null, null, null);
-                Find.StoryWatcher.statsRecord.Notify_ColonistKilled();
-            }
-            this.Destroy();
+                var newStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack);
+                GenSpawn.Spawn(newStack, this.Position, this.Map);
+                Find.Selector.Select(newStack);
+                if (this.faction == Faction.OfPlayer)
+                {
+                    ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
+                    Pawn tempPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
+                    this.OverwritePawn(tempPawn);
+                    PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(tempPawn, null, PawnDiedOrDownedThoughtsKind.Died);
+                    tempPawn.health.NotifyPlayerOfKilled(null, null, null);
+                    Find.StoryWatcher.statsRecord.Notify_ColonistKilled();
+                }
+                this.Destroy();
+            }, null, false, null, null));
         }
         public void SavePawnFromHediff(Hediff_CorticalStack hediff)
         {

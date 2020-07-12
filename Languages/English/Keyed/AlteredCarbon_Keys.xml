@@ -15,5 +15,6 @@
 	<AlteredCarbon.PawnDiedBecauseOf>Sleeve of {PAWN_labelShort} has died. Cause: {1}.</AlteredCarbon.PawnDiedBecauseOf>
 	<AlteredCarbon.PawnDied>Sleeve of {1_labelShort} has died.</AlteredCarbon.PawnDied>
 	<AlteredCarbon.SleveOf>Sleeve of </AlteredCarbon.SleveOf>
+	<AlteredCarbon.EmptyStackConfirmation>Deleting Stack:\nWARNING! You are about to wipe this stack, killing the person saved on it. Are you sure you want to continue?</AlteredCarbon.EmptyStackConfirmation>
 
 </LanguageData>

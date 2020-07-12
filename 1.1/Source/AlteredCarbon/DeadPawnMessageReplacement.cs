@@ -21,7 +21,7 @@ namespace AlteredCarbon
 					|| ACUtils.ACTracker.pawnsWithStacks.Contains(___pawn))
 			{
 				TaggedString taggedString = "";
-				taggedString = (dinfo.HasValue ? "Sleve of " + dinfo.Value.Def.deathMessage
+				taggedString = (dinfo.HasValue ? "AlteredCarbon.SleveOf".Translate() + dinfo.Value.Def.deathMessage
 					.Formatted(___pawn.LabelShortCap, ___pawn.Named("PAWN")) : ((hediff == null)
 					? "AlteredCarbon.PawnDied".Translate(___pawn.LabelShortCap, ___pawn.Named("PAWN"))
 					: "AlteredCarbon.PawnDiedBecauseOf".Translate(___pawn.LabelShortCap, hediff.def.LabelCap,
