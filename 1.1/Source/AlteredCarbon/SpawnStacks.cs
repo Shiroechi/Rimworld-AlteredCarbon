@@ -23,7 +23,30 @@ namespace AlteredCarbon
 				corticalStack.SavePawnToCorticalStack(corpse.InnerPawn);
 				GenPlace.TryPlaceThing(corticalStack, corpse.Position, corpse.Map, ThingPlaceMode.Near);
 				corpse.InnerPawn.health.hediffSet.hediffs.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_CorticalStack);
-				Log.Message("Rotting: ");
+			}
+		}
+	}
+	[HarmonyPatch(typeof(Fire), "DoFireDamage")]
+	internal static class DoFireDamage_Patch
+	{
+		public static void Prefix(Fire __instance, Thing targ)
+		{
+			if (targ is Corpse corpse && targ.HitPoints <= 3 && (corpse.InnerPawn?.health?.hediffSet?.HasHediff(AlteredCarbonDefOf.AC_CorticalStack) ?? true))
+			{
+				var corticalStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_FilledCorticalStack) as CorticalStack;
+				corticalStack.SavePawnToCorticalStack(corpse.InnerPawn);
+				GenPlace.TryPlaceThing(corticalStack, corpse.Position, corpse.Map, ThingPlaceMode.Direct);
+				corpse.InnerPawn.health.hediffSet.hediffs.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_CorticalStack);
+				__instance.Destroy(DestroyMode.Vanish);
+			}
+			else if (targ is Pawn pawn && pawn.health.summaryHealth.SummaryHealthPercent < 0.001f 
+				&& (pawn.health?.hediffSet?.HasHediff(AlteredCarbonDefOf.AC_CorticalStack) ?? true))
+			{
+				var corticalStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_FilledCorticalStack) as CorticalStack;
+				corticalStack.SavePawnToCorticalStack(pawn);
+				GenPlace.TryPlaceThing(corticalStack, pawn.Position, pawn.Map, ThingPlaceMode.Direct);
+				pawn.health.hediffSet.hediffs.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_CorticalStack);
+				__instance.Destroy(DestroyMode.Vanish);
 			}
 		}
 	}
