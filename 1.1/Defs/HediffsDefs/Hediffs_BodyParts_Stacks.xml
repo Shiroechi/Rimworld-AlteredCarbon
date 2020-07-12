@@ -19,14 +19,6 @@
 		<comps>
 			<li Class="AlteredCarbon.HediffCompProperties_CorticalStack" />
 		</comps>
-		<modExtensions>
-			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
-				<ignoresTraits>
-					<li>Beautiful</li>
-					<li>Ugly</li>
-				</ignoresTraits> 
-			</li>
-		</modExtensions>
 	</HediffDef>
 
 </Defs>
