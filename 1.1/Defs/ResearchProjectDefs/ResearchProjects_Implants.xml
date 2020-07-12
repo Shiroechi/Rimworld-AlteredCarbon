@@ -1,32 +1,44 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <ResearchProjectDef>
-    <defName>AC_CorticalStack</defName>
-    <label>cortical stacks</label>
-    <description>Craft ultra-tech neck implants which store a human's consciousness, effectively removing someone from their body.</description>
-    <prerequisites>
-      <li>Fabrication</li>
-    </prerequisites>
-    <hiddenPrerequisites>
-		<li>Bionics</li>
-	</hiddenPrerequisites>
-    <researchViewX>18.00</researchViewX>
-    <researchViewY>4.80</researchViewY>
-  </ResearchProjectDef>
-  
-  <ResearchProjectDef>
-    <defName>AC_Sleeve Production</defName>
-    <label>human sleeves</label>
-    <description>Craft ultra-tech neck implants which store a human's consciousness, effectively removing someone from their body.</description>
-    <prerequisites>
-      <li>Fabrication</li>
-    </prerequisites>
-    <hiddenPrerequisites>
-		<li>Bionics</li>
-	</hiddenPrerequisites>
-    <researchViewX>20.00</researchViewX>
-    <researchViewY>4.80</researchViewY>
-  </ResearchProjectDef>
+    <ResearchProjectDef>
+        <defName>AC_CorticalStack</defName>
+        <label>cortical stacks</label>
+        <description>Craft ultra-tech neck implants which store a human's consciousness, effectively removing someone from their body.</description>
+        <baseCost>6000</baseCost>
+        <prerequisites>
+            <li>Fabrication</li>
+        </prerequisites>
+        <techLevel>Ultra</techLevel>
+        <hiddenPrerequisites>
+            <li>Bionics</li>
+        </hiddenPrerequisites>
+        <requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+        <requiredResearchFacilities>
+            <li>MultiAnalyzer</li>
+        </requiredResearchFacilities>
+        <researchViewX>18.00</researchViewX>
+        <researchViewY>4.80</researchViewY>
+    </ResearchProjectDef>
+
+    <ResearchProjectDef>
+        <defName>AC_Sleeve Production</defName>
+        <label>human sleeves</label>
+        <description>Craft ultra-tech neck implants which store a human's consciousness, effectively removing someone from their body.</description>
+        <baseCost>8000</baseCost>
+        <prerequisites>
+            <li>Fabrication</li>
+        </prerequisites>
+        <techLevel>Ultra</techLevel>
+        <hiddenPrerequisites>
+            <li>Bionics</li>
+        </hiddenPrerequisites>
+        <requiredResearchBuilding>HiTechResearchBench</requiredResearchBuilding>
+        <requiredResearchFacilities>
+            <li>MultiAnalyzer</li>
+        </requiredResearchFacilities>
+        <researchViewX>20.00</researchViewX>
+        <researchViewY>4.80</researchViewY>
+    </ResearchProjectDef>
 
 </Defs>
