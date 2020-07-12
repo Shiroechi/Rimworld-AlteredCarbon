@@ -28,6 +28,7 @@
         <modExtensions>
             <li Class="AlteredCarbon.StackSavingOptionsModExtension">
 				<IgnoresTraits>
+					<li>Beauty</li>
 					<li>Immunity</li>
 					<li>AnnoyingVoice</li>
 					<li>CreepyBreathing</li>
