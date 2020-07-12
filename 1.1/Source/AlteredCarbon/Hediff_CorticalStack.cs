@@ -166,7 +166,7 @@ namespace AlteredCarbon
                     ref this.heirsKeys, ref this.heirsValues);
 
                 Scribe_Collections.Look<Thing>(ref this.bondedThings, "bondedThings", LookMode.Reference);
-                Scribe_Collections.Look<RoyalTitle>(ref this.royalTitles, "royalTitles", LookMode.Reference);
+                Scribe_Collections.Look<RoyalTitle>(ref this.royalTitles, "royalTitles", LookMode.Deep);
             }
         }
 

@@ -99,23 +99,23 @@ namespace AlteredCarbon
         public void EmptyStack()
         {
             Find.WindowStack.Add(new Dialog_MessageBox("AlteredCarbon.EmptyStackConfirmation".Translate(),
-                "No".Translate(), null, 
+                "No".Translate(), null,
                 "Yes".Translate(), delegate ()
-            {
-                var newStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack);
-                GenSpawn.Spawn(newStack, this.Position, this.Map);
-                Find.Selector.Select(newStack);
-                if (this.faction == Faction.OfPlayer)
                 {
-                    ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
-                    Pawn tempPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
-                    this.OverwritePawn(tempPawn);
-                    PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(tempPawn, null, PawnDiedOrDownedThoughtsKind.Died);
-                    tempPawn.health.NotifyPlayerOfKilled(null, null, null);
-                    Find.StoryWatcher.statsRecord.Notify_ColonistKilled();
-                }
-                this.Destroy();
-            }, null, false, null, null));
+                    var newStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack);
+                    GenSpawn.Spawn(newStack, this.Position, this.Map);
+                    Find.Selector.Select(newStack);
+                    if (this.faction == Faction.OfPlayer)
+                    {
+                        ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
+                        Pawn tempPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
+                        this.OverwritePawn(tempPawn);
+                        PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(tempPawn, null, PawnDiedOrDownedThoughtsKind.Died);
+                        tempPawn.health.NotifyPlayerOfKilled(null, null, null);
+                        Find.StoryWatcher.statsRecord.Notify_ColonistKilled();
+                    }
+                    this.Destroy();
+                }, null, false, null, null));
         }
         public void SavePawnFromHediff(Hediff_CorticalStack hediff)
         {
@@ -357,14 +357,16 @@ namespace AlteredCarbon
             Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);
             if (ModLister.RoyaltyInstalled)
             {
-                Scribe_Collections.Look<Faction, int>(ref this.favor, "favor", 
-                    LookMode.Reference, LookMode.Value, 
+                Scribe_Collections.Look<Faction, int>(ref this.favor, "favor",
+                    LookMode.Reference, LookMode.Value,
                     ref this.favorKeys, ref this.favorValues);
+
                 Scribe_Collections.Look<Faction, Pawn>(ref this.heirs, "heirs",
                     LookMode.Reference, LookMode.Reference,
                     ref this.heirsKeys, ref this.heirsValues);
+
                 Scribe_Collections.Look<Thing>(ref this.bondedThings, "bondedThings", LookMode.Reference);
-                Scribe_Collections.Look<RoyalTitle>(ref this.royalTitles, "royalTitles", LookMode.Reference);
+                Scribe_Collections.Look<RoyalTitle>(ref this.royalTitles, "royalTitles", LookMode.Deep);
             }
         }
 
@@ -375,3 +377,4 @@ namespace AlteredCarbon
         private List<Pawn> heirsValues = new List<Pawn>();
     }
 }
+
