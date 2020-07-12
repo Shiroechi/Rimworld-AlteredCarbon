@@ -27,12 +27,12 @@
         </statBases>
         <modExtensions>
             <li Class="AlteredCarbon.StackSavingOptionsModExtension">
-				<IgnoresTraits>
+				<ignoresTraits>
 					<li>Beauty</li>
 					<li>Immunity</li>
 					<li>AnnoyingVoice</li>
 					<li>CreepyBreathing</li>
-				</IgnoresTraits> 
+				</ignoresTraits> 
             </li>
         </modExtensions>
     </ThingDef>

@@ -221,9 +221,12 @@ namespace AlteredCarbon
             pawn.playerSettings.medCare = this.medicalCareCategory;
             pawn.playerSettings.selfTend = this.selfTend;
             pawn.foodRestriction.CurrentFoodRestriction = this.foodRestriction;
+            if (pawn.outfits == null) pawn.outfits = new Pawn_OutfitTracker();
             pawn.outfits.CurrentOutfit = this.outfit;
+            if (pawn.drugs == null) pawn.drugs = new Pawn_DrugPolicyTracker();
             pawn.drugs.CurrentPolicy = this.drugPolicy;
             pawn.ageTracker.AgeChronologicalTicks = this.ageChronologicalTicks;
+            if (pawn.timetable == null) pawn.timetable = new Pawn_TimetableTracker(pawn);
             pawn.timetable.times = this.times;
 
             if (pawn.gender != this.gender)
@@ -269,4 +272,3 @@ namespace AlteredCarbon
         }
     }
 }
-
