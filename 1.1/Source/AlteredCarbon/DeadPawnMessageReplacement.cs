@@ -113,11 +113,20 @@ namespace AlteredCarbon
 					Event.current.Use();
 					if (ACUtils.ACTracker.stacksIndex.ContainsKey(colonist.ThingID + colonist.Name))
 					{
-						CameraJumper.TryJumpAndSelect(ACUtils.ACTracker.stacksIndex[colonist.ThingID + colonist.Name]);
+						Log.Message(colonist + "TEST 3: " + ACUtils.ACTracker.stacksIndex[colonist.ThingID + colonist.Name]);
+						if (ACUtils.ACTracker.stacksIndex[colonist.ThingID + colonist.Name] == null)
+						{
+							CameraJumper.TryJumpAndSelect(colonist);
+						}
+						else
+						{
+							CameraJumper.TryJumpAndSelect(ACUtils.ACTracker.stacksIndex[colonist.ThingID + colonist.Name]);
+						}
 					}
 					else
 					{
-						CameraJumper.TryJump(colonist);
+						Log.Message(colonist + "TEST 4");
+						CameraJumper.TryJumpAndSelect(colonist);
 					}
 				}
 				reordering = ReorderableWidget.Reorderable(reorderableGroup, rect, useRightButton: true);
@@ -132,6 +141,7 @@ namespace AlteredCarbon
 	}
 
 	[HarmonyPatch(typeof(ColonistBarColonistDrawer), "DrawColonist")]
+	[StaticConstructorOnStartup]
 	public static class DrawColonist_Patch
 	{
 		private static readonly Texture2D Icon_StackDead = ContentFinder<Texture2D>.Get("UI/Icons/StackDead");
