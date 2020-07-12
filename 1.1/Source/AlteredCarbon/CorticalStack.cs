@@ -142,7 +142,7 @@ namespace AlteredCarbon
             this.outfit = pawn.outfits.CurrentOutfit;
             this.drugPolicy = pawn.drugs.CurrentPolicy;
             this.times = pawn.timetable.times;
-            this.thoughts = pawn.needs.mood.thoughts.memories.Memories;
+            this.thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories;
             this.faction = pawn.Faction;
             this.traits = pawn.story.traits.allTraits;
             this.relations = pawn.relations.DirectRelations;
@@ -152,11 +152,15 @@ namespace AlteredCarbon
             {
                 this.adulthood = pawn.story.adulthood.identifier;
             }
-            this.priorities = new Dictionary<WorkTypeDef, int>();
-            foreach (WorkTypeDef w in DefDatabase<WorkTypeDef>.AllDefs)
+            if (pawn.workSettings != null)
             {
-                this.priorities[w] = pawn.workSettings.GetPriority(w);
+                this.priorities = new Dictionary<WorkTypeDef, int>();
+                foreach (WorkTypeDef w in DefDatabase<WorkTypeDef>.AllDefs)
+                {
+                    this.priorities[w] = pawn.workSettings.GetPriority(w);
+                }
             }
+
             this.hasPawn = true;
 
             this.gender = pawn.gender;
@@ -180,13 +184,16 @@ namespace AlteredCarbon
             {
                 pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
             }
-            foreach (var thought in this.thoughts)
+            if (this.thoughts != null)
             {
-                if (thought is Thought_MemorySocial && thought.otherPawn == null)
+                foreach (var thought in this.thoughts)
                 {
-                    continue;
+                    if (thought is Thought_MemorySocial && thought.otherPawn == null)
+                    {
+                        continue;
+                    }
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
                 }
-                pawn.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
             }
             pawn.story.traits.allTraits.Clear();
             foreach (var trait in this.traits)
@@ -229,9 +236,12 @@ namespace AlteredCarbon
                 pawn.story.adulthood = null;
             }
             pawn.Notify_DisabledWorkTypesChanged();
-            foreach (var priority in priorities)
+            if (priorities != null)
             {
-                pawn.workSettings.SetPriority(priority.Key, priority.Value);
+                foreach (var priority in priorities)
+                {
+                    pawn.workSettings.SetPriority(priority.Key, priority.Value);
+                }
             }
             pawn.playerSettings.AreaRestriction = this.areaRestriction;
             pawn.playerSettings.medCare = this.medicalCareCategory;

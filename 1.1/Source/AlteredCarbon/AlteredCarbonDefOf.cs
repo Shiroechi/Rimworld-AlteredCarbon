@@ -17,9 +17,13 @@ namespace AlteredCarbon
 
 		public static ThingDef AC_EmptyCorticalStack;
 
+		public static ThingDef AC_FilledCorticalStack;
+
 		public static ThoughtDef AC_WrongGender;
 
 		public static ThoughtDef AC_WrongGenderDouble;
+
+		public static RecipeDef AC_InstallCorticalStack;
 	}
 }
 
