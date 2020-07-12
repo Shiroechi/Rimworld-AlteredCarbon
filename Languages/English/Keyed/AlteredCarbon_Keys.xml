@@ -14,5 +14,6 @@
 	<AlteredCarbon.SleeveDeathDesc>Sleeve Death</AlteredCarbon.SleeveDeathDesc>
 	<AlteredCarbon.PawnDiedBecauseOf>Sleeve of {PAWN_labelShort} has died. Cause: {1}.</AlteredCarbon.PawnDiedBecauseOf>
 	<AlteredCarbon.PawnDied>Sleeve of {1_labelShort} has died.</AlteredCarbon.PawnDied>
+	<AlteredCarbon.SleveOf>Sleeve of </AlteredCarbon.SleveOf>
 
 </LanguageData>
