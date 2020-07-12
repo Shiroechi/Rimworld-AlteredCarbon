@@ -25,6 +25,16 @@
             <MaxHitPoints>125</MaxHitPoints>
             <Flammability>0</Flammability>
         </statBases>
+        <modExtensions>
+            <li Class="AlteredCarbon.StackSavingOptionsModExtension">
+				<IgnoresTraits>
+					<li>Beauty</li>
+					<li>Immunity</li>
+					<li>AnnoyingVoice</li>
+					<li>CreepyBreathing</li>
+				</IgnoresTraits> 
+            </li>
+        </modExtensions>
     </ThingDef>
 
     <ThingDef ParentName="AC_StackBase">
