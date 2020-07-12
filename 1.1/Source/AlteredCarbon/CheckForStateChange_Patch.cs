@@ -24,6 +24,7 @@ namespace AlteredCarbon
 					{
 						if (stackHediff.def.spawnThingOnRemoved != null)
 						{
+							Notify_ColonistKilled_Patch.DisableKilledCounter = true;
 							var corticalStack = ThingMaker.MakeThing(stackHediff.def.spawnThingOnRemoved) as CorticalStack;
 							corticalStack.SavePawnToCorticalStack(___pawn);
 							GenPlace.TryPlaceThing(corticalStack, ___pawn.Position, ___pawn.Map, ThingPlaceMode.Near);
@@ -33,6 +34,7 @@ namespace AlteredCarbon
 					if (!___pawn.Dead)
 					{
 						___pawn.Kill(null);
+						Notify_ColonistKilled_Patch.DisableKilledCounter = false;
 					}
 				}
 			}

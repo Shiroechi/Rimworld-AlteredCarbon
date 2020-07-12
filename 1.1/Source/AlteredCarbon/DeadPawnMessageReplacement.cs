@@ -17,9 +17,8 @@ namespace AlteredCarbon
 	{
 		private static bool Prefix(Pawn_HealthTracker __instance, Pawn ___pawn, DamageInfo? dinfo, Hediff hediff, Caravan caravan)
 		{
-			var stackHediff = ___pawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
-			x.def == AlteredCarbonDefOf.AC_CorticalStack);
-			if (stackHediff != null)
+			if (ACUtils.ACTracker.stacksIndex.ContainsKey(___pawn.ThingID + ___pawn.Name)
+					|| ACUtils.ACTracker.pawnsWithStacks.Contains(___pawn))
 			{
 				TaggedString taggedString = "";
 				taggedString = (dinfo.HasValue ? dinfo.Value.Def.deathMessage
@@ -79,6 +78,21 @@ namespace AlteredCarbon
 			if (stackHediff != null && pawn.Dead)
 			{
 				__result = "Sleeve";
+				return false;
+			}
+			return true;
+		}
+	}
+
+	[HarmonyPatch(typeof(StatsRecord), "Notify_ColonistKilled")]
+	public static class Notify_ColonistKilled_Patch
+	{
+		public static bool DisableKilledCounter = false;
+		[HarmonyPrefix]
+		public static bool Prefix()
+		{
+			if (DisableKilledCounter)
+			{
 				return false;
 			}
 			return true;
