@@ -60,13 +60,13 @@ namespace AlteredCarbon
 				var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn);
 				if (corticalStack.hasPawn)
 				{
-
 					if (pawn.IsColonist)
 					{
 						Find.StoryWatcher.statsRecord.Notify_ColonistKilled();
 					}
 					PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(pawn, null, PawnDiedOrDownedThoughtsKind.Died);
 					pawn.health.NotifyPlayerOfKilled(null, null, null);
+					ACUtils.ACTracker.stacksIndex.Remove(corticalStack.pawnID + corticalStack.name);
 					corticalStack.OverwritePawn(pawn);
 				}
 				ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
