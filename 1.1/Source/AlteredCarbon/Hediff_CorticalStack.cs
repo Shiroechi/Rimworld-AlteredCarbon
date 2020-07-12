@@ -26,6 +26,7 @@ namespace AlteredCarbon
         public List<SkillRecord> skills;
         public string childhood;
         public string adulthood;
+        public string pawnID;
         public Dictionary<WorkTypeDef, int> priorities;
         public bool hasPawn = false;
 
@@ -73,6 +74,7 @@ namespace AlteredCarbon
 
             this.hasPawn = true;
             this.gender = pawn.gender;
+            this.pawnID = pawn.ThingID;
         }
 
         public override void Notify_PawnDied()
@@ -98,7 +100,9 @@ namespace AlteredCarbon
             base.PostRemoved();
             if (!this.pawn.Dead)
             {
+                Notify_ColonistKilled_Patch.DisableKilledCounter = true;
                 this.pawn.Kill(null);
+                Notify_ColonistKilled_Patch.DisableKilledCounter = false;
             }
         }
 
@@ -121,6 +125,7 @@ namespace AlteredCarbon
             Scribe_References.Look<Faction>(ref this.faction, "faction", true);
             Scribe_Values.Look<string>(ref this.childhood, "childhood", null, false);
             Scribe_Values.Look<string>(ref this.adulthood, "adulthood", null, false);
+            Scribe_Values.Look<string>(ref this.pawnID, "pawnID", null, false);
             Scribe_Collections.Look<Trait>(ref this.traits, "traits");
             Scribe_Collections.Look<SkillRecord>(ref this.skills, "skills");
             Scribe_Collections.Look<DirectPawnRelation>(ref this.relations, "relations");

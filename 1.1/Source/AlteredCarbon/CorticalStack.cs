@@ -31,6 +31,7 @@ namespace AlteredCarbon
         public bool hasPawn = false;
 
         public Gender gender;
+        public string pawnID;
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -93,6 +94,15 @@ namespace AlteredCarbon
             var newStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack);
             GenSpawn.Spawn(newStack, this.Position, this.Map);
             Find.Selector.Select(newStack);
+            if (this.faction == Faction.OfPlayer)
+            {
+                ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
+                Pawn tempPawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
+                this.OverwritePawn(tempPawn);
+                PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(tempPawn, null, PawnDiedOrDownedThoughtsKind.Died);
+                tempPawn.health.NotifyPlayerOfKilled(null, null, null);
+                Find.StoryWatcher.statsRecord.Notify_ColonistKilled();
+            }
             this.Destroy();
         }
         public void SavePawnFromHediff(Hediff_CorticalStack hediff)
@@ -117,6 +127,7 @@ namespace AlteredCarbon
             this.priorities = hediff.priorities;
             this.hasPawn = true;
             this.gender = hediff.gender;
+            this.pawnID = hediff.pawnID;
         }
 
         public void SavePawnToCorticalStack(Pawn pawn)
@@ -149,6 +160,7 @@ namespace AlteredCarbon
             this.hasPawn = true;
 
             this.gender = pawn.gender;
+            this.pawnID = pawn.ThingID;
         }
 
         public override void Tick()
@@ -221,9 +233,12 @@ namespace AlteredCarbon
             pawn.playerSettings.medCare = this.medicalCareCategory;
             pawn.playerSettings.selfTend = this.selfTend;
             pawn.foodRestriction.CurrentFoodRestriction = this.foodRestriction;
+            if (pawn.outfits == null) pawn.outfits = new Pawn_OutfitTracker();
             pawn.outfits.CurrentOutfit = this.outfit;
+            if (pawn.drugs == null) pawn.drugs = new Pawn_DrugPolicyTracker();
             pawn.drugs.CurrentPolicy = this.drugPolicy;
             pawn.ageTracker.AgeChronologicalTicks = this.ageChronologicalTicks;
+            if (pawn.timetable == null) pawn.timetable = new Pawn_TimetableTracker(pawn);
             pawn.timetable.times = this.times;
 
             if (pawn.gender != this.gender)
@@ -258,6 +273,8 @@ namespace AlteredCarbon
             Scribe_References.Look<Faction>(ref this.faction, "faction", true);
             Scribe_Values.Look<string>(ref this.childhood, "childhood", null, false);
             Scribe_Values.Look<string>(ref this.adulthood, "adulthood", null, false);
+
+            Scribe_Values.Look<string>(ref this.pawnID, "pawnID", null, false);
             Scribe_Collections.Look<Trait>(ref this.traits, "traits");
             Scribe_Collections.Look<SkillRecord>(ref this.skills, "skills");
             Scribe_Collections.Look<DirectPawnRelation>(ref this.relations, "relations");
@@ -269,4 +286,3 @@ namespace AlteredCarbon
         }
     }
 }
-
