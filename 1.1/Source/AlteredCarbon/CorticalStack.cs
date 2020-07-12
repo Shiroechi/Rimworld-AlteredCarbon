@@ -182,7 +182,11 @@ namespace AlteredCarbon
             }
             foreach (var thought in this.thoughts)
             {
-                pawn.needs.mood.thoughts.memories.TryGainMemory(thought);
+                if (thought is Thought_MemorySocial && thought.otherPawn == null)
+                {
+                    continue;
+                }
+                pawn.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
             }
             pawn.story.traits.allTraits.Clear();
             foreach (var trait in this.traits)
