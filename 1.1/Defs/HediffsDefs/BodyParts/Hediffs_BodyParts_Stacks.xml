@@ -92,14 +92,6 @@
             <texPath>Things/Item/Stacks/FilledStack</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
-		<modExtensions>
-			<li Class="AlteredCarbon.StackSavingOptionsModExtension">
-				<ignoresTraits>
-					<li>Beautiful</li>
-					<li>Ugly</li>
-				</ignoresTraits> 
-			</li>
-		</modExtensions>
     </ThingDef>
 
 </Defs>
