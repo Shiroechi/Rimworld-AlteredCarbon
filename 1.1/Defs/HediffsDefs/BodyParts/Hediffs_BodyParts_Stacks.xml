@@ -10,7 +10,7 @@
             <texPath>Things/Item/Health/HealthItem</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
-        <tradeTags>
+        <tradeTags Inherit="False">
             <li>AC_StacksUltra</li>
         </tradeTags>
         <stackLimit>1</stackLimit>

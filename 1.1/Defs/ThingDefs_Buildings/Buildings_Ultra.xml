@@ -6,7 +6,7 @@
         <label>bio-engineering vat</label>
         <description>Placeholder</description>
         <graphicData>
-            <texPath>Things/Buildings/Misc/AC_SleeveVat</texPath>
+            <texPath>Things/Building/Misc/AC_SleeveVat</texPath>
             <graphicClass>Graphic_Multi</graphicClass>
             <drawSize>(3.5,3.5)</drawSize>
             <shaderType>CutoutComplex</shaderType>
