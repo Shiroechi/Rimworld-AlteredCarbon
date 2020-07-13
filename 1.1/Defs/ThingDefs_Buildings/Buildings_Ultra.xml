@@ -39,6 +39,7 @@
             <li>BuildingsFurniture</li>
         </thingCategories>
         <size>(3,3)</size>
+        <techLevel>Ultra</techLevel>
         <passability>PassThroughOnly</passability>
         <pathCost>70</pathCost>
         <surfaceType>Item</surfaceType>
@@ -51,6 +52,48 @@
             <li Class="CompProperties_Flickable" />
             <li Class="CompProperties_Breakdownable" />
         </comps>
+    </ThingDef>
+
+    <ThingDef ParentName="BedWithQualityBase">
+        <defName>AC_SleeveCasket</defName>
+        <label>sleeve casket</label>
+        <description>Placeholder</description>
+        <graphicData>
+            <texPath>Things/Building/Furniture/Bed/HospitalBed</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <shaderType>CutoutComplex</shaderType>
+            <drawSize>(2,2)</drawSize>
+        </graphicData>
+        <castEdgeShadows>True</castEdgeShadows>
+        <statBases>
+            <MaxHitPoints>150</MaxHitPoints>
+            <WorkToBuild>2800</WorkToBuild>
+            <Mass>35</Mass>
+            <Flammability>1.0</Flammability>
+            <BedRestEffectiveness>1</BedRestEffectiveness>
+            <Comfort>0.80</Comfort>
+            <ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
+            <MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+            <SurgerySuccessChanceFactor>1.5</SurgerySuccessChanceFactor>
+        </statBases>
+        <size>(1,2)</size>
+        <costList>
+            <Steel>80</Steel>
+            <ComponentIndustrial>5</ComponentIndustrial>
+        </costList>
+        <building>
+            <bed_showSleeperBody>true</bed_showSleeperBody>
+            <bed_healPerDay>25</bed_healPerDay>
+            <bed_defaultMedical>true</bed_defaultMedical>
+        </building>
+        <fillPercent>0.4</fillPercent>
+        <pathCost>60</pathCost>
+        <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
+        <staticSunShadowHeight>0.17</staticSunShadowHeight>
+        <designationHotKey>Misc5</designationHotKey>
+        <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+        <techLevel>Ultra</techLevel>
+        <uiIconScale>0.90</uiIconScale>
     </ThingDef>
 
 </Defs>
