@@ -106,11 +106,15 @@ namespace AlteredCarbon
 	{
 		public static void Prefix(Pawn __instance)
 		{
-			if (__instance != null && (ACUtils.ACTracker.stacksIndex.ContainsKey(__instance.ThingID + __instance.Name)
-					|| ACUtils.ACTracker.pawnsWithStacks.Contains(__instance)))
+			try
 			{
-				Notify_ColonistKilled_Patch.DisableKilledCounter = true;
+				if (__instance != null && (ACUtils.ACTracker.stacksIndex.ContainsKey(__instance.ThingID + __instance.Name)
+					|| ACUtils.ACTracker.pawnsWithStacks.Contains(__instance)))
+				{
+					Notify_ColonistKilled_Patch.DisableKilledCounter = true;
+				}
 			}
+			catch { };
 		}
 	}
 
