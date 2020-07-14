@@ -31,6 +31,10 @@ namespace AlteredCarbon
 
 		public static ThoughtDef AC_NewSleeveDouble;
 
+		public static ThoughtDef AC_MansBody;
+
+		public static ThoughtDef AC_WomansBody;
+
 		public static RecipeDef AC_InstallCorticalStack;
 	}
 }

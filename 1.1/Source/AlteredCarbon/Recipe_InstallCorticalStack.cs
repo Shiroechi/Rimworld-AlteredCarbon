@@ -78,6 +78,7 @@ namespace AlteredCarbon
 					PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(pawn, null, PawnDiedOrDownedThoughtsKind.Died);
 					pawn.health.NotifyPlayerOfKilled(null, null, null);
 					ACUtils.ACTracker.stacksIndex.Remove(corticalStack.pawnID + corticalStack.name);
+
 					corticalStack.OverwritePawn(pawn);
 					var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
 					var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
@@ -92,6 +93,15 @@ namespace AlteredCarbon
 					else
 					{
 						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_NewSleeve);
+					}
+
+					if (pawn.story.traits.HasTrait(TraitDefOf.DislikesMen) && pawn.gender == Gender.Male)
+					{
+						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_MansBody);
+					}
+					if (pawn.story.traits.HasTrait(TraitDefOf.DislikesWomen) && pawn.gender == Gender.Female)
+					{
+						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WomansBody);
 					}
 				}
 				ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
