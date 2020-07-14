@@ -8,7 +8,7 @@
 		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
 		<tickerType>Normal</tickerType>
         <graphicData>
-            <texPath>Things/Building/Misc/AC_SleeveVat</texPath>
+            <texPath>Things/Building/Furniture/Bed/HospitalBed</texPath>
             <graphicClass>Graphic_Multi</graphicClass>
             <drawSize>(3.5,3.5)</drawSize>
             <shaderType>CutoutComplex</shaderType>
