@@ -45,6 +45,9 @@
         <passability>PassThroughOnly</passability>
         <pathCost>70</pathCost>
         <surfaceType>Item</surfaceType>
+		<researchPrerequisites>
+		  <li>AC_SleeveProduction</li>
+		</researchPrerequisites>
         <comps>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
@@ -98,6 +101,19 @@
         <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
         <techLevel>Ultra</techLevel>
         <uiIconScale>0.90</uiIconScale>
+		<researchPrerequisites>
+		  <li>AC_SleeveProduction</li>
+		</researchPrerequisites>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <shortCircuitInRain>true</shortCircuitInRain>
+                <basePowerConsumption>500</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_Breakdownable" />      
+			<li Class="CompProperties_Forbiddable"/>
+        </comps>
     </ThingDef>
 
 </Defs>
