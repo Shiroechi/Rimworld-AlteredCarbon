@@ -35,9 +35,9 @@
         </statBases>
         <minifiedDef>MinifiedThing</minifiedDef>
         <tickerType>Rare</tickerType>
-        <thingCategories>
-            <li>BuildingsFurniture</li>
-        </thingCategories>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
         <size>(3,3)</size>
         <techLevel>Ultra</techLevel>
         <passability>PassThroughOnly</passability>
@@ -81,6 +81,9 @@
             <Steel>80</Steel>
             <ComponentIndustrial>5</ComponentIndustrial>
         </costList>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
         <building>
             <bed_showSleeperBody>true</bed_showSleeperBody>
             <bed_healPerDay>25</bed_healPerDay>
@@ -90,7 +93,6 @@
         <pathCost>60</pathCost>
         <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
         <staticSunShadowHeight>0.17</staticSunShadowHeight>
-        <designationHotKey>Misc5</designationHotKey>
         <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
         <techLevel>Ultra</techLevel>
         <uiIconScale>0.90</uiIconScale>
