@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
 	<ThoughtDef>
@@ -7,7 +7,6 @@
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Bisexual</li>
-			<li>Nerves</li>
 			<li>Masochist</li>
 			<li>Asexual</li>
 			<li>AC_FreeMind</li>
@@ -27,7 +26,6 @@
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Bisexual</li>
-			<li>Nerves</li>
 			<li>Masochist</li>
 			<li>Asexual</li>
 			<li>AC_FreeMind</li>
@@ -47,8 +45,6 @@
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Transhumanist</li>
-			<li>Nerves</li>
-			<li>NaturalMood</li>
 			<li>AC_FreeMind</li>
 			<li>AC_Sleever</li>
 		</nullifyingTraits>
@@ -67,7 +63,6 @@
 		<stackLimit>1</stackLimit>
 		<nullifyingTraits>
 			<li>Bisexual</li>
-			<li>Nerves</li>
 			<li>Masochist</li>
 			<li>Asexual</li>
 			<li>AC_FreeMind</li>
