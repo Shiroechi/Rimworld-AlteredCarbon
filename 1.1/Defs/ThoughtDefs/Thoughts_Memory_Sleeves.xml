@@ -41,11 +41,9 @@
         </stages>
     </ThoughtDef>
 
-
-
     <ThoughtDef>
         <defName>AC_NewSleeve</defName>
-        <durationDays>120</durationDays>
+        <durationDays>30</durationDays>
         <stackLimit>1</stackLimit>
         <nullifyingTraits>
 			<li>Transhumanist</li>
@@ -58,14 +56,14 @@
             <li>
                 <label>New Body</label>
                 <description>I have a new body, this will take some getting used to.</description>
-                <baseMoodEffect>-5</baseMoodEffect>
+                <baseMoodEffect>-2</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>
 
     <ThoughtDef>
         <defName>AC_NewSleeveDouble</defName>
-        <durationDays>120</durationDays>
+        <durationDays>30</durationDays>
         <stackLimit>1</stackLimit>
         <nullifyingTraits>
             <li>Bisexual</li>
@@ -76,9 +74,33 @@
         </nullifyingTraits>
         <stages>
             <li>
-                <label>different sleeve gender</label>
-                <description>The gender of my sleeve is not my own, this is wrong.</description>
-                <baseMoodEffect>-10</baseMoodEffect>
+                <label>New Body</label>
+                <description>I have a new body, this will take some getting used to.</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+	
+	<ThoughtDef>
+        <defName>AC_MansBody</defName>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>A man’s body</label>
+                <description>I am in the body of a man, I don't like it!</description>
+                <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>AC_WomansBody</defName>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>A woman's body</label>
+                <description>I am in the body of a woman, I don't like it!.</description>
+                <baseMoodEffect>-3</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>
