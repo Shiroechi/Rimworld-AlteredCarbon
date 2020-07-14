@@ -9,28 +9,20 @@
             <success>Always</success>
             <operations>
                 <li Class="PatchOperationAddModExtension">
-                    <xpath>/Defs/PawnKindDef[defName="SpaceRefugee"]</xpath>
+                    <xpath>/Defs/PawnKindDef[defName="Tribal_ChiefMelee"]</xpath>
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
-                            <SpawnsWithStack>false</SpawnsWithStack>
+                            <SpawnsWithStack>true</SpawnsWithStack>
+                            <ChanceToSpawnWithStack>1</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
                 <li Class="PatchOperationAddModExtension">
-                    <xpath>/Defs/PawnKindDef[defName="SpaceRefugee_Clothed"]</xpath>
+                    <xpath>/Defs/PawnKindDef[defName="Tribal_ChiefRanged"]</xpath>
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>2</ChanceToSpawnWithStack>
-                        </li>
-                    </value>
-                </li>
-                <li Class="PatchOperationAddModExtension">
-                    <xpath>/Defs/PawnKindDef[defName="AncientSoldier"]</xpath>
-                    <value>
-                        <li Class="AlteredCarbon.StackSpawnModExtension">
-                            <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>60</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>1</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>

@@ -4,7 +4,7 @@
     <ThingDef Name="AC_StackBase" ParentName="BodyPartBase" Abstract="True">
         <techLevel>Ultra</techLevel>
         <thingCategories>
-            <li>BodyPartsBionic</li>
+            <li>BodyPartsUltra</li>
         </thingCategories>
         <graphicData>
             <texPath>Things/Item/Health/HealthItem</texPath>
@@ -60,22 +60,8 @@
             <Flammability>0</Flammability>
             <WorkToMake>42000</WorkToMake>
         </statBases>
-        <recipeMaker>
-            <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
-            <workSkill>Crafting</workSkill>
-            <effectWorking>Smith</effectWorking>
-            <soundWorking>Recipe_Smith</soundWorking>
-            <unfinishedThingDef>UnfinishedHealthItemBionic</unfinishedThingDef>
-            <skillRequirements>
-                <Crafting>8</Crafting>
-            </skillRequirements>
-            <researchPrerequisite>AC_CorticalStack</researchPrerequisite>
-            <recipeUsers>
-                <li>FabricationBench</li>
-            </recipeUsers>
-        </recipeMaker>
         <thingSetMakerTags>
-            <li>RewardStandardHighFreq</li>
+            <li>RewardStandardLowFreq</li>
         </thingSetMakerTags>
     </ThingDef>
 
