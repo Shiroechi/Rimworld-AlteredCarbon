@@ -103,6 +103,10 @@ namespace AlteredCarbon
 					{
 						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WomansBody);
 					}
+					if (pawn.story.traits.HasTrait(AlteredCarbonDefOf.AC_AntiStack))
+					{
+						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMySoul);
+					}
 				}
 				ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
 				pawn.health.AddHediff(recipe.addsHediff, part);

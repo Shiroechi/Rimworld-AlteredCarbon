@@ -24,7 +24,7 @@
     </TraitDef>
 	
     <TraitDef>
-        <defName>AC_Anti-Stack</defName>
+        <defName>AC_AntiStack</defName>
         <commonality>0.4</commonality>
         <degreeDatas>
             <li>
