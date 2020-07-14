@@ -143,7 +143,10 @@ namespace AlteredCarbon
 
             if (ModLister.RoyaltyInstalled)
             {
-
+                this.royalTitles = hediff.royalTitles;
+                this.favor = hediff.favor;
+                this.heirs = hediff.heirs;
+                this.bondedThings = hediff.bondedThings;
             }
         }
 

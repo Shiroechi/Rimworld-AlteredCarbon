@@ -41,4 +41,46 @@
         </stages>
     </ThoughtDef>
 
+
+
+    <ThoughtDef>
+        <defName>AC_NewSleeve</defName>
+        <durationDays>120</durationDays>
+        <stackLimit>1</stackLimit>
+        <nullifyingTraits>
+			<li>Transhumanist</li>
+			<li>Nerves</li>
+			<li>NaturalMood</li>
+			<li>AC_FreeMind</li>
+			<li>AC_Sleever</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>New Body</label>
+                <description>I have a new body, this will take some getting used to.</description>
+                <baseMoodEffect>-5</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+    <ThoughtDef>
+        <defName>AC_NewSleeveDouble</defName>
+        <durationDays>120</durationDays>
+        <stackLimit>1</stackLimit>
+        <nullifyingTraits>
+            <li>Bisexual</li>
+            <li>Nerves</li>
+            <li>Masochist</li>
+            <li>Asexual</li>
+			<li>AC_FreeMind</li>
+        </nullifyingTraits>
+        <stages>
+            <li>
+                <label>different sleeve gender</label>
+                <description>The gender of my sleeve is not my own, this is wrong.</description>
+                <baseMoodEffect>-10</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
 </Defs>

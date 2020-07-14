@@ -79,6 +79,20 @@ namespace AlteredCarbon
 					pawn.health.NotifyPlayerOfKilled(null, null, null);
 					ACUtils.ACTracker.stacksIndex.Remove(corticalStack.pawnID + corticalStack.name);
 					corticalStack.OverwritePawn(pawn);
+					var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
+					var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
+
+					if ((naturalMood != null && naturalMood.Degree == -2) 
+						|| pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)
+						|| (nerves != null && nerves.Degree == -2)
+						|| pawn.story.traits.HasTrait(AlteredCarbonDefOf.AC_Sleever))
+					{
+						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_NewSleeveDouble);
+					}
+					else
+					{
+						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_NewSleeve);
+					}
 				}
 				ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
 				pawn.health.AddHediff(recipe.addsHediff, part);
