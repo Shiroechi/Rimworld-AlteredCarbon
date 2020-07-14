@@ -99,8 +99,20 @@
         <stages>
             <li>
                 <label>A woman's body</label>
-                <description>I am in the body of a woman, I don't like it!.</description>
+                <description>I am in the body of a woman, I don't like it!</description>
                 <baseMoodEffect>-3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+	
+	    <ThoughtDef>
+        <defName>AC_LostMySoul</defName>
+        <stackLimit>1</stackLimit>
+        <stages>
+            <li>
+                <label>Lost my Soul</label>
+                <description>This goes against everything I believe in, I have a stack and lost my soul... I will never get used to this.</description>
+                <baseMoodEffect>-25</baseMoodEffect>
             </li>
         </stages>
     </ThoughtDef>

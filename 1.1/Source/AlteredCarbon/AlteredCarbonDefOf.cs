@@ -17,6 +17,8 @@ namespace AlteredCarbon
 
 		public static TraitDef AC_Sleever;
 
+		public static TraitDef AC_AntiStack;
+
 		public static HediffDef AC_CorticalStack;
 
 		public static ThingDef AC_EmptyCorticalStack;
@@ -34,6 +36,8 @@ namespace AlteredCarbon
 		public static ThoughtDef AC_MansBody;
 
 		public static ThoughtDef AC_WomansBody;
+
+		public static ThoughtDef AC_LostMySoul;
 
 		public static RecipeDef AC_InstallCorticalStack;
 	}
