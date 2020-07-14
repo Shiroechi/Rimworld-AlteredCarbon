@@ -298,6 +298,8 @@
   <ItemGroup>
     <Compile Include="AlteredCarbonDefOf.cs" />
     <Compile Include="CheckForStateChange_Patch.cs" />
+    <Compile Include="Building_SleeveGrower.cs" />
+    <Compile Include="CustomizeSleeveWindow.cs" />
     <Compile Include="SpawnStacks.cs" />
     <Compile Include="DeadPawnMessageReplacement.cs" />
     <Compile Include="JobDriver_ExtractStack.cs" />

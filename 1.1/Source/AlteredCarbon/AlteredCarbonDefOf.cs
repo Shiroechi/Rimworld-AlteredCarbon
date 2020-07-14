@@ -13,6 +13,8 @@ namespace AlteredCarbon
 	{
 		public static JobDef AC_ExtractStack;
 
+		public static JobDef AC_ReleaseSleeve;
+
 		public static HediffDef AC_CorticalStack;
 
 		public static ThingDef AC_EmptyCorticalStack;
