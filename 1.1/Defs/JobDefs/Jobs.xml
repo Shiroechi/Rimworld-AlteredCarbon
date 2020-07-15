@@ -6,5 +6,11 @@
 		<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
 		<reportString>extracts cortical stack from TargetA</reportString>
 	</JobDef>
+	
+	<JobDef>
+		<defName>AC_WipeStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_WipeStack</driverClass>
+		<reportString>wipes cortical stack</reportString>
+	</JobDef>
 
 </Defs>

@@ -7,6 +7,7 @@ using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace AlteredCarbon
 {
@@ -50,6 +51,30 @@ namespace AlteredCarbon
             }
         }
 
+        public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
+        {
+            if (!ReachabilityUtility.CanReach(myPawn, this, PathEndMode.InteractionCell, Danger.Deadly, false, 0))
+            {
+                FloatMenuOption floatMenuOption = new FloatMenuOption(Translator.Translate("CannotUseNoPath"), null,
+                    MenuOptionPriority.Default, null, null, 0f, null, null);
+                yield return floatMenuOption;
+            }
+            else
+            {
+                string label = "AlteredCarbon.WipeStack".Translate();
+                Action action = delegate ()
+                {
+                    Job job = JobMaker.MakeJob(AlteredCarbonDefOf.AC_WipeStack, this);
+                    job.count = 1;
+                    myPawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+                };
+                yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption
+                        (label, action, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
+                        this, "ReservedBy");
+            }
+            yield break;
+        }
+
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -75,26 +100,26 @@ namespace AlteredCarbon
             return stringBuilder.ToString().TrimEndNewlines();
         }
 
-        public override IEnumerable<Gizmo> GetGizmos()
-        {
-            foreach (Gizmo gizmo in base.GetGizmos())
-            {
-                yield return gizmo;
-            }
-            IEnumerator<Gizmo> enumerator = null;
-
-            if (this.hasPawn)
-            {
-                Command_Action command_Action = new Command_Action();
-                command_Action.action = new Action(this.EmptyStack);
-                command_Action.defaultLabel = "AlteredCarbon.EmptyStack".Translate();
-                command_Action.defaultDesc = "AlteredCarbon.EmptyStackDesc".Translate();
-                command_Action.hotKey = KeyBindingDefOf.Misc8;
-                command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
-                yield return command_Action;
-            }
-            yield break;
-        }
+        //public override IEnumerable<Gizmo> GetGizmos()
+        //{
+        //    foreach (Gizmo gizmo in base.GetGizmos())
+        //    {
+        //        yield return gizmo;
+        //    }
+        //    IEnumerator<Gizmo> enumerator = null;
+        //
+        //    if (this.hasPawn)
+        //    {
+        //        Command_Action command_Action = new Command_Action();
+        //        command_Action.action = new Action(this.EmptyStack);
+        //        command_Action.defaultLabel = "AlteredCarbon.EmptyStack".Translate();
+        //        command_Action.defaultDesc = "AlteredCarbon.EmptyStackDesc".Translate();
+        //        command_Action.hotKey = KeyBindingDefOf.Misc8;
+        //        command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
+        //        yield return command_Action;
+        //    }
+        //    yield break;
+        //}
         public void EmptyStack()
         {
             Find.WindowStack.Add(new Dialog_MessageBox("AlteredCarbon.EmptyStackConfirmation".Translate(),
