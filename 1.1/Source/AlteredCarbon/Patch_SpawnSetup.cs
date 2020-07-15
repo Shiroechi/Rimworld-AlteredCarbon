@@ -20,7 +20,7 @@ namespace AlteredCarbon
                 .HasModExtension<StackSpawnModExtension>())
             {
                 var extension = pawn.kindDef.GetModExtension<StackSpawnModExtension>();
-                if (extension.SpawnsWithStack && Rand.Chance(extension.ChanceToSpawnWithStack / 100))
+                if (extension.SpawnsWithStack && Rand.Chance((float)extension.ChanceToSpawnWithStack / 100f))
                 {
                     BodyPartRecord neckRecord = pawn.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
                     pawn.health.AddHediff(AlteredCarbonDefOf.AC_CorticalStack, neckRecord);
