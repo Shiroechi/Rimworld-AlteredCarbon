@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-    <ThingDef Name="AC_StackBase" ParentName="BodyPartBase" Abstract="True">
+    <ThingDef Name="AC_StackBase" ParentName="BodyPartArchotechBase" Abstract="True">
         <techLevel>Ultra</techLevel>
-        <thingCategories>
+        <thingCategories Inherit="False">
             <li>BodyPartsUltra</li>
         </thingCategories>
         <graphicData>
