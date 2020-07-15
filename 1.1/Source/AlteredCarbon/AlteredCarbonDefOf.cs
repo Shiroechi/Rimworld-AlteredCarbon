@@ -17,6 +17,8 @@ namespace AlteredCarbon
 
 		public static JobDef AC_WipeStack;
 
+		public static JobDef AC_CopyStack;
+
 		public static TraitDef AC_Sleever;
 
 		public static TraitDef AC_AntiStack;

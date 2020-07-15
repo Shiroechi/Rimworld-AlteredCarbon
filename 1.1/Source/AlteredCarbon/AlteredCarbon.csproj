@@ -300,6 +300,7 @@
     <Compile Include="CheckForStateChange_Patch.cs" />
     <Compile Include="Building_SleeveGrower.cs" />
     <Compile Include="CustomizeSleeveWindow.cs" />
+    <Compile Include="JobDriver_CopyStack.cs" />
     <Compile Include="JobDriver_WipeStack.cs" />
     <Compile Include="ThoughtWorker_ColonyUsesStacks.cs" />
     <Compile Include="SpawnStacks.cs" />

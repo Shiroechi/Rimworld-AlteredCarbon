@@ -72,8 +72,26 @@ namespace AlteredCarbon
                         (label, action, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
                         this, "ReservedBy");
             }
+            if (this.hasPawn && myPawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt >= 10 
+                && this.Map.listerThings.ThingsOfDef(AlteredCarbonDefOf.AC_EmptyCorticalStack)
+                    .Where(x => myPawn.CanReserveAndReach(x, PathEndMode.ClosestTouch, Danger.Deadly)).Any())
+            {
+                string label = "AlteredCarbon.CopyStack".Translate();
+
+                Action action = delegate ()
+                {
+                    Job job = JobMaker.MakeJob(AlteredCarbonDefOf.AC_CopyStack, this);
+                    job.count = 1;
+                    myPawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+                };
+                yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption
+                        (label, action, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
+                        this, "ReservedBy");
+            }
             yield break;
         }
+
+
 
         public override string GetInspectString()
         {
@@ -280,19 +298,48 @@ namespace AlteredCarbon
                 Log.Message(" - SavePawnToCorticalStack - foreach (var map in Find.Maps) - 68", true);
                 foreach (var map in Find.Maps)
                 {
-                    Log.Message(" - SavePawnToCorticalStack - foreach (var thing in map.listerThings.AllThings) - 69", true);
                     foreach (var thing in map.listerThings.AllThings)
                     {
-                        Log.Message(" - SavePawnToCorticalStack - var comp = thing.TryGetComp<CompBladelinkWeapon>(); - 70", true);
                         var comp = thing.TryGetComp<CompBladelinkWeapon>();
-                        Log.Message(" - SavePawnToCorticalStack - if (comp != null && comp.bondedPawn == pawn) - 71", true);
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message(" - SavePawnToCorticalStack - this.bondedThings.Add(thing); - 72", true);
                             this.bondedThings.Add(thing);
                         }
                     }
                 }
+            }
+        }
+
+        public void CopyFromOtherStack(CorticalStack otherStack)
+        {
+            this.name = otherStack.name;
+            this.hostilityMode = otherStack.hostilityMode;
+            this.areaRestriction = otherStack.areaRestriction;
+            this.ageChronologicalTicks = otherStack.ageChronologicalTicks;
+            this.medicalCareCategory = otherStack.medicalCareCategory;
+            this.selfTend = otherStack.selfTend;
+            this.foodRestriction = otherStack.foodRestriction;
+            this.outfit = otherStack.outfit;
+            this.drugPolicy = otherStack.drugPolicy;
+            this.times = otherStack.times;
+            this.thoughts = otherStack.thoughts;
+            this.faction = otherStack.faction;
+            this.traits = otherStack.traits;
+            this.relations = otherStack.relations;
+            this.skills = otherStack.skills;
+            this.childhood = otherStack.childhood;
+            this.adulthood = otherStack.adulthood;
+            this.priorities = otherStack.priorities;
+            this.hasPawn = true;
+            this.gender = otherStack.gender;
+            this.pawnID = otherStack.pawnID;
+
+            if (ModLister.RoyaltyInstalled)
+            {
+                this.royalTitles = otherStack.royalTitles;
+                this.favor = otherStack.favor;
+                this.heirs = otherStack.heirs;
+                this.bondedThings = otherStack.bondedThings;
             }
         }
 

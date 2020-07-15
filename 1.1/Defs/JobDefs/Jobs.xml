@@ -12,5 +12,11 @@
 		<driverClass>AlteredCarbon.JobDriver_WipeStack</driverClass>
 		<reportString>wipes cortical stack</reportString>
 	</JobDef>
+	
+	<JobDef>
+		<defName>AC_CopyStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_CopyStack</driverClass>
+		<reportString>copies cortical stack</reportString>
+	</JobDef>
 
 </Defs>
