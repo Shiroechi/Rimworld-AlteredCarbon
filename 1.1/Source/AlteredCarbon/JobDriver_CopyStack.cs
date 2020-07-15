@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 using Verse.AI;
 
@@ -55,13 +56,25 @@ namespace AlteredCarbon
             {
                 initAction = delegate ()
                 {
-                    var pos = TargetThingB.Position;
-                    TargetThingB.Destroy(DestroyMode.Vanish);
-                    var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AlteredCarbonDefOf.AC_FilledCorticalStack);
-                    GenSpawn.Spawn(stackCopyTo, pos, pawn.Map);
-                    pawn.CurJob.targetB = stackCopyTo;
-                    var stackCopyFrom = (CorticalStack)TargetThingA;
-                    stackCopyTo.CopyFromOtherStack(stackCopyFrom);
+                    float damageChance = Mathf.Abs((pawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt / 2f) - 10f) / 10f;
+                    Log.Message("Chance: " + damageChance);
+                    if (Rand.Chance(damageChance))
+                    {
+                        TargetThingB.Destroy(DestroyMode.Vanish);
+                        Find.LetterStack.ReceiveLetter("AlteredCarbon.DestroyedStack".Translate(),
+                            "AlteredCarbon.DestroyedStackDesc".Translate(pawn.Named("PAWN")), 
+                            LetterDefOf.NegativeEvent, pawn);
+                    }
+                    else
+                    {
+                        var pos = TargetThingB.Position;
+                        TargetThingB.Destroy(DestroyMode.Vanish);
+                        var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AlteredCarbonDefOf.AC_FilledCorticalStack);
+                        GenSpawn.Spawn(stackCopyTo, pos, pawn.Map);
+                        pawn.CurJob.targetB = stackCopyTo;
+                        var stackCopyFrom = (CorticalStack)TargetThingA;
+                        stackCopyTo.CopyFromOtherStack(stackCopyFrom);
+                    }
                 }
             };
         }

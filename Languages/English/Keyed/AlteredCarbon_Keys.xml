@@ -10,6 +10,8 @@
 	<AlteredCarbon.ExtractStack>Extract stack</AlteredCarbon.ExtractStack>
 	<AlteredCarbon.CopyStack>Copy stack</AlteredCarbon.CopyStack>
 	<AlteredCarbon.WipeStack>Wipe stack</AlteredCarbon.WipeStack>
+	<AlteredCarbon.DestroyedStack>Destroyed stack</AlteredCarbon.DestroyedStack>
+	<AlteredCarbon.DestroyedStackDesc>An empty stack was destroyed by inept actions of {PAWN_labelShort}</AlteredCarbon.DestroyedStackDesc>
 	<AlteredCarbon.EmptyStack>Empty stack</AlteredCarbon.EmptyStack>
 	<AlteredCarbon.EmptyStackDesc>Empty stack</AlteredCarbon.EmptyStackDesc>
 	<AlteredCarbon.SleeveDeath>Sleeve Death</AlteredCarbon.SleeveDeath>
