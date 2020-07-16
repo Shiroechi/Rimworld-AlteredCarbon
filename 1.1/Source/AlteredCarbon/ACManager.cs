@@ -296,6 +296,7 @@ namespace AlteredCarbon
             Scribe_Collections.Look<string, CorticalStack>(ref this.stacksIndex, "stacksIndex", 
                 LookMode.Value, LookMode.Reference, ref this.pawnKeys, ref this.stacksValues);
             Scribe_Collections.Look<Pawn>(ref this.pawnsWithStacks, "pawnsWithStacks", LookMode.Reference);
+            Scribe_Collections.Look<Pawn>(ref this.deadPawns, "deadPawns", LookMode.Reference);
             Scribe_Collections.Look<int, StacksData>(ref this.stacksRelationships, "stacksRelationships",
                 LookMode.Value, LookMode.Deep, ref stacksRelationshipsKeys, ref stacksRelationshipsValues);
         }
@@ -305,6 +306,8 @@ namespace AlteredCarbon
         private List<StacksData> stacksRelationshipsValues = new List<StacksData>();
 
         public HashSet<Pawn> pawnsWithStacks = new HashSet<Pawn>();
+
+        public HashSet<Pawn> deadPawns = new HashSet<Pawn>();
 
         public Dictionary<string, CorticalStack> stacksIndex;
         private List<string> pawnKeys = new List<string>();

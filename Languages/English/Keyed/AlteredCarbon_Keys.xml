@@ -21,5 +21,8 @@
 	<AlteredCarbon.SleveOf>Sleeve of </AlteredCarbon.SleveOf>
 	<AlteredCarbon.EmptyStackConfirmation>Deleting Stack:\nWARNING! You are about to wipe this stack, killing the person saved on it. Are you sure you want to continue?</AlteredCarbon.EmptyStackConfirmation>
 	<AlteredCarbon.SleeveCustomization>Sleeve Customization</AlteredCarbon.SleeveCustomization>
+	
+	<AlteredCarbon.NoSleeve>No Sleeve</AlteredCarbon.NoSleeve>
+	<AlteredCarbon.Sleeve>Sleeve</AlteredCarbon.Sleeve>
 
 </LanguageData>

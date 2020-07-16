@@ -71,13 +71,18 @@ namespace AlteredCarbon
 	public class Dead_Patch
 	{
 		[HarmonyPrefix]
-		public static bool Prefix(Pawn pawn, Pawn fromPOV, string __result)
+		public static bool Prefix(Pawn pawn, Pawn fromPOV, ref string __result)
 		{
+			if (ACUtils.ACTracker.deadPawns.Contains(pawn) && ACUtils.ACTracker.stacksIndex.ContainsKey(pawn.ThingID + pawn.Name))
+			{
+				__result = "AlteredCarbon.NoSleeve".Translate();
+				return false;
+			}
 			var stackHediff = pawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
 				x.def == AlteredCarbonDefOf.AC_CorticalStack);
 			if (stackHediff != null && pawn.Dead)
 			{
-				__result = "Sleeve";
+				__result = "AlteredCarbon.Sleeve".Translate();
 				return false;
 			}
 			return true;
@@ -112,6 +117,12 @@ namespace AlteredCarbon
 					|| ACUtils.ACTracker.pawnsWithStacks.Contains(__instance)))
 				{
 					Notify_ColonistKilled_Patch.DisableKilledCounter = true;
+				}
+				var stackHediff = __instance.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
+					x.def == AlteredCarbonDefOf.AC_CorticalStack);
+				if (stackHediff != null)
+				{
+					ACUtils.ACTracker.deadPawns.Add(__instance);
 				}
 			}
 			catch { };

@@ -48,6 +48,7 @@ namespace AlteredCarbon
 						ACUtils.ACTracker.ReplacePawnWithStack(pawn, corticalStack);
 					}
 					pawn.health.RemoveHediff(hediff);
+					ACUtils.ACTracker.deadPawns.Add(pawn);
 				}
 			}
 			if (flag)
