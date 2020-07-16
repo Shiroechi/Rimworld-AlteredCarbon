@@ -56,7 +56,7 @@ namespace AlteredCarbon
             {
                 initAction = delegate ()
                 {
-                    float damageChance = Mathf.Abs((pawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt / 2f) - 10f) / 10f;
+                    float damageChance = Mathf.Abs((pawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt / 2f) - 11f) / 10f;
                     Log.Message("Chance: " + damageChance);
                     if (Rand.Chance(damageChance))
                     {
