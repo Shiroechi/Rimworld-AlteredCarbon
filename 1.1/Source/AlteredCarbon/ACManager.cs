@@ -103,7 +103,7 @@ namespace AlteredCarbon
                         this.stacksRelationships[hediff.stackGroupID]
                             .originalPawn.relations.AddDirectRelation(AlteredCarbonDefOf.AC_Copy, pawn);
                     }
-                    else
+                    else if (this.stacksRelationships[hediff.stackGroupID].copiedPawns != null)
                     {
                         Log.Message(" - TryAddRelationships - foreach (var copiedPawn in this.stacksRelationships[hediff.stackGroupID].copiedPawns) - 7", true);
                         foreach (var copiedPawn in this.stacksRelationships[hediff.stackGroupID].copiedPawns)
@@ -119,7 +119,7 @@ namespace AlteredCarbon
                         }
                     }
                 }
-                else
+                else if (this.stacksRelationships[hediff.stackGroupID].copiedPawns != null)
                 {
                     Log.Message(" - TryAddRelationships - foreach (var copiedPawn in this.stacksRelationships[hediff.stackGroupID].copiedPawns) - 11", true);
                     foreach (var copiedPawn in this.stacksRelationships[hediff.stackGroupID].copiedPawns)

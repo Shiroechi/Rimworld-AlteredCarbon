@@ -37,12 +37,15 @@ namespace AlteredCarbon
                 {
                     return true;
                 }
-                foreach (var copiedPawn in ACTracker.stacksRelationships[hediff.stackGroupID].copiedPawns)
+                if (ACTracker.stacksRelationships[hediff.stackGroupID].copiedPawns != null)
                 {
-                    Log.Message(" - TryAddRelationships - if (pawn != copiedPawn) - 8", true);
-                    if (pawn == copiedPawn)
+                    foreach (var copiedPawn in ACTracker.stacksRelationships[hediff.stackGroupID].copiedPawns)
                     {
-                        return true;
+                        Log.Message(" - TryAddRelationships - if (pawn != copiedPawn) - 8", true);
+                        if (pawn == copiedPawn)
+                        {
+                            return true;
+                        }
                     }
                 }
             }

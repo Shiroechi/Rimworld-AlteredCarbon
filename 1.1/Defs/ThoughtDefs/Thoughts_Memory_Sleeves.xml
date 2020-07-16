@@ -123,7 +123,7 @@
 			</li>
 		</stages>
 	</ThoughtDef> 
-	
+
 	<ThoughtDef>
 		<defName>AC_JustCopy</defName>
 		<durationDays>60</durationDays>
@@ -142,7 +142,33 @@
 			</li>
 		</stages>
 	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>AC_LostMySpouse</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Lost my spouse</label>
+				<description>My spouse stayed with my original copy, but I still love them. This isn't fair...</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
 	
+	<ThoughtDef>
+		<defName>AC_LostMyFiance</defName>
+		<durationDays>30</durationDays>
+		<stackLimit>1</stackLimit>
+		<stages>
+			<li>
+				<label>Lost my fiance</label>
+				<description>My fiance stayed with my original copy, but I still love them. This isn't fair...</description>
+				<baseMoodEffect>-10</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
 	<ThoughtDef>
 		<defName>AC_LostMyLover</defName>
 		<durationDays>30</durationDays>
