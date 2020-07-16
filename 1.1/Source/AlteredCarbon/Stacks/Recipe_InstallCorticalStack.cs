@@ -68,7 +68,9 @@ namespace AlteredCarbon
 			var thing = ingredients.Where(x => x is CorticalStack).FirstOrDefault();
 			if (thing is CorticalStack corticalStack)
 			{
-				var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn);
+				var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
+				hediff.stackGroupID = corticalStack.stackGroupID;
+				pawn.health.AddHediff(recipe.addsHediff, part);
 				if (corticalStack.hasPawn)
 				{
 					if (pawn.IsColonist)
@@ -80,6 +82,7 @@ namespace AlteredCarbon
 					ACUtils.ACTracker.stacksIndex.Remove(corticalStack.pawnID + corticalStack.name);
 
 					corticalStack.OverwritePawn(pawn);
+					ACUtils.ACTracker.ReplaceStackWithPawn(corticalStack, pawn);
 					var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
 					var nerves = pawn.story.traits.GetTrait(TraitDefOf.Nerves);
 
@@ -103,13 +106,18 @@ namespace AlteredCarbon
 					{
 						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WomansBody);
 					}
-					if (pawn.story.traits.HasTrait(AlteredCarbonDefOf.AC_AntiStack))
-					{
-						pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMySoul);
-					}
+				}
+				else
+				{
+					ACUtils.ACTracker.RegisterPawn(pawn);
+				}
+				if (pawn.story.traits.HasTrait(AlteredCarbonDefOf.AC_AntiStack))
+				{
+					pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMySoul);
 				}
 				ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
-				pawn.health.AddHediff(recipe.addsHediff, part);
+
+				ACUtils.ACTracker.TryAddRelationships(pawn);
 			}
 		}
 

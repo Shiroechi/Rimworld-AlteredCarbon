@@ -34,7 +34,7 @@ namespace AlteredCarbon
 				{
 					return;
 				}
-				Hediff hediff = pawn.health.hediffSet.hediffs.FirstOrDefault((Hediff x) => x.def == recipe.removesHediff);
+				var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
 				if (hediff != null)
 				{
 					if (hediff.def.spawnThingOnRemoved != null)
@@ -45,6 +45,7 @@ namespace AlteredCarbon
 						if (ACUtils.ACTracker.stacksIndex == null) ACUtils.ACTracker.stacksIndex = new Dictionary<string, CorticalStack>();
 						ACUtils.ACTracker.stacksIndex[pawn.ThingID + pawn.Name] = corticalStack;
 						ACUtils.ACTracker.pawnsWithStacks.Remove(pawn);
+						ACUtils.ACTracker.ReplacePawnWithStack(pawn, corticalStack);
 					}
 					pawn.health.RemoveHediff(hediff);
 				}

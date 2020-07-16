@@ -50,7 +50,6 @@ namespace AlteredCarbon
             });
             ToilEffects.WithProgressBarToilDelay(copyStack, TargetIndex.B, false, -0.5f);
             ToilFailConditions.FailOnDespawnedNullOrForbidden<Toil>(copyStack, TargetIndex.A);
-            //ToilFailConditions.FailOnCannotTouch<Toil>(copyStack, TargetIndex.A, PathEndMode.OnCell);
             yield return copyStack;
             yield return new Toil
             {
@@ -70,10 +69,13 @@ namespace AlteredCarbon
                         var pos = TargetThingB.Position;
                         TargetThingB.Destroy(DestroyMode.Vanish);
                         var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AlteredCarbonDefOf.AC_FilledCorticalStack);
+                        stackCopyTo.hasPawn = true;
                         GenSpawn.Spawn(stackCopyTo, pos, pawn.Map);
                         pawn.CurJob.targetB = stackCopyTo;
                         var stackCopyFrom = (CorticalStack)TargetThingA;
                         stackCopyTo.CopyFromOtherStack(stackCopyFrom);
+                        Log.Message("2 RegisterStack: " + stackCopyTo.stackGroupID);
+                        ACUtils.ACTracker.RegisterStack(stackCopyTo);
                     }
                 }
             };

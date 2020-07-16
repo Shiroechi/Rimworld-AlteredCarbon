@@ -28,6 +28,7 @@ namespace AlteredCarbon
         public string adulthood;
         public string pawnID;
         public Dictionary<WorkTypeDef, int> priorities;
+
         public bool hasPawn = false;
 
         public Gender gender;
@@ -37,9 +38,19 @@ namespace AlteredCarbon
         public Dictionary<Faction, Pawn> heirs = new Dictionary<Faction, Pawn>();
         public List<Thing> bondedThings = new List<Thing>();
 
+        public bool isCopied = false;
+        public int stackGroupID;
         public override void PostMake()
         {
             base.PostMake();
+            if (ACUtils.ACTracker.stacksRelationships != null)
+            {
+                this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
+            }
+            else
+            {
+                this.stackGroupID = 0;
+            }
         }
 
         public void SavePawn(Pawn pawn)
@@ -52,7 +63,6 @@ namespace AlteredCarbon
                 this.medicalCareCategory = pawn.playerSettings.medCare;
                 this.selfTend = pawn.playerSettings.selfTend;
             }
-
             this.ageChronologicalTicks = pawn.ageTracker.AgeChronologicalTicks;
             this.foodRestriction = pawn.foodRestriction?.CurrentFoodRestriction;
             this.outfit = pawn.outfits?.CurrentOutfit;
@@ -132,6 +142,9 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
+            Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
+            Log.Message(this + " this.stackGroupID: " + this.stackGroupID);
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
             Scribe_Values.Look<int>(ref this.hostilityMode, "hostilityMode");
             Scribe_References.Look<Area>(ref this.areaRestriction, "areaRestriction", false);

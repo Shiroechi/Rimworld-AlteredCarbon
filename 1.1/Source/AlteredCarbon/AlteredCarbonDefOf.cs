@@ -44,6 +44,10 @@ namespace AlteredCarbon
 		public static ThoughtDef AC_LostMySoul;
 
 		public static RecipeDef AC_InstallCorticalStack;
+
+		public static PawnRelationDef AC_Original;
+
+		public static PawnRelationDef AC_Copy;
 	}
 }
 

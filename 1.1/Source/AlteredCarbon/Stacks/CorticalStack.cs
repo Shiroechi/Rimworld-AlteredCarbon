@@ -41,6 +41,8 @@ namespace AlteredCarbon
         public Dictionary<Faction, Pawn> heirs = new Dictionary<Faction, Pawn>();
         public List<Thing> bondedThings = new List<Thing>();
 
+        public bool isCopied = false;
+        public int stackGroupID;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             base.SpawnSetup(map, respawningAfterLoad);
@@ -48,6 +50,16 @@ namespace AlteredCarbon
             {
                 Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
                 this.SavePawnToCorticalStack(pawn);
+                if (ACUtils.ACTracker.stacksRelationships != null)
+                {
+                    this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
+                }
+                else
+                {
+                    this.stackGroupID = 0;
+                }
+                Log.Message("1 RegisterStack: " + this.stackGroupID);
+                ACUtils.ACTracker.RegisterStack(this);
             }
         }
 
@@ -117,27 +129,6 @@ namespace AlteredCarbon
             stringBuilder.Append(base.GetInspectString());
             return stringBuilder.ToString().TrimEndNewlines();
         }
-
-        //public override IEnumerable<Gizmo> GetGizmos()
-        //{
-        //    foreach (Gizmo gizmo in base.GetGizmos())
-        //    {
-        //        yield return gizmo;
-        //    }
-        //    IEnumerator<Gizmo> enumerator = null;
-        //
-        //    if (this.hasPawn)
-        //    {
-        //        Command_Action command_Action = new Command_Action();
-        //        command_Action.action = new Action(this.EmptyStack);
-        //        command_Action.defaultLabel = "AlteredCarbon.EmptyStack".Translate();
-        //        command_Action.defaultDesc = "AlteredCarbon.EmptyStackDesc".Translate();
-        //        command_Action.hotKey = KeyBindingDefOf.Misc8;
-        //        command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
-        //        yield return command_Action;
-        //    }
-        //    yield break;
-        //}
         public void EmptyStack()
         {
             Find.WindowStack.Add(new Dialog_MessageBox("AlteredCarbon.EmptyStackConfirmation".Translate(),
@@ -226,6 +217,8 @@ namespace AlteredCarbon
                 Log.Message(" - SavePawnFromHediff - this.bondedThings = hediff.bondedThings; - 38", true);
                 this.bondedThings = hediff.bondedThings;
             }
+            this.isCopied = hediff.isCopied;
+            this.stackGroupID = hediff.stackGroupID;
         }
 
         public void SavePawnToCorticalStack(Pawn pawn)
@@ -341,6 +334,8 @@ namespace AlteredCarbon
                 this.heirs = otherStack.heirs;
                 this.bondedThings = otherStack.bondedThings;
             }
+            this.isCopied = true;
+            this.stackGroupID = otherStack.stackGroupID;
         }
 
         public override void Tick()
@@ -526,6 +521,11 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
+            Log.Message(this + " this.stackGroupID: " + this.stackGroupID);
+
+            Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
+
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
             Scribe_Values.Look<int>(ref this.hostilityMode, "hostilityMode");
             Scribe_References.Look<Area>(ref this.areaRestriction, "areaRestriction", false);
@@ -549,6 +549,7 @@ namespace AlteredCarbon
             Scribe_Collections.Look<DirectPawnRelation>(ref this.relations, "relations");
             Scribe_Collections.Look<WorkTypeDef, int>(ref this.priorities, "priorities");
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
+
 
             Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);
             if (ModLister.RoyaltyInstalled)
