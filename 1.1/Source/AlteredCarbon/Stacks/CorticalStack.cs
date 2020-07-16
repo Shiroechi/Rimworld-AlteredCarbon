@@ -71,7 +71,7 @@ namespace AlteredCarbon
                     MenuOptionPriority.Default, null, null, 0f, null, null);
                 yield return floatMenuOption;
             }
-            else
+            else if (this.def == AlteredCarbonDefOf.AC_FilledCorticalStack)
             {
                 string label = "AlteredCarbon.WipeStack".Translate();
                 Action action = delegate ()
@@ -84,22 +84,40 @@ namespace AlteredCarbon
                         (label, action, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
                         this, "ReservedBy");
             }
-            if (this.hasPawn && myPawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt >= 10 
-                && this.Map.listerThings.ThingsOfDef(AlteredCarbonDefOf.AC_EmptyCorticalStack)
-                    .Where(x => myPawn.CanReserveAndReach(x, PathEndMode.ClosestTouch, Danger.Deadly)).Any())
+            if (this.hasPawn)
             {
-                string label = "AlteredCarbon.CopyStack".Translate();
-
-                Action action = delegate ()
+                if (this.Map.listerThings.ThingsOfDef(AlteredCarbonDefOf.AC_EmptyCorticalStack)
+                        .Where(x => myPawn.CanReserveAndReach(x, PathEndMode.ClosestTouch, Danger.Deadly)).Any())
                 {
-                    Job job = JobMaker.MakeJob(AlteredCarbonDefOf.AC_CopyStack, this);
-                    job.count = 1;
-                    myPawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
-                };
-                yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption
-                        (label, action, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
-                        this, "ReservedBy");
+                    if (myPawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt >= 10)
+                    {
+                        string label = "AlteredCarbon.DuplicateStack".Translate();
+                        Action action = delegate ()
+                        {
+                            Job job = JobMaker.MakeJob(AlteredCarbonDefOf.AC_CopyStack, this);
+                            job.count = 1;
+                            myPawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+                        };
+                        yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption
+                                (label, action, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
+                                this, "ReservedBy");
+                    }
+                    else if (myPawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt < 10)
+                    {
+                        FloatMenuOption floatMenuOption = new FloatMenuOption(Translator.Translate("AlteredCarbon.CannotCopyNoIntellectual"), null,
+                            MenuOptionPriority.Default, null, null, 0f, null, null);
+                        yield return floatMenuOption;
+                    }
+                }
+                else
+                {
+                    FloatMenuOption floatMenuOption = new FloatMenuOption(Translator.Translate(
+                        "AlteredCarbon.CannotCopyNoOtherEmptyStacks"), null,
+                            MenuOptionPriority.Default, null, null, 0f, null, null);
+                    yield return floatMenuOption;
+                }
             }
+
             yield break;
         }
 

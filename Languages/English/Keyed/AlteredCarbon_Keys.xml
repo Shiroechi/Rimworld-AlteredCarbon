@@ -8,7 +8,7 @@
 	<AlteredCarbon.adulthood>Adulthood</AlteredCarbon.adulthood>
 	<AlteredCarbon.ageChronologicalTicks>Chronological age</AlteredCarbon.ageChronologicalTicks>
 	<AlteredCarbon.ExtractStack>Extract stack</AlteredCarbon.ExtractStack>
-	<AlteredCarbon.CopyStack>Copy stack</AlteredCarbon.CopyStack>
+	<AlteredCarbon.DuplicateStack>Duplicate Stack</AlteredCarbon.DuplicateStack>
 	<AlteredCarbon.WipeStack>Wipe stack</AlteredCarbon.WipeStack>
 	<AlteredCarbon.DestroyedStack>Destroyed stack</AlteredCarbon.DestroyedStack>
 	<AlteredCarbon.DestroyedStackDesc>An empty stack was destroyed by inept actions of {PAWN_labelShort}</AlteredCarbon.DestroyedStackDesc>
@@ -24,5 +24,7 @@
 	
 	<AlteredCarbon.NoSleeve>No Sleeve</AlteredCarbon.NoSleeve>
 	<AlteredCarbon.Sleeve>Sleeve</AlteredCarbon.Sleeve>
+	<AlteredCarbon.CannotCopyNoIntellectual>Duplicate Stack (requires intellectual skill of 10 or higher)</AlteredCarbon.CannotCopyNoIntellectual>
+	<AlteredCarbon.CannotCopyNoOtherEmptyStacks>Duplicate Stack (no empty stacks on the map)</AlteredCarbon.CannotCopyNoOtherEmptyStacks>
 
 </LanguageData>
