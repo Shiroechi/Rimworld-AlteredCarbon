@@ -192,6 +192,7 @@ namespace AlteredCarbon
                     Log.Message(" - ReplacePawnWithStack - this.stacksRelationships[hediff.stackGroupID].copiedPawns.Remove(pawn); - 8", true);
                     this.stacksRelationships[hediff.stackGroupID].copiedPawns.Remove(pawn);
                     Log.Message(" - ReplacePawnWithStack - this.stacksRelationships[hediff.stackGroupID].copiedStacks.Add(stack); - 9", true);
+                    if (this.stacksRelationships[hediff.stackGroupID].copiedStacks == null) this.stacksRelationships[hediff.stackGroupID].copiedStacks = new List<CorticalStack>();
                     this.stacksRelationships[hediff.stackGroupID].copiedStacks.Add(stack);
                 }
             }
@@ -223,6 +224,7 @@ namespace AlteredCarbon
                         Log.Message(" - ReplaceStackWithPawn - this.stacksRelationships[hediff.stackGroupID].copiedStacks.Remove(stack); - 10", true);
                         this.stacksRelationships[hediff.stackGroupID].copiedStacks.Remove(stack);
                         Log.Message(" - ReplaceStackWithPawn - this.stacksRelationships[hediff.stackGroupID].copiedPawns.Add(pawn); - 11", true);
+                        if (this.stacksRelationships[hediff.stackGroupID].copiedPawns == null) this.stacksRelationships[hediff.stackGroupID].copiedPawns = new List<Pawn>();
                         this.stacksRelationships[hediff.stackGroupID].copiedPawns.Add(pawn);
                     }
                 }
