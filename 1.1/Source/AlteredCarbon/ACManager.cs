@@ -138,20 +138,34 @@ namespace AlteredCarbon
             Log.Message(" - TryAddRelationships - if (pawn.IsCopy()) - 15", true);
             if (pawn.IsCopy())
             {
-                Log.Message(" - TryAddRelationships - var otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse); - 16", true);
+                Log.Message(" - TryAddRelationships - pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_JustCopy); - 16", true);
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_JustCopy);
+
                 var otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Spouse);
-                Log.Message(" - TryAddRelationships - pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Spouse, otherPawn); - 17", true);
-                pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Spouse, otherPawn);
+                Log.Message(" - TryAddRelationships - if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Spouse, otherPawn)) - 18", true);
+                if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Spouse, otherPawn))
+                {
+                    Log.Message(" - TryAddRelationships - pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMySpouse, otherPawn); - 19", true);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMySpouse, otherPawn);
+                }
 
                 otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Fiance);
-                Log.Message(" - TryAddRelationships - pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Fiance, otherPawn); - 19", true);
-                pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Fiance, otherPawn);
+                Log.Message(" - TryAddRelationships - if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Fiance, otherPawn)) - 21", true);
+                if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Fiance, otherPawn))
+                {
+                    Log.Message(" - TryAddRelationships - pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMyFiance, otherPawn); - 22", true);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMyFiance, otherPawn);
+                }
 
                 otherPawn = pawn.relations.GetFirstDirectRelationPawn(PawnRelationDefOf.Lover);
-                Log.Message(" - TryAddRelationships - pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Lover, otherPawn); - 21", true);
-                pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Lover, otherPawn);
-            }
 
+                Log.Message(" - TryAddRelationships - if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Lover, otherPawn)) - 24", true);
+                if (pawn.relations.TryRemoveDirectRelation(PawnRelationDefOf.Lover, otherPawn))
+                {
+                    Log.Message(" - TryAddRelationships - pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMyLover, otherPawn); - 25", true);
+                    pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMyLover, otherPawn);
+                }
+            }
         }
 
         public void ReplacePawnWithStack(Pawn pawn, CorticalStack stack)
