@@ -4,14 +4,12 @@
     <PawnKindDef Name="AC_MercenaryBase" Abstract="True">
         <race>Human</race>
         <combatPower>175</combatPower>
-        <defaultFactionType>Spacer</defaultFactionType>
         <chemicalAddictionChance>0.1</chemicalAddictionChance>
         <invNutrition>2.55</invNutrition>
         <maxGenerationAge>30</maxGenerationAge>
         <itemQuality>Good</itemQuality>
         <gearHealthRange>1~1</gearHealthRange>
         <backstoryCryptosleepCommonality>0.25</backstoryCryptosleepCommonality>
-        <maxGenerationAge>65</maxGenerationAge>
         <combatEnhancingDrugsChance>0.80</combatEnhancingDrugsChance>
         <combatEnhancingDrugsCount>1~2</combatEnhancingDrugsCount>
         <biocodeWeaponChance>0.7</biocodeWeaponChance>

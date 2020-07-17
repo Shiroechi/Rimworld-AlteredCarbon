@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-    <ThingDef ParentName="BaseHumanMakeableGun">
+    <ThingDef ParentName="BaseGunWithQuality">
         <defName>AC_Gun_MACRevolver</defName>
         <label>MAC revolver</label>
         <description>placeholder</description>
@@ -12,9 +12,9 @@
         <uiIconScale>1.4</uiIconScale>
         <soundInteract>Interact_Revolver</soundInteract>
         <thingSetMakerTags>
+            <li>RewardStandardLowFreq</li>
             <li>RewardStandardQualitySuper</li>
         </thingSetMakerTags>
-        <recipeMaker inherit="false" />
         <statBases>
             <Mass>1.4</Mass>
             <AccuracyTouch>0.80</AccuracyTouch>
@@ -78,17 +78,20 @@
         </projectile>
     </ThingDef>
 
-    <ThingDef ParentName="BaseHumanMakeableGun">
+    <ThingDef ParentName="BaseGunWithQuality">
         <defName>AC_Gun_BullpupPistol</defName>
         <label>pullpup pistol</label>
-        <description></description>
+        <description>placeholder</description>
         <graphicData>
             <texPath>Things/Item/Equipment/WeaponRanged/Autopistol</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <uiIconScale>1.5</uiIconScale>
         <soundInteract>Interact_Autopistol</soundInteract>
-        <recipeMaker inherit="false" />
+        <thingSetMakerTags>
+            <li>RewardStandardLowFreq</li>
+            <li>RewardStandardQualitySuper</li>
+        </thingSetMakerTags>
         <weaponTags>
             <li>AC_LateIndustrialGun</li>
         </weaponTags>
@@ -147,7 +150,7 @@
         </projectile>
     </ThingDef>
 
-    <ThingDef ParentName="BaseHumanMakeableGun">
+    <ThingDef ParentName="BaseGunWithQuality">
         <defName>AC_Gun_ShockPDW</defName>
         <label>shock PDW</label>
         <description>placeholder</description>
@@ -156,17 +159,11 @@
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <soundInteract>Interact_SMG</soundInteract>
-        <recipeMaker>
-            <researchPrerequisite>GasOperation</researchPrerequisite>
-            <skillRequirements>
-                <Crafting>5</Crafting>
-            </skillRequirements>
-        </recipeMaker>
         <thingSetMakerTags>
+            <li>RewardStandardLowFreq</li>
             <li>RewardStandardQualitySuper</li>
         </thingSetMakerTags>
         <statBases>
-            <WorkToMake>24000</WorkToMake>
             <Mass>3.5</Mass>
             <AccuracyTouch>0.85</AccuracyTouch>
             <AccuracyShort>0.65</AccuracyShort>
@@ -174,10 +171,6 @@
             <AccuracyLong>0.20</AccuracyLong>
             <RangedWeapon_Cooldown>1.65</RangedWeapon_Cooldown>
         </statBases>
-        <costList>
-            <Steel>75</Steel>
-            <ComponentIndustrial>4</ComponentIndustrial>
-        </costList>
         <verbs>
             <li>
                 <verbClass>Verb_Shoot</verbClass>
@@ -193,7 +186,7 @@
             </li>
         </verbs>
         <weaponTags>
-            <li>IndustrialGunAdvanced</li>
+            <li>AC_LateIndustrialGun</li>
         </weaponTags>
         <tools>
             <li>
@@ -215,6 +208,7 @@
             </li>
         </tools>
     </ThingDef>
+
     <ThingDef ParentName="BaseBullet">
         <defName>AC_Bullet_ShockPDW</defName>
         <label>heavy SMG bullet</label>
@@ -229,7 +223,7 @@
         </projectile>
     </ThingDef>
 
-    <ThingDef ParentName="BaseHumanMakeableGun">
+    <ThingDef ParentName="BaseGunWithQuality">
         <defName>AC_Gun_MACRifle</defName>
         <label>MAC rifle</label>
         <description>placeholder</description>
@@ -240,7 +234,6 @@
         </graphicData>
         <soundInteract>Interact_ChargeRifle</soundInteract>
         <statBases>
-            <WorkToMake>45000</WorkToMake>
             <Mass>4.6</Mass>
             <AccuracyTouch>0.55</AccuracyTouch>
             <AccuracyShort>0.64</AccuracyShort>
@@ -248,25 +241,12 @@
             <AccuracyLong>0.45</AccuracyLong>
             <RangedWeapon_Cooldown>2.00</RangedWeapon_Cooldown>
         </statBases>
-        <recipeMaker>
-            <researchPrerequisite>ChargedShot</researchPrerequisite>
-            <skillRequirements>
-                <Crafting>7</Crafting>
-            </skillRequirements>
-            <recipeUsers Inherit="False">
-                <li>FabricationBench</li>
-            </recipeUsers>
-        </recipeMaker>
-        <costList>
-            <Plasteel>50</Plasteel>
-            <ComponentSpacer>2</ComponentSpacer>
-        </costList>
         <thingSetMakerTags>
             <li>RewardStandardLowFreq</li>
             <li>RewardStandardQualitySuper</li>
         </thingSetMakerTags>
         <weaponTags>
-            <li>SpacerGun</li>
+            <li>AC_LateIndustrialGun</li>
         </weaponTags>
         <verbs>
             <li>
