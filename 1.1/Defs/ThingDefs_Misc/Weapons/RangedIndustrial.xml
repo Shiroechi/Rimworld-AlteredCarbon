@@ -4,7 +4,7 @@
     <ThingDef ParentName="BaseGunWithQuality">
         <defName>AC_Gun_MACRevolver</defName>
         <label>MAC revolver</label>
-        <description>placeholder</description>
+        <description>A high-caliber revolver using experimental charge-technology. It's very powerful, has a decent range but takes long to reload.</description>
         <graphicData>
             <texPath>Things/Item/Equipment/WeaponRanged/Revolver</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -67,13 +67,14 @@
         <defName>AC_Bullet_MACRevolver</defName>
         <label>revolver bullet</label>
         <graphicData>
-            <texPath>Things/Projectile/Bullet_Small</texPath>
+            <texPath>Things/Projectile/Charge_Small</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <projectile>
             <damageDef>Bullet</damageDef>
-            <damageAmountBase>12</damageAmountBase>
-            <stoppingPower>1</stoppingPower>
+            <damageAmountBase>25</damageAmountBase>
+            <armorPenetrationBase>0.15</armorPenetrationBase>
+            <stoppingPower>2</stoppingPower>
             <speed>55</speed>
         </projectile>
     </ThingDef>
@@ -81,7 +82,7 @@
     <ThingDef ParentName="BaseGunWithQuality">
         <defName>AC_Gun_BullpupPistol</defName>
         <label>pullpup pistol</label>
-        <description>placeholder</description>
+        <description>A light, late-industrial bullpup pistol. It has a limited range, but fires rapidly.</description>
         <graphicData>
             <texPath>Things/Item/Equipment/WeaponRanged/Autopistol</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -227,7 +228,7 @@
     <ThingDef ParentName="BaseGunWithQuality">
         <defName>AC_Gun_MACRifle</defName>
         <label>MAC rifle</label>
-        <description>placeholder</description>
+        <description>A high-caliber assault rifle using experimental charge-technology. It has good range, good power, and good accuracy.</description>
         <techLevel>Spacer</techLevel>
         <graphicData>
             <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
@@ -286,7 +287,7 @@
 
     <ThingDef ParentName="BaseBullet">
         <defName>AC_Bullet_MACRifle</defName>
-        <label>charge shot</label>
+        <label>MAC shot</label>
         <graphicData>
             <texPath>Things/Projectile/Charge_Small</texPath>
             <graphicClass>Graphic_Single</graphicClass>
