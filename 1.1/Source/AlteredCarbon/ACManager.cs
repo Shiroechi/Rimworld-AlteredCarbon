@@ -41,7 +41,7 @@ namespace AlteredCarbon
         public override void GameComponentTick()
         {
             base.GameComponentTick();
-            if (Find.TickManager.TicksGame % 600 == 0)
+            if (Find.TickManager.TicksGame % 2000 == 0)
             {
                 if (this.stacksRelationships != null)
                 {

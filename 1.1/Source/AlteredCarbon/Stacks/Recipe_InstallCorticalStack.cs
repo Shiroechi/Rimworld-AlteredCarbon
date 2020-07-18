@@ -81,7 +81,7 @@ namespace AlteredCarbon
                     PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(pawn, null, PawnDiedOrDownedThoughtsKind.Died);
                     pawn.health.NotifyPlayerOfKilled(null, null, null);
                     ACUtils.ACTracker.stacksIndex.Remove(corticalStack.pawnID + corticalStack.name);
-            
+                    Log.Message("1 OVERWRITING " + pawn);
                     corticalStack.OverwritePawn(pawn);
             
                     ACUtils.ACTracker.ReplaceStackWithPawn(corticalStack, pawn);
