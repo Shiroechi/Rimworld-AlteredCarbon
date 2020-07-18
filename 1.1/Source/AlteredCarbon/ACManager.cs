@@ -41,7 +41,7 @@ namespace AlteredCarbon
         public override void GameComponentTick()
         {
             base.GameComponentTick();
-            if (Find.TickManager.TicksGame % 60 == 0)
+            if (Find.TickManager.TicksGame % 600 == 0)
             {
                 if (this.stacksRelationships != null)
                 {
@@ -49,7 +49,7 @@ namespace AlteredCarbon
                     {
                         Log.Message("----- Group ID: " + data.Key + " ----------------", true);
                         if (data.Value.originalPawn != null)
-                        {
+                        { 
                             Log.Message("Original pawn: " + data.Value.originalPawn + " - " + data.Value.originalPawn.ThingID, true);
                             var hediff = data.Value.originalPawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
                             Log.Message("Original pawn stackGroupID: " + hediff.stackGroupID, true);
