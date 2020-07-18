@@ -6,7 +6,7 @@
         <label>MAC revolver</label>
         <description>A high-caliber revolver using experimental charge-technology. It's very powerful, has a decent range but takes long to reload.</description>
         <graphicData>
-            <texPath>Things/Item/Equipment/WeaponRanged/Revolver</texPath>
+            <texPath>Things/Item/Equipment/WeaponRanged/MACRevolver</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <uiIconScale>1.4</uiIconScale>
@@ -84,7 +84,7 @@
         <label>pullpup pistol</label>
         <description>A light, late-industrial bullpup pistol. It has a limited range, but fires rapidly.</description>
         <graphicData>
-            <texPath>Things/Item/Equipment/WeaponRanged/Autopistol</texPath>
+            <texPath>Things/Item/Equipment/WeaponRanged/BullpupPistol</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <uiIconScale>1.5</uiIconScale>
