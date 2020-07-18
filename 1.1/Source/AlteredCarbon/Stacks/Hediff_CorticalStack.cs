@@ -79,21 +79,19 @@ namespace AlteredCarbon
                 this.adulthood = pawn.story.adulthood.identifier;
             }
             this.priorities = new Dictionary<WorkTypeDef, int>();
-            if (Traverse.Create(pawn.workSettings).Field("priorities").GetValue<DefMap<WorkTypeDef, int>>() != null)
+            if (pawn.workSettings != null && Traverse.Create(pawn.workSettings).Field("priorities").GetValue<DefMap<WorkTypeDef, int>>() != null)
             {
                 foreach (WorkTypeDef w in DefDatabase<WorkTypeDef>.AllDefs)
                 {
                     this.priorities[w] = pawn.workSettings.GetPriority(w);
                 }
             }
-
             this.hasPawn = true;
             this.gender = pawn.gender;
             this.pawnID = pawn.ThingID;
-
             if (ModLister.RoyaltyInstalled)
             {
-                this.royalTitles = pawn.royalty.AllTitlesForReading;
+                this.royalTitles = pawn.royalty?.AllTitlesForReading;
                 this.favor = Traverse.Create(pawn.royalty).Field("favor").GetValue<Dictionary<Faction, int>>();
                 this.heirs = Traverse.Create(pawn.royalty).Field("heirs").GetValue<Dictionary<Faction, Pawn>>();
                 foreach (var map in Find.Maps)

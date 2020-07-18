@@ -196,42 +196,42 @@ namespace AlteredCarbon
         public void SavePawnToCorticalStack(Pawn pawn)
         {
             this.name = pawn.Name;
-            this.hostilityMode = (int)pawn.playerSettings.hostilityResponse;
-            this.areaRestriction = pawn.playerSettings.AreaRestriction;
+            if (pawn.playerSettings != null)
+            {
+                this.hostilityMode = (int)pawn.playerSettings.hostilityResponse;
+                this.areaRestriction = pawn.playerSettings.AreaRestriction;
+                this.medicalCareCategory = pawn.playerSettings.medCare;
+                this.selfTend = pawn.playerSettings.selfTend;
+            }
             this.ageChronologicalTicks = pawn.ageTracker.AgeChronologicalTicks;
-            this.medicalCareCategory = pawn.playerSettings.medCare;
-            this.selfTend = pawn.playerSettings.selfTend;
-            this.foodRestriction = pawn.foodRestriction.CurrentFoodRestriction;
-            this.outfit = pawn.outfits.CurrentOutfit;
-            this.drugPolicy = pawn.drugs.CurrentPolicy;
-            this.times = pawn.timetable.times;
+            this.foodRestriction = pawn.foodRestriction?.CurrentFoodRestriction;
+            this.outfit = pawn.outfits?.CurrentOutfit;
+            this.drugPolicy = pawn.drugs?.CurrentPolicy;
+            this.times = pawn.timetable?.times;
             this.thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories;
             this.faction = pawn.Faction;
-            this.traits = pawn.story.traits.allTraits;
-            this.relations = pawn.relations.DirectRelations;
-            this.skills = pawn.skills.skills;
-            this.childhood = pawn.story.childhood.identifier;
-            if (pawn.story.adulthood != null)
+            this.traits = pawn.story?.traits?.allTraits;
+            this.relations = pawn.relations?.DirectRelations;
+            this.skills = pawn.skills?.skills;
+            this.childhood = pawn.story?.childhood?.identifier;
+            if (pawn.story?.adulthood != null)
             {
                 this.adulthood = pawn.story.adulthood.identifier;
             }
-            if (pawn.workSettings != null)
+            this.priorities = new Dictionary<WorkTypeDef, int>();
+            if (pawn.workSettings != null && Traverse.Create(pawn.workSettings).Field("priorities").GetValue<DefMap<WorkTypeDef, int>>() != null)
             {
-                this.priorities = new Dictionary<WorkTypeDef, int>();
                 foreach (WorkTypeDef w in DefDatabase<WorkTypeDef>.AllDefs)
                 {
                     this.priorities[w] = pawn.workSettings.GetPriority(w);
                 }
             }
-
             this.hasPawn = true;
-
             this.gender = pawn.gender;
             this.pawnID = pawn.ThingID;
-
             if (ModLister.RoyaltyInstalled)
             {
-                this.royalTitles = pawn.royalty.AllTitlesForReading;
+                this.royalTitles = pawn.royalty?.AllTitlesForReading;
                 this.favor = Traverse.Create(pawn.royalty).Field("favor").GetValue<Dictionary<Faction, int>>();
                 this.heirs = Traverse.Create(pawn.royalty).Field("heirs").GetValue<Dictionary<Faction, Pawn>>();
                 foreach (var map in Find.Maps)
