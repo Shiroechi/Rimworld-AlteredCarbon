@@ -131,9 +131,9 @@ namespace AlteredCarbon
             base.PostRemoved();
             if (!this.pawn.Dead)
             {
-                Notify_ColonistKilled_Patch.DisableKilledCounter = true;
+                Notify_ColonistKilled_Patch.DisableKilledEffect = true;
                 this.pawn.Kill(null);
-                Notify_ColonistKilled_Patch.DisableKilledCounter = false;
+                Notify_ColonistKilled_Patch.DisableKilledEffect = false;
             }
         }
 

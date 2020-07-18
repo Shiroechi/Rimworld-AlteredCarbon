@@ -89,17 +89,34 @@ namespace AlteredCarbon
 		}
 	}
 
-	[HarmonyPatch(typeof(StatsRecord), "Notify_ColonistKilled")]
-	public static class Notify_ColonistKilled_Patch
+	[HarmonyPatch(typeof(Faction), "Notify_LeaderDied")]
+	public static class Notify_LeaderDied_Patch
 	{
-		public static bool DisableKilledCounter = false;
+		public static bool DisableKilledEffect = false;
 
 		[HarmonyPrefix]
 		public static bool Prefix()
 		{
-			if (DisableKilledCounter)
+			if (DisableKilledEffect)
 			{
-				Notify_ColonistKilled_Patch.DisableKilledCounter = false;
+				DisableKilledEffect = false;
+				return false;
+			}
+			return true;
+		}
+	}
+
+	[HarmonyPatch(typeof(StatsRecord), "Notify_ColonistKilled")]
+	public static class Notify_ColonistKilled_Patch
+	{
+		public static bool DisableKilledEffect = false;
+
+		[HarmonyPrefix]
+		public static bool Prefix()
+		{
+			if (DisableKilledEffect)
+			{
+				DisableKilledEffect = false;
 				return false;
 			}
 			return true;
@@ -109,14 +126,14 @@ namespace AlteredCarbon
 	[HarmonyPatch(typeof(Pawn_RoyaltyTracker), "Notify_PawnKilled")]
 	public static class Notify_PawnKilled_Patch
 	{
-		public static bool DisableKilledCounter = false;
+		public static bool DisableKilledEffect = false;
 
 		[HarmonyPrefix]
 		public static bool Prefix()
 		{
-			if (DisableKilledCounter)
+			if (DisableKilledEffect)
 			{
-				Notify_PawnKilled_Patch.DisableKilledCounter = false;
+				DisableKilledEffect = false;
 				return false;
 			}
 			return true;
@@ -133,15 +150,14 @@ namespace AlteredCarbon
 				if (__instance != null && (ACUtils.ACTracker.stacksIndex.ContainsKey(__instance.ThingID + __instance.Name)
 					|| ACUtils.ACTracker.pawnsWithStacks.Contains(__instance)))
 				{
-					Log.Message("FAIL!!!!!!!!!!", true);
-					Notify_ColonistKilled_Patch.DisableKilledCounter = true;
-					Notify_PawnKilled_Patch.DisableKilledCounter = true;
+					Notify_ColonistKilled_Patch.DisableKilledEffect = true;
+					Notify_PawnKilled_Patch.DisableKilledEffect = true;
+					Notify_LeaderDied_Patch.DisableKilledEffect = true;
 				}
 				var stackHediff = __instance.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
 					x.def == AlteredCarbonDefOf.AC_CorticalStack);
 				if (stackHediff != null)
 				{
-					Log.Message("FAIL!!!!!!!!!! 222222222", true);
 					ACUtils.ACTracker.deadPawns.Add(__instance);
 				}
 			}
