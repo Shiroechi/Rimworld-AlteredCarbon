@@ -190,3 +190,4 @@ namespace AlteredCarbon
         private List<Pawn> heirsValues = new List<Pawn>();
     }
 }
+

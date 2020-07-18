@@ -106,6 +106,23 @@ namespace AlteredCarbon
 		}
 	}
 
+	[HarmonyPatch(typeof(Pawn_RoyaltyTracker), "Notify_PawnKilled")]
+	public static class Notify_PawnKilled_Patch
+	{
+		public static bool DisableKilledCounter = false;
+
+		[HarmonyPrefix]
+		public static bool Prefix()
+		{
+			if (DisableKilledCounter)
+			{
+				Notify_PawnKilled_Patch.DisableKilledCounter = false;
+				return false;
+			}
+			return true;
+		}
+	}
+
 	[HarmonyPatch(typeof(Pawn), "Kill")]
 	public class Pawn_Kill_Patch
 	{
@@ -116,12 +133,15 @@ namespace AlteredCarbon
 				if (__instance != null && (ACUtils.ACTracker.stacksIndex.ContainsKey(__instance.ThingID + __instance.Name)
 					|| ACUtils.ACTracker.pawnsWithStacks.Contains(__instance)))
 				{
+					Log.Message("FAIL!!!!!!!!!!", true);
 					Notify_ColonistKilled_Patch.DisableKilledCounter = true;
+					Notify_PawnKilled_Patch.DisableKilledCounter = true;
 				}
 				var stackHediff = __instance.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
 					x.def == AlteredCarbonDefOf.AC_CorticalStack);
 				if (stackHediff != null)
 				{
+					Log.Message("FAIL!!!!!!!!!! 222222222", true);
 					ACUtils.ACTracker.deadPawns.Add(__instance);
 				}
 			}
@@ -178,7 +198,7 @@ namespace AlteredCarbon
 
 		[HarmonyPrefix]
 		public static bool Prefix(Rect rect, Pawn colonist, Map pawnMap, bool highlight, bool reordering,
-			Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize, 
+			Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize,
 			Texture2D ___MoodBGTex, Vector2[] ___bracketLocs)
 		{
 			if (colonist.Dead && (ACUtils.ACTracker.stacksIndex.ContainsKey(colonist.ThingID + colonist.Name)
