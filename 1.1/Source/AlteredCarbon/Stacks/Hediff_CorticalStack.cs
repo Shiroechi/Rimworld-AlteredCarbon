@@ -99,9 +99,53 @@ namespace AlteredCarbon
                     foreach (var thing in map.listerThings.AllThings)
                     {
                         var comp = thing.TryGetComp<CompBladelinkWeapon>();
+                        if (comp != null)
+                        {
+                            Log.Message("Checking: " + thing, true);
+                        }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
+                            Log.Message("Adding: " + thing, true);
                             this.bondedThings.Add(thing);
+                        }
+                    }
+                    foreach (var gear in pawn.apparel.WornApparel)
+                    {
+                        var comp = gear.TryGetComp<CompBladelinkWeapon>();
+                        if (comp != null)
+                        {
+                            Log.Message("Checking: " + gear, true);
+                        }
+                        if (comp != null && comp.bondedPawn == pawn)
+                        {
+                            Log.Message("Adding: " + gear, true);
+                            this.bondedThings.Add(gear);
+                        }
+                    }
+                    foreach (var gear in pawn.equipment.AllEquipmentListForReading)
+                    {
+                        var comp = gear.TryGetComp<CompBladelinkWeapon>();
+                        if (comp != null)
+                        {
+                            Log.Message("Checking: " + gear, true);
+                        }
+                        if (comp != null && comp.bondedPawn == pawn)
+                        {
+                            Log.Message("Adding: " + gear, true);
+                            this.bondedThings.Add(gear);
+                        }
+                    }
+                    foreach (var gear in pawn.inventory.innerContainer)
+                    {
+                        var comp = gear.TryGetComp<CompBladelinkWeapon>();
+                        if (comp != null)
+                        {
+                            Log.Message("Checking: " + gear, true);
+                        }
+                        if (comp != null && comp.bondedPawn == pawn)
+                        {
+                            Log.Message("Adding: " + gear, true);
+                            this.bondedThings.Add(gear);
                         }
                     }
                 }

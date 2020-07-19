@@ -155,6 +155,7 @@ namespace AlteredCarbon
                     GenSpawn.Spawn(newStack, this.Position, this.Map);
                     Find.Selector.Select(newStack);
                     ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
+                    this.KillInnerPawn();
                     this.Destroy();
                 }, null, false, null, null));
         }
@@ -275,7 +276,19 @@ namespace AlteredCarbon
                             this.bondedThings.Add(gear);
                         }
                     }
-
+                    foreach (var gear in pawn.inventory.innerContainer)
+                    {
+                        var comp = gear.TryGetComp<CompBladelinkWeapon>();
+                        if (comp != null)
+                        {
+                            Log.Message("Checking: " + gear, true);
+                        }
+                        if (comp != null && comp.bondedPawn == pawn)
+                        {
+                            Log.Message("Adding: " + gear, true);
+                            this.bondedThings.Add(gear);
+                        }
+                    }
                 }
             }
         }
@@ -315,6 +328,14 @@ namespace AlteredCarbon
             this.stackGroupID = otherStack.stackGroupID;
         }
 
+        public override void PostApplyDamage(DamageInfo dinfo, float totalDamageDealt)
+        {
+            base.PostApplyDamage(dinfo, totalDamageDealt);
+            if (this.Destroyed)
+            {
+                this.KillInnerPawn();
+            }
+        }
         public void KillInnerPawn()
         {
             if (this.hasPawn)
@@ -323,14 +344,6 @@ namespace AlteredCarbon
                 this.OverwritePawn(pawn);
                 pawn.Kill(null);
             }
-        }
-        public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
-        {
-            if (this.hasPawn)
-            {
-                this.KillInnerPawn();
-            }
-            base.Destroy(mode);
         }
 
         public void OverwritePawn(Pawn pawn)

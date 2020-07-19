@@ -29,7 +29,6 @@ namespace AlteredCarbon
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
             bool flag = MedicalRecipesUtility.IsClean(pawn, part);
-            
             bool flag2 = !PawnGenerator.IsBeingGenerated(pawn) && IsViolationOnPawn(pawn, part, Faction.OfPlayer);
             if (billDoer != null)
             {
@@ -43,7 +42,6 @@ namespace AlteredCarbon
                             Traverse.Create(c).Field("mapIndexOrState").SetValue((sbyte)-1);
                             GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
                         }
-                        Log.Message("2: " + i + " - " + i.Destroyed);
                     }
                     return;
                 }
@@ -81,9 +79,7 @@ namespace AlteredCarbon
                     PawnDiedOrDownedThoughtsUtility.TryGiveThoughts(pawn, null, PawnDiedOrDownedThoughtsKind.Died);
                     pawn.health.NotifyPlayerOfKilled(null, null, null);
                     ACUtils.ACTracker.stacksIndex.Remove(corticalStack.pawnID + corticalStack.name);
-                    Log.Message("1 OVERWRITING " + pawn);
                     corticalStack.OverwritePawn(pawn);
-            
                     ACUtils.ACTracker.ReplaceStackWithPawn(corticalStack, pawn);
             
                     var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
@@ -100,23 +96,10 @@ namespace AlteredCarbon
                     {
                         pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_NewSleeve);
                     }
-            
-                    if (pawn.story.traits.HasTrait(TraitDefOf.DislikesMen) && pawn.gender == Gender.Male)
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_MansBody);
-                    }
-                    if (pawn.story.traits.HasTrait(TraitDefOf.DislikesWomen) && pawn.gender == Gender.Female)
-                    {
-                        pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WomansBody);
-                    }
                 }
                 else
                 {
                     ACUtils.ACTracker.RegisterPawn(pawn);
-                }
-                if (pawn.story.traits.HasTrait(AlteredCarbonDefOf.AC_AntiStack))
-                {
-                    pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_LostMySoul);
                 }
                 ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
                 ACUtils.ACTracker.TryAddRelationships(pawn);

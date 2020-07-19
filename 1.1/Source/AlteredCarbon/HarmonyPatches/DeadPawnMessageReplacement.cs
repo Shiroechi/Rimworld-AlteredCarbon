@@ -38,13 +38,14 @@ namespace AlteredCarbon
 	[HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility), "AppendThoughts_ForHumanlike")]
 	public class AppendThoughts_ForHumanlike_Patch
 	{
+		public static bool DisableKilledEffect = false;
+
 		[HarmonyPrefix]
 		public static bool Prefix(ref Pawn victim)
 		{
-			var stackHediff = victim.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
-				x.def == AlteredCarbonDefOf.AC_CorticalStack);
-			if (stackHediff != null)
+			if (DisableKilledEffect)
 			{
+				DisableKilledEffect = false;
 				return false;
 			}
 			return true;
@@ -54,13 +55,14 @@ namespace AlteredCarbon
 	[HarmonyPatch(typeof(PawnDiedOrDownedThoughtsUtility), "AppendThoughts_Relations")]
 	public class AppendThoughts_Relations_Patch
 	{
+		public static bool DisableKilledEffect = false;
+
 		[HarmonyPrefix]
 		public static bool Prefix(ref Pawn victim)
 		{
-			var stackHediff = victim.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
-				x.def == AlteredCarbonDefOf.AC_CorticalStack);
-			if (stackHediff != null)
+			if (DisableKilledEffect)
 			{
+				DisableKilledEffect = false;
 				return false;
 			}
 			return true;
@@ -153,6 +155,8 @@ namespace AlteredCarbon
 					Notify_ColonistKilled_Patch.DisableKilledEffect = true;
 					Notify_PawnKilled_Patch.DisableKilledEffect = true;
 					Notify_LeaderDied_Patch.DisableKilledEffect = true;
+					AppendThoughts_ForHumanlike_Patch.DisableKilledEffect = true;
+					AppendThoughts_Relations_Patch.DisableKilledEffect = true;
 				}
 				var stackHediff = __instance.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
 					x.def == AlteredCarbonDefOf.AC_CorticalStack);
