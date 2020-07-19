@@ -15,10 +15,11 @@ namespace AlteredCarbon
 	[HarmonyPatch("NotifyPlayerOfKilled")]
 	internal static class DeadPawnMessageReplacement
 	{
+		public static bool DisableKilledEffect = false;
+
 		private static bool Prefix(Pawn_HealthTracker __instance, Pawn ___pawn, DamageInfo? dinfo, Hediff hediff, Caravan caravan)
 		{
-			if (ACUtils.ACTracker.stacksIndex.ContainsKey(___pawn.ThingID + ___pawn.Name)
-					|| ACUtils.ACTracker.pawnsWithStacks.Contains(___pawn))
+			if (DisableKilledEffect)
 			{
 				TaggedString taggedString = "";
 				taggedString = (dinfo.HasValue ? "AlteredCarbon.SleveOf".Translate() + dinfo.Value.Def.deathMessage
@@ -29,6 +30,7 @@ namespace AlteredCarbon
 				taggedString = taggedString.AdjustedFor(___pawn);
 				TaggedString label = "AlteredCarbon.SleeveDeath".Translate() + ": " + ___pawn.LabelShortCap;
 				Find.LetterStack.ReceiveLetter(label, taggedString, LetterDefOf.NeutralEvent, ___pawn);
+				DisableKilledEffect = false;
 				return false;
 			}
 			return true;
@@ -145,10 +147,23 @@ namespace AlteredCarbon
 	[HarmonyPatch(typeof(Pawn), "Kill")]
 	public class Pawn_Kill_Patch
 	{
-		public static void Prefix(Pawn __instance)
+		public static void Prefix(Pawn __instance, DamageInfo? dinfo, Hediff exactCulprit = null)
 		{
 			try
 			{
+				if (dinfo.HasValue)
+				{
+					Log.Message("Death cause: ");
+					Log.Message("dinfo.Value.Def: " + dinfo.Value.Def);
+					Log.Message("dinfo.Value.Amount: " + dinfo.Value.Amount);
+					Log.Message("dinfo.Value.HitPart: " + dinfo.Value.HitPart);
+					Log.Message("dinfo.Value.Category: " + dinfo.Value.Category);
+				}
+				if (dinfo.HasValue && dinfo.Value.Def == DamageDefOf.Crush && dinfo.Value.Category == DamageInfo.SourceCategory.Collapse)
+				{
+					Log.Message("Roof collapse");
+					return;
+				}
 				if (__instance != null && (ACUtils.ACTracker.stacksIndex.ContainsKey(__instance.ThingID + __instance.Name)
 					|| ACUtils.ACTracker.pawnsWithStacks.Contains(__instance)))
 				{
@@ -157,6 +172,7 @@ namespace AlteredCarbon
 					Notify_LeaderDied_Patch.DisableKilledEffect = true;
 					AppendThoughts_ForHumanlike_Patch.DisableKilledEffect = true;
 					AppendThoughts_Relations_Patch.DisableKilledEffect = true;
+					DeadPawnMessageReplacement.DisableKilledEffect = true;
 				}
 				var stackHediff = __instance.health.hediffSet.hediffs.FirstOrDefault((Hediff x) =>
 					x.def == AlteredCarbonDefOf.AC_CorticalStack);
