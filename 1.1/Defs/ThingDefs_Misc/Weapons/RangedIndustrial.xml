@@ -231,7 +231,7 @@
         <description>A high-caliber assault rifle using experimental charge-technology. It has good range, good power, and good accuracy.</description>
         <techLevel>Spacer</techLevel>
         <graphicData>
-            <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+            <texPath>Things/Item/Equipment/WeaponRanged/MACRifle</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <soundInteract>Interact_ChargeRifle</soundInteract>
@@ -243,6 +243,7 @@
             <AccuracyLong>0.45</AccuracyLong>
             <RangedWeapon_Cooldown>2.00</RangedWeapon_Cooldown>
         </statBases>
+		<equippedAngleOffset>45</equippedAngleOffset>
         <thingSetMakerTags>
             <li>RewardStandardLowFreq</li>
             <li>RewardStandardQualitySuper</li>
