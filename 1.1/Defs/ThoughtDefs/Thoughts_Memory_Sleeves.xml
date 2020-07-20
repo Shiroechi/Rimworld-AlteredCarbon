@@ -78,6 +78,7 @@
 
 	<ThoughtDef>
 		<defName>AC_MansBody</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_MansBody</workerClass>
 		<stackLimit>1</stackLimit>
 		<stages>
 			<li>
@@ -90,6 +91,7 @@
 
 	<ThoughtDef>
 		<defName>AC_WomansBody</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_WomansBody</workerClass>
 		<stackLimit>1</stackLimit>
 		<stages>
 			<li>
@@ -99,9 +101,10 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
+	
 	<ThoughtDef>
 		<defName>AC_LostMySoul</defName>
+		<workerClass>AlteredCarbon.ThoughtWorker_LostMySoul</workerClass>
 		<stackLimit>1</stackLimit>
 		<stages>
 			<li>

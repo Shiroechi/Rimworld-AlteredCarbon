@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\..\..\..\..\..\Files\devmods\SourceDLLs\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\..\Files\devmods\SourceDLLs\Assembly-CSharp.dll</HintPath>
@@ -303,7 +304,10 @@
     <Compile Include="Stacks\StacksData.cs" />
     <Compile Include="Jobs\JobDriver_CopyStack.cs" />
     <Compile Include="Jobs\JobDriver_WipeStack.cs" />
-    <Compile Include="ThoughtWorker_ColonyUsesStacks.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_WomansBody.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_MansBody.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_LostMySoul.cs" />
+    <Compile Include="Thoughts\ThoughtWorker_ColonyUsesStacks.cs" />
     <Compile Include="HarmonyPatches\SpawnStacks.cs" />
     <Compile Include="HarmonyPatches\DeadPawnMessageReplacement.cs" />
     <Compile Include="Jobs\JobDriver_ExtractStack.cs" />
