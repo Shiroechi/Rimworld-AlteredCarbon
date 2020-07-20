@@ -48,7 +48,9 @@ namespace AlteredCarbon
             base.SpawnSetup(map, respawningAfterLoad);
             if (!respawningAfterLoad && !hasPawn && this.def.defName == "AC_FilledCorticalStack")
             {
-                Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
+                var pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
+                var faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
+                Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
                 this.SavePawnToCorticalStack(pawn);
                 if (ACUtils.ACTracker.stacksRelationships != null)
                 {
@@ -58,7 +60,6 @@ namespace AlteredCarbon
                 {
                     this.stackGroupID = 0;
                 }
-                Log.Message("1 RegisterStack: " + this.stackGroupID);
                 ACUtils.ACTracker.RegisterStack(this);
             }
         }
@@ -145,7 +146,31 @@ namespace AlteredCarbon
             stringBuilder.Append(base.GetInspectString());
             return stringBuilder.ToString().TrimEndNewlines();
         }
-        public void EmptyStack()
+
+        public override void PostApplyDamage(DamageInfo dinfo, float totalDamageDealt)
+        {
+            base.PostApplyDamage(dinfo, totalDamageDealt);
+            if (this.Destroyed)
+            {
+                this.KillInnerPawn();
+            }
+        }
+        public void KillInnerPawn(bool affectFactionRelationship = false, Pawn affecter = null)
+        {
+            if (this.hasPawn)
+            {
+                Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
+                this.OverwritePawn(pawn);
+                if (affectFactionRelationship)
+                {
+                    this.faction.TryAffectGoodwillWith(affecter.Faction, -70, canSendMessage: true, canSendHostilityLetter: true,
+                        "AlteredCarbon.GoodwillChangedReason_ErasedPawn".Translate(pawn.Named("PAWN")), affecter);
+                    QuestUtility.SendQuestTargetSignals(pawn.questTags, "SurgeryViolation", pawn.Named("SUBJECT"));
+                }
+                pawn.Kill(null);
+            }
+        }
+        public void EmptyStack(bool affectFactionRelationship = false, Pawn affecter = null)
         {
             Find.WindowStack.Add(new Dialog_MessageBox("AlteredCarbon.EmptyStackConfirmation".Translate(),
                 "No".Translate(), null,
@@ -155,7 +180,7 @@ namespace AlteredCarbon
                     GenSpawn.Spawn(newStack, this.Position, this.Map);
                     Find.Selector.Select(newStack);
                     ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
-                    this.KillInnerPawn();
+                    this.KillInnerPawn(affectFactionRelationship, affecter);
                     this.Destroy();
                 }, null, false, null, null));
         }
@@ -328,24 +353,6 @@ namespace AlteredCarbon
             this.stackGroupID = otherStack.stackGroupID;
         }
 
-        public override void PostApplyDamage(DamageInfo dinfo, float totalDamageDealt)
-        {
-            base.PostApplyDamage(dinfo, totalDamageDealt);
-            if (this.Destroyed)
-            {
-                this.KillInnerPawn();
-            }
-        }
-        public void KillInnerPawn()
-        {
-            if (this.hasPawn)
-            {
-                Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(PawnKindDefOf.Colonist, Faction.OfPlayer));
-                this.OverwritePawn(pawn);
-                pawn.Kill(null);
-            }
-        }
-
         public void OverwritePawn(Pawn pawn)
         {
             Log.Message(" - OverwritePawn - var extension = this.def.GetModExtension<StackSavingOptionsModExtension>(); - 1", true);
@@ -357,11 +364,15 @@ namespace AlteredCarbon
                 pawn.SetFaction(this.faction);
             }
             pawn.Name = this.name;
-            for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
+            if (pawn.needs?.mood?.thoughts?.memories?.Memories != null)
             {
-                Log.Message(" - OverwritePawn - pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]); - 5", true);
-                pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
+                for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
+                {
+                    Log.Message(" - OverwritePawn - pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]); - 5", true);
+                    pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
+                }
             }
+
             Log.Message(" - OverwritePawn - if (this.thoughts != null) - 6", true);
             if (this.thoughts != null)
             {
@@ -419,7 +430,7 @@ namespace AlteredCarbon
                     pawn.skills.skills.Add(newSkill);
                 }
             }
-
+            if (pawn.playerSettings == null) pawn.playerSettings = new Pawn_PlayerSettings(pawn);
             pawn.playerSettings.hostilityResponse = (HostilityResponseMode)this.hostilityMode;
 
             Backstory newChildhood = null;
@@ -442,6 +453,7 @@ namespace AlteredCarbon
                 Log.Message(" - OverwritePawn - pawn.story.adulthood = null; - 35", true);
                 pawn.story.adulthood = null;
             }
+            if (pawn.workSettings == null) pawn.workSettings = new Pawn_WorkSettings();
             pawn.Notify_DisabledWorkTypesChanged();
             Log.Message(" - OverwritePawn - if (priorities != null) - 37", true);
             if (priorities != null)
@@ -459,6 +471,7 @@ namespace AlteredCarbon
             Log.Message(" - OverwritePawn - pawn.playerSettings.selfTend = this.selfTend; - 42", true);
             pawn.playerSettings.selfTend = this.selfTend;
             Log.Message(" - OverwritePawn - pawn.foodRestriction.CurrentFoodRestriction = this.foodRestriction; - 43", true);
+            if (pawn.foodRestriction == null) pawn.foodRestriction = new Pawn_FoodRestrictionTracker();
             pawn.foodRestriction.CurrentFoodRestriction = this.foodRestriction;
             Log.Message(" - OverwritePawn - if (pawn.outfits == null) pawn.outfits = new Pawn_OutfitTracker(); - 44", true);
             if (pawn.outfits == null) pawn.outfits = new Pawn_OutfitTracker();

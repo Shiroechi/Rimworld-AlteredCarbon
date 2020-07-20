@@ -26,5 +26,6 @@
 	<AlteredCarbon.Sleeve>Sleeve</AlteredCarbon.Sleeve>
 	<AlteredCarbon.CannotCopyNoIntellectual>Duplicate Stack (requires intellectual skill of 10 or higher)</AlteredCarbon.CannotCopyNoIntellectual>
 	<AlteredCarbon.CannotCopyNoOtherEmptyStacks>Duplicate Stack (no empty stacks on the map)</AlteredCarbon.CannotCopyNoOtherEmptyStacks>
+	<AlteredCarbon.GoodwillChangedReason_ErasedPawn>erased {PAWN_labelShort}</AlteredCarbon.GoodwillChangedReason_ErasedPawn>
 
 </LanguageData>
