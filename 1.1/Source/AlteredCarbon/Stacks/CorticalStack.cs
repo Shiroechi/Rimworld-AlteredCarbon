@@ -72,7 +72,7 @@ namespace AlteredCarbon
                     MenuOptionPriority.Default, null, null, 0f, null, null);
                 yield return floatMenuOption;
             }
-            else if (this.def == AlteredCarbonDefOf.AC_FilledCorticalStack)
+            else if (this.def == AlteredCarbonDefOf.AC_FilledCorticalStack && myPawn.skills.GetSkill(SkillDefOf.Intellectual).Level >= 5)
             {
                 string label = "AlteredCarbon.WipeStack".Translate();
                 Action action = delegate ()
@@ -84,6 +84,12 @@ namespace AlteredCarbon
                 yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption
                         (label, action, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
                         this, "ReservedBy");
+            }
+            else if (this.def == AlteredCarbonDefOf.AC_FilledCorticalStack && myPawn.skills.GetSkill(SkillDefOf.Intellectual).Level < 5)
+            {
+                FloatMenuOption floatMenuOption = new FloatMenuOption("AlteredCarbon.CantWipeStackTooDumb".Translate(), null,
+                    MenuOptionPriority.Default, null, null, 0f, null, null);
+                yield return floatMenuOption;
             }
             if (this.hasPawn)
             {
@@ -141,6 +147,7 @@ namespace AlteredCarbon
                     stringBuilder.Append("AlteredCarbon.adulthood".Translate() + ": " + newAdulthood.title.CapitalizeFirst() + "\n");
                 }
                 stringBuilder.Append("AlteredCarbon.ageChronologicalTicks".Translate() + ": " + (int)(this.ageChronologicalTicks / 3600000) + "\n");
+                stringBuilder.Append("Gender".Translate() + ": " + this.gender.GetLabel().CapitalizeFirst() + "\n");
 
             }
             stringBuilder.Append(base.GetInspectString());

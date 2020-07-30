@@ -24,6 +24,7 @@
             <DeteriorationRate>0</DeteriorationRate>
             <MaxHitPoints>125</MaxHitPoints>
             <Flammability>0</Flammability>
+			<MarketValue>1000</MarketValue>
         </statBases>
         <modExtensions>
             <li Class="AlteredCarbon.StackSavingOptionsModExtension">
