@@ -17,7 +17,7 @@
         <tradeNeverStack>true</tradeNeverStack>
         <useHitPoints>true</useHitPoints>
         <techHediffsTags>
-            <li>Advanced</li>
+            <li>Ultra</li>
         </techHediffsTags>
         <statBases>
             <Mass>0.3</Mass>
@@ -58,7 +58,6 @@
             <DeteriorationRate>0</DeteriorationRate>
             <MaxHitPoints>125</MaxHitPoints>
             <Flammability>0</Flammability>
-            <WorkToMake>42000</WorkToMake>
         </statBases>
         <thingSetMakerTags>
             <li>RewardStandardLowFreq</li>
