@@ -29,13 +29,11 @@
         <fillPercent>0.5</fillPercent>
         <useHitPoints>True</useHitPoints>
         <statBases>
-            <WorkToBuild>800</WorkToBuild>
-            <MaxHitPoints>100</MaxHitPoints>
+            <WorkToBuild>8000</WorkToBuild>
+            <MaxHitPoints>10000</MaxHitPoints>
             <Flammability>1.0</Flammability>
-            <Mass>50</Mass>
             <Beauty>-5</Beauty>
         </statBases>
-        <minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsMisc</li>
 		</thingCategories>
@@ -44,20 +42,24 @@
         <techLevel>Ultra</techLevel>
         <passability>PassThroughOnly</passability>
         <pathCost>70</pathCost>
+		<blockWind>true</blockWind>
         <surfaceType>Item</surfaceType>
 		<researchPrerequisites>
 		  <li>AC_SleeveProduction</li>
 		</researchPrerequisites>
+		<placeWorkers>
+			<li>PlaceWorker_FuelingPort</li>
+		</placeWorkers>
         <comps>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
                 <shortCircuitInRain>true</shortCircuitInRain>
-                <basePowerConsumption>2500</basePowerConsumption>
+                <basePowerConsumption>4500</basePowerConsumption>
             </li>
 			<li Class="CompProperties_Refuelable">
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-				<fuelConsumptionRate>0</fuelConsumptionRate>
-				<fuelCapacity>100.0</fuelCapacity>
+				<targetFuelLevelConfigurable>true</targetFuelLevelConfigurable>
+				<fuelCapacity>400.0</fuelCapacity>
 				<fuelConsumptionPerTickInRain>0</fuelConsumptionPerTickInRain>
 				<fuelFilter>
 					<thingDefs>
@@ -65,7 +67,8 @@
 					</thingDefs>
 				</fuelFilter>
 				<initialFuelPercent>1</initialFuelPercent>
-				<showAllowAutoRefuelToggle>false</showAllowAutoRefuelToggle>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
 			</li>
             <li Class="CompProperties_Flickable" />
             <li Class="CompProperties_Breakdownable" />
