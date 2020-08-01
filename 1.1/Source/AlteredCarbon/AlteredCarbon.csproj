@@ -33,8 +33,7 @@
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.0.0.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Harmony\v1.1\Assemblies\0Harmony.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\Harmony\Current\Assemblies\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
