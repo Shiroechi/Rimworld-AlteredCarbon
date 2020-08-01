@@ -22,17 +22,32 @@
     </HediffDef>
 
     <HediffDef ParentName="DiseaseBase">
-        <defName>AC_Sleeve_Quality_Bad</defName>
-        <label>low quality sleeve</label>
+        <defName>AC_Sleeve_Quality_Low</defName>
+        <label>sleeve quality</label>
+		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>As a result of low level quality, this sleeve is sickly, weaker and less useful than the average human body.</description>
         <stages>
             <li>
+				<label>low</label>
                 <partEfficiencyOffset>-0.20</partEfficiencyOffset>
                 <capMods>
+					<vomitMtbDays>3</vomitMtbDays>
                     <li>
                         <capacity>Moving</capacity>
                         <offset>-0.10</offset>
                     </li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>-0.10</offset>
+					</li>
+					<li>
+						<capacity>Sight</capacity>
+						<offset>-0.10</offset>
+					</li>
+					<li>
+						<capacity>BloodFiltration</capacity>
+						<offset>-0.20</offset>
+					</li>
                 </capMods>
             </li>
         </stages>
@@ -40,16 +55,24 @@
 
     <HediffDef ParentName="DiseaseBase">
         <defName>AC_Sleeve_Quality_Standart</defName>
-        <label>standart quality sleeve</label>
+        <label>sleeve quality</label>
+		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>A standart sleeve. Not better than a normal human body, but also not worse.</description>
+        <stages>
+            <li>
+				<label>standart</label>
+            </li>
+        </stages>
     </HediffDef>
 
     <HediffDef ParentName="DiseaseBase">
         <defName>AC_Sleeve_Quality_High</defName>
-        <label>high quality sleeve</label>
+        <label>sleeve quality</label>
+		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>As a result of high level quality, this sleeve is stronger, heals and moves faster than any natural human body.</description>
         <stages>
             <li>
+				<label>high</label>
                 <partEfficiencyOffset>0.20</partEfficiencyOffset>
                 <painOffset>0.15</painOffset>
                 <capMods>
@@ -57,6 +80,18 @@
                         <capacity>Moving</capacity>
                         <offset>0.10</offset>
                     </li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.10</offset>
+					</li>
+					<li>
+						<capacity>Sight</capacity>
+						<offset>0.10</offset>
+					</li>
+					<li>
+						<capacity>BloodFiltration</capacity>
+						<offset>0.20</offset>
+					</li>
                 </capMods>
             </li>
         </stages>
