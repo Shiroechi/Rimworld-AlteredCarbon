@@ -34,9 +34,6 @@
             <Flammability>1.0</Flammability>
             <Beauty>-5</Beauty>
         </statBases>
-		<thingCategories>
-			<li>BuildingsMisc</li>
-		</thingCategories>
 		<designationCategory>Misc</designationCategory>
         <size>(3,3)</size>
         <techLevel>Ultra</techLevel>
