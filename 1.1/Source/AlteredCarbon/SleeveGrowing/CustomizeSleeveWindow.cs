@@ -130,6 +130,15 @@ namespace AlteredCarbon
         public int maleBodyTypeIndex = 0;
         public int femaleBodyTypeIndex = 0;
 
+        public int baseTicksToGrow = 1800000;
+        public int baseTicksToGrow2 = 0;
+        public int baseTicksToGrow3 = 0;
+
+        public int baseMeatCost = 250;
+        public int baseMeatCost2 = 0;
+        public int baseMeatCost3 = 0;
+
+
         //button text subtle copied from Rimworld basecode but with minor changes to fit this UI
         public static bool ButtonTextSubtleCentered(Rect rect, string label, Vector2 functionalSizeOffset = default(Vector2))
         {
@@ -820,12 +829,12 @@ namespace AlteredCarbon
                     newSleeve.story.hairDef = DefDatabase<HairDef>.AllDefs.ElementAt(hairTypeIndex);
                     UpdateSleeveGraphic();
                 }
-
+                
                 //Time to Grow
-                Widgets.Label(lblTimeToGrow, "TimeToGrow".Translate().CapitalizeFirst() + ": " + "X DAYS");//PUT TIME TO GROW INFO HERE
+                Widgets.Label(lblTimeToGrow, "TimeToGrow".Translate().CapitalizeFirst() + ": " + GenDate.ToStringTicksToDays(baseTicksToGrow + baseTicksToGrow2 + baseTicksToGrow3));//PUT TIME TO GROW INFO HERE
 
                 //Require Biomass
-                Widgets.Label(lblRequireBiomass, "RequireBiomass".Translate().CapitalizeFirst() + ": " + "X BIOMASS");//PUT REQUIRED BIOMASS HERE
+                Widgets.Label(lblRequireBiomass, "RequireBiomass".Translate().CapitalizeFirst() + ": " + (baseMeatCost + baseMeatCost2 + baseMeatCost3));//PUT REQUIRED BIOMASS HERE
 
                 //Vertical Divider
                 //Widgets.DrawLineVertical((pawnBox.x + (btnGenderFemale.x + btnGenderFemale.width)) / 2, pawnBox.y, InitialSize.y - pawnBox.y - (buttonHeight + 53));
@@ -842,6 +851,8 @@ namespace AlteredCarbon
                 {
                     var trait = new Trait(TraitDefOf.Beauty, -2);
                     newSleeve.story.traits.GainTrait(trait);
+                    baseTicksToGrow2 = -420000;
+                    baseMeatCost2 = -50;
                 }
                 if (Widgets.ButtonText(btnLevelOfBeauty2, "2"))
                 {
@@ -851,6 +862,8 @@ namespace AlteredCarbon
                 {
                     var trait = new Trait(TraitDefOf.Beauty, 2);
                     newSleeve.story.traits.GainTrait(trait);
+                    baseTicksToGrow2 = 420000;
+                    baseMeatCost2 = 50;
                 }
 
                 //Levels of Quality
@@ -858,7 +871,8 @@ namespace AlteredCarbon
                 Widgets.Label(lblLevelOfQuality, "LevelofQuality".Translate().CapitalizeFirst() + ":");
                 if (Widgets.ButtonText(btnLevelOfQuality1, "1"))
                 {
-
+                    baseTicksToGrow3 = -420000;
+                    baseMeatCost3 = -50;
                 }
                 if (Widgets.ButtonText(btnLevelOfQuality2, "2"))
                 {
@@ -866,12 +880,13 @@ namespace AlteredCarbon
                 }
                 if (Widgets.ButtonText(btnLevelOfQuality3, "3"))
                 {
-
+                    baseTicksToGrow3 = 420000;
+                    baseMeatCost3 = 50;
                 }
 
                 if (Widgets.ButtonText(btnAccept, "Accept".Translate().CapitalizeFirst()))
                 {
-                    sleeveGrower.StartGrowth(newSleeve, 10000, 100);
+                    sleeveGrower.StartGrowth(newSleeve, baseTicksToGrow + baseTicksToGrow2 + baseTicksToGrow3, baseMeatCost + baseMeatCost2 + baseMeatCost3);
                     this.Close();
                 }
                 if (Widgets.ButtonText(btnCancel, "Cancel".Translate().CapitalizeFirst()))
