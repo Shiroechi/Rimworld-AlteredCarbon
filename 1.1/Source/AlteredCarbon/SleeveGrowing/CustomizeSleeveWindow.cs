@@ -840,8 +840,7 @@ namespace AlteredCarbon
                 Widgets.Label(lblLevelOfBeauty, "LevelOfBeauty".Translate().CapitalizeFirst() + ":");
                 if (Widgets.ButtonText(btnLevelOfBeauty1, "1"))
                 {
-                    var trait = new Trait(TraitDefOf.Beauty);
-                    trait.CurrentData.degree = -2;
+                    var trait = new Trait(TraitDefOf.Beauty, -2);
                     newSleeve.story.traits.GainTrait(trait);
                 }
                 if (Widgets.ButtonText(btnLevelOfBeauty2, "2"))
@@ -850,8 +849,7 @@ namespace AlteredCarbon
                 }
                 if (Widgets.ButtonText(btnLevelOfBeauty3, "3"))
                 {
-                    var trait = new Trait(TraitDefOf.Beauty);
-                    trait.CurrentData.degree = 2;
+                    var trait = new Trait(TraitDefOf.Beauty, 2);
                     newSleeve.story.traits.GainTrait(trait);
                 }
 
@@ -896,7 +894,7 @@ namespace AlteredCarbon
             Pawn pawn;
 
             pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfAncients, PawnGenerationContext.NonPlayer,
-            -1, true, false, false, false, false, false, 0f, false, true, true, false, false, false, true, fixedGender: gender));
+            -1, true, false, false, false, false, false, 0f, false, true, true, false, false, false, true, fixedGender: gender, fixedBiologicalAge: 20, fixedChronologicalAge: 20));
 
             //Post process age to adulthood. Two methods.
             LifeStageAge adultLifestage = pawn.RaceProps.lifeStageAges.Last();
