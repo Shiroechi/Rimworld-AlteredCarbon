@@ -6,4 +6,3 @@ C:\GAMES\Rimworld\Mods\RimworldAlteredCarbon\1.1\Assemblies\AlteredCarbon.dll
 C:\GAMES\Rimworld\Mods\RimworldAlteredCarbon\1.1\Source\AlteredCarbon\obj\Debug\AlteredCarbon.csprojAssemblyReference.cache
 C:\GAMES\Rimworld\Mods\RimworldAlteredCarbon\1.1\Source\AlteredCarbon\obj\Debug\AlteredCarbon.csproj.CoreCompileInputs.cache
 C:\GAMES\Rimworld\Mods\RimworldAlteredCarbon\1.1\Source\AlteredCarbon\obj\Debug\AlteredCarbon.dll
-C:\GAMES\Rimworld\Mods\RimworldAlteredCarbon\1.1\Source\AlteredCarbon\obj\Debug\AlteredCarbon.csproj.CopyComplete

@@ -124,6 +124,12 @@ namespace AlteredCarbon
         public Color selectedColor = Color.white;
         public Color selectedColorFinal;
 
+        public int hairTypeIndex = 0;
+        public int maleHeadTypeIndex = 0;
+        public int femaleHeadTypeIndex = 0;
+        public int maleBodyTypeIndex = 0;
+        public int femaleBodyTypeIndex = 0;
+
         //button text subtle copied from Rimworld basecode but with minor changes to fit this UI
         public static bool ButtonTextSubtleCentered(Rect rect, string label, Vector2 functionalSizeOffset = default(Vector2))
         {
@@ -397,6 +403,20 @@ namespace AlteredCarbon
             refreshAndroidPortrait = true;
             updateColors();
         }
+
+        public void UpdateSleeveGraphic()
+        {
+            newSleeve.Drawer.renderer.graphics.ResolveAllGraphics();
+            PortraitsCache.SetDirty(newSleeve);
+            PortraitsCache.PortraitsCacheUpdate();
+        }
+
+        private static readonly string[] HeadsFolderPaths = new string[2]
+        {
+            "Things/Pawn/Humanlike/Heads/Male",
+            "Things/Pawn/Humanlike/Heads/Female"
+        };
+
         public override void DoWindowContents(Rect inRect)
         {
             //Detect changes
@@ -442,15 +462,12 @@ namespace AlteredCarbon
                 Widgets.Label(lblGender, "Gender".Translate() + ":");
                 if (Widgets.ButtonText(btnGenderMale, "Male".Translate().CapitalizeFirst()))
                 {
-                    //If click on male
-
+                    newSleeve = GetNewPawn(Gender.Male);
                 }
                 if (Widgets.ButtonText(btnGenderFemale, "Female".Translate().CapitalizeFirst()))
                 {
-                    //If click on female
-
+                    newSleeve = GetNewPawn(Gender.Female);
                 }
-
 
                 //Skin Colour
                 Text.Anchor = TextAnchor.MiddleLeft;
@@ -459,54 +476,128 @@ namespace AlteredCarbon
                 Widgets.DrawShadowAround(btnSkinColourOutline);
                 if (Widgets.ButtonInvisible(btnSkinColour1))
                 {
-                    Messages.Message("SkinButton1", MessageTypeDefOf.NeutralEvent);
-                    //set skin color
+                    newSleeve.story.melanin = 0.1f;
+                    UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour1, rgbConvert(242, 237, 224));
 
                 if (Widgets.ButtonInvisible(btnSkinColour2))
                 {
-                    Messages.Message("SkinButton2", MessageTypeDefOf.NeutralEvent);
-                    //set skin color
+                    newSleeve.story.melanin = 0.3f;
+                    UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour2, rgbConvert(255, 239, 213));
 
                 if (Widgets.ButtonInvisible(btnSkinColour3))
                 {
-                    Messages.Message("SkinButton3", MessageTypeDefOf.NeutralEvent);
-                    //set skin color
+                    newSleeve.story.melanin = 0.5f;
+                    UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour3, rgbConvert(255, 239, 189));
 
                 if (Widgets.ButtonInvisible(btnSkinColour4))
                 {
-                    Messages.Message("SkinButton4", MessageTypeDefOf.NeutralEvent);
-                    //set skin color
+                    newSleeve.story.melanin = 0.7f;
+                    UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour4, rgbConvert(228, 158, 90));
 
                 if (Widgets.ButtonInvisible(btnSkinColour5))
                 {
-                    Messages.Message("SkinButton5", MessageTypeDefOf.NeutralEvent);
-                    //set skin color
+                    newSleeve.story.melanin = 0.9f;
+                    UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour5, rgbConvert(130, 91, 48));
-
 
                 //Head Shape
                 Widgets.Label(lblHeadShape, "HeadShape".Translate().CapitalizeFirst() + ":");
                 Widgets.DrawHighlight(btnHeadShapeOutline);
                 if (ButtonTextSubtleCentered(btnHeadShapeArrowLeft, "<"))
                 {
+                    if (newSleeve.gender == Gender.Male)
+                    {
+                        if (maleHeadTypeIndex == 0)
+                        {
+                            maleHeadTypeIndex = GraphicDatabaseHeadRecords.maleHeads.Count - 1;
+                        }
+                        else
+                        {
+                            maleHeadTypeIndex--;
+                        }
 
+                        typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                            GraphicDatabaseHeadRecords.maleHeads.ElementAt(maleHeadTypeIndex).graphicPath);
+                    }
+                    else if (newSleeve.gender == Gender.Female)
+                    {
+                        if (femaleHeadTypeIndex == 0)
+                        {
+                            femaleHeadTypeIndex = GraphicDatabaseHeadRecords.femaleHeads.Count - 1;
+                        }
+                        else
+                        {
+                            femaleHeadTypeIndex--;
+                        }
+
+                        typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                            GraphicDatabaseHeadRecords.femaleHeads.ElementAt(femaleHeadTypeIndex).graphicPath);
+                    }
+
+                    UpdateSleeveGraphic();
                 }
-                if (ButtonTextSubtleCentered(btnHeadShapeSelection, "Head Type - Replace"))
+                if (ButtonTextSubtleCentered(btnHeadShapeSelection, "HeadTypeReplace".Translate()))
                 {
-                    //Add floatmenu code here
+                    if (newSleeve.gender == Gender.Male)
+                    {
+                        FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.maleHeads, head => head.graphicPath, 
+                            (GraphicDatabaseHeadRecords.HeadGraphicRecord head) => delegate
+                        {
+                            typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                            head.graphicPath);
+                            UpdateSleeveGraphic();
+                        });
+                    }
+                    else if (newSleeve.gender == Gender.Female)
+                        {
+                            FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.femaleHeads, head => head.graphicPath,
+                                (GraphicDatabaseHeadRecords.HeadGraphicRecord head) => delegate
+                                {
+                                    typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                                head.graphicPath);
+                                    UpdateSleeveGraphic();
+                                });
+                        }
+
                 }
                 if (ButtonTextSubtleCentered(btnHeadShapeArrowRight, ">"))
                 {
-
+                    if (newSleeve.gender == Gender.Male)
+                    {
+                        if (maleHeadTypeIndex == GraphicDatabaseHeadRecords.maleHeads.Count - 1)
+                        {
+                            maleHeadTypeIndex = 0;
+                        }
+                        else
+                        {
+                            maleHeadTypeIndex++;
+                        }
+                        typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                            GraphicDatabaseHeadRecords.maleHeads.ElementAt(maleHeadTypeIndex).graphicPath);
+                    }
+                    else if (newSleeve.gender == Gender.Female)
+                    {
+                        if (femaleHeadTypeIndex == GraphicDatabaseHeadRecords.femaleHeads.Count - 1)
+                        {
+                            femaleHeadTypeIndex = 0;
+                        }
+                        else
+                        {
+                            femaleHeadTypeIndex++;
+                        }
+                        typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                            GraphicDatabaseHeadRecords.femaleHeads.ElementAt(femaleHeadTypeIndex).graphicPath);
+                    }
+                    UpdateSleeveGraphic();
                 }
 
 
@@ -515,15 +606,84 @@ namespace AlteredCarbon
                 Widgets.DrawHighlight(btnBodyShapeOutline);
                 if (ButtonTextSubtleCentered(btnBodyShapeArrowLeft, "<"))
                 {
+                    if (newSleeve.gender == Gender.Male)
+                    {
+                        if (maleBodyTypeIndex == 0)
+                        {
+                            maleBodyTypeIndex = DefDatabase<BodyTypeDef>.AllDefs.Where(x => x != BodyTypeDefOf.Female).Count() - 1;
+                        }
+                        else
+                        {
+                            maleBodyTypeIndex--;
+                        }
+                        newSleeve.story.bodyType = DefDatabase<BodyTypeDef>.AllDefs.Where(x => x != BodyTypeDefOf.Female).ElementAt(maleBodyTypeIndex);
+                    }
+                    else if (newSleeve.gender == Gender.Female)
+                    {
+                        if (femaleBodyTypeIndex == 0)
+                        {
+                            femaleBodyTypeIndex = DefDatabase<BodyTypeDef>.AllDefs.Where(x => x != BodyTypeDefOf.Male).Count() - 1;
+                        }
+                        else
+                        {
+                            femaleBodyTypeIndex--;
+                        }
+                        newSleeve.story.bodyType = DefDatabase<BodyTypeDef>.AllDefs.Where(x => x != BodyTypeDefOf.Male).ElementAt(femaleBodyTypeIndex);
+                    }
 
+                    UpdateSleeveGraphic();
                 }
-                if (ButtonTextSubtleCentered(btnBodyShapeSelection, "Body Type - Replace"))
+                if (ButtonTextSubtleCentered(btnBodyShapeSelection, "BodyTypeReplace".Translate()))
                 {
-                    //Add floatmenu code here
+                    if (newSleeve.gender == Gender.Male)
+                    {
+                        IEnumerable<BodyTypeDef> bodyTypes = from bodyType in DefDatabase<BodyTypeDef>
+                            .AllDefs.Where(x => x != BodyTypeDefOf.Female) select bodyType;
+                        FloatMenuUtility.MakeMenu<BodyTypeDef>(bodyTypes, bodyType => bodyType.LabelCap, (BodyTypeDef bodyType) => delegate
+                        {
+                            newSleeve.story.bodyType = bodyType;
+                        });
+                    }
+                    else if (newSleeve.gender == Gender.Female)
+                    {
+                        IEnumerable<BodyTypeDef> bodyTypes = from bodyType in DefDatabase<BodyTypeDef>
+                            .AllDefs.Where(x => x != BodyTypeDefOf.Male)
+                                                             select bodyType;
+                        FloatMenuUtility.MakeMenu<BodyTypeDef>(bodyTypes, bodyType => bodyType.LabelCap, (BodyTypeDef bodyType) => delegate
+                        {
+                            newSleeve.story.bodyType = bodyType;
+                        });
+                    }
+                    UpdateSleeveGraphic();
+
                 }
                 if (ButtonTextSubtleCentered(btnBodyShapeArrowRight, ">"))
                 {
-
+                    if (newSleeve.gender == Gender.Male)
+                    {
+                        if (maleBodyTypeIndex == DefDatabase<BodyTypeDef>.AllDefs.Where(x => x != BodyTypeDefOf.Female).Count() - 1)
+                        {
+                            maleBodyTypeIndex = 0;
+                        }
+                        else
+                        {
+                            maleBodyTypeIndex++;
+                        }
+                        newSleeve.story.bodyType = DefDatabase<BodyTypeDef>.AllDefs.Where(x => x != BodyTypeDefOf.Female).ElementAt(maleBodyTypeIndex);
+                    }
+                    else if (newSleeve.gender == Gender.Female)
+                    {
+                        if (femaleBodyTypeIndex == DefDatabase<BodyTypeDef>.AllDefs.Where(x => x != BodyTypeDefOf.Male).Count() - 1)
+                        {
+                            femaleBodyTypeIndex = 0;
+                        }
+                        else
+                        {
+                            femaleBodyTypeIndex++;
+                        }
+                        newSleeve.story.bodyType = DefDatabase<BodyTypeDef>.AllDefs.Where(x => x != BodyTypeDefOf.Male).ElementAt(femaleBodyTypeIndex);
+                    }
+                    UpdateSleeveGraphic();
                 }
 
 
@@ -626,15 +786,39 @@ namespace AlteredCarbon
                 Widgets.DrawHighlight(btnHairTypeOutline);
                 if (ButtonTextSubtleCentered(btnHairTypeArrowLeft, "<"))
                 {
-
+                    if (hairTypeIndex == 0)
+                    {
+                        hairTypeIndex = DefDatabase<HairDef>.AllDefs.Count() - 1;
+                    }
+                    else
+                    {
+                        hairTypeIndex--;
+                    }
+                    newSleeve.story.hairDef = DefDatabase<HairDef>.AllDefs.ElementAt(hairTypeIndex);
+                    UpdateSleeveGraphic();
                 }
                 if (ButtonTextSubtleCentered(btnHairTypeSelection, newSleeve.story.hairDef.LabelCap))
                 {
-                    //Add floatmenu code here
+                    IEnumerable<HairDef> hairs =
+                        from hairdef in DefDatabase<HairDef>.AllDefs select hairdef;
+                    FloatMenuUtility.MakeMenu<HairDef>(hairs, hairDef => hairDef.LabelCap, (HairDef hairDef) => delegate
+                    {
+                        newSleeve.story.hairDef = hairDef;
+                        UpdateSleeveGraphic();
+                    });
                 }
                 if (ButtonTextSubtleCentered(btnHairTypeArrowRight, ">"))
                 {
-
+                    if (hairTypeIndex == DefDatabase<HairDef>.AllDefs.Count() - 1)
+                    {
+                        hairTypeIndex = 0;
+                    }
+                    else
+                    {
+                        hairTypeIndex++;
+                    }
+                    newSleeve.story.hairDef = DefDatabase<HairDef>.AllDefs.ElementAt(hairTypeIndex);
+                    UpdateSleeveGraphic();
                 }
 
                 //Time to Grow
@@ -656,7 +840,9 @@ namespace AlteredCarbon
                 Widgets.Label(lblLevelOfBeauty, "LevelOfBeauty".Translate().CapitalizeFirst() + ":");
                 if (Widgets.ButtonText(btnLevelOfBeauty1, "1"))
                 {
-
+                    var trait = new Trait(TraitDefOf.Beauty);
+                    trait.CurrentData.degree = -2;
+                    newSleeve.story.traits.GainTrait(trait);
                 }
                 if (Widgets.ButtonText(btnLevelOfBeauty2, "2"))
                 {
@@ -664,7 +850,9 @@ namespace AlteredCarbon
                 }
                 if (Widgets.ButtonText(btnLevelOfBeauty3, "3"))
                 {
-
+                    var trait = new Trait(TraitDefOf.Beauty);
+                    trait.CurrentData.degree = 2;
+                    newSleeve.story.traits.GainTrait(trait);
                 }
 
                 //Levels of Quality
@@ -685,80 +873,12 @@ namespace AlteredCarbon
 
                 if (Widgets.ButtonText(btnAccept, "Accept".Translate().CapitalizeFirst()))
                 {
-
+                    sleeveGrower.StartGrowth(newSleeve, 10000, 100);
+                    this.Close();
                 }
                 if (Widgets.ButtonText(btnCancel, "Cancel".Translate().CapitalizeFirst()))
                 {
-
-                }
-
-
-
-                //whatever code
-
-                //Hair customization
-                float finalPawnCustomizationWidthOffset = (pawnRect.x + pawnRect.width + 16f + (inRect.width - upgradesOffset));
-
-                {
-                    Rect rowRect = new Rect(pawnRect.x + pawnRect.width + 16f, pawnRect.y, inRect.width - finalPawnCustomizationWidthOffset, 24f);
-
-                    //Color
-                    //newAndroid.story.hairColor
-                    Rect hairColorRect = new Rect(rowRect);
-                    hairColorRect.width = hairColorRect.height;
-
-                    Widgets.DrawBoxSolid(hairColorRect, newSleeve.story.hairColor);
-                    Widgets.DrawBox(hairColorRect);
-                    Widgets.DrawHighlightIfMouseover(hairColorRect);
-
-                    if (Widgets.ButtonInvisible(hairColorRect))
-                    {
-                        //Change color
-                        Func<Color, Action> setColorAction = (Color color) => delegate {
-                            newSleeve.story.hairColor = color;
-                            newSleeve.Drawer.renderer.graphics.ResolveAllGraphics();
-                            PortraitsCache.SetDirty(newSleeve);
-                            PortraitsCache.PortraitsCacheUpdate();
-                        };
-
-                        List<FloatMenuOption> list = new List<FloatMenuOption>();
-                        //foreach(Color hairColor in HairColors)
-                        //{
-                        //    list.Add(new FloatMenuOption("ChangeColor".Translate(), setColorAction(hairColor), MenuOptionPriority.Default, null, null, 24f, delegate (Rect rect)
-                        //    {
-                        //        Rect colorRect = new Rect(rect);
-                        //        colorRect.x += 8f;
-                        //        Widgets.DrawBoxSolid(colorRect, hairColor);
-                        //        Widgets.DrawBox(colorRect);
-                        //        return false;
-                        //    }, null));
-                        //}
-                        Find.WindowStack.Add(new FloatMenu(list));
-                    }
-
-                    Rect hairTypeRect = new Rect(rowRect);
-                    hairTypeRect.width -= hairColorRect.width;
-                    hairTypeRect.width -= 8f;
-                    hairTypeRect.x = hairColorRect.x + hairColorRect.width + 8f;
-
-                    if (Widgets.ButtonText(hairTypeRect, newSleeve?.story?.hairDef?.LabelCap ?? "Bald"))
-                    {
-                        IEnumerable<HairDef> hairs =
-                            from hairdef in DefDatabase<HairDef>.AllDefs
-                            where (newSleeve.gender == Gender.Female && (hairdef.hairGender == HairGender.Any || hairdef.hairGender == HairGender.Female || hairdef.hairGender == HairGender.FemaleUsually)) || (newSleeve.gender == Gender.Male && (hairdef.hairGender == HairGender.Any || hairdef.hairGender == HairGender.Male || hairdef.hairGender == HairGender.MaleUsually))
-                            select hairdef;
-
-                        if (hairs != null)
-                        {
-                            FloatMenuUtility.MakeMenu<HairDef>(hairs, hairDef => hairDef.LabelCap, (HairDef hairDef) => delegate
-                            {
-                                newSleeve.story.hairDef = hairDef;
-                                newSleeve.Drawer.renderer.graphics.ResolveAllGraphics();
-                                PortraitsCache.SetDirty(newSleeve);
-                                PortraitsCache.PortraitsCacheUpdate();
-                            });
-                        }
-                    }
+                    this.Close();
                 }
             }
             Text.Anchor = TextAnchor.UpperLeft;
@@ -766,10 +886,16 @@ namespace AlteredCarbon
 
         public Pawn GetNewPawn(Gender gender = Gender.Female)
         {
+            maleBodyTypeIndex = 0;
+            femaleBodyTypeIndex = 0;
+            hairTypeIndex = 0;
+            femaleHeadTypeIndex = 0;
+            maleHeadTypeIndex = 0;
+            
             //Make base pawn.
             Pawn pawn;
 
-            pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfPlayer, RimWorld.PawnGenerationContext.NonPlayer,
+            pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfAncients, PawnGenerationContext.NonPlayer,
             -1, true, false, false, false, false, false, 0f, false, true, true, false, false, false, true, fixedGender: gender));
 
             //Post process age to adulthood. Two methods.

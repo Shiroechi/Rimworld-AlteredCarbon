@@ -18,5 +18,11 @@
 		<driverClass>AlteredCarbon.JobDriver_CopyStack</driverClass>
 		<reportString>copies cortical stack</reportString>
 	</JobDef>
+	
+	<JobDef>
+		<defName>AC_ReleaseSleeve</defName>
+		<driverClass>AlteredCarbon.JobDriver_ReleaseSleeve</driverClass>
+		<reportString>releasing sleeve</reportString>
+	</JobDef>
 
 </Defs>

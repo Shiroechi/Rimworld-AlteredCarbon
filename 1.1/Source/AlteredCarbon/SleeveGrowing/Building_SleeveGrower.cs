@@ -31,8 +31,12 @@ namespace AlteredCarbon
 			{
 				return this.innerContainer.FirstOrDefault<Thing>() as Pawn;
 			}
+			set
+            {
+				this.innerContainer.ClearAndDestroyContentsOrPassToWorld();
+				this.innerContainer.TryAddOrTransfer(value);
+			}
 		}
-		
 		public override void SpawnSetup(Map map, bool respawningAfterLoad)
 		{
 			base.SpawnSetup(map, respawningAfterLoad);
@@ -47,17 +51,14 @@ namespace AlteredCarbon
 				yield return gizmo;
 			}
 			IEnumerator<Gizmo> enumerator = null;
-		
-			if (this.ContainedThing == null)
-			{
-				Command_Action command_Action = new Command_Action();
-				command_Action.action = new Action(this.CreateSleeve);
-				command_Action.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
-				command_Action.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
-				command_Action.hotKey = KeyBindingDefOf.Misc8;
-				command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
-				yield return command_Action;
-			}
+
+			Command_Action command_Action = new Command_Action();
+			command_Action.action = new Action(this.CreateSleeve);
+			command_Action.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
+			command_Action.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
+			command_Action.hotKey = KeyBindingDefOf.Misc8;
+			command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
+			yield return command_Action;
 			yield break;
 		}
 		
@@ -80,7 +81,7 @@ namespace AlteredCarbon
 					null, MenuOptionPriority.Default, null, null, 0f, null, null);
 				yield return floatMenuOption2;
 			}
-			else if (this.ContainedThing != null)
+			else if (this.ContainedThing != null && !this.active)
 			{
 				string label = "AlteredCarbon.ReleaseSleeve".Translate();
 				Action action = delegate ()
@@ -95,46 +96,6 @@ namespace AlteredCarbon
 			}
 			yield break;
 		}
-		
-		public void DoMutation(string pawnKindDefname)
-		{
-			PawnKindDef pawnKindDef = PawnKindDef.Named(pawnKindDefname);
-			NameTriple nameTriple = this.InnerPawn.Name as NameTriple;
-			Pawn mutant = PawnGenerator.GeneratePawn(
-			new PawnGenerationRequest(pawnKindDef, this.InnerPawn.Faction, PawnGenerationContext.NonPlayer, -1,
-				false, false, false, false, false, false, 1f, false, true, true, true, false, false, false,
-				false, 0f, null, 1f, null, null,
-				this.InnerPawn.story.traits.allTraits.Select(x => x.def),
-				this.InnerPawn.story.traits.allTraits.Select(x => x.def),
-				null,
-				20,
-				20,
-				this.InnerPawn.gender,
-				null,
-				nameTriple.Last,
-				nameTriple.First,
-				null));
-			ThingDef filth_Slime = ThingDefOf.Filth_Slime;
-			if (mutant.Faction != Faction.OfPlayer)
-			{
-				mutant.SetFaction(Faction.OfPlayer);
-				var letterLabel = "LetterLabelMessageRecruitSuccess".Translate() + ": " + mutant.LabelShortCap;
-				Find.LetterStack.ReceiveLetter(letterLabel, letterLabel, LetterDefOf.PositiveEvent, mutant, null, null, null, null);
-			}
-			mutant.Name = new NameTriple(nameTriple.First, nameTriple.Nick, nameTriple.Last);
-			mutant.story.traits = this.InnerPawn.story.traits;
-			mutant.relations = this.InnerPawn.relations;
-			mutant.skills = this.InnerPawn.skills;
-			mutant.story.childhood = this.InnerPawn.story.childhood;
-			mutant.story.adulthood = this.InnerPawn.story.adulthood;
-			this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
-			GenSpawn.Spawn(mutant, this.Position, this.Map);
-			mutant.filth.GainFilth(filth_Slime);
-			this.innerContainer.TryAdd(mutant);
-			PortraitsCache.SetDirty(mutant);
-			PortraitsCache.PortraitsCacheUpdate();
-		}
-		
 		public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
 			var glass = GraphicDatabase.Get<Graphic_Single>("Building/FEVvatglass", ShaderDatabase.MetaOverlay,
@@ -156,33 +117,64 @@ namespace AlteredCarbon
 				glass.Draw(drawLoc, Rot4.North, this);
 			}
 		}
-		
+
+		public int totalTicksToGrow = 0;
+		public int curTicksToGrow = 0;
+
+		public float totalGrowthCost = 0;
+		public float curGrowthCost = 0;
+		public void StartGrowth(Pawn newSleeve, int totalTicksToGrow, int totalGrowthCost)
+        {
+			this.InnerPawn = newSleeve;
+			this.totalTicksToGrow = totalTicksToGrow;
+			this.curTicksToGrow = 0;
+
+			this.totalGrowthCost = totalGrowthCost;
+			this.curGrowthCost = 0;
+			this.active = true;
+
+		}
+		public void FinishGrowth()
+        {
+			this.active = false;
+		}
+
+		public void ReleaseSleeve()
+        {
+			this.InnerPawn.SetFaction(Faction.OfPlayer);
+			this.innerContainer.TryDropAll(this.Position, this.Map, ThingPlaceMode.Near);
+		}
+
+		public bool active;
+
+
 		public override void Tick()
 		{
 			base.Tick();
-			if (this.ContainedThing == null && this.mutationProgress > 0)
+			if (this.ContainedThing == null && this.curTicksToGrow > 0)
 			{
-				mutationProgress = 0;
+				curTicksToGrow = 0;
 			}
-			if (this.ContainedThing is Pawn && !this.InnerPawn.Dead && base.GetComp<CompRefuelable>().HasFuel)
+			if (this.ContainedThing is Pawn && base.GetComp<CompRefuelable>().HasFuel && powerTrader.PowerOn && this.active)
 			{
-				base.GetComp<CompRefuelable>().ConsumeFuel(0.01f);
-				if (this.mutationProgress < 1000)
+				var fuelCost = this.totalGrowthCost / (float)this.totalTicksToGrow;
+				base.GetComp<CompRefuelable>().ConsumeFuel(fuelCost);
+				curGrowthCost += fuelCost;
+				if (this.curTicksToGrow < totalTicksToGrow)
 				{
-					mutationProgress++;
+					curTicksToGrow++;
 				}
 				else
 				{
-					this.DoMutation("FCPSuperMutant_Colonist");
-					mutationProgress = 0;
+					this.FinishGrowth();
 				}
 			}
 		}
 		
 		public override string GetInspectString()
 		{
-			return base.GetInspectString() + "\n" + "MutationProgress".Translate() +
-				(((float)this.mutationProgress / 1000f) * 100f).ToString() + "%";
+			return base.GetInspectString() + "\n" + "GrowthProgress".Translate() +
+				(((float)this.curTicksToGrow / this.totalTicksToGrow) * 100f).ToString() + "%";
 		}
 		public override void EjectContents()
 		{
@@ -208,7 +200,11 @@ namespace AlteredCarbon
 		public override void ExposeData()
 		{
 			base.ExposeData();
-			Scribe_Values.Look<int>(ref this.mutationProgress, "mutationProgress", 0, true);
+			Scribe_Values.Look<int>(ref this.totalTicksToGrow, "totalTicksToGrow", 0, true);
+			Scribe_Values.Look<int>(ref this.curTicksToGrow, "curTicksToGrow", 0, true);
+
+			Scribe_Values.Look<float>(ref this.totalGrowthCost, "totalGrowthCost", 0f, true);
+			Scribe_Values.Look<float>(ref this.curGrowthCost, "curGrowthCost", 0f, true);
 		}
 		
 		public override bool Accepts(Thing thing)
@@ -220,7 +216,6 @@ namespace AlteredCarbon
 
 		private CompBreakdownable breakdownable;
 
-		public int mutationProgress = 0;
 	}
 }
 

@@ -34,6 +34,7 @@
     <Reference Include="0Harmony, Version=2.0.0.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Harmony\Current\Assemblies\0Harmony.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
@@ -298,9 +299,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlteredCarbonDefOf.cs" />
+    <Compile Include="SleeveGrowing\JobDriver_ReleaseSleeve.cs" />
+    <Compile Include="SleeveGrowing\GraphicDatabaseHeadRecords.cs" />
     <Compile Include="HarmonyPatches\CheckForStateChange_Patch.cs" />
-    <Compile Include="Building_SleeveGrower.cs" />
-    <Compile Include="CustomizeSleeveWindow.cs" />
+    <Compile Include="SleeveGrowing\Building_SleeveGrower.cs" />
+    <Compile Include="SleeveGrowing\CustomizeSleeveWindow.cs" />
     <Compile Include="Stacks\StacksData.cs" />
     <Compile Include="Jobs\JobDriver_CopyStack.cs" />
     <Compile Include="Jobs\JobDriver_WipeStack.cs" />
