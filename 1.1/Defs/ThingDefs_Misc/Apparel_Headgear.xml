@@ -87,6 +87,7 @@
         <apparel>
             <tags>
                 <li>SpacerMilitary</li>
+                <li>AC_SpacerProtectorate</li>
             </tags>
         </apparel>
     </ThingDef>
