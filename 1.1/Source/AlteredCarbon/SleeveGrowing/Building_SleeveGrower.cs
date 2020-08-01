@@ -9,7 +9,7 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
-	public class Building_SleeveGrower : Building_CryptosleepCasket
+	public class Building_SleeveGrower : Building_Casket
 	{
 		public bool IsOperating
 		{
@@ -48,17 +48,31 @@ namespace AlteredCarbon
 		{
 			foreach (Gizmo gizmo in base.GetGizmos())
 			{
+				Log.Message("((Command_Action)gizmo).defaultLabel: " + gizmo);
 				yield return gizmo;
 			}
-			IEnumerator<Gizmo> enumerator = null;
+			if (base.Faction == Faction.OfPlayer && innerContainer.Count > 0 && def.building.isPlayerEjectable && !this.active)
+			{
+				Command_Action command_Action = new Command_Action();
+				command_Action.action = EjectContents;
+				command_Action.defaultLabel = "CommandPodEject".Translate();
+				command_Action.defaultDesc = "CommandPodEjectDesc".Translate();
+				if (innerContainer.Count == 0)
+				{
+					command_Action.Disable("CommandPodEjectFailEmpty".Translate());
+				}
+				command_Action.hotKey = KeyBindingDefOf.Misc8;
+				command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/PodEject");
+				yield return command_Action;
+			}
 
-			Command_Action command_Action = new Command_Action();
-			command_Action.action = new Action(this.CreateSleeve);
-			command_Action.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
-			command_Action.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
-			command_Action.hotKey = KeyBindingDefOf.Misc8;
-			command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
-			yield return command_Action;
+			Command_Action command_Action2 = new Command_Action();
+			command_Action2.action = new Action(this.CreateSleeve);
+			command_Action2.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
+			command_Action2.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
+			command_Action2.hotKey = KeyBindingDefOf.Misc8;
+			command_Action2.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
+			yield return command_Action2;
 			yield break;
 		}
 		
@@ -174,7 +188,7 @@ namespace AlteredCarbon
 		public override string GetInspectString()
 		{
 			return base.GetInspectString() + "\n" + "GrowthProgress".Translate() +
-				(((float)this.curTicksToGrow / this.totalTicksToGrow) * 100f).ToString() + "%";
+				Math.Round(((float)this.curTicksToGrow / this.totalTicksToGrow) * 100f, 2).ToString() + "%";
 		}
 		public override void EjectContents()
 		{

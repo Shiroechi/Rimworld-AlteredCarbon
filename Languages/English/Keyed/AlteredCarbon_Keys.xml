@@ -29,5 +29,26 @@
 	<AlteredCarbon.GoodwillChangedReason_ErasedPawn>erased {PAWN_labelShort}</AlteredCarbon.GoodwillChangedReason_ErasedPawn>
 	
 	<AlteredCarbon.CantWipeStackTooDumb>Wipe Stack (requires intellectual skill of 5 or higher)</AlteredCarbon.CantWipeStackTooDumb>
+	
+	
+	<Accept>Accept</Accept>
+<AlteredCarbon.CreateSleeveBody>Create sleeve</AlteredCarbon.CreateSleeveBody>
+<AlteredCarbon.CreateSleeveBodyDesc>Create sleeve</AlteredCarbon.CreateSleeveBodyDesc>
+<AlteredCarbon.ReleaseSleeve>Release sleeve</AlteredCarbon.ReleaseSleeve>
+<AlteredCarbon.SleeveCustomization>Sleeve customization</AlteredCarbon.SleeveCustomization>
+<BodyShape>Body shape</BodyShape>
+<BodyTypeReplace>Body type replace</BodyTypeReplace>
+<Cancel>Cancel</Cancel>
+<GrowthProgress>Growth progress: </GrowthProgress>
+<HairColour>Hair colour</HairColour>
+<HairType>Hair type</HairType>
+<HeadShape>Head shape</HeadShape>
+<HeadTypeReplace>Head type replace</HeadTypeReplace>
+<LevelOfBeauty>Level of beauty</LevelOfBeauty>
+<LevelofQuality>Level of quality</LevelofQuality>
+<RequireBiomass>Require biomass</RequireBiomass>
+<SkinColour>Skin colour</SkinColour>
+<TimeToGrow>Time to grow</TimeToGrow>
+
 
 </LanguageData>
