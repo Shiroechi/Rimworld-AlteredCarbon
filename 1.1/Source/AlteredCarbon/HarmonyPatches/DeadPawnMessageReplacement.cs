@@ -164,8 +164,7 @@ namespace AlteredCarbon
 					Log.Message("Roof collapse");
 					return;
 				}
-				if (__instance != null && (ACUtils.ACTracker.stacksIndex.ContainsKey(__instance.ThingID + __instance.Name)
-					|| ACUtils.ACTracker.pawnsWithStacks.Contains(__instance)))
+				if (__instance != null && __instance.HasStack())
 				{
 					Notify_ColonistKilled_Patch.DisableKilledEffect = true;
 					Notify_PawnKilled_Patch.DisableKilledEffect = true;
@@ -237,8 +236,7 @@ namespace AlteredCarbon
 			Dictionary<string, string> ___pawnLabelsCache, Vector2 ___PawnTextureSize,
 			Texture2D ___MoodBGTex, Vector2[] ___bracketLocs)
 		{
-			if (colonist.Dead && (ACUtils.ACTracker.stacksIndex.ContainsKey(colonist.ThingID + colonist.Name)
-					|| ACUtils.ACTracker.pawnsWithStacks.Contains(colonist)))
+			if (colonist.Dead && colonist.HasStack())
 			{
 				float alpha = Find.ColonistBar.GetEntryRectAlpha(rect);
 				ApplyEntryInAnotherMapAlphaFactor(pawnMap, ref alpha);

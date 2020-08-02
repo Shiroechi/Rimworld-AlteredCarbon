@@ -432,20 +432,19 @@ namespace AlteredCarbon
             "Things/Pawn/Humanlike/Heads/Female"
         };
 
-        public void RemoveAllTraits()
+        public void RemoveAllTraits(Pawn pawn)
         {
-            if (this.newSleeve?.story?.traits?.allTraits != null)
+            Log.Message(" - RemoveAllTraits - if (newSleeve.story != null) - 1", true);
+            if (pawn.story != null)
             {
-                this.newSleeve.story.traits.allTraits.Clear();
+                Log.Message(" - RemoveAllTraits - newSleeve.story.traits = new TraitSet(newSleeve); - 2", true);
+                pawn.story.traits = new TraitSet(pawn);
             }
         }
 
-        public void RemoveAllHediffs()
+        public void RemoveAllHediffs(Pawn pawn)
         {
-            if (this.newSleeve?.health?.hediffSet?.hediffs != null)
-            {
-                this.newSleeve.health.hediffSet.hediffs.Clear();
-            }
+            pawn.health = new Pawn_HealthTracker(pawn);
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -871,7 +870,7 @@ namespace AlteredCarbon
                 Widgets.Label(lblLevelOfBeauty, "LevelOfBeauty".Translate().CapitalizeFirst() + ": " + beautyLevel);
                 if (Widgets.ButtonText(btnLevelOfBeauty1, "1"))
                 {
-                    RemoveAllTraits();
+                    RemoveAllTraits(newSleeve);
                     newSleeve.story.traits.GainTrait(new Trait(TraitDefOf.Beauty, -2));
                     baseTicksToGrow2 = -420000;
                     baseMeatCost2 = -50;
@@ -879,14 +878,14 @@ namespace AlteredCarbon
                 }
                 if (Widgets.ButtonText(btnLevelOfBeauty2, "2"))
                 {
-                    RemoveAllTraits();
+                    RemoveAllTraits(newSleeve);
                     baseTicksToGrow2 = 0;
                     baseMeatCost2 = 0;
                     beautyLevel = 2;
                 }
                 if (Widgets.ButtonText(btnLevelOfBeauty3, "3"))
                 {
-                    RemoveAllTraits();
+                    RemoveAllTraits(newSleeve);
                     newSleeve.story.traits.GainTrait(new Trait(TraitDefOf.Beauty, 2));
                     baseTicksToGrow2 = 420000;
                     baseTicksToGrow2 = 420;
@@ -902,7 +901,7 @@ namespace AlteredCarbon
                 {
                     baseTicksToGrow3 = -420000;
                     baseMeatCost3 = -50;
-                    RemoveAllHediffs();
+                    RemoveAllHediffs(newSleeve);
                     newSleeve.health.AddHediff(AlteredCarbonDefOf.AC_Sleeve_Quality_Low, null);
                     qualityLevel = 1;
                 }
@@ -910,7 +909,7 @@ namespace AlteredCarbon
                 {
                     baseTicksToGrow3 = 0;
                     baseMeatCost3 = 0;
-                    RemoveAllHediffs();
+                    RemoveAllHediffs(newSleeve);
                     newSleeve.health.AddHediff(AlteredCarbonDefOf.AC_Sleeve_Quality_Standart, null);
                     qualityLevel = 2;
                 }
@@ -919,7 +918,7 @@ namespace AlteredCarbon
                     baseTicksToGrow3 = 420000;
                     baseTicksToGrow3 = 420;
                     baseMeatCost3 = 50;
-                    RemoveAllHediffs();
+                    RemoveAllHediffs(newSleeve);
                     newSleeve.health.AddHediff(AlteredCarbonDefOf.AC_Sleeve_Quality_High, null);
                     qualityLevel = 3;
 
@@ -948,12 +947,16 @@ namespace AlteredCarbon
             Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfAncients, PawnGenerationContext.NonPlayer,
             -1, true, false, false, false, false, false, 0f, false, true, true, false, false, false, true, fixedGender: gender, fixedBiologicalAge: 20, 
             fixedChronologicalAge: 20));
+            pawn.story.childhood = null;
+            pawn.story.adulthood = null;
             pawn.Name = new NameSingle("AlteredCarbon.EmptySleeve".Translate());
             pawn?.equipment.DestroyAllEquipment();
             pawn?.inventory.DestroyAll();
             pawn.apparel.DestroyAll();
-            RemoveAllTraits();
-            RemoveAllHediffs();
+            RemoveAllTraits(pawn);
+            pawn.skills = new Pawn_SkillTracker(pawn);
+
+            RemoveAllHediffs(pawn);
 
             if (pawn.workSettings != null)
             {

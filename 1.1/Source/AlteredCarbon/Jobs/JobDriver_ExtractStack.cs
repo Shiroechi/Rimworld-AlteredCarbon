@@ -41,6 +41,8 @@ namespace AlteredCarbon
                                 corticalStack.SavePawnToCorticalStack(corpse.InnerPawn);
                             }
                             GenPlace.TryPlaceThing(corticalStack, TargetThingA.Position, GetActor().Map, ThingPlaceMode.Near);
+                            ACUtils.ACTracker.RegisterStack(corticalStack);
+                            ACUtils.ACTracker.RegisterSleeve(corpse.InnerPawn);
                         }
                         corpse.InnerPawn.health.RemoveHediff(hediff);
                     }

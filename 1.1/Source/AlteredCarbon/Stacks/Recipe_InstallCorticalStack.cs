@@ -104,12 +104,8 @@ namespace AlteredCarbon
                         pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_NewSleeve);
                     }
                 }
-                else
-                {
-                    Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - ACUtils.ACTracker.RegisterPawn(pawn); - 34", true);
-                    ACUtils.ACTracker.RegisterPawn(pawn);
-                }
-                ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
+
+		ACUtils.ACTracker.RegisterPawn(pawn);
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - ACUtils.ACTracker.TryAddRelationships(pawn); - 36", true);
                 ACUtils.ACTracker.TryAddRelationships(pawn);
             }

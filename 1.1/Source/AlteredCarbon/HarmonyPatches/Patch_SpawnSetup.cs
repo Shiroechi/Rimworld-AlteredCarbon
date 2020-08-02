@@ -25,7 +25,6 @@ namespace AlteredCarbon
                     BodyPartRecord neckRecord = pawn.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
                     pawn.health.AddHediff(AlteredCarbonDefOf.AC_CorticalStack, neckRecord);
                     ACUtils.ACTracker.RegisterPawn(pawn);
-                    ACUtils.ACTracker.pawnsWithStacks.Add(pawn);
                 }
             }
         }

@@ -48,6 +48,20 @@ namespace AlteredCarbon
             return false;
         }
 
+        public static bool IsSleeve(this Pawn pawn)
+        {
+            if (ACTracker.emptySleeves != null && ACTracker.emptySleeves.Contains(pawn))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool HasStack(this Pawn pawn)
+        {
+            return ACTracker.stacksIndex.ContainsKey(pawn.ThingID + pawn.Name) || ACTracker.pawnsWithStacks.Contains(pawn);
+        }
+
         public static void ResetACTracker()
 		{
 			aCTracker = null;
