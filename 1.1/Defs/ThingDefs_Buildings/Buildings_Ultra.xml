@@ -11,7 +11,7 @@
         <graphicData>
             <texPath>Things/Building/Misc/SleeveGrowingVatBottom</texPath>
             <graphicClass>Graphic_Single</graphicClass>
-            <drawSize>(5,5)</drawSize>
+            <drawSize>(6,6)</drawSize>
             <shaderType>CutoutComplex</shaderType>
             <damageData>
                 <cornerTL>Damage/Corner</cornerTL>
@@ -26,8 +26,7 @@
         </costList>
         <altitudeLayer>Building</altitudeLayer>
         <neverMultiSelect>true</neverMultiSelect>
-        <uiIconScale>0.5</uiIconScale>
-        <fillPercent>0.5</fillPercent>
+        <uiIconScale>0.8</uiIconScale>
         <useHitPoints>True</useHitPoints>
         <statBases>
             <WorkToBuild>8000</WorkToBuild>
@@ -36,9 +35,9 @@
             <Beauty>-5</Beauty>
         </statBases>
 		<designationCategory>Misc</designationCategory>
-        <size>(5,5)</size>
+        <size>(6,6)</size>
         <techLevel>Ultra</techLevel>
-        <passability>PassThroughOnly</passability>
+        <passability>Impassable</passability>
         <pathCost>70</pathCost>
 		<blockWind>true</blockWind>
         <surfaceType>Item</surfaceType>
