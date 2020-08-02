@@ -167,12 +167,12 @@ namespace AlteredCarbon
 					this.ContainedThing.DrawAt(newPos, flip);
 				}
 				base.DrawAt(drawLoc, flip);
-				//Glass.Draw(drawLoc, Rot4.North, this);
+				Glass.Draw(drawLoc, Rot4.North, this);
 			}
 			else
 			{
 				base.DrawAt(drawLoc, flip);
-				//Glass.Draw(drawLoc, Rot4.North, this);
+				Glass.Draw(drawLoc, Rot4.North, this);
 			}
 		}
 
