@@ -240,6 +240,8 @@ namespace AlteredCarbon
 			}
 			this.innerContainer.TryDropAll(this.InteractionCell, base.Map, ThingPlaceMode.Near, null, null);
 			this.contentsKnown = true;
+			this.fetus = null;
+			this.child = null;
 		}
 		
 		public override void ExposeData()

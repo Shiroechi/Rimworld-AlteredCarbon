@@ -27,10 +27,13 @@ namespace AlteredCarbon
 			___bedDefsBestToWorst_RestEffectiveness.Remove(AlteredCarbonDefOf.AC_SleeveCasket);
 			___bedDefsBestToWorst_Medical.Remove(AlteredCarbonDefOf.AC_SleeveCasket);
 			if (sleeper.IsSleeve())
-            {
-				Log.Message("__result: " + __result, true);
-				__result = FindBedForSleeve(sleeper, traveler);
-				return false;
+			{
+				var bed = FindBedForSleeve(sleeper, traveler);
+				if (bed != null)
+                {
+					__result = bed;
+					return false;
+                }
 			}
 			return true;
 		}
@@ -38,7 +41,7 @@ namespace AlteredCarbon
 		{
 			Building_Bed building_Bed2 = (Building_Bed)GenClosest.ClosestThingReachable(sleeper.Position, sleeper.Map, 
 				ThingRequest.ForDef(AlteredCarbonDefOf.AC_SleeveCasket), PathEndMode.OnCell, TraverseParms.For(traveler), 9999f, (Thing b) => 
-				(int)b.Position.GetDangerFor(sleeper, sleeper.Map) <= (int)Danger.Deadly);
+				(int)b.Position.GetDangerFor(sleeper, sleeper.Map) <= (int)Danger.Deadly && RestUtility.IsValidBedFor(b, sleeper, traveler, false, false));
 			if (building_Bed2 != null)
 			{
 				return building_Bed2;

@@ -955,7 +955,15 @@ namespace AlteredCarbon
             pawn.apparel.DestroyAll();
             RemoveAllTraits(pawn);
             pawn.skills = new Pawn_SkillTracker(pawn);
-
+            pawn.needs = new Pawn_NeedsTracker(pawn);
+            pawn.needs.mood.thoughts = new ThoughtHandler(pawn);
+            if (pawn.needs?.mood?.thoughts?.memories?.Memories != null)
+            {
+                for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
+                {
+                    pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
+                }
+            }
             RemoveAllHediffs(pawn);
 
             if (pawn.workSettings != null)
