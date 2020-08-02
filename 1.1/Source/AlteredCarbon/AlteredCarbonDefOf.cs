@@ -31,9 +31,13 @@ namespace AlteredCarbon
 
 		public static HediffDef AC_Sleeve_Quality_High;
 
+		public static HediffDef AC_EmptySleeve;
+
 		public static ThingDef AC_EmptyCorticalStack;
 
 		public static ThingDef AC_FilledCorticalStack;
+
+		public static ThingDef AC_SleeveCasket;
 
 		public static ThoughtDef AC_WrongGender;
 
@@ -62,6 +66,7 @@ namespace AlteredCarbon
 		public static PawnRelationDef AC_Original;
 
 		public static PawnRelationDef AC_Copy;
+
 	}
 }
 

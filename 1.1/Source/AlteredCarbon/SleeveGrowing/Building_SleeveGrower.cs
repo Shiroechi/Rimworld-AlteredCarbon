@@ -77,19 +77,7 @@ namespace AlteredCarbon
 
 		public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
 		{
-			if (!ReachabilityUtility.CanReach(myPawn, this, PathEndMode.InteractionCell, Danger.Deadly, false, 0))
-			{
-				FloatMenuOption floatMenuOption = new FloatMenuOption(Translator.Translate("CannotUseNoPath"), null,
-					MenuOptionPriority.Default, null, null, 0f, null, null);
-				yield return floatMenuOption;
-			}
-			else if (!this.IsOperating)
-			{
-				FloatMenuOption floatMenuOption2 = new FloatMenuOption(Translator.Translate("CannotUseNotOperating"),
-					null, MenuOptionPriority.Default, null, null, 0f, null, null);
-				yield return floatMenuOption2;
-			}
-			else if (this.ContainedThing != null && !this.active)
+			if (this.ContainedThing != null && !this.active)
 			{
 				string label = "AlteredCarbon.ReleaseSleeve".Translate();
 				Action action = delegate ()
@@ -139,8 +127,7 @@ namespace AlteredCarbon
 			{
 				if (fetus == null)
 				{
-					fetus = GraphicDatabase.Get<Graphic_Single>("Pawn/Humanlike/Vat/Fetus", ShaderDatabase.MetaOverlay,
-					new Vector3(1, 1), this.InnerPawn.DrawColor);
+					fetus = GraphicDatabase.Get<Graphic_Single>("Pawn/Humanlike/Vat/Fetus", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return fetus;
 			}
@@ -153,8 +140,7 @@ namespace AlteredCarbon
 			{
 				if (child == null)
 				{
-					child = GraphicDatabase.Get<Graphic_Single>("Pawn/Humanlike/Vat/Child", ShaderDatabase.MetaOverlay,
-					new Vector3(1, 1), this.InnerPawn.DrawColor);
+					child = GraphicDatabase.Get<Graphic_Multi>("Pawn/Humanlike/Vat/Child", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return child;
 			}
@@ -181,12 +167,12 @@ namespace AlteredCarbon
 					this.ContainedThing.DrawAt(newPos, flip);
 				}
 				base.DrawAt(drawLoc, flip);
-				Glass.Draw(drawLoc, Rot4.North, this);
+				//Glass.Draw(drawLoc, Rot4.North, this);
 			}
 			else
 			{
 				base.DrawAt(drawLoc, flip);
-				Glass.Draw(drawLoc, Rot4.North, this);
+				//Glass.Draw(drawLoc, Rot4.North, this);
 			}
 		}
 
@@ -203,6 +189,8 @@ namespace AlteredCarbon
 		public void FinishGrowth()
         {
 			this.active = false;
+			if (ACUtils.ACTracker.emptySleeves == null) ACUtils.ACTracker.emptySleeves = new HashSet<Pawn>();
+			ACUtils.ACTracker.emptySleeves.Add(this.InnerPawn);
 		}
 
         public override void Open()
@@ -240,6 +228,7 @@ namespace AlteredCarbon
 				{
 					PawnComponentsUtility.AddComponentsForSpawn(pawn);
 					pawn.filth.GainFilth(filth_Slime);
+					this.InnerPawn.health.AddHediff(AlteredCarbonDefOf.AC_EmptySleeve);
 				}
 			}
 			if (!base.Destroyed)

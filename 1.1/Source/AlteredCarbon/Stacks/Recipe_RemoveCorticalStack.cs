@@ -44,7 +44,7 @@ namespace AlteredCarbon
 						GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
 						if (ACUtils.ACTracker.stacksIndex == null) ACUtils.ACTracker.stacksIndex = new Dictionary<string, CorticalStack>();
 						ACUtils.ACTracker.stacksIndex[pawn.ThingID + pawn.Name] = corticalStack;
-						ACUtils.ACTracker.pawnsWithStacks.Remove(pawn);
+						ACUtils.ACTracker.RegisterSleeve(pawn);
 						ACUtils.ACTracker.ReplacePawnWithStack(pawn, corticalStack);
 					}
 					pawn.health.RemoveHediff(hediff);

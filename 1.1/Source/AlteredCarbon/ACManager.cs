@@ -29,6 +29,9 @@ namespace AlteredCarbon
             base.StartedNewGame();
             ACUtils.ResetACTracker();
             if (this.stacksIndex == null) this.stacksIndex = new Dictionary<string, CorticalStack>();
+            if (this.pawnsWithStacks == null) this.pawnsWithStacks = new HashSet<Pawn>();
+            if (this.emptySleeves == null) this.emptySleeves = new HashSet<Pawn>();
+            if (this.deadPawns == null) this.deadPawns = new HashSet<Pawn>();
         }
         public override void LoadedGame()
         {
@@ -36,6 +39,8 @@ namespace AlteredCarbon
             ACUtils.ResetACTracker();
             if (this.stacksIndex == null) this.stacksIndex = new Dictionary<string, CorticalStack>();
             if (this.pawnsWithStacks == null) this.pawnsWithStacks = new HashSet<Pawn>();
+            if (this.emptySleeves == null) this.emptySleeves = new HashSet<Pawn>();
+            if (this.deadPawns == null) this.deadPawns = new HashSet<Pawn>();
         }
 
         public override void GameComponentTick()
@@ -230,7 +235,21 @@ namespace AlteredCarbon
                 {
                     this.stacksRelationships[hediff.stackGroupID].originalPawn = pawn;
                 }
+                if (this.emptySleeves != null)
+                {
+                    this.emptySleeves.Remove(pawn);
+                }
+                this.pawnsWithStacks.Add(pawn);
             }
+        }
+
+
+
+        public void RegisterSleeve(Pawn pawn)
+        {
+            ACUtils.ACTracker.pawnsWithStacks.Remove(pawn);
+            if (ACUtils.ACTracker.emptySleeves == null) ACUtils.ACTracker.emptySleeves = new HashSet<Pawn>();
+            ACUtils.ACTracker.emptySleeves.Add(pawn);
         }
 
         public override void ExposeData()
@@ -239,6 +258,7 @@ namespace AlteredCarbon
             Scribe_Collections.Look<string, CorticalStack>(ref this.stacksIndex, "stacksIndex", 
                 LookMode.Value, LookMode.Reference, ref this.pawnKeys, ref this.stacksValues);
             Scribe_Collections.Look<Pawn>(ref this.pawnsWithStacks, "pawnsWithStacks", LookMode.Reference);
+            Scribe_Collections.Look<Pawn>(ref this.emptySleeves, "emptySleeves", LookMode.Reference);
             Scribe_Collections.Look<Pawn>(ref this.deadPawns, "deadPawns", LookMode.Reference);
             Scribe_Collections.Look<int, StacksData>(ref this.stacksRelationships, "stacksRelationships",
                 LookMode.Value, LookMode.Deep, ref stacksRelationshipsKeys, ref stacksRelationshipsValues);
@@ -249,7 +269,7 @@ namespace AlteredCarbon
         private List<StacksData> stacksRelationshipsValues = new List<StacksData>();
 
         public HashSet<Pawn> pawnsWithStacks = new HashSet<Pawn>();
-
+        public HashSet<Pawn> emptySleeves = new HashSet<Pawn>();
         public HashSet<Pawn> deadPawns = new HashSet<Pawn>();
 
         public Dictionary<string, CorticalStack> stacksIndex;
