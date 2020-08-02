@@ -28,7 +28,7 @@ namespace AlteredCarbon
                 initAction = delegate ()
                 {
                     var grower = (Building_SleeveGrower)this.TargetA.Thing;
-                    grower.ReleaseSleeve();
+                    grower.EjectContents();
                 }
             };
             yield break;

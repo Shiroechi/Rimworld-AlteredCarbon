@@ -25,6 +25,12 @@ namespace AlteredCarbon
 
 		public static HediffDef AC_CorticalStack;
 
+		public static HediffDef AC_Sleeve_Quality_Low;
+
+		public static HediffDef AC_Sleeve_Quality_Standart;
+
+		public static HediffDef AC_Sleeve_Quality_High;
+
 		public static ThingDef AC_EmptyCorticalStack;
 
 		public static ThingDef AC_FilledCorticalStack;

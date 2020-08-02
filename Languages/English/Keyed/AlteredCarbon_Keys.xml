@@ -12,6 +12,8 @@
 	<AlteredCarbon.WipeStack>Wipe stack</AlteredCarbon.WipeStack>
 	<AlteredCarbon.DestroyedStack>Destroyed stack</AlteredCarbon.DestroyedStack>
 	<AlteredCarbon.DestroyedStackDesc>An empty stack was destroyed by inept actions of {PAWN_labelShort}</AlteredCarbon.DestroyedStackDesc>
+	<AlteredCarbon.EmptySleeve>Empty sleeve</AlteredCarbon.EmptySleeve>
+
 	<AlteredCarbon.EmptyStack>Empty stack</AlteredCarbon.EmptyStack>
 	<AlteredCarbon.EmptyStackDesc>Empty stack</AlteredCarbon.EmptyStackDesc>
 	<AlteredCarbon.SleeveDeath>Sleeve Death</AlteredCarbon.SleeveDeath>

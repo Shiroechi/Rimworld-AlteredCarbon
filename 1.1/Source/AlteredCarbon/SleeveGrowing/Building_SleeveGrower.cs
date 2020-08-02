@@ -31,11 +31,6 @@ namespace AlteredCarbon
 			{
 				return this.innerContainer.FirstOrDefault<Thing>() as Pawn;
 			}
-			set
-            {
-				this.innerContainer.ClearAndDestroyContentsOrPassToWorld();
-				this.innerContainer.TryAddOrTransfer(value);
-			}
 		}
 		public override void SpawnSetup(Map map, bool respawningAfterLoad)
 		{
@@ -48,13 +43,12 @@ namespace AlteredCarbon
 		{
 			foreach (Gizmo gizmo in base.GetGizmos())
 			{
-				Log.Message("((Command_Action)gizmo).defaultLabel: " + gizmo);
 				yield return gizmo;
 			}
 			if (base.Faction == Faction.OfPlayer && innerContainer.Count > 0 && def.building.isPlayerEjectable && !this.active)
 			{
 				Command_Action command_Action = new Command_Action();
-				command_Action.action = EjectContents;
+				command_Action.action = this.EjectContents;
 				command_Action.defaultLabel = "CommandPodEject".Translate();
 				command_Action.defaultDesc = "CommandPodEjectDesc".Translate();
 				if (innerContainer.Count == 0)
@@ -110,6 +104,19 @@ namespace AlteredCarbon
 			}
 			yield break;
 		}
+
+		public override string GetInspectString()
+		{
+			if (this.ContainedThing != null)
+			{
+				return base.GetInspectString() + "\n" + "GrowthProgress".Translate() +
+					Math.Round(((float)this.curTicksToGrow / this.totalTicksToGrow) * 100f, 2).ToString() + "%";
+			}
+			else
+			{
+				return base.GetInspectString();
+			}
+		}
 		public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
 			var glass = GraphicDatabase.Get<Graphic_Single>("Building/FEVvatglass", ShaderDatabase.MetaOverlay,
@@ -132,19 +139,13 @@ namespace AlteredCarbon
 			}
 		}
 
-		public int totalTicksToGrow = 0;
-		public int curTicksToGrow = 0;
-
-		public float totalGrowthCost = 0;
-		public float curGrowthCost = 0;
 		public void StartGrowth(Pawn newSleeve, int totalTicksToGrow, int totalGrowthCost)
         {
-			this.InnerPawn = newSleeve;
+			this.TryAcceptThing(newSleeve);
 			this.totalTicksToGrow = totalTicksToGrow;
 			this.curTicksToGrow = 0;
 
 			this.totalGrowthCost = totalGrowthCost;
-			this.curGrowthCost = 0;
 			this.active = true;
 
 		}
@@ -153,18 +154,12 @@ namespace AlteredCarbon
 			this.active = false;
 		}
 
-		public void ReleaseSleeve()
+        public override void Open()
         {
-			this.InnerPawn.SetFaction(Faction.OfPlayer);
-			this.innerContainer.TryDropAll(this.Position, this.Map, ThingPlaceMode.Near);
-		}
-
-		public bool active;
-
-
-		public override void Tick()
+			this.EjectContents();
+        }
+        public override void Tick()
 		{
-			base.Tick();
 			if (this.ContainedThing == null && this.curTicksToGrow > 0)
 			{
 				curTicksToGrow = 0;
@@ -173,7 +168,6 @@ namespace AlteredCarbon
 			{
 				var fuelCost = this.totalGrowthCost / (float)this.totalTicksToGrow;
 				base.GetComp<CompRefuelable>().ConsumeFuel(fuelCost);
-				curGrowthCost += fuelCost;
 				if (this.curTicksToGrow < totalTicksToGrow)
 				{
 					curTicksToGrow++;
@@ -185,11 +179,6 @@ namespace AlteredCarbon
 			}
 		}
 		
-		public override string GetInspectString()
-		{
-			return base.GetInspectString() + "\n" + "GrowthProgress".Translate() +
-				Math.Round(((float)this.curTicksToGrow / this.totalTicksToGrow) * 100f, 2).ToString() + "%";
-		}
 		public override void EjectContents()
 		{
 			ThingDef filth_Slime = ThingDefOf.Filth_Slime;
@@ -218,13 +207,20 @@ namespace AlteredCarbon
 			Scribe_Values.Look<int>(ref this.curTicksToGrow, "curTicksToGrow", 0, true);
 
 			Scribe_Values.Look<float>(ref this.totalGrowthCost, "totalGrowthCost", 0f, true);
-			Scribe_Values.Look<float>(ref this.curGrowthCost, "curGrowthCost", 0f, true);
+			Scribe_Values.Look<bool>(ref this.contentsKnown, "contentsKnown", false, true);
+			Scribe_Values.Look<bool>(ref this.active, "active", false, true);
 		}
-		
+
 		public override bool Accepts(Thing thing)
 		{
 			return this.innerContainer.Count == 0;
 		}
+
+		public int totalTicksToGrow = 0;
+		public int curTicksToGrow = 0;
+
+		public float totalGrowthCost = 0;
+		public bool active;
 
 		private CompPowerTrader powerTrader;
 
