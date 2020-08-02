@@ -41,7 +41,7 @@ namespace AlteredCarbon
 		{
 			Building_Bed building_Bed2 = (Building_Bed)GenClosest.ClosestThingReachable(sleeper.Position, sleeper.Map, 
 				ThingRequest.ForDef(AlteredCarbonDefOf.AC_SleeveCasket), PathEndMode.OnCell, TraverseParms.For(traveler), 9999f, (Thing b) => 
-				(int)b.Position.GetDangerFor(sleeper, sleeper.Map) <= (int)Danger.Deadly);
+				(int)b.Position.GetDangerFor(sleeper, sleeper.Map) <= (int)Danger.Deadly && RestUtility.IsValidBedFor(b, sleeper, traveler, false, false));
 			if (building_Bed2 != null)
 			{
 				return building_Bed2;
