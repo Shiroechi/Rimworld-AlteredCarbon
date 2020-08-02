@@ -26,7 +26,7 @@
         </costList>
         <altitudeLayer>Building</altitudeLayer>
         <neverMultiSelect>true</neverMultiSelect>
-        <uiIconScale>0.8</uiIconScale>
+        <uiIconScale>1.2</uiIconScale>
         <useHitPoints>True</useHitPoints>
         <statBases>
             <WorkToBuild>8000</WorkToBuild>
@@ -76,12 +76,12 @@
         </comps>
     </ThingDef>
 
-    <ThingDef ParentName="BedWithQualityBase">
+    <ThingDef ParentName="BuildingBase">
         <defName>AC_SleeveCasket</defName>
         <label>sleeve casket</label>
         <description>An ultra-tech casket used for storing grown sleeves before their stack is installed. It uses crypto tech technology to suspend the needs of the sleeves body, while still allowing for the installation of implants or bionics.</description>
         <graphicData>
-            <texPath>Things/Building/Furniture/Bed/HospitalBed</texPath>
+            <texPath>Things/Building/Misc/SleeveCasket</texPath>
             <graphicClass>Graphic_Multi</graphicClass>
             <shaderType>CutoutComplex</shaderType>
             <drawSize>(2,2)</drawSize>
@@ -92,20 +92,17 @@
             <WorkToBuild>2800</WorkToBuild>
             <Mass>35</Mass>
             <Flammability>1.0</Flammability>
-            <BedRestEffectiveness>1</BedRestEffectiveness>
             <Comfort>0.80</Comfort>
             <ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
-            <MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
-            <SurgerySuccessChanceFactor>1.5</SurgerySuccessChanceFactor>
+            <MedicalTendQualityOffset>0.9</MedicalTendQualityOffset>
+            <SurgerySuccessChanceFactor>3.5</SurgerySuccessChanceFactor>
         </statBases>
+		<designationCategory>Misc</designationCategory>
         <size>(1,2)</size>
         <costList>
             <Steel>80</Steel>
             <ComponentIndustrial>5</ComponentIndustrial>
         </costList>
-		<thingCategories>
-			<li>BuildingsMisc</li>
-		</thingCategories>
         <building>
             <bed_showSleeperBody>true</bed_showSleeperBody>
             <bed_healPerDay>25</bed_healPerDay>
