@@ -59,14 +59,16 @@ namespace AlteredCarbon
 				command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/PodEject");
 				yield return command_Action;
 			}
-
-			Command_Action command_Action2 = new Command_Action();
-			command_Action2.action = new Action(this.CreateSleeve);
-			command_Action2.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
-			command_Action2.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
-			command_Action2.hotKey = KeyBindingDefOf.Misc8;
-			command_Action2.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
-			yield return command_Action2;
+			if (this.ContainedThing == null)
+            {
+				Command_Action command_Action2 = new Command_Action();
+				command_Action2.action = new Action(this.CreateSleeve);
+				command_Action2.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
+				command_Action2.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
+				command_Action2.hotKey = KeyBindingDefOf.Misc8;
+				command_Action2.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
+				yield return command_Action2;
+			}
 			yield break;
 		}
 		
@@ -148,7 +150,7 @@ namespace AlteredCarbon
 
 		public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
-			if (this.innerContainer != null && this.innerContainer.Count > 0 && (this.ContainedThing is Pawn || this.ContainedThing is Corpse))
+			if (this.ContainedThing is Pawn)
 			{
 				Vector3 newPos = drawLoc;
 				newPos.z += 0.5f;
@@ -178,13 +180,13 @@ namespace AlteredCarbon
 
 		public void StartGrowth(Pawn newSleeve, int totalTicksToGrow, int totalGrowthCost)
         {
+			this.innerContainer.ClearAndDestroyContents();
 			this.TryAcceptThing(newSleeve);
 			this.totalTicksToGrow = totalTicksToGrow;
 			this.curTicksToGrow = 0;
 
 			this.totalGrowthCost = totalGrowthCost;
 			this.active = true;
-
 		}
 		public void FinishGrowth()
         {
