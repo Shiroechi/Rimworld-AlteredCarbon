@@ -117,25 +117,76 @@ namespace AlteredCarbon
 				return base.GetInspectString();
 			}
 		}
+
+		public Graphic glass;
+		public Graphic Glass
+        {
+			get
+            {
+				if (glass == null)
+                {
+					glass = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveGrowingVatTop", ShaderDatabase.MetaOverlay,
+					new Vector3(6, 6), Color.white);
+				}
+				return glass;
+            }
+        }
+
+		public Graphic fetus;
+		public Graphic Fetus
+		{
+			get
+			{
+				if (fetus == null)
+				{
+					fetus = GraphicDatabase.Get<Graphic_Single>("Pawn/Humanlike/Vat/Fetus", ShaderDatabase.MetaOverlay,
+					new Vector3(1, 1), this.InnerPawn.DrawColor);
+				}
+				return fetus;
+			}
+		}
+
+		public Graphic child;
+		public Graphic Child
+		{
+			get
+			{
+				if (child == null)
+				{
+					child = GraphicDatabase.Get<Graphic_Single>("Pawn/Humanlike/Vat/Child", ShaderDatabase.MetaOverlay,
+					new Vector3(1, 1), this.InnerPawn.DrawColor);
+				}
+				return child;
+			}
+		}
+
 		public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
-			var glass = GraphicDatabase.Get<Graphic_Single>("Building/FEVvatglass", ShaderDatabase.MetaOverlay,
-					new Vector3(6, 6), Color.white);
 			if (this.innerContainer != null && this.innerContainer.Count > 0 && (this.ContainedThing is Pawn || this.ContainedThing is Corpse))
 			{
 				Vector3 newPos = drawLoc;
 				newPos.z += 0.5f;
-		
-				this.ContainedThing.Rotation = Rot4.South;
-				this.ContainedThing.DrawAt(newPos, flip);
-		
+				var growthValue = (float)this.curTicksToGrow / this.totalTicksToGrow;
+				if (growthValue < 0.33f)
+                {
+					Fetus.Draw(newPos, Rot4.North, this);
+                }
+				else if (growthValue < 0.66f)
+                {
+					Child.Draw(newPos, Rot4.North, this);
+				}
+				else
+                {
+					this.ContainedThing.Rotation = Rot4.South;
+					this.ContainedThing.DrawAt(newPos, flip);
+				}
 				base.DrawAt(drawLoc, flip);
-				glass.Draw(drawLoc, Rot4.North, this);
+				Glass.Draw(drawLoc, Rot4.North, this);
 			}
 			else
 			{
 				base.DrawAt(drawLoc, flip);
-				glass.Draw(drawLoc, Rot4.North, this);
+				Glass.Draw(drawLoc, Rot4.North, this);
 			}
 		}
 
