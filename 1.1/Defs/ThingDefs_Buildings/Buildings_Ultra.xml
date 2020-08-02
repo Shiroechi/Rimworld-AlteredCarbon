@@ -126,6 +126,10 @@
                 <shortCircuitInRain>true</shortCircuitInRain>
                 <basePowerConsumption>500</basePowerConsumption>
             </li>
+			<li Class="CompProperties_AssignableToPawn">
+				<drawAssignmentOverlay>false</drawAssignmentOverlay>
+				<compClass>CompAssignableToPawn_Bed</compClass>
+			</li>
             <li Class="CompProperties_Flickable" />
             <li Class="CompProperties_Breakdownable" />      
 			<li Class="CompProperties_Forbiddable"/>

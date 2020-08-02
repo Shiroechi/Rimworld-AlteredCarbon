@@ -27,10 +27,13 @@ namespace AlteredCarbon
 			___bedDefsBestToWorst_RestEffectiveness.Remove(AlteredCarbonDefOf.AC_SleeveCasket);
 			___bedDefsBestToWorst_Medical.Remove(AlteredCarbonDefOf.AC_SleeveCasket);
 			if (sleeper.IsSleeve())
-            {
-				Log.Message("__result: " + __result, true);
-				__result = FindBedForSleeve(sleeper, traveler);
-				return false;
+			{
+				var bed = FindBedForSleeve(sleeper, traveler);
+				if (bed != null)
+                {
+					__result = bed;
+					return false;
+                }
 			}
 			return true;
 		}
