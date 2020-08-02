@@ -52,6 +52,7 @@
                 <compClass>CompPowerTrader</compClass>
                 <shortCircuitInRain>true</shortCircuitInRain>
                 <basePowerConsumption>4500</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
             </li>
 			<li Class="CompProperties_Refuelable">
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
@@ -84,8 +85,9 @@
             <texPath>Things/Building/Misc/SleeveCasket</texPath>
             <graphicClass>Graphic_Multi</graphicClass>
             <shaderType>CutoutComplex</shaderType>
-            <drawSize>(2,2)</drawSize>
+            <drawSize>(1,2)</drawSize>
         </graphicData>
+		<thingClass>Building_Bed</thingClass>
         <castEdgeShadows>True</castEdgeShadows>
         <statBases>
             <MaxHitPoints>150</MaxHitPoints>
