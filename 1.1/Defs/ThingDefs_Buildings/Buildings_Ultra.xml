@@ -11,7 +11,7 @@
         <graphicData>
             <texPath>Things/Building/Misc/SleeveGrowingVatBottom</texPath>
             <graphicClass>Graphic_Single</graphicClass>
-            <drawSize>(3.5,3.5)</drawSize>
+            <drawSize>(5,5)</drawSize>
             <shaderType>CutoutComplex</shaderType>
             <damageData>
                 <cornerTL>Damage/Corner</cornerTL>
@@ -36,7 +36,7 @@
             <Beauty>-5</Beauty>
         </statBases>
 		<designationCategory>Misc</designationCategory>
-        <size>(3,3)</size>
+        <size>(5,5)</size>
         <techLevel>Ultra</techLevel>
         <passability>PassThroughOnly</passability>
         <pathCost>70</pathCost>
