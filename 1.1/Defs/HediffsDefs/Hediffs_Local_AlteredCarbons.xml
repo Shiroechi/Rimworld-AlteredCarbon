@@ -96,5 +96,24 @@
             </li>
         </stages>
     </HediffDef>
+	
+    <HediffDef ParentName="DiseaseBase">
+        <defName>AC_EmptySleeve</defName>
+        <label>empty sleeve</label>
+        <description>An empty sleeve.</description>
+        <stages>
+            <li>
+				<label>empty</label>
+				<becomeVisible>false</becomeVisible>
+				<painFactor>0</painFactor>
+                <capMods>
+                    <li>
+                        <capacity>Consciousness</capacity>
+                        <setMax>0.01</setMax>
+                    </li>
+                </capMods>
+            </li>
+        </stages>
+    </HediffDef>
 
 </Defs>
