@@ -43,13 +43,17 @@
         <label>empty cortical stack</label>
         <description>An empty, ultra tech implant which can store a human's consciousness. Being implanted directly into a person's neck, blunt force trauma and bullets to the head and neck should be avoided at all cost. Extremely rare and hard to make.</description>
         <descriptionHyperlinks>
-            <RecipeDef>AC_InstallCorticalStack</RecipeDef>
+        <RecipeDef>AC_InstallCorticalStack</RecipeDef>
         </descriptionHyperlinks>
         <thingClass>AlteredCarbon.CorticalStack</thingClass>
         <graphicData>
             <texPath>Things/Item/Stacks/EmptyStack</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
+        <tradeTags Inherit="False">
+            <li>AC_StacksUltra</li>
+            <li>ExoticMisc</li>
+        </tradeTags>
         <costList>
             <Plasteel>15</Plasteel>
             <ComponentSpacer>4</ComponentSpacer>
@@ -78,6 +82,7 @@
             <texPath>Things/Item/Stacks/FilledStack</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
+		<tradeability>None</tradeability>
     </ThingDef>
 
 </Defs>

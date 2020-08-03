@@ -15,7 +15,7 @@
             </recipeUsers>
         </recipeMaker>
         <graphicData>
-            <texPath>Things/Pawn/Humanlike/Apparel/PowerArmor/PowerArmor</texPath>
+            <texPath>Things/Pawn/Humanlike/Apparel/CTACArmor/CTACArmor</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <generateCommonality>0.5</generateCommonality>
@@ -53,7 +53,7 @@
                 <li>Arms</li>
                 <li>Legs</li>
             </bodyPartGroups>
-            <wornGraphicPath>Things/Pawn/Humanlike/Apparel/PowerArmor/PowerArmor</wornGraphicPath>
+            <wornGraphicPath>Things/Pawn/Humanlike/Apparel/CTACArmor/CTACArmor</wornGraphicPath>
             <layers>
                 <li>Middle</li>
                 <li>Shell</li>

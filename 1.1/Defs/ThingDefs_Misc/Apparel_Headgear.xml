@@ -14,8 +14,9 @@
             </recipeUsers>
         </recipeMaker>
         <graphicData>
-            <texPath>Things/Pawn/Humanlike/Apparel/PowerArmorHelmet/PowerArmorHelmet</texPath>
+            <texPath>Things/Pawn/Humanlike/Apparel/CTACHelmet/CTACHelmet</texPath>
             <graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
         </graphicData>
         <uiIconScale>1.25</uiIconScale>
         <tradeTags>
@@ -42,7 +43,8 @@
             <bodyPartGroups>
                 <li>FullHead</li>
             </bodyPartGroups>
-            <wornGraphicPath>Things/Pawn/Humanlike/Apparel/PowerArmorHelmet/PowerArmorHelmet</wornGraphicPath>
+            <wornGraphicPath>Things/Pawn/Humanlike/Apparel/CTACHelmet/CTACHelmet</wornGraphicPath>
+			<useWornGraphicMask>true</useWornGraphicMask>
             <layers>
                 <li>Overhead</li>
             </layers>

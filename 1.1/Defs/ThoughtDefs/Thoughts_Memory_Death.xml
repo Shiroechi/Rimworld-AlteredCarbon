@@ -3,6 +3,10 @@
   
   <ThoughtDef ParentName="DeathMemoryFamily">
     <defName>AC_MyOriginalDied</defName>
+    <nullifyingTraits>
+      <li>Psychopath</li>
+      <li>Bloodlust</li>
+    </nullifyingTraits>
     <stages>
       <li>
         <label>my original copy {0} died</label>
@@ -14,6 +18,10 @@
  
   <ThoughtDef ParentName="DeathMemoryFamily">
     <defName>AC_MyCopyDied</defName>
+    <nullifyingTraits>
+      <li>Psychopath</li>
+      <li>Bloodlust</li>
+    </nullifyingTraits>
     <stages>
       <li>
         <label>my copy {0} died</label>
