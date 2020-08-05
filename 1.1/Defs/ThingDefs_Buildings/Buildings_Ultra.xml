@@ -133,6 +133,10 @@
             <li Class="CompProperties_Flickable" />
             <li Class="CompProperties_Breakdownable" />      
 			<li Class="CompProperties_Forbiddable"/>
+			<li Class="CompProperties_AssignableToPawn">
+				<drawAssignmentOverlay>false</drawAssignmentOverlay>
+				<compClass>CompAssignableToPawn_Bed</compClass>
+			</li>
         </comps>
     </ThingDef>
 
