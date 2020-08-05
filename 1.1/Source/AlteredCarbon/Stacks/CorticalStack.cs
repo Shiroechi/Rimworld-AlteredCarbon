@@ -395,7 +395,7 @@ namespace AlteredCarbon
                     pawn.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
                 }
             }
-            pawn.story.traits.allTraits.Clear();
+            pawn.story.traits.allTraits.RemoveAll(x => !extension.ignoresTraits.Contains(x.def.defName));
             Log.Message(" - OverwritePawn - foreach (var trait in this.traits) - 12", true);
             if (this.traits != null)
             {

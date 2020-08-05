@@ -104,8 +104,13 @@ namespace AlteredCarbon
                         pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_NewSleeve);
                     }
                 }
+                var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_EmptySleeve);
+                if (emptySleeveHediff != null)
+                {
+                    pawn.health.RemoveHediff(emptySleeveHediff);
+                }
 
-		ACUtils.ACTracker.RegisterPawn(pawn);
+                ACUtils.ACTracker.RegisterPawn(pawn);
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - ACUtils.ACTracker.TryAddRelationships(pawn); - 36", true);
                 ACUtils.ACTracker.TryAddRelationships(pawn);
             }

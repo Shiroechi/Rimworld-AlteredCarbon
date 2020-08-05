@@ -9,8 +9,125 @@ using Verse.Sound;
 
 namespace AlteredCarbon
 {
-	public class Building_SleeveGrower : Building_Casket
+	public class Building_SleeveGrower : Building, IThingHolder, IOpenable
 	{
+		protected ThingOwner innerContainer;
+
+		protected bool contentsKnown;
+
+		public bool HasAnyContents => innerContainer.Count > 0;
+
+		public Thing ContainedThing
+		{
+			get
+			{
+				if (innerContainer.Count != 0)
+				{
+					return innerContainer[0];
+				}
+				return null;
+			}
+		}
+
+		public bool CanOpen => HasAnyContents && !this.active;
+
+		public Building_SleeveGrower()
+		{
+			innerContainer = new ThingOwner<Thing>(this, oneStackOnly: false);
+		}
+
+		public ThingOwner GetDirectlyHeldThings()
+		{
+			return innerContainer;
+		}
+
+		public void GetChildHolders(List<IThingHolder> outChildren)
+		{
+			ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, GetDirectlyHeldThings());
+		}
+
+		public override void TickRare()
+		{
+			base.TickRare();
+			innerContainer.ThingOwnerTickRare();
+		}
+		public virtual void Open()
+		{
+			if (HasAnyContents)
+			{
+				EjectContents();
+			}
+		}
+
+
+		public override bool ClaimableBy(Faction fac)
+		{
+			if (innerContainer.Any)
+			{
+				for (int i = 0; i < innerContainer.Count; i++)
+				{
+					if (innerContainer[i].Faction == fac)
+					{
+						return true;
+					}
+				}
+				return false;
+			}
+			return base.ClaimableBy(fac);
+		}
+		public virtual bool TryAcceptThing(Thing thing, bool allowSpecialEffects = true)
+		{
+			if (!Accepts(thing))
+			{
+				return false;
+			}
+			bool flag = false;
+			if (thing.holdingOwner != null)
+			{
+				thing.holdingOwner.TryTransferToContainer(thing, innerContainer, thing.stackCount);
+				flag = true;
+			}
+			else
+			{
+				flag = innerContainer.TryAdd(thing);
+			}
+			if (flag)
+			{
+				if (thing.Faction != null && thing.Faction.IsPlayer)
+				{
+					contentsKnown = true;
+				}
+				return true;
+			}
+			return false;
+		}
+
+		public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
+		{
+			if (innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize))
+			{
+				if (mode != DestroyMode.Deconstruct)
+				{
+					List<Pawn> list = new List<Pawn>();
+					foreach (Thing item in (IEnumerable<Thing>)innerContainer)
+					{
+						Pawn pawn = item as Pawn;
+						if (pawn != null)
+						{
+							list.Add(pawn);
+						}
+					}
+					foreach (Pawn item2 in list)
+					{
+						HealthUtility.DamageUntilDowned(item2);
+					}
+				}
+				EjectContents();
+			}
+			innerContainer.ClearAndDestroyContents();
+			base.Destroy(mode);
+		}
+
 		public bool IsOperating
 		{
 			get
@@ -24,7 +141,6 @@ namespace AlteredCarbon
 				return false;
 			}
 		}
-		
 		public Pawn InnerPawn
 		{
 			get
@@ -32,9 +148,14 @@ namespace AlteredCarbon
 				return this.innerContainer.FirstOrDefault<Thing>() as Pawn;
 			}
 		}
+
 		public override void SpawnSetup(Map map, bool respawningAfterLoad)
 		{
 			base.SpawnSetup(map, respawningAfterLoad);
+			if (base.Faction != null && base.Faction.IsPlayer)
+			{
+				contentsKnown = true;
+			}
 			this.powerTrader = base.GetComp<CompPowerTrader>();
 			this.breakdownable = base.GetComp<CompBreakdownable>();
 		}
@@ -45,21 +166,21 @@ namespace AlteredCarbon
 			{
 				yield return gizmo;
 			}
-			if (base.Faction == Faction.OfPlayer && innerContainer.Count > 0 && def.building.isPlayerEjectable && !this.active)
-			{
-				Command_Action command_Action = new Command_Action();
-				command_Action.action = this.EjectContents;
-				command_Action.defaultLabel = "CommandPodEject".Translate();
-				command_Action.defaultDesc = "CommandPodEjectDesc".Translate();
-				if (innerContainer.Count == 0)
-				{
-					command_Action.Disable("CommandPodEjectFailEmpty".Translate());
-				}
-				command_Action.hotKey = KeyBindingDefOf.Misc8;
-				command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/PodEject");
-				yield return command_Action;
-			}
-			if (this.ContainedThing == null)
+			//if (base.Faction == Faction.OfPlayer && innerContainer.Count > 0 && def.building.isPlayerEjectable && curTicksToGrow > 0 && !this.active)
+			//{
+			//	Command_Action command_Action = new Command_Action();
+			//	command_Action.action = this.EjectContents;
+			//	command_Action.defaultLabel = "CommandPodEject".Translate();
+			//	command_Action.defaultDesc = "CommandPodEjectDesc".Translate();
+			//	if (innerContainer.Count == 0)
+			//	{
+			//		command_Action.Disable("CommandPodEjectFailEmpty".Translate());
+			//	}
+			//	command_Action.hotKey = KeyBindingDefOf.Misc8;
+			//	command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/PodEject");
+			//	yield return command_Action;
+			//}
+			if (base.Faction == Faction.OfPlayer && this.ContainedThing == null)
             {
 				Command_Action command_Action2 = new Command_Action();
 				command_Action2.action = new Action(this.CreateSleeve);
@@ -195,12 +316,9 @@ namespace AlteredCarbon
 			ACUtils.ACTracker.emptySleeves.Add(this.InnerPawn);
 		}
 
-        public override void Open()
-        {
-			this.EjectContents();
-        }
         public override void Tick()
 		{
+			base.Tick();
 			if (this.ContainedThing == null && this.curTicksToGrow > 0)
 			{
 				curTicksToGrow = 0;
@@ -219,8 +337,8 @@ namespace AlteredCarbon
 				}
 			}
 		}
-		
-		public override void EjectContents()
+
+		public void EjectContents()
 		{
 			ThingDef filth_Slime = ThingDefOf.Filth_Slime;
 			foreach (Thing thing in this.innerContainer)
@@ -243,10 +361,13 @@ namespace AlteredCarbon
 			this.fetus = null;
 			this.child = null;
 		}
-		
+
 		public override void ExposeData()
 		{
 			base.ExposeData();
+			Scribe_Deep.Look(ref innerContainer, "innerContainer", this);
+			Scribe_Values.Look(ref contentsKnown, "contentsKnown", defaultValue: false);
+
 			Scribe_Values.Look<int>(ref this.totalTicksToGrow, "totalTicksToGrow", 0, true);
 			Scribe_Values.Look<int>(ref this.curTicksToGrow, "curTicksToGrow", 0, true);
 
@@ -255,7 +376,7 @@ namespace AlteredCarbon
 			Scribe_Values.Look<bool>(ref this.active, "active", false, true);
 		}
 
-		public override bool Accepts(Thing thing)
+		public bool Accepts(Thing thing)
 		{
 			return this.innerContainer.Count == 0;
 		}

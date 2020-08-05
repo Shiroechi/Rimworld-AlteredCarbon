@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
+using RimWorld;
 using Verse;
 
 namespace AlteredCarbon
@@ -67,7 +68,7 @@ namespace AlteredCarbon
 			aCTracker = null;
 		}
 
-		private static AlteredCarbonManager aCTracker;
+        private static AlteredCarbonManager aCTracker;
 	}
 }
 

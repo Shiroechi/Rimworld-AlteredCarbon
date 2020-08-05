@@ -481,11 +481,7 @@ namespace AlteredCarbon
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.MiddleCenter;
 
-
-
                 //Saakra's Code
-
-
 
                 //Gender
                 Text.Anchor = TextAnchor.MiddleLeft;
@@ -669,9 +665,10 @@ namespace AlteredCarbon
                     {
                         IEnumerable<BodyTypeDef> bodyTypes = from bodyType in DefDatabase<BodyTypeDef>
                             .AllDefs.Where(x => x != BodyTypeDefOf.Female) select bodyType;
-                        FloatMenuUtility.MakeMenu<BodyTypeDef>(bodyTypes, bodyType => bodyType.LabelCap, (BodyTypeDef bodyType) => delegate
+                        FloatMenuUtility.MakeMenu<BodyTypeDef>(bodyTypes, bodyType => bodyType.defName, (BodyTypeDef bodyType) => delegate
                         {
                             newSleeve.story.bodyType = bodyType;
+                            UpdateSleeveGraphic();
                         });
                     }
                     else if (newSleeve.gender == Gender.Female)
@@ -679,13 +676,12 @@ namespace AlteredCarbon
                         IEnumerable<BodyTypeDef> bodyTypes = from bodyType in DefDatabase<BodyTypeDef>
                             .AllDefs.Where(x => x != BodyTypeDefOf.Male)
                                                              select bodyType;
-                        FloatMenuUtility.MakeMenu<BodyTypeDef>(bodyTypes, bodyType => bodyType.LabelCap, (BodyTypeDef bodyType) => delegate
+                        FloatMenuUtility.MakeMenu<BodyTypeDef>(bodyTypes, bodyType => bodyType.defName, (BodyTypeDef bodyType) => delegate
                         {
                             newSleeve.story.bodyType = bodyType;
+                            UpdateSleeveGraphic();
                         });
                     }
-                    UpdateSleeveGraphic();
-
                 }
                 if (ButtonTextSubtleCentered(btnBodyShapeArrowRight, ">"))
                 {
