@@ -164,7 +164,7 @@ namespace AlteredCarbon
 					Log.Message("Roof collapse");
 					return;
 				}
-				if (__instance != null && __instance.HasStack())
+				if (__instance != null && (__instance.HasStack() || __instance.IsSleeve()))
 				{
 					Notify_ColonistKilled_Patch.DisableKilledEffect = true;
 					Notify_PawnKilled_Patch.DisableKilledEffect = true;

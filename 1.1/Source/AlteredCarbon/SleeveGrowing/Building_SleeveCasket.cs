@@ -29,7 +29,7 @@ namespace AlteredCarbon
 		public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
 			base.DrawAt(drawLoc, flip);
-			Glass.Draw(drawLoc, Rot4.North, this);
+			Glass.Draw(drawLoc, this.Rotation, this);
 		}
 	}
 }

@@ -451,7 +451,6 @@ namespace AlteredCarbon
         public string ExtractHeadLabels(string path)
         {
             string str = Regex.Replace(path, ".*/[A-Z]+?_", "", RegexOptions.IgnoreCase);
-            Log.Message("STRING: " + str, true);
             return str;
         }
         public override void DoWindowContents(Rect inRect)
@@ -957,9 +956,21 @@ namespace AlteredCarbon
             pawn?.inventory.DestroyAll();
             pawn.apparel.DestroyAll();
             RemoveAllTraits(pawn);
+            if (pawn.playerSettings == null) pawn.playerSettings = new Pawn_PlayerSettings(pawn);
+            pawn.playerSettings.medCare = MedicalCareCategory.Best;
             pawn.skills = new Pawn_SkillTracker(pawn);
             pawn.needs = new Pawn_NeedsTracker(pawn);
             pawn.needs.mood.thoughts = new ThoughtHandler(pawn);
+
+            if (BackstoryDatabase.TryGetWithIdentifier("LabGrownChild22", out Backstory bs))
+            {
+                pawn.story.childhood = bs;
+            }
+
+            foreach (var bk in BackstoryDatabase.allBackstories)
+            {
+                Log.Message(bk.Key + " - " + bk.Value.title, true); ;
+            }
             if (pawn.needs?.mood?.thoughts?.memories?.Memories != null)
             {
                 for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)

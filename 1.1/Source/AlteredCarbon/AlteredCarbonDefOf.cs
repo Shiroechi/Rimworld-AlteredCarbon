@@ -63,6 +63,8 @@ namespace AlteredCarbon
 
 		public static RecipeDef AC_InstallCorticalStack;
 
+		public static RecipeDef AC_InstallEmptyCorticalStack;
+
 		public static PawnRelationDef AC_Original;
 
 		public static PawnRelationDef AC_Copy;
