@@ -35,7 +35,7 @@
             <Beauty>-5</Beauty>
         </statBases>
 		<designationCategory>Misc</designationCategory>
-        <size>(5,5)</size>
+        <size>(4,4)</size>
         <techLevel>Ultra</techLevel>
         <passability>Impassable</passability>
         <pathCost>70</pathCost>
