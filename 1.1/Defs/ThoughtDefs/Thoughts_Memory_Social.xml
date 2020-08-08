@@ -9,7 +9,7 @@
         <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
         <stages>
             <li>
-                <label>killed my brother</label>
+                <label>killed my original</label>
                 <baseOpinionOffset>-80</baseOpinionOffset>
             </li>
         </stages>
