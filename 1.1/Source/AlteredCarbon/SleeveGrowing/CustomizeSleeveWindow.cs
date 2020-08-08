@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 using Verse;
+using System.Text.RegularExpressions;
 
 namespace AlteredCarbon
 {
@@ -447,6 +448,12 @@ namespace AlteredCarbon
             pawn.health = new Pawn_HealthTracker(pawn);
         }
 
+        public string ExtractHeadLabels(string path)
+        {
+            string str = Regex.Replace(path, ".*/[A-Z]+?_", "", RegexOptions.IgnoreCase);
+            Log.Message("STRING: " + str, true);
+            return str;
+        }
         public override void DoWindowContents(Rect inRect)
         {
             //Detect changes
@@ -575,7 +582,7 @@ namespace AlteredCarbon
                 {
                     if (newSleeve.gender == Gender.Male)
                     {
-                        FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.maleHeads, head => head.graphicPath, 
+                        FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.maleHeads, head => ExtractHeadLabels(head.graphicPath), 
                             (GraphicDatabaseHeadRecords.HeadGraphicRecord head) => delegate
                         {
                             typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
@@ -585,7 +592,7 @@ namespace AlteredCarbon
                     }
                     else if (newSleeve.gender == Gender.Female)
                         {
-                            FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.femaleHeads, head => head.graphicPath,
+                            FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.femaleHeads, head => ExtractHeadLabels(head.graphicPath),
                                 (GraphicDatabaseHeadRecords.HeadGraphicRecord head) => delegate
                                 {
                                     typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,

@@ -81,13 +81,14 @@
         <defName>AC_SleeveCasket</defName>
         <label>sleeve casket</label>
         <description>An ultra-tech casket used for storing grown sleeves before their stack is installed. It uses crypto tech technology to suspend the needs of the sleeves body, while still allowing for the installation of implants or bionics.</description>
-        <graphicData>
+		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+		<drawerType>RealtimeOnly</drawerType>
+		<graphicData>
             <texPath>Things/Building/Misc/SleeveCasket</texPath>
             <graphicClass>Graphic_Multi</graphicClass>
             <shaderType>CutoutComplex</shaderType>
             <drawSize>(1,2)</drawSize>
         </graphicData>
-		<thingClass>Building_Bed</thingClass>
         <castEdgeShadows>True</castEdgeShadows>
         <statBases>
             <MaxHitPoints>150</MaxHitPoints>

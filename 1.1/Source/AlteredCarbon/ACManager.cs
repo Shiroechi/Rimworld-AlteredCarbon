@@ -52,38 +52,42 @@ namespace AlteredCarbon
                 {
                     foreach (var data in this.stacksRelationships)
                     {
-                        Log.Message("----- Group ID: " + data.Key + " ----------------", true);
-                        if (data.Value.originalPawn != null)
-                        { 
-                            Log.Message("Original pawn: " + data.Value.originalPawn + " - " + data.Value.originalPawn.ThingID, true);
-                            var hediff = data.Value.originalPawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
-                            Log.Message("Original pawn stackGroupID: " + hediff.stackGroupID, true);
-                        }
-                        if (data.Value.originalStack != null)
+                        try
                         {
-                            Log.Message("Original stack: " + data.Value.originalStack + " - "
-                                + data.Value.originalStack?.name, true);
-                            Log.Message("Original stack stackGroupID: " + data.Value.originalStack.stackGroupID, true);
-                        }
-                        if (data.Value.copiedPawns != null)
-                        {
-                            foreach (var cs in data.Value.copiedPawns)
+                            Log.Message("----- Group ID: " + data.Key + " ----------------", true);
+                            if (data.Value.originalPawn != null)
                             {
-                                Log.Message("Copied pawn: " + cs + " - " + cs.ThingID, true);
-                                var hediff = cs.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
-                                Log.Message("Copied pawn stackGroupID: " + hediff.stackGroupID, true);
+                                Log.Message("Original pawn: " + data.Value.originalPawn + " - " + data.Value.originalPawn.ThingID, true);
+                                var hediff = data.Value.originalPawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
+                                Log.Message("Original pawn stackGroupID: " + hediff.stackGroupID, true);
+                            }
+                            if (data.Value.originalStack != null)
+                            {
+                                Log.Message("Original stack: " + data.Value.originalStack + " - "
+                                    + data.Value.originalStack?.name, true);
+                                Log.Message("Original stack stackGroupID: " + data.Value.originalStack.stackGroupID, true);
+                            }
+                            if (data.Value.copiedPawns != null)
+                            {
+                                foreach (var cs in data.Value.copiedPawns)
+                                {
+                                    Log.Message("Copied pawn: " + cs + " - " + cs.ThingID, true);
+                                    var hediff = cs.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
+                                    Log.Message("Copied pawn stackGroupID: " + hediff.stackGroupID, true);
 
+                                }
                             }
-                        }
-                        if (data.Value.copiedStacks != null)
-                        {
-                            foreach (var cs in data.Value.copiedStacks)
+                            if (data.Value.copiedStacks != null)
                             {
-                                Log.Message("Copied stack: " + cs + " - " + cs?.name, true);
-                                Log.Message("Copied stack stackGroupID: " + cs.stackGroupID, true);
+                                foreach (var cs in data.Value.copiedStacks)
+                                {
+                                    Log.Message("Copied stack: " + cs + " - " + cs?.name, true);
+                                    Log.Message("Copied stack stackGroupID: " + cs.stackGroupID, true);
+                                }
                             }
+                            Log.Message("------------------------------", true);
                         }
-                        Log.Message("------------------------------", true);
+                        catch { };
                     }
                 }
 

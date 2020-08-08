@@ -250,7 +250,7 @@ namespace AlteredCarbon
 			{
 				if (fetus == null)
 				{
-					fetus = GraphicDatabase.Get<Graphic_Single>("Pawn/Humanlike/Vat/Fetus", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					fetus = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Humanlike/Vat/Fetus", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return fetus;
 			}
@@ -263,7 +263,7 @@ namespace AlteredCarbon
 			{
 				if (child == null)
 				{
-					child = GraphicDatabase.Get<Graphic_Multi>("Pawn/Humanlike/Vat/Child", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					child = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Child", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return child;
 			}

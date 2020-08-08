@@ -301,6 +301,7 @@
     <Compile Include="AlteredCarbonDefOf.cs" />
     <Compile Include="HarmonyPatches\Patch_CheckRecalculateMoodThoughts.cs" />
     <Compile Include="HarmonyPatches\Patch_FindBedFor.cs" />
+    <Compile Include="SleeveGrowing\Building_SleeveCasket.cs" />
     <Compile Include="SleeveGrowing\JobDriver_ReleaseSleeve.cs" />
     <Compile Include="SleeveGrowing\GraphicDatabaseHeadRecords.cs" />
     <Compile Include="HarmonyPatches\CheckForStateChange_Patch.cs" />
