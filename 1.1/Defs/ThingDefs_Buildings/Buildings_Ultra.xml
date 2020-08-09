@@ -22,7 +22,9 @@
         </graphicData>
         <costList>
             <Steel>250</Steel>
-            <ComponentIndustrial>5</ComponentIndustrial>
+			<Plasteel>200</Plasteel>
+            <ComponentSpacer>8</ComponentSpacer>
+			<AIPersonaCore>1</AIPersonaCore>
         </costList>
         <altitudeLayer>Building</altitudeLayer>
         <neverMultiSelect>true</neverMultiSelect>
@@ -37,10 +39,14 @@
 		<designationCategory>Misc</designationCategory>
         <size>(4,4)</size>
         <techLevel>Ultra</techLevel>
-        <passability>Impassable</passability>
+        <passability>PassThroughOnly</passability>
         <pathCost>70</pathCost>
+		<rotatable>false</rotatable>
 		<blockWind>true</blockWind>
         <surfaceType>Item</surfaceType>
+		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+		<constructEffect>ConstructMetal</constructEffect>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<researchPrerequisites>
 		  <li>AC_SleeveProduction</li>
 		</researchPrerequisites>
@@ -77,68 +83,4 @@
         </comps>
     </ThingDef>
 
-<!--
-    <ThingDef ParentName="BuildingBase">
-        <defName>AC_SleeveCasket</defName>
-        <label>sleeve casket</label>
-        <description>An ultra-tech casket used for storing grown sleeves before their stack is installed. It uses crypto tech technology to suspend the needs of the sleeves body, while still allowing for the installation of implants or bionics.</description>
-        <graphicData>
-            <texPath>Things/Building/Misc/SleeveCasket</texPath>
-            <graphicClass>Graphic_Multi</graphicClass>
-            <shaderType>CutoutComplex</shaderType>
-            <drawSize>(1,2)</drawSize>
-        </graphicData>
-		<thingClass>Building_Bed</thingClass>
-        <castEdgeShadows>True</castEdgeShadows>
-        <statBases>
-            <MaxHitPoints>150</MaxHitPoints>
-            <WorkToBuild>2800</WorkToBuild>
-            <Mass>35</Mass>
-            <Flammability>1.0</Flammability>
-            <Comfort>0.80</Comfort>
-            <ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
-            <MedicalTendQualityOffset>0.9</MedicalTendQualityOffset>
-            <SurgerySuccessChanceFactor>3.5</SurgerySuccessChanceFactor>
-        </statBases>
-		<designationCategory>Misc</designationCategory>
-        <size>(1,2)</size>
-        <costList>
-            <Steel>80</Steel>
-            <ComponentIndustrial>5</ComponentIndustrial>
-        </costList>
-        <building>
-            <bed_showSleeperBody>true</bed_showSleeperBody>
-            <bed_healPerDay>25</bed_healPerDay>
-            <bed_defaultMedical>true</bed_defaultMedical>
-        </building>
-        <fillPercent>0.4</fillPercent>
-        <pathCost>60</pathCost>
-        <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
-        <staticSunShadowHeight>0.17</staticSunShadowHeight>
-        <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
-        <techLevel>Ultra</techLevel>
-        <uiIconScale>0.90</uiIconScale>
-		<researchPrerequisites>
-		  <li>AC_SleeveProduction</li>
-		</researchPrerequisites>
-        <comps>
-            <li Class="CompProperties_Power">
-                <compClass>CompPowerTrader</compClass>
-                <shortCircuitInRain>true</shortCircuitInRain>
-                <basePowerConsumption>500</basePowerConsumption>
-            </li>
-			<li Class="CompProperties_AssignableToPawn">
-				<drawAssignmentOverlay>false</drawAssignmentOverlay>
-				<compClass>CompAssignableToPawn_Bed</compClass>
-			</li>
-            <li Class="CompProperties_Flickable" />
-            <li Class="CompProperties_Breakdownable" />      
-			<li Class="CompProperties_Forbiddable"/>
-			<li Class="CompProperties_AssignableToPawn">
-				<drawAssignmentOverlay>false</drawAssignmentOverlay>
-				<compClass>CompAssignableToPawn_Bed</compClass>
-			</li>
-        </comps>
-    </ThingDef>
--->
 </Defs>
