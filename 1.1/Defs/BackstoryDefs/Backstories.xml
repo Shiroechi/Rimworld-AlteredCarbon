@@ -23,6 +23,9 @@
       <li>PlantWork</li>
       <li>Social</li>
     </workDisables>
+	<spawnCategories>
+		<li>Civil</li>
+	</spawnCategories>
     <shuffleable>false</shuffleable>
 	<saveKeyIdentifier>AC_VatGrown45</saveKeyIdentifier>
   </AlteredCarbon.BackstoryDef>
