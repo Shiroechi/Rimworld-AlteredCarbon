@@ -52,6 +52,7 @@ namespace AlteredCarbon
                 var faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
                 Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
                 this.SavePawnToCorticalStack(pawn);
+                this.gender = pawn.gender;
                 if (ACUtils.ACTracker.stacksRelationships != null)
                 {
                     this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
@@ -134,8 +135,7 @@ namespace AlteredCarbon
             if (this.hasPawn)
             {
                 stringBuilder.Append("AlteredCarbon.Name".Translate() + ": " + this.name + "\n");
-                stringBuilder.Append("AlteredCarbon.faction".Translate() + ": " + this.faction + "\n");
-
+                stringBuilder.Append("AlteredCarbon.faction".Translate() + ": " + this.faction.Name + "\n");
                 Backstory newChildhood = null;
                 BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true);
                 stringBuilder.Append("AlteredCarbon.childhood".Translate() + ": " + newChildhood.title.CapitalizeFirst() + "\n");
