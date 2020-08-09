@@ -321,7 +321,7 @@ namespace AlteredCarbon
 		public void InstantGrowth()
         {
 			this.curTicksToGrow = this.totalTicksToGrow;
-			this.active = false;
+			FinishGrowth();
 		}
 		public void FinishGrowth()
         {
