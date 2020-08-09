@@ -180,7 +180,6 @@ namespace AlteredCarbon
                 Notify_ColonistKilled_Patch.DisableKilledEffect = false;
             }
         }
-
         public override void ExposeData()
         {
             base.ExposeData();

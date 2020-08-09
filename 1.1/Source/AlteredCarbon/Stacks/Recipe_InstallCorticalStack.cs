@@ -63,12 +63,14 @@ namespace AlteredCarbon
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack; - 18", true);
                 var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
                 pawn.health.AddHediff(hediff, part);
+                Log.Message("corticalStack.gender: " + corticalStack.gender, true);
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - hediff.stackGroupID = corticalStack.stackGroupID; - 19", true);
                 hediff.stackGroupID = corticalStack.stackGroupID;
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - pawn.health.AddHediff(recipe.addsHediff, part); - 20", true);
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - if (corticalStack.hasPawn) - 21", true);
                 if (corticalStack.hasPawn)
                 {
+                    hediff.gender = corticalStack.gender;
                     Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - if (pawn.IsColonist) - 22", true);
                     if (pawn.IsColonist)
                     {

@@ -396,6 +396,12 @@ namespace AlteredCarbon
             Log.Message(" - OverwritePawn - if (this.thoughts != null) - 6", true);
             if (this.thoughts != null)
             {
+                if (this.gender == pawn.gender)
+                {
+                    this.thoughts.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_WrongGender);
+                    this.thoughts.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_WrongGenderDouble);
+
+                }
                 Log.Message(" - OverwritePawn - foreach (var thought in this.thoughts) - 7", true);
                 foreach (var thought in this.thoughts)
                 {
