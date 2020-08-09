@@ -210,25 +210,6 @@ namespace AlteredCarbon
 		{
 			Find.WindowStack.Add(new CustomizeSleeveWindow(this));
 		}
-
-		public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
-		{
-			if (this.ContainedThing != null && !this.active)
-			{
-				string label = "AlteredCarbon.ReleaseSleeve".Translate();
-				Action action = delegate ()
-				{
-					Job job = JobMaker.MakeJob(AlteredCarbonDefOf.AC_ReleaseSleeve, this);
-					job.count = 1;
-					myPawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
-				};
-				yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption
-						(label, action, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
-						this, "ReservedBy");
-			}
-			yield break;
-		}
-
 		public override string GetInspectString()
 		{
 			if (this.ContainedThing != null)
