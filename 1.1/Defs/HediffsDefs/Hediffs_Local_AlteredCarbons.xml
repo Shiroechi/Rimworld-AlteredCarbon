@@ -26,11 +26,13 @@
         <label>sleeve quality</label>
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>This body was grown fast and poorly. It is frail and sickly.</description>
+		<isBad>false</isBad>
         <stages>
             <li>
 				<label>low</label>
                 <partEfficiencyOffset>-0.20</partEfficiencyOffset>
 				<vomitMtbDays>3</vomitMtbDays>
+				<painOffset>0.15</painOffset>
                 <capMods>
                     <li>
                         <capacity>Moving</capacity>
@@ -58,6 +60,7 @@
         <label>sleeve quality</label>
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>A baseline body grown properly.</description>
+		<isBad>false</isBad>
         <stages>
             <li>
 				<label>standart</label>
@@ -70,11 +73,12 @@
         <label>sleeve quality</label>
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>A body grown to perfection. It is strong and has no flaws.</description>
+		<isBad>false</isBad>
         <stages>
             <li>
 				<label>high</label>
                 <partEfficiencyOffset>0.20</partEfficiencyOffset>
-                <painOffset>0.15</painOffset>
+                <painOffset>-0.15</painOffset>
                 <capMods>
                     <li>
                         <capacity>Moving</capacity>
