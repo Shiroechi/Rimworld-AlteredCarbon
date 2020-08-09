@@ -27,6 +27,9 @@
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>This body was grown fast and poorly. It is frail and sickly.</description>
 		<isBad>false</isBad>
+		<makesSickThought>false</makesSickThought>
+		<makesAlert>true</makesAlert>
+		<priceImpact>true</priceImpact>
         <stages>
             <li>
 				<label>low</label>
@@ -61,6 +64,9 @@
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>A baseline body grown properly.</description>
 		<isBad>false</isBad>
+		<makesSickThought>false</makesSickThought>
+		<makesAlert>false</makesAlert>
+		<priceImpact>true</priceImpact>
         <stages>
             <li>
 				<label>standart</label>
@@ -74,6 +80,9 @@
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>A body grown to perfection. It is strong and has no flaws.</description>
 		<isBad>false</isBad>
+		<makesSickThought>false</makesSickThought>
+		<makesAlert>false</makesAlert>
+		<priceImpact>true</priceImpact>
         <stages>
             <li>
 				<label>high</label>
