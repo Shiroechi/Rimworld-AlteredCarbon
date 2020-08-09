@@ -26,7 +26,7 @@ namespace AlteredCarbon
 		{
 			___bedDefsBestToWorst_RestEffectiveness.Remove(AlteredCarbonDefOf.AC_SleeveCasket);
 			___bedDefsBestToWorst_Medical.Remove(AlteredCarbonDefOf.AC_SleeveCasket);
-			if (sleeper.IsSleeve())
+			if (sleeper.IsEmptySleeve())
 			{
 				var bed = FindBedForSleeve(sleeper, traveler);
 				if (bed != null)
@@ -57,7 +57,7 @@ namespace AlteredCarbon
 		public static void Postfix(Thing bedThing, Pawn sleeper, Pawn traveler, ref bool __result)
 		{
 			Log.Message("sleeper: " + sleeper, true);
-			if (!sleeper.IsSleeve() && bedThing.def == AlteredCarbonDefOf.AC_SleeveCasket)
+			if (!sleeper.IsEmptySleeve() && bedThing.def == AlteredCarbonDefOf.AC_SleeveCasket)
             {
 				__result = false;
             }

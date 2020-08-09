@@ -11,6 +11,48 @@ using Verse.AI;
 namespace AlteredCarbon
 {
 
+	[HarmonyPatch(typeof(MapDeiniter))]
+	[HarmonyPatch("PassPawnsToWorld")]
+	internal static class PassPawnsToWorld_Patch
+    {
+		private static void Prefix(Map map)
+        {
+			for (int num = map.mapPawns.AllPawns.Count - 1; num >= 0; num--)
+            {
+				Pawn pawn = map.mapPawns.AllPawns[num];
+				if ((pawn.Faction == Faction.OfPlayer || pawn.HostFaction == Faction.OfPlayer) && pawn.HasStack())
+                {
+					pawn.DeSpawn(DestroyMode.Vanish);
+					TaggedString label = "Death".Translate() + ": " + pawn.LabelShortCap;
+					TaggedString taggedString = "PawnDied".Translate(pawn.LabelShortCap, pawn.Named("PAWN"));
+					Find.LetterStack.ReceiveLetter(label, taggedString, LetterDefOf.Death, pawn, null, null);
+				}
+			}
+        }
+    }
+
+	[HarmonyPatch(typeof(Messages), "Message", new Type[]
+	{
+		typeof(string),
+		typeof(LookTargets),
+		typeof(MessageTypeDef),
+		typeof(bool)
+	})]
+	internal static class Message_Patch
+	{
+		private static bool Prefix(string text, LookTargets lookTargets, MessageTypeDef def)
+		{
+			if (def == MessageTypeDefOf.PawnDeath && lookTargets.TryGetPrimaryTarget().Thing is Pawn pawn && pawn.IsEmptySleeve())
+            {
+				return false;
+            }
+			return true;
+		}
+	}
+
+
+
+
 	[HarmonyPatch(typeof(Pawn_HealthTracker))]
 	[HarmonyPatch("NotifyPlayerOfKilled")]
 	internal static class DeadPawnMessageReplacement
@@ -21,15 +63,18 @@ namespace AlteredCarbon
 		{
 			if (DisableKilledEffect)
 			{
-				TaggedString taggedString = "";
-				taggedString = (dinfo.HasValue ? "AlteredCarbon.SleveOf".Translate() + dinfo.Value.Def.deathMessage
-					.Formatted(___pawn.LabelShortCap, ___pawn.Named("PAWN")) : ((hediff == null)
-					? "AlteredCarbon.PawnDied".Translate(___pawn.LabelShortCap, ___pawn.Named("PAWN"))
-					: "AlteredCarbon.PawnDiedBecauseOf".Translate(___pawn.LabelShortCap, hediff.def.LabelCap,
-					___pawn.Named("PAWN"))));
-				taggedString = taggedString.AdjustedFor(___pawn);
-				TaggedString label = "AlteredCarbon.SleeveDeath".Translate() + ": " + ___pawn.LabelShortCap;
-				Find.LetterStack.ReceiveLetter(label, taggedString, LetterDefOf.NeutralEvent, ___pawn);
+				if (!___pawn.IsEmptySleeve())
+                {
+					TaggedString taggedString = "";
+					taggedString = (dinfo.HasValue ? "AlteredCarbon.SleveOf".Translate() + dinfo.Value.Def.deathMessage
+						.Formatted(___pawn.LabelShortCap, ___pawn.Named("PAWN")) : ((hediff == null)
+						? "AlteredCarbon.PawnDied".Translate(___pawn.LabelShortCap, ___pawn.Named("PAWN"))
+						: "AlteredCarbon.PawnDiedBecauseOf".Translate(___pawn.LabelShortCap, hediff.def.LabelCap,
+						___pawn.Named("PAWN"))));
+					taggedString = taggedString.AdjustedFor(___pawn);
+					TaggedString label = "AlteredCarbon.SleeveDeath".Translate() + ": " + ___pawn.LabelShortCap;
+					Find.LetterStack.ReceiveLetter(label, taggedString, LetterDefOf.ThreatBig, ___pawn);
+				}
 				DisableKilledEffect = false;
 				return false;
 			}
@@ -164,7 +209,7 @@ namespace AlteredCarbon
 					Log.Message("Roof collapse");
 					return;
 				}
-				if (__instance != null && (__instance.HasStack() || __instance.IsSleeve()))
+				if (__instance != null && (__instance.HasStack() || __instance.IsEmptySleeve()))
 				{
 					Notify_ColonistKilled_Patch.DisableKilledEffect = true;
 					Notify_PawnKilled_Patch.DisableKilledEffect = true;

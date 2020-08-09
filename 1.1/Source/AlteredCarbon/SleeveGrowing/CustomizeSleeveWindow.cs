@@ -131,14 +131,11 @@ namespace AlteredCarbon
         public int maleBodyTypeIndex = 0;
         public int femaleBodyTypeIndex = 0;
 
-        //public int baseTicksToGrow = 1800000;
-        public int baseTicksToGrow = 180;
+        public int baseTicksToGrow = 1800000;
         public int baseTicksToGrow2 = 0;
         public int baseTicksToGrow3 = 0;
 
-        //public int baseMeatCost = 250;
-        public int baseMeatCost = 2;
-
+        public int baseMeatCost = 250;
         public int baseMeatCost2 = 0;
         public int baseMeatCost3 = 0;
 
@@ -961,16 +958,13 @@ namespace AlteredCarbon
             pawn.skills = new Pawn_SkillTracker(pawn);
             pawn.needs = new Pawn_NeedsTracker(pawn);
             pawn.needs.mood.thoughts = new ThoughtHandler(pawn);
+            pawn.timetable = new Pawn_TimetableTracker(pawn);
 
             if (BackstoryDatabase.TryGetWithIdentifier("LabGrownChild22", out Backstory bs))
             {
                 pawn.story.childhood = bs;
             }
 
-            foreach (var bk in BackstoryDatabase.allBackstories)
-            {
-                Log.Message(bk.Key + " - " + bk.Value.title, true); ;
-            }
             if (pawn.needs?.mood?.thoughts?.memories?.Memories != null)
             {
                 for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)

@@ -16,7 +16,7 @@ namespace AlteredCarbon
 		[HarmonyPrefix]
 		public static bool Prefix(Pawn ___pawn)
 		{
-			if (___pawn.IsSleeve())
+			if (___pawn.IsEmptySleeve())
 			{
 				return false;
 			}

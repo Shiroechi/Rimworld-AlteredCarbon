@@ -166,20 +166,16 @@ namespace AlteredCarbon
 			{
 				yield return gizmo;
 			}
-			//if (base.Faction == Faction.OfPlayer && innerContainer.Count > 0 && def.building.isPlayerEjectable && curTicksToGrow > 0 && !this.active)
-			//{
-			//	Command_Action command_Action = new Command_Action();
-			//	command_Action.action = this.EjectContents;
-			//	command_Action.defaultLabel = "CommandPodEject".Translate();
-			//	command_Action.defaultDesc = "CommandPodEjectDesc".Translate();
-			//	if (innerContainer.Count == 0)
-			//	{
-			//		command_Action.Disable("CommandPodEjectFailEmpty".Translate());
-			//	}
-			//	command_Action.hotKey = KeyBindingDefOf.Misc8;
-			//	command_Action.icon = ContentFinder<Texture2D>.Get("UI/Commands/PodEject");
-			//	yield return command_Action;
-			//}
+			if (base.Faction == Faction.OfPlayer && innerContainer.Count > 0 && this.active)
+			{
+				Command_Action command_Action = new Command_Action();
+				command_Action.action = this.CancelGrowing;
+				command_Action.defaultLabel = "AlteredCarbon.CancelSleeveBodyGrowing".Translate();
+				command_Action.defaultDesc = "AlteredCarbon.CancelSleeveBodyGrowingDesc".Translate();
+				command_Action.hotKey = KeyBindingDefOf.Misc8;
+				command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/CancelSleeve");
+				yield return command_Action;
+			}
 			if (base.Faction == Faction.OfPlayer && this.ContainedThing == null)
             {
 				Command_Action command_Action2 = new Command_Action();
@@ -187,12 +183,22 @@ namespace AlteredCarbon
 				command_Action2.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
 				command_Action2.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
 				command_Action2.hotKey = KeyBindingDefOf.Misc8;
-				command_Action2.icon = ContentFinder<Texture2D>.Get("UI/Commands/delete_stack", true);
+				command_Action2.icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true);
 				yield return command_Action2;
 			}
 			yield break;
 		}
 		
+		public void CancelGrowing()
+        {
+			this.active = false;
+			this.totalGrowthCost = 0;
+			this.totalTicksToGrow = 0;
+			this.curTicksToGrow = 0;
+			this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
+			this.fetus = null;
+			this.child = null;
+        }
 		public void CreateSleeve()
 		{
 			Find.WindowStack.Add(new CustomizeSleeveWindow(this));
