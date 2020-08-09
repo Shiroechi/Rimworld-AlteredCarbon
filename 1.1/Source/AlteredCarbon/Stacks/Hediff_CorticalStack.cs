@@ -55,6 +55,7 @@ namespace AlteredCarbon
 
         public void SavePawn(Pawn pawn)
         {
+            Log.Message("SAVE PAWN: " + this.gender);
             this.name = pawn.Name;
             if (pawn.playerSettings != null)
             {
@@ -87,7 +88,6 @@ namespace AlteredCarbon
                 }
             }
             this.hasPawn = true;
-            this.gender = pawn.gender;
             this.pawnID = pawn.ThingID;
             if (ModLister.RoyaltyInstalled)
             {

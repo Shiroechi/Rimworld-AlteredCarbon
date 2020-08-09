@@ -194,7 +194,9 @@ namespace AlteredCarbon
         {
             this.sleeveGrower = sleeveGrower;
             currentPawnKindDef = PawnKindDefOf.Colonist;
-            newSleeve = GetNewPawn();
+            var gender = Gender.Male;
+            if (Rand.Chance(0.5f)) gender = Gender.Female;
+            newSleeve = GetNewPawn(gender);
 
 
             //860x570
@@ -936,7 +938,7 @@ namespace AlteredCarbon
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
-        public Pawn GetNewPawn(Gender gender = Gender.Female)
+        public Pawn GetNewPawn(Gender gender)
         {
             maleBodyTypeIndex = 0;
             femaleBodyTypeIndex = 0;
@@ -960,7 +962,7 @@ namespace AlteredCarbon
             pawn.needs.mood.thoughts = new ThoughtHandler(pawn);
             pawn.timetable = new Pawn_TimetableTracker(pawn);
 
-            if (BackstoryDatabase.TryGetWithIdentifier("LabGrownChild22", out Backstory bs))
+            if (BackstoryDatabase.TryGetWithIdentifier("AC_VatGrown45", out Backstory bs))
             {
                 pawn.story.childhood = bs;
             }

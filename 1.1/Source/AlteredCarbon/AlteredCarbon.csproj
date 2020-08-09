@@ -306,6 +306,7 @@
     <Compile Include="HarmonyPatches\CheckForStateChange_Patch.cs" />
     <Compile Include="SleeveGrowing\Building_SleeveGrower.cs" />
     <Compile Include="SleeveGrowing\CustomizeSleeveWindow.cs" />
+    <Compile Include="Stacks\BackstoryDef.cs" />
     <Compile Include="Stacks\StacksData.cs" />
     <Compile Include="Jobs\JobDriver_CopyStack.cs" />
     <Compile Include="Jobs\JobDriver_WipeStack.cs" />

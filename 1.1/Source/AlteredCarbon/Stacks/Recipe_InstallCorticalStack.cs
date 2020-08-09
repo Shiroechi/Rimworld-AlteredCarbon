@@ -62,10 +62,10 @@ namespace AlteredCarbon
             {
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack; - 18", true);
                 var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
+                pawn.health.AddHediff(hediff, part);
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - hediff.stackGroupID = corticalStack.stackGroupID; - 19", true);
                 hediff.stackGroupID = corticalStack.stackGroupID;
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - pawn.health.AddHediff(recipe.addsHediff, part); - 20", true);
-                pawn.health.AddHediff(recipe.addsHediff, part);
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - if (corticalStack.hasPawn) - 21", true);
                 if (corticalStack.hasPawn)
                 {
@@ -104,6 +104,15 @@ namespace AlteredCarbon
                         pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_NewSleeve);
                     }
                 }
+                else
+                {
+                    Log.Message("SAVING GENDER", true);
+                    corticalStack.gender = pawn.gender;
+                    hediff.gender = pawn.gender;
+                    Log.Message("corticalStack.gender: " + corticalStack.gender, true);
+                    Log.Message("hediff.gender: " + hediff.gender, true);
+                }
+
                 var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_EmptySleeve);
                 if (emptySleeveHediff != null)
                 {
@@ -113,6 +122,8 @@ namespace AlteredCarbon
                 ACUtils.ACTracker.RegisterPawn(pawn);
                 Log.Message("Recipe_InstallCorticalStack : Recipe_Surgery - ApplyOnPawn - ACUtils.ACTracker.TryAddRelationships(pawn); - 36", true);
                 ACUtils.ACTracker.TryAddRelationships(pawn);
+
+
             }
         }
     }

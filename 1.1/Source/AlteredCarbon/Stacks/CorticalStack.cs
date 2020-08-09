@@ -212,7 +212,16 @@ namespace AlteredCarbon
             this.adulthood = hediff.adulthood;
             this.priorities = hediff.priorities;
             this.hasPawn = true;
-            this.gender = hediff.gender;
+            Log.Message("this.gender: " + this.gender, true);
+            Log.Message("hediff.gender: " + hediff.gender, true);
+
+            if (this.gender == Gender.None)
+            {
+                this.gender = hediff.gender;
+            }
+            Log.Message("this.gender 2: " + this.gender, true);
+
+
             this.pawnID = hediff.pawnID;
 
             if (ModLister.RoyaltyInstalled)
@@ -260,7 +269,6 @@ namespace AlteredCarbon
                 }
             }
             this.hasPawn = true;
-            this.gender = pawn.gender;
             this.pawnID = pawn.ThingID;
             if (ModLister.RoyaltyInstalled)
             {
@@ -346,7 +354,12 @@ namespace AlteredCarbon
             this.adulthood = otherStack.adulthood;
             this.priorities = otherStack.priorities;
             this.hasPawn = true;
-            this.gender = otherStack.gender;
+            if (this.gender == Gender.None)
+            {
+                this.gender = otherStack.gender;
+            }
+            Log.Message("this.gender 2: " + this.gender, true);
+
             this.pawnID = otherStack.pawnID;
 
             if (ModLister.RoyaltyInstalled)
@@ -492,8 +505,8 @@ namespace AlteredCarbon
             Log.Message(" - OverwritePawn - if (pawn.timetable == null) pawn.timetable = new Pawn_TimetableTracker(pawn); - 49", true);
             if (pawn.timetable == null) pawn.timetable = new Pawn_TimetableTracker(pawn);
             Log.Message(" - OverwritePawn - pawn.timetable.times = this.times; - 50", true);
-            pawn.timetable.times = this.times;
-
+            if (this.times != null) pawn.timetable.times = this.times;
+            Log.Message("pawn.timetable.times: " + pawn.timetable.times.Count, true);
             Log.Message(" - OverwritePawn - if (pawn.gender != this.gender) - 51", true);
             if (pawn.gender != this.gender)
             {
