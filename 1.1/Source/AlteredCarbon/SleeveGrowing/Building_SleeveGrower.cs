@@ -186,6 +186,13 @@ namespace AlteredCarbon
 				command_Action2.icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true);
 				yield return command_Action2;
 			}
+			if (Prefs.DevMode && active)
+			{
+				Command_Action command_Action = new Command_Action();
+				command_Action.defaultLabel = "Debug: Instant grow";
+				command_Action.action = InstantGrowth;
+				yield return command_Action;
+			}
 			yield break;
 		}
 		
@@ -295,14 +302,9 @@ namespace AlteredCarbon
 					this.ContainedThing.Rotation = Rot4.South;
 					this.ContainedThing.DrawAt(newPos, flip);
 				}
-				base.DrawAt(drawLoc, flip);
-				Glass.Draw(drawLoc, Rot4.North, this);
 			}
-			else
-			{
-				base.DrawAt(drawLoc, flip);
-				Glass.Draw(drawLoc, Rot4.North, this);
-			}
+			base.DrawAt(drawLoc, flip);
+			Glass.Draw(drawLoc, Rot4.North, this);
 		}
 
 		public void StartGrowth(Pawn newSleeve, int totalTicksToGrow, int totalGrowthCost)
@@ -314,6 +316,12 @@ namespace AlteredCarbon
 
 			this.totalGrowthCost = totalGrowthCost;
 			this.active = true;
+		}
+
+		public void InstantGrowth()
+        {
+			this.curTicksToGrow = this.totalTicksToGrow;
+			this.active = false;
 		}
 		public void FinishGrowth()
         {

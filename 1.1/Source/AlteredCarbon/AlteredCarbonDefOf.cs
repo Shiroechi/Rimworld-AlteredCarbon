@@ -37,7 +37,7 @@ namespace AlteredCarbon
 
 		public static ThingDef AC_FilledCorticalStack;
 
-		public static ThingDef AC_SleeveCasket;
+		//public static ThingDef AC_SleeveCasket;
 
 		public static ThoughtDef AC_WrongGender;
 
