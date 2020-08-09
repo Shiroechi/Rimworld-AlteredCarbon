@@ -49,7 +49,7 @@ namespace AlteredCarbon
             return false;
         }
 
-        public static bool IsSleeve(this Pawn pawn)
+        public static bool IsEmptySleeve(this Pawn pawn)
         {
             if (ACTracker.emptySleeves != null && ACTracker.emptySleeves.Contains(pawn))
             {

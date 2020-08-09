@@ -31,6 +31,8 @@
 	<AlteredCarbon.GoodwillChangedReason_ErasedPawn>erased {PAWN_labelShort}</AlteredCarbon.GoodwillChangedReason_ErasedPawn>
 	
 	<AlteredCarbon.CantWipeStackTooDumb>Wipe Stack (requires intellectual skill of 5 or higher)</AlteredCarbon.CantWipeStackTooDumb>
+	<AlteredCarbon.CancelSleeveBodyGrowing>Cancel sleeve growing</AlteredCarbon.CancelSleeveBodyGrowing>
+	<AlteredCarbon.CancelSleeveBodyGrowingDesc>Cancel sleeve growing</AlteredCarbon.CancelSleeveBodyGrowingDesc>
 	
 	
 	<Accept>Accept</Accept>
