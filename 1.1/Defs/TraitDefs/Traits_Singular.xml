@@ -18,7 +18,7 @@
         <degreeDatas>
             <li>
                 <label>sleever</label>
-                <description>{PAWN_nameDef} is used to switching sleeves like they are clothes. {PAWN_pronoun} doesn’t care how often {Pawn_pronoun} switches his sleeves or what sleeve {Pawn_pronoun} is currently using.</description>
+                <description>{PAWN_nameDef} is used to switching sleeves like they are clothes. {PAWN_pronoun} doesn’t care how often {PAWN_pronoun} switches {PAWN_objective} sleeves or what sleeve {Pawn_pronoun} is currently using.</description>
             </li>
         </degreeDatas>
     </TraitDef>
