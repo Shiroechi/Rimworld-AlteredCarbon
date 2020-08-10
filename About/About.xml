@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
+
     <name>Rimworld: Altered Carbon</name>
     <author>Helixien, Taranchuk, OskarPotocki</author>
     <supportedVersions>
         <li>1.1</li>
+		<li>1.2</li>
     </supportedVersions>
     <packageId>Hlx.RimworldAlteredCarbon</packageId>
     <description>Placeholder</description>
@@ -20,4 +22,5 @@
         <li>Ludeon.RimWorld.Royalty</li>
         <li>brrainz.harmony</li>
     </loadAfter>
+
 </ModMetaData>
