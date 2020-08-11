@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<JobDef>
+		<defName>AC_ExtractStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_ExtractStack</driverClass>
+		<reportString>extracts cortical stack from TargetA</reportString>
+	</JobDef>
+	
+	<JobDef>
+		<defName>AC_WipeStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_WipeStack</driverClass>
+		<reportString>wipes cortical stack</reportString>
+	</JobDef>
+	
+	<JobDef>
+		<defName>AC_CopyStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_CopyStack</driverClass>
+		<reportString>copies cortical stack</reportString>
+	</JobDef>
+	
+	<JobDef>
+		<defName>AC_ReleaseSleeve</defName>
+		<driverClass>AlteredCarbon.JobDriver_ReleaseSleeve</driverClass>
+		<reportString>releasing sleeve</reportString>
+	</JobDef>
+
+</Defs>
