@@ -34,28 +34,15 @@ namespace AlteredCarbon
 				{
 					return;
 				}
-				foreach (var h in pawn.health.hediffSet.hediffs)
-                {
-					if (h is Hediff_CorticalStack h2)
-                    {
-						Log.Message("HEDIFF: " + h2 + " - " + h2.gender, true);
-                    }
-                }
+
 				var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
 				if (hediff != null)
 				{
 					if (hediff.def.spawnThingOnRemoved != null)
 					{
-						Log.Message("HEDIFF.Gender: " + hediff.gender, true);
 						var corticalStack = ThingMaker.MakeThing(hediff.def.spawnThingOnRemoved) as CorticalStack;
-						Log.Message("hediff.gender 4: " + hediff.gender, true);
-						Log.Message("corticalStack.gender 4: " + corticalStack.gender, true);
-
 						hediff.SavePawn(pawn);
 						corticalStack.SavePawnFromHediff(hediff);
-						Log.Message("hediff.gender 3: " + hediff.gender, true);
-						Log.Message("corticalStack.gender 3: " + corticalStack.gender, true);
-
 						corticalStack.gender = hediff.gender;
 						GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
 						if (ACUtils.ACTracker.stacksIndex == null) ACUtils.ACTracker.stacksIndex = new Dictionary<string, CorticalStack>();
@@ -69,7 +56,7 @@ namespace AlteredCarbon
 			}
 			if (flag)
 			{
-				ReportViolation(pawn, billDoer, pawn.Faction, -70, "GoodwillChangedReason_RemovedImplant".Translate(part.LabelShort));
+				ReportViolation(pawn, billDoer, pawn.FactionOrExtraMiniOrHomeFaction, -70, "GoodwillChangedReason_RemovedImplant".Translate(part.LabelShort));
 			}
 		}
 	}

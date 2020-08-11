@@ -20,9 +20,6 @@ namespace AlteredCarbon
                 initAction = delegate ()
                 {
                     var stack = (CorticalStack)TargetThingA;
-                    Log.Message("stack.faction: " + stack.faction);
-                    Log.Message("pawn.faction: " + pawn.Faction);
-
                     if (stack.faction != null && pawn != null && pawn.Faction != null && pawn.Faction != stack.Faction)
                     {
                         stack.EmptyStack(true, pawn);

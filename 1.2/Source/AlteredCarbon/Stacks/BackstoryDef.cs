@@ -21,7 +21,6 @@ namespace AlteredCarbon
 			{
 				return;
 			}
-			Log.Message("this.saveKeyIdentifier: " + this.saveKeyIdentifier, true);
 			if (BackstoryDatabase.allBackstories.ContainsKey(this.saveKeyIdentifier))
 			{
 				return;

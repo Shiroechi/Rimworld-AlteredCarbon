@@ -117,7 +117,6 @@ namespace AlteredCarbon
 					return headGraphicRecord.GetGraphic(skinColor);
 				}
 			}
-			Log.Message("Tried to get pawn head at path " + graphicPath + " that was not found. Defaulting...");
 			return heads.First().GetGraphic(skinColor);
 		}
 

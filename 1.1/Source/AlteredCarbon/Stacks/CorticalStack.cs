@@ -212,14 +212,11 @@ namespace AlteredCarbon
             this.adulthood = hediff.adulthood;
             this.priorities = hediff.priorities;
             this.hasPawn = true;
-            Log.Message("this.gender: " + this.gender, true);
-            Log.Message("hediff.gender: " + hediff.gender, true);
 
             if (this.gender == Gender.None)
             {
                 this.gender = hediff.gender;
             }
-            Log.Message("this.gender 2: " + this.gender, true);
 
 
             this.pawnID = hediff.pawnID;
@@ -282,11 +279,9 @@ namespace AlteredCarbon
                         var comp = thing.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            Log.Message("Checking: " + thing, true);
                         }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message("Adding: " + thing, true);
                             this.bondedThings.Add(thing);
                         }
                     }
@@ -295,11 +290,9 @@ namespace AlteredCarbon
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            Log.Message("Checking: " + gear, true);
                         }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message("Adding: " + gear, true);
                             this.bondedThings.Add(gear);
                         }
                     }
@@ -308,11 +301,9 @@ namespace AlteredCarbon
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            Log.Message("Checking: " + gear, true);
                         }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message("Adding: " + gear, true);
                             this.bondedThings.Add(gear);
                         }
                     }
@@ -321,11 +312,9 @@ namespace AlteredCarbon
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            Log.Message("Checking: " + gear, true);
                         }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message("Adding: " + gear, true);
                             this.bondedThings.Add(gear);
                         }
                     }
@@ -358,7 +347,6 @@ namespace AlteredCarbon
             {
                 this.gender = otherStack.gender;
             }
-            Log.Message("this.gender 2: " + this.gender, true);
 
             this.pawnID = otherStack.pawnID;
 
@@ -375,12 +363,9 @@ namespace AlteredCarbon
 
         public void OverwritePawn(Pawn pawn)
         {
-            Log.Message(" - OverwritePawn - var extension = this.def.GetModExtension<StackSavingOptionsModExtension>(); - 1", true);
             var extension = this.def.GetModExtension<StackSavingOptionsModExtension>();
-            Log.Message(" - OverwritePawn - if (pawn.Faction != this.faction) - 2", true);
             if (pawn.Faction != this.faction)
             {
-                Log.Message(" - OverwritePawn - pawn.SetFaction(this.faction); - 3", true);
                 pawn.SetFaction(this.faction);
             }
             pawn.Name = this.name;
@@ -388,12 +373,10 @@ namespace AlteredCarbon
             {
                 for (int num = pawn.needs.mood.thoughts.memories.Memories.Count - 1; num >= 0; num--)
                 {
-                    Log.Message(" - OverwritePawn - pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]); - 5", true);
                     pawn.needs.mood.thoughts.memories.RemoveMemory(pawn.needs.mood.thoughts.memories.Memories[num]);
                 }
             }
 
-            Log.Message(" - OverwritePawn - if (this.thoughts != null) - 6", true);
             if (this.thoughts != null)
             {
                 if (this.gender == pawn.gender)
@@ -402,57 +385,42 @@ namespace AlteredCarbon
                     this.thoughts.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_WrongGenderDouble);
 
                 }
-                Log.Message(" - OverwritePawn - foreach (var thought in this.thoughts) - 7", true);
                 foreach (var thought in this.thoughts)
                 {
-                    Log.Message(" - OverwritePawn - if (thought is Thought_MemorySocial && thought.otherPawn == null) - 8", true);
                     if (thought is Thought_MemorySocial && thought.otherPawn == null)
                     {
-                        Log.Message(" - OverwritePawn - continue; - 9", true);
                         continue;
                     }
                     pawn.needs.mood.thoughts.memories.TryGainMemory(thought, thought.otherPawn);
                 }
             }
             pawn.story.traits.allTraits.RemoveAll(x => !extension.ignoresTraits.Contains(x.def.defName));
-            Log.Message(" - OverwritePawn - foreach (var trait in this.traits) - 12", true);
             if (this.traits != null)
             {
                 foreach (var trait in this.traits)
                 {
-                    Log.Message(" - OverwritePawn - if (extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName)) - 13", true);
                     if (extension.ignoresTraits != null && extension.ignoresTraits.Contains(trait.def.defName))
                     {
-                        Log.Message(" - OverwritePawn - continue; - 14", true);
                         continue;
                     }
                     pawn.story.traits.GainTrait(trait);
                 }
             }
             pawn.relations.ClearAllRelations();
-            Log.Message(" - OverwritePawn - foreach (var rel in this.relations) - 17", true);
             foreach (var rel in this.relations)
             {
-                Log.Message(" - OverwritePawn - pawn.relations.AddDirectRelation(rel.def, rel.otherPawn); - 18", true);
                 pawn.relations.AddDirectRelation(rel.def, rel.otherPawn);
             }
             pawn.skills.skills.Clear();
-            Log.Message(" - OverwritePawn - foreach (var skill in this.skills) - 20", true);
             if (this.skills != null)
             {
                 foreach (var skill in this.skills)
                 {
-                    Log.Message(" - OverwritePawn - var newSkill = new SkillRecord(pawn, skill.def); - 21", true);
                     var newSkill = new SkillRecord(pawn, skill.def);
-                    Log.Message(" - OverwritePawn - newSkill.passion = skill.passion; - 22", true);
                     newSkill.passion = skill.passion;
-                    Log.Message(" - OverwritePawn - newSkill.levelInt = skill.levelInt; - 23", true);
                     newSkill.levelInt = skill.levelInt;
-                    Log.Message(" - OverwritePawn - newSkill.xpSinceLastLevel = skill.xpSinceLastLevel; - 24", true);
                     newSkill.xpSinceLastLevel = skill.xpSinceLastLevel;
-                    Log.Message(" - OverwritePawn - newSkill.xpSinceMidnight = skill.xpSinceMidnight; - 25", true);
                     newSkill.xpSinceMidnight = skill.xpSinceMidnight;
-                    Log.Message(" - OverwritePawn - pawn.skills.skills.Add(newSkill); - 26", true);
                     pawn.skills.skills.Add(newSkill);
                 }
             }
@@ -460,119 +428,83 @@ namespace AlteredCarbon
             pawn.playerSettings.hostilityResponse = (HostilityResponseMode)this.hostilityMode;
 
             Backstory newChildhood = null;
-            Log.Message(" - OverwritePawn - BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true); - 29", true);
             BackstoryDatabase.TryGetWithIdentifier(this.childhood, out newChildhood, true);
-            Log.Message(" - OverwritePawn - pawn.story.childhood = newChildhood; - 30", true);
             pawn.story.childhood = newChildhood;
-            Log.Message(" - OverwritePawn - if (this.adulthood?.Length > 0) - 31", true);
             if (this.adulthood?.Length > 0)
             {
-                Log.Message(" - OverwritePawn - Backstory newAdulthood = null; - 32", true);
                 Backstory newAdulthood = null;
-                Log.Message(" - OverwritePawn - BackstoryDatabase.TryGetWithIdentifier(this.adulthood, out newAdulthood, true); - 33", true);
                 BackstoryDatabase.TryGetWithIdentifier(this.adulthood, out newAdulthood, true);
-                Log.Message(" - OverwritePawn - pawn.story.adulthood = newAdulthood; - 34", true);
                 pawn.story.adulthood = newAdulthood;
             }
             else
             {
-                Log.Message(" - OverwritePawn - pawn.story.adulthood = null; - 35", true);
                 pawn.story.adulthood = null;
             }
             if (pawn.workSettings == null) pawn.workSettings = new Pawn_WorkSettings();
             pawn.Notify_DisabledWorkTypesChanged();
-            Log.Message(" - OverwritePawn - if (priorities != null) - 37", true);
             if (priorities != null)
             {
-                Log.Message(" - OverwritePawn - foreach (var priority in priorities) - 38", true);
                 foreach (var priority in priorities)
                 {
-                    Log.Message(" - OverwritePawn - pawn.workSettings.SetPriority(priority.Key, priority.Value); - 39", true);
                     pawn.workSettings.SetPriority(priority.Key, priority.Value);
                 }
             }
             pawn.playerSettings.AreaRestriction = this.areaRestriction;
-            Log.Message(" - OverwritePawn - pawn.playerSettings.medCare = this.medicalCareCategory; - 41", true);
             pawn.playerSettings.medCare = this.medicalCareCategory;
-            Log.Message(" - OverwritePawn - pawn.playerSettings.selfTend = this.selfTend; - 42", true);
             pawn.playerSettings.selfTend = this.selfTend;
-            Log.Message(" - OverwritePawn - pawn.foodRestriction.CurrentFoodRestriction = this.foodRestriction; - 43", true);
             if (pawn.foodRestriction == null) pawn.foodRestriction = new Pawn_FoodRestrictionTracker();
             pawn.foodRestriction.CurrentFoodRestriction = this.foodRestriction;
-            Log.Message(" - OverwritePawn - if (pawn.outfits == null) pawn.outfits = new Pawn_OutfitTracker(); - 44", true);
             if (pawn.outfits == null) pawn.outfits = new Pawn_OutfitTracker();
-            Log.Message(" - OverwritePawn - pawn.outfits.CurrentOutfit = this.outfit; - 45", true);
             pawn.outfits.CurrentOutfit = this.outfit;
-            Log.Message(" - OverwritePawn - if (pawn.drugs == null) pawn.drugs = new Pawn_DrugPolicyTracker(); - 46", true);
             if (pawn.drugs == null) pawn.drugs = new Pawn_DrugPolicyTracker();
-            Log.Message(" - OverwritePawn - pawn.drugs.CurrentPolicy = this.drugPolicy; - 47", true);
             pawn.drugs.CurrentPolicy = this.drugPolicy;
             pawn.ageTracker.AgeChronologicalTicks = this.ageChronologicalTicks;
-            Log.Message(" - OverwritePawn - if (pawn.timetable == null) pawn.timetable = new Pawn_TimetableTracker(pawn); - 49", true);
             if (pawn.timetable == null) pawn.timetable = new Pawn_TimetableTracker(pawn);
-            Log.Message(" - OverwritePawn - pawn.timetable.times = this.times; - 50", true);
             if (this.times != null) pawn.timetable.times = this.times;
-            Log.Message("pawn.timetable.times: " + pawn.timetable.times.Count, true);
-            Log.Message(" - OverwritePawn - if (pawn.gender != this.gender) - 51", true);
             if (pawn.gender != this.gender)
             {
-                Log.Message(" - OverwritePawn - if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist)) - 52", true);
                 if (pawn.story.traits.HasTrait(TraitDefOf.BodyPurist))
                 {
-                    Log.Message(" - OverwritePawn - pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongGenderDouble); - 53", true);
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongGenderDouble);
                 }
                 else
                 {
-                    Log.Message(" - OverwritePawn - pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongGender); - 54", true);
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongGender);
                 }
             }
-            Log.Message(" - OverwritePawn - if (ModLister.RoyaltyInstalled) - 55", true);
             if (ModLister.RoyaltyInstalled)
             {
-                Log.Message(" - OverwritePawn - if (pawn.royalty == null) pawn.royalty = new Pawn_RoyaltyTracker(pawn); - 56", true);
                 if (pawn.royalty == null) pawn.royalty = new Pawn_RoyaltyTracker(pawn);
-                Log.Message(" - OverwritePawn - foreach (var title in this.royalTitles) - 57", true);
                 if (this.royalTitles != null)
                 {
                     foreach (var title in this.royalTitles)
                     {
-                        Log.Message(" - OverwritePawn - pawn.royalty.SetTitle(title.faction, title.def, false, false, false); - 58", true);
                         pawn.royalty.SetTitle(title.faction, title.def, false, false, false);
                     }
                 }
-                Log.Message(" - OverwritePawn - foreach (var heir in this.heirs) - 59", true);
                 if (this.heirs != null)
                 {
                     foreach (var heir in this.heirs)
                     {
-                        Log.Message(" - OverwritePawn - pawn.royalty.SetHeir(heir.Value, heir.Key); - 60", true);
                         pawn.royalty.SetHeir(heir.Value, heir.Key);
                     }
                 }
 
-                Log.Message(" - OverwritePawn - foreach (var fav in this.favor) - 61", true);
                 if (this.favor != null)
                 {
                     foreach (var fav in this.favor)
                     {
-                        Log.Message(" - OverwritePawn - pawn.royalty.SetFavor(fav.Key, fav.Value); - 62", true);
                         pawn.royalty.SetFavor(fav.Key, fav.Value);
                     }
                 }
 
-                Log.Message(" - OverwritePawn - foreach (var bonded in this.bondedThings) - 63", true);
                 if (this.bondedThings != null)
                 {
                     foreach (var bonded in this.bondedThings)
                     {
-                        Log.Message(" - OverwritePawn - var comp = bonded.TryGetComp<CompBladelinkWeapon>(); - 64", true);
                         var comp = bonded.TryGetComp<CompBladelinkWeapon>();
-                        Log.Message(" - OverwritePawn - if (comp != null) - 65", true);
                         if (comp != null)
                         {
-                            Log.Message(" - OverwritePawn - comp.bondedPawn = pawn; - 66", true);
                             comp.bondedPawn = pawn;
                         }
                     }
@@ -584,7 +516,6 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
-            Log.Message(this + " this.stackGroupID: " + this.stackGroupID);
 
             Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
 

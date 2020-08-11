@@ -56,7 +56,6 @@ namespace AlteredCarbon
                 initAction = delegate ()
                 {
                     float damageChance = Mathf.Abs((pawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt / 2f) - 11f) / 10f;
-                    Log.Message("Chance: " + damageChance);
                     if (Rand.Chance(damageChance))
                     {
                         TargetThingB.Destroy(DestroyMode.Vanish);
@@ -74,7 +73,6 @@ namespace AlteredCarbon
                         pawn.CurJob.targetB = stackCopyTo;
                         var stackCopyFrom = (CorticalStack)TargetThingA;
                         stackCopyTo.CopyFromOtherStack(stackCopyFrom);
-                        Log.Message("2 RegisterStack: " + stackCopyTo.stackGroupID);
                         ACUtils.ACTracker.RegisterStack(stackCopyTo);
                     }
                 }

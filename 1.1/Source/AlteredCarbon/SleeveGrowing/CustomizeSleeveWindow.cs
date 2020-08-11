@@ -434,10 +434,8 @@ namespace AlteredCarbon
 
         public void RemoveAllTraits(Pawn pawn)
         {
-            Log.Message(" - RemoveAllTraits - if (newSleeve.story != null) - 1", true);
             if (pawn.story != null)
             {
-                Log.Message(" - RemoveAllTraits - newSleeve.story.traits = new TraitSet(newSleeve); - 2", true);
                 pawn.story.traits = new TraitSet(pawn);
             }
         }

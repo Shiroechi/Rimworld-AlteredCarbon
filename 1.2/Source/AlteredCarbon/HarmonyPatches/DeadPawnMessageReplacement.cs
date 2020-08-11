@@ -196,17 +196,8 @@ namespace AlteredCarbon
 		{
 			try
 			{
-				if (dinfo.HasValue)
-				{
-					Log.Message("Death cause: ");
-					Log.Message("dinfo.Value.Def: " + dinfo.Value.Def);
-					Log.Message("dinfo.Value.Amount: " + dinfo.Value.Amount);
-					Log.Message("dinfo.Value.HitPart: " + dinfo.Value.HitPart);
-					Log.Message("dinfo.Value.Category: " + dinfo.Value.Category);
-				}
 				if (dinfo.HasValue && dinfo.Value.Def == DamageDefOf.Crush && dinfo.Value.Category == DamageInfo.SourceCategory.Collapse)
 				{
-					Log.Message("Roof collapse");
 					return;
 				}
 				if (__instance != null && (__instance.HasStack() || __instance.IsEmptySleeve()))
@@ -243,7 +234,6 @@ namespace AlteredCarbon
 					Event.current.Use();
 					if (ACUtils.ACTracker.stacksIndex.ContainsKey(colonist.ThingID + colonist.Name))
 					{
-						Log.Message(colonist + "TEST 3: " + ACUtils.ACTracker.stacksIndex[colonist.ThingID + colonist.Name]);
 						if (ACUtils.ACTracker.stacksIndex[colonist.ThingID + colonist.Name] == null)
 						{
 							CameraJumper.TryJumpAndSelect(colonist);
@@ -255,7 +245,6 @@ namespace AlteredCarbon
 					}
 					else
 					{
-						Log.Message(colonist + "TEST 4");
 						CameraJumper.TryJumpAndSelect(colonist);
 					}
 				}

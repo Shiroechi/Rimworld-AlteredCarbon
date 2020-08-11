@@ -3,7 +3,7 @@
 
     <TraitDef>
         <defName>AC_FreeMind</defName>
-        <commonality>0.2</commonality>
+        <commonality>0.6</commonality>
         <degreeDatas>
             <li>
                 <label>free mind</label>
@@ -14,7 +14,7 @@
 
     <TraitDef>
         <defName>AC_Sleever</defName>
-        <commonality>0.5</commonality>
+        <commonality>0.8</commonality>
         <degreeDatas>
             <li>
                 <label>sleever</label>

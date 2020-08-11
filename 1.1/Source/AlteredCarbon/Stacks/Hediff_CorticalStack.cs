@@ -55,7 +55,6 @@ namespace AlteredCarbon
 
         public void SavePawn(Pawn pawn)
         {
-            Log.Message("SAVE PAWN: " + this.gender);
             this.name = pawn.Name;
             if (pawn.playerSettings != null)
             {
@@ -101,11 +100,9 @@ namespace AlteredCarbon
                         var comp = thing.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            Log.Message("Checking: " + thing, true);
                         }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message("Adding: " + thing, true);
                             this.bondedThings.Add(thing);
                         }
                     }
@@ -114,11 +111,9 @@ namespace AlteredCarbon
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            Log.Message("Checking: " + gear, true);
                         }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message("Adding: " + gear, true);
                             this.bondedThings.Add(gear);
                         }
                     }
@@ -127,11 +122,9 @@ namespace AlteredCarbon
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            Log.Message("Checking: " + gear, true);
                         }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message("Adding: " + gear, true);
                             this.bondedThings.Add(gear);
                         }
                     }
@@ -140,11 +133,9 @@ namespace AlteredCarbon
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null)
                         {
-                            Log.Message("Checking: " + gear, true);
                         }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
-                            Log.Message("Adding: " + gear, true);
                             this.bondedThings.Add(gear);
                         }
                     }
@@ -185,7 +176,6 @@ namespace AlteredCarbon
             base.ExposeData();
             Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
             Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
-            Log.Message(this + " this.stackGroupID: " + this.stackGroupID);
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
             Scribe_Values.Look<int>(ref this.hostilityMode, "hostilityMode");
             Scribe_References.Look<Area>(ref this.areaRestriction, "areaRestriction", false);

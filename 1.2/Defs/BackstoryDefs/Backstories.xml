@@ -22,11 +22,10 @@
       <li>Mining</li>
       <li>PlantWork</li>
       <li>Social</li>
-      <li>Violent</li>
     </workDisables>
-    <spawnCategories>
-      <li>Civil</li>
-    </spawnCategories>
+	<spawnCategories>
+		<li>Civil</li>
+	</spawnCategories>
     <shuffleable>false</shuffleable>
 	<saveKeyIdentifier>AC_VatGrown45</saveKeyIdentifier>
   </AlteredCarbon.BackstoryDef>
