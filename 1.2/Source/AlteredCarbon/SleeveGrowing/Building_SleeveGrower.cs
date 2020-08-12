@@ -222,8 +222,7 @@ namespace AlteredCarbon
             {
 				if (glass == null)
                 {
-					glass = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveGrowingVatTop", ShaderDatabase.MetaOverlay,
-					new Vector3(6, 6), Color.white);
+					glass = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveGrowingVatTop", ShaderDatabase.CutoutComplex, new Vector3(6, 6), Color.white);
 				}
 				return glass;
             }
@@ -295,10 +294,11 @@ namespace AlteredCarbon
 
 		public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
+			base.DrawAt(drawLoc, flip);
 			if (this.ContainedThing is Pawn)
 			{
 				Vector3 newPos = drawLoc;
-				newPos.z += 0.5f;
+				//newPos.z += 0.5f;
 				var growthValue = (float)this.curTicksToGrow / this.totalTicksToGrow;
 				if (!this.innerPawnIsDead)
                 {
@@ -328,11 +328,11 @@ namespace AlteredCarbon
 					}
 					else
 					{
+
 						Adult_Dead.Draw(newPos, Rot4.North, this);
 					}
 				}
 			}
-			base.DrawAt(drawLoc, flip);
 			Glass.Draw(drawLoc, Rot4.North, this);
 		}
 
@@ -411,11 +411,11 @@ namespace AlteredCarbon
 						this.FinishGrowth();
 					}
 				}
-				else if (this.active && !powerTrader.PowerOn && runningOutPowerInTicks < 600)
+				else if (this.active && !powerTrader.PowerOn && runningOutPowerInTicks < 60000)
                 {
 					runningOutPowerInTicks++;
                 }
-				else if (runningOutPowerInTicks >= 600 && this.active)
+				else if (runningOutPowerInTicks >= 60000 && this.active)
                 {
 					this.active = false;
 					this.KillInnerPawn();
