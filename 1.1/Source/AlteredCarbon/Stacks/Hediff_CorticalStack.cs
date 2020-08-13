@@ -20,6 +20,7 @@ namespace AlteredCarbon
         public Outfit outfit;
         public DrugPolicy drugPolicy;
         public Faction faction;
+        public bool isFactionLeader;
         public List<Thought_Memory> thoughts;
         public List<Trait> traits;
         public List<DirectPawnRelation> relations;
@@ -52,7 +53,7 @@ namespace AlteredCarbon
                 this.stackGroupID = 0;
             }
         }
-
+        public override bool ShouldRemove => false;
         public void SavePawn(Pawn pawn)
         {
             this.name = pawn.Name;
@@ -70,6 +71,10 @@ namespace AlteredCarbon
             this.times = pawn.timetable?.times;
             this.thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories;
             this.faction = pawn.Faction;
+            if (pawn.Faction.leader == pawn)
+            {
+                this.isFactionLeader = true;
+            }
             this.traits = pawn.story?.traits?.allTraits;
             this.relations = pawn.relations?.DirectRelations;
             this.skills = pawn.skills?.skills;
@@ -109,9 +114,6 @@ namespace AlteredCarbon
                     foreach (var gear in pawn.apparel.WornApparel)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
-                        if (comp != null)
-                        {
-                        }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
                             this.bondedThings.Add(gear);
@@ -120,9 +122,6 @@ namespace AlteredCarbon
                     foreach (var gear in pawn.equipment.AllEquipmentListForReading)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
-                        if (comp != null)
-                        {
-                        }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
                             this.bondedThings.Add(gear);
@@ -131,9 +130,6 @@ namespace AlteredCarbon
                     foreach (var gear in pawn.inventory.innerContainer)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
-                        if (comp != null)
-                        {
-                        }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
                             this.bondedThings.Add(gear);
@@ -190,6 +186,8 @@ namespace AlteredCarbon
             Scribe_Collections.Look<TimeAssignmentDef>(ref this.times, "times");
             Scribe_Collections.Look<Thought_Memory>(ref this.thoughts, "thoughts");
             Scribe_References.Look<Faction>(ref this.faction, "faction", true);
+            Scribe_Values.Look<bool>(ref this.isFactionLeader, "isFactionLeader", false, false);
+
             Scribe_Values.Look<string>(ref this.childhood, "childhood", null, false);
             Scribe_Values.Look<string>(ref this.adulthood, "adulthood", null, false);
             Scribe_Values.Look<string>(ref this.pawnID, "pawnID", null, false);

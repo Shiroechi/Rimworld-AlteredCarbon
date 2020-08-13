@@ -15,7 +15,11 @@ namespace AlteredCarbon
 
 		protected bool contentsKnown;
 
+		public int runningOutPowerInTicks;
+
+		public bool innerPawnIsDead;
 		public bool HasAnyContents => innerContainer.Count > 0;
+
 
 		public Thing ContainedThing
 		{
@@ -58,8 +62,6 @@ namespace AlteredCarbon
 				EjectContents();
 			}
 		}
-
-
 		public override bool ClaimableBy(Faction fac)
 		{
 			if (innerContainer.Any)
@@ -141,6 +143,11 @@ namespace AlteredCarbon
 				return false;
 			}
 		}
+
+		public bool Accepts(Thing thing)
+		{
+			return this.innerContainer.Count == 0;
+		}
 		public Pawn InnerPawn
 		{
 			get
@@ -176,7 +183,7 @@ namespace AlteredCarbon
 				command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/CancelSleeve");
 				yield return command_Action;
 			}
-			if (base.Faction == Faction.OfPlayer && this.ContainedThing == null)
+			if (base.Faction == Faction.OfPlayer && (this.ContainedThing == null || this.innerPawnIsDead))
             {
 				Command_Action command_Action2 = new Command_Action();
 				command_Action2.action = new Action(this.CreateSleeve);
@@ -195,21 +202,6 @@ namespace AlteredCarbon
 			}
 			yield break;
 		}
-		
-		public void CancelGrowing()
-        {
-			this.active = false;
-			this.totalGrowthCost = 0;
-			this.totalTicksToGrow = 0;
-			this.curTicksToGrow = 0;
-			this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
-			this.fetus = null;
-			this.child = null;
-        }
-		public void CreateSleeve()
-		{
-			Find.WindowStack.Add(new CustomizeSleeveWindow(this));
-		}
 		public override string GetInspectString()
 		{
 			if (this.ContainedThing != null)
@@ -223,20 +215,6 @@ namespace AlteredCarbon
 			}
 		}
 
-		public Graphic glass;
-		public Graphic Glass
-        {
-			get
-            {
-				if (glass == null)
-                {
-					glass = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveGrowingVatTop", ShaderDatabase.MetaOverlay,
-					new Vector3(6, 6), Color.white);
-				}
-				return glass;
-            }
-        }
-
 		public Graphic fetus;
 		public Graphic Fetus
 		{
@@ -244,7 +222,7 @@ namespace AlteredCarbon
 			{
 				if (fetus == null)
 				{
-					fetus = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Humanlike/Vat/Fetus", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					fetus = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Humanlike/Vat/Fetus", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return fetus;
 			}
@@ -257,46 +235,128 @@ namespace AlteredCarbon
 			{
 				if (child == null)
 				{
-					child = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Child", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					child = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Child", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return child;
 			}
 		}
 
+		public Graphic fetus_dead;
+		public Graphic Fetus_Dead
+		{
+			get
+			{
+				if (fetus_dead == null)
+				{
+					fetus_dead = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Humanlike/Vat/Fetus_Dead", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
+				}
+				return fetus_dead;
+			}
+		}
+		public Graphic child_dead;
+		public Graphic Child_Dead
+		{
+			get
+			{
+				if (child_dead == null)
+				{
+					child_dead = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Child_Dead", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
+				}
+				return child_dead;
+			}
+		}
+
+		public Graphic adult_dead;
+		public Graphic Adult_Dead
+		{
+			get
+			{
+				if (adult_dead == null)
+				{
+					adult_dead = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Adult_Dead", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
+				}
+				return adult_dead;
+			}
+		}
+
 		public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
+			base.DrawAt(drawLoc, flip);
+
 			if (this.ContainedThing is Pawn)
 			{
 				Vector3 newPos = drawLoc;
 				newPos.z += 0.5f;
 				var growthValue = (float)this.curTicksToGrow / this.totalTicksToGrow;
-				if (growthValue < 0.33f)
-                {
-					Fetus.Draw(newPos, Rot4.North, this);
-                }
-				else if (growthValue < 0.66f)
-                {
-					Child.Draw(newPos, Rot4.North, this);
+				if (!this.innerPawnIsDead)
+				{
+					if (growthValue < 0.33f)
+					{
+						Fetus.Draw(newPos, Rot4.North, this);
+					}
+					else if (growthValue < 0.66f)
+					{
+						Child.Draw(newPos, Rot4.North, this);
+					}
+					else
+					{
+						this.ContainedThing.Rotation = Rot4.South;
+						this.ContainedThing.DrawAt(newPos, flip);
+					}
 				}
-				else
-                {
-					this.ContainedThing.Rotation = Rot4.South;
-					this.ContainedThing.DrawAt(newPos, flip);
+				else if (this.innerPawnIsDead)
+				{
+					if (growthValue < 0.33f)
+					{
+						Fetus_Dead.Draw(newPos, Rot4.North, this);
+					}
+					else if (growthValue < 0.66f)
+					{
+						Child_Dead.Draw(newPos, Rot4.North, this);
+					}
+					else
+					{
+						Adult_Dead.Draw(newPos, Rot4.North, this);
+					}
 				}
 			}
-			base.DrawAt(drawLoc, flip);
-			Glass.Draw(drawLoc, Rot4.North, this);
+			base.Comps_PostDraw();
+		}
+
+
+		public void ResetGraphics()
+        {
+			this.fetus = null;
+			this.child = null;
+			this.fetus_dead = null;
+			this.child_dead = null;
+			this.adult_dead = null;
+		}
+		public void CancelGrowing()
+		{
+			this.active = false;
+			this.totalGrowthCost = 0;
+			this.totalTicksToGrow = 0;
+			this.curTicksToGrow = 0;
+			this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
+			ResetGraphics();
+		}
+		public void CreateSleeve()
+		{
+			Find.WindowStack.Add(new CustomizeSleeveWindow(this));
 		}
 
 		public void StartGrowth(Pawn newSleeve, int totalTicksToGrow, int totalGrowthCost)
         {
+			this.ResetGraphics();
 			this.innerContainer.ClearAndDestroyContents();
 			this.TryAcceptThing(newSleeve);
 			this.totalTicksToGrow = totalTicksToGrow;
 			this.curTicksToGrow = 0;
-
 			this.totalGrowthCost = totalGrowthCost;
 			this.active = true;
+			this.innerPawnIsDead = false;
+			this.runningOutPowerInTicks = 0;
 		}
 
 		public void InstantGrowth()
@@ -311,25 +371,43 @@ namespace AlteredCarbon
 			ACUtils.ACTracker.emptySleeves.Add(this.InnerPawn);
 		}
 
-        public override void Tick()
+		public void KillInnerPawn()
+        {
+			this.innerPawnIsDead = true;
+		}
+
+		public override void Tick()
 		{
 			base.Tick();
 			if (this.ContainedThing == null && this.curTicksToGrow > 0)
 			{
 				curTicksToGrow = 0;
 			}
-			if (this.ContainedThing is Pawn && base.GetComp<CompRefuelable>().HasFuel && powerTrader.PowerOn && this.active)
-			{
-				var fuelCost = this.totalGrowthCost / (float)this.totalTicksToGrow;
-				base.GetComp<CompRefuelable>().ConsumeFuel(fuelCost);
-				if (this.curTicksToGrow < totalTicksToGrow)
+			if (this.ContainedThing is Pawn)
+            {
+				if (this.active && base.GetComp<CompRefuelable>().HasFuel && powerTrader.PowerOn)
 				{
-					curTicksToGrow++;
+					if (runningOutPowerInTicks > 0) runningOutPowerInTicks = 0;
+					var fuelCost = this.totalGrowthCost / (float)this.totalTicksToGrow;
+					base.GetComp<CompRefuelable>().ConsumeFuel(fuelCost);
+					if (this.curTicksToGrow < totalTicksToGrow)
+					{
+						curTicksToGrow++;
+					}
+					else
+					{
+						this.FinishGrowth();
+					}
 				}
-				else
-				{
-					this.FinishGrowth();
-				}
+				else if (this.active && !powerTrader.PowerOn && runningOutPowerInTicks < 60000)
+                {
+					runningOutPowerInTicks++;
+                }
+				else if (runningOutPowerInTicks >= 60000 && this.active)
+                {
+					this.active = false;
+					this.KillInnerPawn();
+                }
 			}
 		}
 
@@ -353,8 +431,7 @@ namespace AlteredCarbon
 			}
 			this.innerContainer.TryDropAll(this.InteractionCell, base.Map, ThingPlaceMode.Near, null, null);
 			this.contentsKnown = true;
-			this.fetus = null;
-			this.child = null;
+			ResetGraphics();
 		}
 
 		public override void ExposeData()
@@ -369,11 +446,9 @@ namespace AlteredCarbon
 			Scribe_Values.Look<float>(ref this.totalGrowthCost, "totalGrowthCost", 0f, true);
 			Scribe_Values.Look<bool>(ref this.contentsKnown, "contentsKnown", false, true);
 			Scribe_Values.Look<bool>(ref this.active, "active", false, true);
-		}
 
-		public bool Accepts(Thing thing)
-		{
-			return this.innerContainer.Count == 0;
+			Scribe_Values.Look<int>(ref this.runningOutPowerInTicks, "runningOutPowerInTicks", 0, true);
+			Scribe_Values.Look<bool>(ref this.innerPawnIsDead, "innerPawnIsDead", false, true);
 		}
 
 		public int totalTicksToGrow = 0;
