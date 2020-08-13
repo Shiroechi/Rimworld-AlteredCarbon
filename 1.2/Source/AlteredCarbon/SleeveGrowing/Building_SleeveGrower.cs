@@ -215,19 +215,6 @@ namespace AlteredCarbon
 			}
 		}
 
-		public Graphic glass;
-		public Graphic Glass
-        {
-			get
-            {
-				if (glass == null)
-                {
-					glass = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveGrowingVatTop", ShaderDatabase.CutoutComplex, new Vector3(6, 6), Color.white);
-				}
-				return glass;
-            }
-        }
-
 		public Graphic fetus;
 		public Graphic Fetus
 		{
@@ -296,11 +283,6 @@ namespace AlteredCarbon
 		{
 			base.DrawAt(drawLoc, flip);
 
-			//Matrix4x4 matrix4x = default(Matrix4x4);
-			//matrix4x.SetTRS(drawLoc, base.Rotation.AsQuat, new Vector3(3f, 1f, 3f));
-
-			Graphics.DrawMesh(MeshPool.plane10, drawLoc, this.Rotation.AsQuat, Glass.MatAt(base.Rotation, this), 15);
-
 			if (this.ContainedThing is Pawn)
 			{
 				Vector3 newPos = drawLoc;
@@ -338,9 +320,7 @@ namespace AlteredCarbon
 					}
 				}
 			}
-
-
-			//Glass.Draw(drawLoc, Rot4.North, this);
+			base.Comps_PostDraw();
 		}
 
 
