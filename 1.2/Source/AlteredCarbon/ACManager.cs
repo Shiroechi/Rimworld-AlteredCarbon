@@ -107,20 +107,24 @@ namespace AlteredCarbon
 
         public void ReplacePawnWithStack(Pawn pawn, CorticalStack stack)
         {
+            if (this.stacksRelationships == null) this.stacksRelationships = new Dictionary<int, StacksData>();
             var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
-            stack.stackGroupID = hediff.stackGroupID;
-            if (this.stacksRelationships.ContainsKey(hediff.stackGroupID))
+            if (hediff != null)
             {
-                if (this.stacksRelationships[hediff.stackGroupID].originalPawn == pawn)
+                stack.stackGroupID = hediff.stackGroupID;
+                if (this.stacksRelationships.ContainsKey(hediff.stackGroupID))
                 {
-                    this.stacksRelationships[hediff.stackGroupID].originalPawn = null;
-                    this.stacksRelationships[hediff.stackGroupID].originalStack = stack;
-                }
-                else if (this.stacksRelationships[hediff.stackGroupID].copiedPawns.Contains(pawn))
-                {
-                    this.stacksRelationships[hediff.stackGroupID].copiedPawns.Remove(pawn);
-                    if (this.stacksRelationships[hediff.stackGroupID].copiedStacks == null) this.stacksRelationships[hediff.stackGroupID].copiedStacks = new List<CorticalStack>();
-                    this.stacksRelationships[hediff.stackGroupID].copiedStacks.Add(stack);
+                    if (this.stacksRelationships[hediff.stackGroupID].originalPawn == pawn)
+                    {
+                        this.stacksRelationships[hediff.stackGroupID].originalPawn = null;
+                        this.stacksRelationships[hediff.stackGroupID].originalStack = stack;
+                    }
+                    else if (this.stacksRelationships[hediff.stackGroupID].copiedPawns.Contains(pawn))
+                    {
+                        this.stacksRelationships[hediff.stackGroupID].copiedPawns.Remove(pawn);
+                        if (this.stacksRelationships[hediff.stackGroupID].copiedStacks == null) this.stacksRelationships[hediff.stackGroupID].copiedStacks = new List<CorticalStack>();
+                        this.stacksRelationships[hediff.stackGroupID].copiedStacks.Add(stack);
+                    }
                 }
             }
         }
