@@ -235,7 +235,7 @@ namespace AlteredCarbon
 			{
 				if (fetus == null)
 				{
-					fetus = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Humanlike/Vat/Fetus", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					fetus = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Humanlike/Vat/Fetus", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return fetus;
 			}
@@ -248,7 +248,7 @@ namespace AlteredCarbon
 			{
 				if (child == null)
 				{
-					child = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Child", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					child = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Child", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return child;
 			}
@@ -261,7 +261,7 @@ namespace AlteredCarbon
 			{
 				if (fetus_dead == null)
 				{
-					fetus_dead = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Humanlike/Vat/Fetus_Dead", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					fetus_dead = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Humanlike/Vat/Fetus_Dead", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return fetus_dead;
 			}
@@ -273,7 +273,7 @@ namespace AlteredCarbon
 			{
 				if (child_dead == null)
 				{
-					child_dead = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Child_Dead", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					child_dead = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Child_Dead", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return child_dead;
 			}
@@ -286,7 +286,7 @@ namespace AlteredCarbon
 			{
 				if (adult_dead == null)
 				{
-					adult_dead = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Adult_Dead", ShaderDatabase.MetaOverlay, Vector3.one, this.InnerPawn.story.SkinColor);
+					adult_dead = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Humanlike/Vat/Adult_Dead", ShaderDatabase.CutoutFlying, Vector3.one, this.InnerPawn.story.SkinColor);
 				}
 				return adult_dead;
 			}
@@ -295,13 +295,19 @@ namespace AlteredCarbon
 		public override void DrawAt(Vector3 drawLoc, bool flip = false)
 		{
 			base.DrawAt(drawLoc, flip);
+
+			//Matrix4x4 matrix4x = default(Matrix4x4);
+			//matrix4x.SetTRS(drawLoc, base.Rotation.AsQuat, new Vector3(3f, 1f, 3f));
+
+			Graphics.DrawMesh(MeshPool.plane10, drawLoc, this.Rotation.AsQuat, Glass.MatAt(base.Rotation, this), 15);
+
 			if (this.ContainedThing is Pawn)
 			{
 				Vector3 newPos = drawLoc;
-				//newPos.z += 0.5f;
+				newPos.z += 0.5f;
 				var growthValue = (float)this.curTicksToGrow / this.totalTicksToGrow;
 				if (!this.innerPawnIsDead)
-                {
+				{
 					if (growthValue < 0.33f)
 					{
 						Fetus.Draw(newPos, Rot4.North, this);
@@ -328,13 +334,15 @@ namespace AlteredCarbon
 					}
 					else
 					{
-
 						Adult_Dead.Draw(newPos, Rot4.North, this);
 					}
 				}
 			}
-			Glass.Draw(drawLoc, Rot4.North, this);
+
+
+			//Glass.Draw(drawLoc, Rot4.North, this);
 		}
+
 
 		public void ResetGraphics()
         {
