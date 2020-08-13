@@ -53,7 +53,7 @@ namespace AlteredCarbon
                 this.stackGroupID = 0;
             }
         }
-
+        public override bool ShouldRemove => false;
         public void SavePawn(Pawn pawn)
         {
             this.name = pawn.Name;
