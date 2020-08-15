@@ -114,6 +114,7 @@
         <defName>AC_EmptySleeve</defName>
         <label>empty sleeve</label>
         <description>An empty sleeve.</description>
+		<isBad>false</isBad>
         <stages>
             <li>
 				<label>empty</label>
