@@ -10,6 +10,7 @@ namespace AlteredCarbon
     public class Hediff_CorticalStack : Hediff_Implant
     {
         public Name name;
+        public Pawn origPawn;
         public int hostilityMode;
         public Area areaRestriction;
         public MedicalCareCategory medicalCareCategory;
@@ -24,6 +25,7 @@ namespace AlteredCarbon
         public List<Thought_Memory> thoughts;
         public List<Trait> traits;
         public List<DirectPawnRelation> relations;
+        public HashSet<Pawn> relatedPawns;
         public List<SkillRecord> skills;
         public string childhood;
         public string adulthood;
@@ -57,6 +59,7 @@ namespace AlteredCarbon
         public void SavePawn(Pawn pawn)
         {
             this.name = pawn.Name;
+            this.origPawn = pawn;
             if (pawn.playerSettings != null)
             {
                 this.hostilityMode = (int)pawn.playerSettings.hostilityResponse;
@@ -76,7 +79,25 @@ namespace AlteredCarbon
                 this.isFactionLeader = true;
             }
             this.traits = pawn.story?.traits?.allTraits;
+
             this.relations = pawn.relations?.DirectRelations;
+            this.relatedPawns = new HashSet<Pawn>();
+            foreach (var otherPawn in pawn.relations.RelatedPawns)
+            {
+                foreach (var rel2 in pawn.GetRelations(otherPawn))
+                {
+                    if (this.relations.Where(r => r.def == rel2 && r.otherPawn == otherPawn).Count() == 0)
+                    {
+                        Log.Message("00000 Rel: " + otherPawn?.Name + " - " + rel2 + " - " + pawn.Name, true);
+                        if (!rel2.implied)
+                        {
+                            this.relations.Add(new DirectPawnRelation(rel2, otherPawn, 0));
+                        }
+                    }
+                }
+                relatedPawns.Add(otherPawn);
+            }
+
             this.skills = pawn.skills?.skills;
             this.childhood = pawn.story?.childhood?.identifier;
             if (pawn.story?.adulthood != null)
@@ -173,6 +194,8 @@ namespace AlteredCarbon
             Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
             Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
+            Scribe_References.Look<Pawn>(ref this.origPawn, "origPawn", true);
+
             Scribe_Values.Look<int>(ref this.hostilityMode, "hostilityMode");
             Scribe_References.Look<Area>(ref this.areaRestriction, "areaRestriction", false);
             Scribe_Values.Look<MedicalCareCategory>(ref this.medicalCareCategory, "medicalCareCategory", 0, false);
@@ -194,6 +217,8 @@ namespace AlteredCarbon
             Scribe_Collections.Look<Trait>(ref this.traits, "traits");
             Scribe_Collections.Look<SkillRecord>(ref this.skills, "skills");
             Scribe_Collections.Look<DirectPawnRelation>(ref this.relations, "relations");
+            Scribe_Collections.Look<Pawn>(ref this.relatedPawns, true, "relatedPawns", LookMode.Reference);
+
             Scribe_Collections.Look<WorkTypeDef, int>(ref this.priorities, "priorities");
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
             Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);

@@ -20,7 +20,6 @@ namespace AlteredCarbon
 		public bool innerPawnIsDead;
 		public bool HasAnyContents => innerContainer.Count > 0;
 
-
 		public Thing ContainedThing
 		{
 			get
@@ -106,7 +105,7 @@ namespace AlteredCarbon
 
 		public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
 		{
-			if (innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize))
+			if (innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize) && !this.active && this.curTicksToGrow == this.totalTicksToGrow)
 			{
 				if (mode != DestroyMode.Deconstruct)
 				{

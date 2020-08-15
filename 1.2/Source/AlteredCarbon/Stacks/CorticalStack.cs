@@ -14,6 +14,7 @@ namespace AlteredCarbon
     public class CorticalStack : ThingWithComps
     {
         public Name name;
+        public Pawn origPawn;
         public int hostilityMode;
         public Area areaRestriction;
         public MedicalCareCategory medicalCareCategory;
@@ -28,6 +29,7 @@ namespace AlteredCarbon
         public List<Thought_Memory> thoughts;
         public List<Trait> traits;
         public List<DirectPawnRelation> relations;
+        public HashSet<Pawn> relatedPawns;
         public List<SkillRecord> skills;
         public string childhood;
         public string adulthood;
@@ -199,6 +201,7 @@ namespace AlteredCarbon
         public void SavePawnFromHediff(Hediff_CorticalStack hediff)
         {
             this.name = hediff.name;
+            this.origPawn = hediff.origPawn;
             this.hostilityMode = hediff.hostilityMode;
             this.areaRestriction = hediff.areaRestriction;
             this.ageChronologicalTicks = hediff.ageChronologicalTicks;
@@ -213,6 +216,7 @@ namespace AlteredCarbon
             this.isFactionLeader = hediff.isFactionLeader;
             this.traits = hediff.traits;
             this.relations = hediff.relations;
+            this.relatedPawns = hediff.relatedPawns;
             this.skills = hediff.skills;
             this.childhood = hediff.childhood;
             this.adulthood = hediff.adulthood;
@@ -241,6 +245,7 @@ namespace AlteredCarbon
         public void SavePawnToCorticalStack(Pawn pawn)
         {
             this.name = pawn.Name;
+            this.origPawn = pawn;
             if (pawn.playerSettings != null)
             {
                 this.hostilityMode = (int)pawn.playerSettings.hostilityResponse;
@@ -250,6 +255,7 @@ namespace AlteredCarbon
             }
             this.ageChronologicalTicks = pawn.ageTracker.AgeChronologicalTicks;
             this.foodRestriction = pawn.foodRestriction?.CurrentFoodRestriction;
+
             this.outfit = pawn.outfits?.CurrentOutfit;
             this.drugPolicy = pawn.drugs?.CurrentPolicy;
             this.times = pawn.timetable?.times;
@@ -261,6 +267,8 @@ namespace AlteredCarbon
             }
             this.traits = pawn.story?.traits?.allTraits;
             this.relations = pawn.relations?.DirectRelations;
+            this.relatedPawns = pawn.relations.RelatedPawns.ToHashSet();
+
             this.skills = pawn.skills?.skills;
             this.childhood = pawn.story?.childhood?.identifier;
             if (pawn.story?.adulthood != null)
@@ -335,12 +343,14 @@ namespace AlteredCarbon
         public void CopyFromOtherStack(CorticalStack otherStack)
         {
             this.name = otherStack.name;
+            this.origPawn = otherStack.origPawn;
             this.hostilityMode = otherStack.hostilityMode;
             this.areaRestriction = otherStack.areaRestriction;
             this.ageChronologicalTicks = otherStack.ageChronologicalTicks;
             this.medicalCareCategory = otherStack.medicalCareCategory;
             this.selfTend = otherStack.selfTend;
             this.foodRestriction = otherStack.foodRestriction;
+
             this.outfit = otherStack.outfit;
             this.drugPolicy = otherStack.drugPolicy;
             this.times = otherStack.times;
@@ -349,6 +359,8 @@ namespace AlteredCarbon
             this.isFactionLeader = otherStack.isFactionLeader;
             this.traits = otherStack.traits;
             this.relations = otherStack.relations;
+            this.relatedPawns = otherStack.relatedPawns;
+
             this.skills = otherStack.skills;
             this.childhood = otherStack.childhood;
             this.adulthood = otherStack.adulthood;
@@ -370,6 +382,39 @@ namespace AlteredCarbon
             }
             this.isCopied = true;
             this.stackGroupID = otherStack.stackGroupID;
+        }
+
+        public Pawn GetOriginalPawn(Pawn pawn)
+        {
+            if (this.origPawn != null)
+            {
+                return this.origPawn;
+            }
+            if (this.relatedPawns != null)
+            {
+                foreach (var otherPawn in this.relatedPawns)
+                {
+                    if (otherPawn != null)
+                    {
+                        foreach (var rel in otherPawn.relations.DirectRelations)
+                        {
+                            if (rel.otherPawn.Name == pawn.Name && rel.otherPawn != pawn)
+                            {
+                                return rel.otherPawn;
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (var otherPawn in PawnsFinder.AllMaps)
+            {
+                if (otherPawn.Name == pawn.Name && otherPawn != pawn)
+                {
+                    return otherPawn;
+                }
+            }
+
+            return null;
         }
 
         public void OverwritePawn(Pawn pawn)
@@ -422,11 +467,127 @@ namespace AlteredCarbon
                     pawn.story.traits.GainTrait(trait);
                 }
             }
+
             pawn.relations.ClearAllRelations();
+
+            var origPawn = GetOriginalPawn(pawn);
+            Log.Message("-------------");
+
+            Log.Message("Original pawn: " + origPawn + " - " + origPawn?.Position, true);
+            //if (origPawn != null)
+            //{
+            //    foreach (var rel in origPawn.relations.DirectRelations)
+            //    {
+            //        pawn.relations.AddDirectRelation(rel.def, rel.otherPawn);
+            //    }
+            //}
+
+            foreach (var otherPawn in this.relatedPawns)
+            {
+                if (otherPawn != null)
+                {
+                    foreach (var rel in otherPawn.relations.DirectRelations)
+                    {
+                        if (this.name == rel.otherPawn?.Name)
+                        {
+                            Log.Message("1 Changing Rel: " + pawn.Name + " - " + rel.def + " - " + otherPawn.Name + " - " + rel.otherPawn.Name, true);
+                            rel.otherPawn = pawn;
+                        }
+                    }
+                }
+            }
+
+            foreach (var otherPawn in this.relatedPawns)
+            {
+                if (otherPawn != null)
+                {
+                    foreach (var rel in this.relations)
+                    {
+                        foreach (var rel2 in otherPawn.relations.DirectRelations)
+                        {
+                            if (rel.def == rel2.def && rel2.otherPawn?.Name == pawn.Name)
+                            {
+                                Log.Message("2 Changing Rel: " + pawn.Name + " - " + rel.def + " - " + otherPawn.Name + " - " + rel.otherPawn.Name, true);
+                                rel2.otherPawn = pawn;
+                            }
+                        }
+                    }
+                }
+
+            }
+
             foreach (var rel in this.relations)
             {
+                Log.Message("Adding Rel: " + pawn.Name + " - " + rel.def + " - " + rel.otherPawn.Name, true);
+                if (rel.otherPawn != null)
+                {
+                    var oldRelation = rel.otherPawn.relations.DirectRelations.Where(r => r.def == rel.def && r.otherPawn.Name == pawn.Name).FirstOrDefault();
+                    if (oldRelation != null)
+                    {
+                        Log.Message("3 Changing Rel: " + pawn.Name + " - " + rel.def + " - " + oldRelation.otherPawn.Name + " - " + rel.otherPawn.Name, true);
+                        oldRelation.otherPawn = pawn;
+                    }
+                }
+
+                //foreach (var child in rel.otherPawn.relations.Children)
+                //{
+                //    if (child != null)
+                //    {
+                //        if (child.Name == pawn.Name)
+                //        {
+                //            var oldRelation2 = child.relations.DirectRelations.Where(r => r.def == rel.def && r.otherPawn == rel.otherPawn).FirstOrDefault();
+                //            if (oldRelation2 != null)
+                //            {
+                //                var otherRelation = oldRelation2.otherPawn.relations.GetDirectRelation(oldRelation2.def, child);
+                //                Log.Message("4 Changing Rel: " + pawn.Name + " - " + rel.def + " - " + otherRelation.otherPawn.Name + " - " + rel.otherPawn.Name, true);
+                //                otherRelation.otherPawn = pawn;
+                //            }
+                //        }
+                //    }
+                //}
+
+                //foreach (var rel2 in rel.otherPawn.relations.DirectRelations)
+                //{
+                //    if (rel2.def == rel.def)
+                //    {
+                //        Log.Message("Check rel: " + rel.otherPawn.Name + " - " + rel2.def + " - " + rel2.otherPawn.Name, true);
+                //    }
+                //}
+
                 pawn.relations.AddDirectRelation(rel.def, rel.otherPawn);
+
+                foreach (var children in rel.otherPawn.relations.Children)
+                {
+                    Log.Message("1.5: " + rel.otherPawn.Name + " - child: " + children.Name, true);
+                }
+                Log.Message("-------------");
             }
+
+            foreach (var otherPawn in pawn.relations.RelatedPawns)
+            {
+                for (int num = otherPawn.relations.DirectRelations.Count - 1; num >= 0; num--)
+                {
+                    if (pawn.Name == otherPawn.relations.DirectRelations[num].otherPawn.Name)
+                    {
+                        if (pawn != otherPawn.relations.DirectRelations[num].otherPawn)
+                        {
+                            Log.Message("5 Rel: " + pawn.Name + " - " + otherPawn.relations.DirectRelations[num].def + " - " + otherPawn.Name + " - " + otherPawn.relations.DirectRelations[num].otherPawn.Name, true);
+                            Log.Message("6 pawn != otherPawn: " + pawn + " - " + otherPawn.relations.DirectRelations[num].otherPawn, true);
+                        }
+                    }
+                }
+            }
+
+            foreach (var children in pawn.relations.Children)
+            {
+                Log.Message("7: " + pawn.Name + " - child: " + children.Name, true);
+            }
+
+            if (origPawn != null)
+            {
+                origPawn.relations = new Pawn_RelationsTracker(origPawn);
+            }
+
             pawn.skills.skills.Clear();
             if (this.skills != null)
             {
@@ -532,10 +693,9 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
-
             Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
-
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
+            Scribe_References.Look<Pawn>(ref this.origPawn, "origPawn", true);
             Scribe_Values.Look<int>(ref this.hostilityMode, "hostilityMode");
             Scribe_References.Look<Area>(ref this.areaRestriction, "areaRestriction", false);
             Scribe_Values.Look<MedicalCareCategory>(ref this.medicalCareCategory, "medicalCareCategory", 0, false);
@@ -558,6 +718,8 @@ namespace AlteredCarbon
             Scribe_Collections.Look<Trait>(ref this.traits, "traits");
             Scribe_Collections.Look<SkillRecord>(ref this.skills, "skills");
             Scribe_Collections.Look<DirectPawnRelation>(ref this.relations, "relations");
+            Scribe_Collections.Look<Pawn>(ref this.relatedPawns, "relatedPawns", LookMode.Reference);
+
             Scribe_Collections.Look<WorkTypeDef, int>(ref this.priorities, "priorities");
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
 
@@ -584,4 +746,3 @@ namespace AlteredCarbon
         private List<Pawn> heirsValues = new List<Pawn>();
     }
 }
-
