@@ -56,7 +56,7 @@ namespace AlteredCarbon
 			}
 			if (flag)
 			{
-				ReportViolation(pawn, billDoer, pawn.Faction, -70, "GoodwillChangedReason_RemovedImplant".Translate(part.LabelShort));
+				ReportViolation(pawn, billDoer, pawn.FactionOrExtraHomeFaction, -70, "GoodwillChangedReason_RemovedImplant".Translate(part.LabelShort));
 			}
 		}
 	}

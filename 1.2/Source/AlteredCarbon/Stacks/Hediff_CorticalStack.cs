@@ -88,7 +88,7 @@ namespace AlteredCarbon
                 {
                     if (this.relations.Where(r => r.def == rel2 && r.otherPawn == otherPawn).Count() == 0)
                     {
-                        Log.Message("00000 Rel: " + otherPawn?.Name + " - " + rel2 + " - " + pawn.Name, true);
+                        //Log.Message("00000 Rel: " + otherPawn?.Name + " - " + rel2 + " - " + pawn.Name, true);
                         if (!rel2.implied)
                         {
                             this.relations.Add(new DirectPawnRelation(rel2, otherPawn, 0));
