@@ -83,15 +83,6 @@ namespace AlteredCarbon
                     corticalStack.gender = pawn.gender;
                     hediff.gender = pawn.gender;
                 }
-
-                var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_EmptySleeve);
-                if (emptySleeveHediff != null)
-                {
-                    pawn.health.RemoveHediff(emptySleeveHediff);
-                }
-
-                ACUtils.ACTracker.RegisterPawn(pawn);
-                ACUtils.ACTracker.TryAddRelationships(pawn);
             }
         }
     }

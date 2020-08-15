@@ -178,6 +178,28 @@ namespace AlteredCarbon
             base.Notify_PawnKilled();
         }
 
+        public override void PostAdd(DamageInfo? dinfo)
+        {
+            base.PostAdd(dinfo);
+            this.gender = pawn.gender;
+            if (ACUtils.ACTracker.stacksRelationships != null)
+            {
+                this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
+            }
+            else
+            {
+                this.stackGroupID = 0;
+            }
+            var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_EmptySleeve);
+            if (emptySleeveHediff != null)
+            {
+                pawn.health.RemoveHediff(emptySleeveHediff);
+            }
+
+            ACUtils.ACTracker.RegisterPawn(pawn);
+            ACUtils.ACTracker.TryAddRelationships(pawn);
+        }
+
         public override void PostRemoved()
         {
             base.PostRemoved();

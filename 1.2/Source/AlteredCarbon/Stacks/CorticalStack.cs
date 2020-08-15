@@ -184,18 +184,31 @@ namespace AlteredCarbon
                 pawn.Kill(null);
             }
         }
-        public void EmptyStack(bool affectFactionRelationship = false, Pawn affecter = null)
+        public void EmptyStack(Pawn affecter, bool affectFactionRelationship = false)
         {
             Find.WindowStack.Add(new Dialog_MessageBox("AlteredCarbon.EmptyStackConfirmation".Translate(),
                 "No".Translate(), null,
                 "Yes".Translate(), delegate ()
                 {
-                    var newStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack);
-                    GenSpawn.Spawn(newStack, this.Position, this.Map);
-                    Find.Selector.Select(newStack);
-                    ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
-                    this.KillInnerPawn(affectFactionRelationship, affecter);
-                    this.Destroy();
+                    float damageChance = Mathf.Abs((affecter.skills.GetSkill(SkillDefOf.Intellectual).levelInt / 2f) - 11f) / 10f;
+                    if (Rand.Chance(damageChance))
+                    {
+                        Find.LetterStack.ReceiveLetter("AlteredCarbon.DestroyedStack".Translate(),
+                        "AlteredCarbon.DestroyedWipingStackDesc".Translate(affecter.Named("PAWN")),
+                        LetterDefOf.NegativeEvent, affecter);
+                        ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
+                        this.KillInnerPawn(affectFactionRelationship, affecter);
+                        this.Destroy();
+                    }
+                    else
+                    {
+                        var newStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack);
+                        GenSpawn.Spawn(newStack, this.Position, this.Map);
+                        Find.Selector.Select(newStack);
+                        ACUtils.ACTracker.stacksIndex.Remove(this.pawnID + this.name);
+                        this.KillInnerPawn(affectFactionRelationship, affecter);
+                        this.Destroy();
+                    }
                 }, null, false, null, null));
         }
         public void SavePawnFromHediff(Hediff_CorticalStack hediff)

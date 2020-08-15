@@ -22,12 +22,11 @@ namespace AlteredCarbon
                     var stack = (CorticalStack)TargetThingA;
                     if (stack.faction != null && pawn != null && pawn.Faction != null && pawn.Faction != stack.Faction)
                     {
-                        stack.EmptyStack(true, pawn);
-
+                        stack.EmptyStack(pawn, true);
                     }
                     else
                     {
-                        stack.EmptyStack();
+                        stack.EmptyStack(pawn);
                     }
                 }
             };
