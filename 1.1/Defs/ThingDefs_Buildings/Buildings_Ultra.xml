@@ -32,7 +32,7 @@
         <useHitPoints>True</useHitPoints>
         <statBases>
             <WorkToBuild>8000</WorkToBuild>
-            <MaxHitPoints>10000</MaxHitPoints>
+            <MaxHitPoints>4000</MaxHitPoints>
             <Flammability>1.0</Flammability>
             <Beauty>-5</Beauty>
         </statBases>
