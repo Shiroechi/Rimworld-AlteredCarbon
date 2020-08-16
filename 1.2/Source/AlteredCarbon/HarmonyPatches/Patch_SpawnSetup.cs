@@ -41,7 +41,8 @@ namespace AlteredCarbon
         [HarmonyPostfix]
         public static void Postfix(Quest quest, GetPawnParms parms, Pawn __result)
         {
-            if (__result.kindDef == PawnKindDefOf.Empire_Royal_Bestower)
+            Log.Message("TEST", true);
+            if (__result?.kindDef == PawnKindDefOf.Empire_Royal_Bestower)
             {
                 ThingOwner<Thing> innerContainer = __result.inventory.innerContainer;
                 innerContainer.TryAdd(ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack), 1);
