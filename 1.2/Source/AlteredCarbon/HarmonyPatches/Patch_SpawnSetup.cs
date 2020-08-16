@@ -8,6 +8,7 @@ using RimWorld;
 using RimWorld.QuestGen;
 using UnityEngine;
 using Verse;
+using Verse.AI.Group;
 using static RimWorld.QuestGen.QuestGen_Pawns;
 
 namespace AlteredCarbon
@@ -35,17 +36,22 @@ namespace AlteredCarbon
         }
     }
 
-    [HarmonyPatch(typeof(QuestGen_Pawns))]
-    [HarmonyPatch("GetPawn")]
-    public static class GetPawnSetup
+    [HarmonyPatch(typeof(QuestPart_BestowingCeremony))]
+    [HarmonyPatch("MakeLord")]
+    public static class MakeLord_Patch
     {
         [HarmonyPostfix]
-        public static void Postfix(Quest quest, GetPawnParms parms, Pawn __result)
+        public static void Postfix(QuestPart_BestowingCeremony __instance, Lord __result)
         {
-            if (__result?.kindDef == PawnKindDefOf.Empire_Royal_Bestower)
+            if (__instance.bestower.kindDef == PawnKindDefOf.Empire_Royal_Bestower)
             {
-                ThingOwner<Thing> innerContainer = __result.inventory.innerContainer;
-                innerContainer.TryAdd(ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack), 1);
+                RoyalTitleDef titleAwardedWhenUpdating = __instance.target.royalty.GetTitleAwardedWhenUpdating(__instance.bestower.Faction,
+                    __instance.target.royalty.GetFavor(__instance.bestower.Faction));
+                if (titleAwardedWhenUpdating.defName == "Baron" || titleAwardedWhenUpdating.defName == "Count")
+                {
+                    ThingOwner<Thing> innerContainer = __instance.bestower.inventory.innerContainer;
+                    innerContainer.TryAdd(ThingMaker.MakeThing(AlteredCarbonDefOf.AC_EmptyCorticalStack), 1);
+                }
             }
         }
     }
@@ -75,18 +81,19 @@ namespace AlteredCarbon
     public static class StackElements_Patch
     {
         [HarmonyPostfix]
-        public static void Postfix(ref IEnumerable<GenUI.AnonymousStackElement> __result)
+        public static void Postfix(Reward_BestowingCeremony __instance, ref IEnumerable<GenUI.AnonymousStackElement> __result)
         {
-            var list = __result.ToList();
-            var item = QuestPartUtility.GetStandardRewardStackElement(AlteredCarbonDefOf.AC_EmptyCorticalStack.label.CapitalizeFirst(), AlteredCarbonDefOf.AC_EmptyCorticalStack.uiIcon, () => AlteredCarbonDefOf.AC_EmptyCorticalStack.description, delegate
+            if (__instance.royalTitle.defName == "Baron" || __instance.royalTitle.defName == "Count")
             {
-                Find.WindowStack.Add(new Dialog_InfoCard(AlteredCarbonDefOf.AC_EmptyCorticalStack));
-            });
-            list.Insert(1, item);
-            __result = list;
+                var list = __result.ToList();
+                var item = QuestPartUtility.GetStandardRewardStackElement(AlteredCarbonDefOf.AC_EmptyCorticalStack.label.CapitalizeFirst(), AlteredCarbonDefOf.AC_EmptyCorticalStack.uiIcon, () => AlteredCarbonDefOf.AC_EmptyCorticalStack.description, delegate
+                {
+                    Find.WindowStack.Add(new Dialog_InfoCard(AlteredCarbonDefOf.AC_EmptyCorticalStack));
+                });
+                list.Insert(1, item);
+                __result = list;
+            }
         }
     }
-
-
 }
 
