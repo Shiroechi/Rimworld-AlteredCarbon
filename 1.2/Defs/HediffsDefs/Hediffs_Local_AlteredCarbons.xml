@@ -11,6 +11,7 @@
             <ThingDef>AC_FilledCorticalStack</ThingDef>
         </descriptionHyperlinks>
         <spawnThingOnRemoved>AC_FilledCorticalStack</spawnThingOnRemoved>
+		<isBad>false</isBad>
         <addedPartProps>
             <solid>true</solid>
             <partEfficiency>1.25</partEfficiency>
