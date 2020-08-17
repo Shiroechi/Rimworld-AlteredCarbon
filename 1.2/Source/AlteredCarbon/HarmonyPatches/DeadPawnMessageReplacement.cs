@@ -73,7 +73,7 @@ namespace AlteredCarbon
 						___pawn.Named("PAWN"))));
 					taggedString = taggedString.AdjustedFor(___pawn);
 					TaggedString label = "AlteredCarbon.SleeveDeath".Translate() + ": " + ___pawn.LabelShortCap;
-					Find.LetterStack.ReceiveLetter(label, taggedString, LetterDefOf.ThreatBig, ___pawn);
+					Find.LetterStack.ReceiveLetter(label, taggedString, LetterDefOf.NegativeEvent, ___pawn);
 				}
 				DisableKilledEffect = false;
 				return false;

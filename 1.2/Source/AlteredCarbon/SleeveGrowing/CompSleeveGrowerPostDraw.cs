@@ -26,7 +26,9 @@ namespace AlteredCarbon
 		public override void PostDraw()
 		{
 			base.PostDraw();
-			Glass.Draw(this.parent.DrawPos + Altitudes.AltIncVect, Rot4.North, this.parent);
+			var vector = this.parent.DrawPos + Altitudes.AltIncVect;
+			vector.y += 1;
+			Glass.Draw(vector, Rot4.North, this.parent);
 		}
 	}
 }

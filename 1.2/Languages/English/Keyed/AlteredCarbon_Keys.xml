@@ -49,5 +49,7 @@
     <RequireBiomass>Require biomass</RequireBiomass>
     <SkinColour>Skin colour</SkinColour>
     <TimeToGrow>Time to grow</TimeToGrow>
+	<SelectRace>Select race</SelectRace>
+	<RaceTypeReplace>Race type replace</RaceTypeReplace>
 
 </LanguageData>

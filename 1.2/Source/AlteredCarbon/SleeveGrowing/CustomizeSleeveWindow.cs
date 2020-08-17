@@ -7,6 +7,7 @@ using System.Text;
 using UnityEngine;
 using Verse;
 using System.Text.RegularExpressions;
+using AlienRace;
 
 namespace AlteredCarbon
 {
@@ -28,11 +29,26 @@ namespace AlteredCarbon
         public Trait replacedTrait;
         public Trait newTrait;
 
-        //Original android values
         public List<Trait> originalTraits = new List<Trait>();
         public Building_SleeveGrower sleeveGrower;
+        public ExcludeRacesModExtension raceOptions;
         //Static Values
-        public override Vector2 InitialSize => new Vector2(728f, 538f);   //860x570
+        public override Vector2 InitialSize
+        {
+            get
+            {
+                if (!AlienRaceCompat.AlienRacesIsActive)
+                {
+                    return new Vector2(728f, 538f);   //860x570
+                }
+                else
+                {
+                    return new Vector2(728f, 568f);   //860x570
+                }
+            }
+        }
+            
+            
         public static readonly float upgradesOffset = 640f;
         private static readonly Vector2 PawnPortraitSize = new Vector2(200f, 280f);
 
@@ -41,6 +57,7 @@ namespace AlteredCarbon
         public Rect lblName;
         public Rect lblGender;
         public Rect lblSkinColour;
+        public Rect lblRaceChange;
         public Rect lblHeadShape;
         public Rect lblBodyShape;
         public Rect lblHairColour;
@@ -60,6 +77,11 @@ namespace AlteredCarbon
         public Rect btnSkinColour3;
         public Rect btnSkinColour4;
         public Rect btnSkinColour5;
+
+        public Rect btnRaceChangeOutline;
+        public Rect btnRaceChangeArrowLeft;
+        public Rect btnRaceChangeArrowRight;
+        public Rect btnRaceChangeSelection;
 
         public Rect btnHeadShapeOutline;
         public Rect btnHeadShapeArrowLeft;
@@ -126,6 +148,7 @@ namespace AlteredCarbon
         public Color selectedColorFinal;
 
         public int hairTypeIndex = 0;
+        public int raceTypeIndex = 0;
         public int maleHeadTypeIndex = 0;
         public int femaleHeadTypeIndex = 0;
         public int maleBodyTypeIndex = 0;
@@ -142,6 +165,7 @@ namespace AlteredCarbon
         public int beautyLevel = 2;
         public int qualityLevel = 2;
 
+        public int selectedBtn = -1;
 
         //button text subtle copied from Rimworld basecode but with minor changes to fit this UI
         public static bool ButtonTextSubtleCentered(Rect rect, string label, Vector2 functionalSizeOffset = default(Vector2))
@@ -193,6 +217,7 @@ namespace AlteredCarbon
         public CustomizeSleeveWindow(Building_SleeveGrower sleeveGrower)
         {
             this.sleeveGrower = sleeveGrower;
+            this.raceOptions = this.sleeveGrower.def.GetModExtension<ExcludeRacesModExtension>();
             currentPawnKindDef = PawnKindDefOf.Colonist;
             var gender = Gender.Male;
             if (Rand.Chance(0.5f)) gender = Gender.Female;
@@ -220,14 +245,37 @@ namespace AlteredCarbon
             btnSkinColour4 = new Rect(btnSkinColour3.x + 5 + smallButtonOptionWidth, btnSkinColourOutline.y + 5, smallButtonOptionWidth, btnSkinColourOutline.height - 10);
             btnSkinColour5 = new Rect(btnSkinColour4.x + 5 + smallButtonOptionWidth, btnSkinColourOutline.y + 5, smallButtonOptionWidth, btnSkinColourOutline.height - 10);
 
-            //head shape
-            lblHeadShape = new Rect(leftOffset, returnYfromPrevious(lblSkinColour), labelWidth, buttonHeight);
-            btnHeadShapeOutline = lblHeadShape;
-            btnHeadShapeOutline.x += returnButtonOffset(lblHeadShape);
-            btnHeadShapeOutline.width = buttonWidth * 2 + buttonOffsetFromButton;
-            btnHeadShapeArrowLeft = new Rect(btnHeadShapeOutline.x + 2, btnHeadShapeOutline.y, btnHeadShapeOutline.height, btnHeadShapeOutline.height);
-            btnHeadShapeArrowRight = new Rect(btnHeadShapeOutline.x + btnHeadShapeOutline.width - btnHeadShapeOutline.height - 2, btnHeadShapeOutline.y, btnHeadShapeOutline.height, btnHeadShapeOutline.height);
-            btnHeadShapeSelection = new Rect(btnHeadShapeOutline.x + 5 + btnHeadShapeArrowLeft.width, btnHeadShapeOutline.y, btnHeadShapeOutline.width - 2 * (btnHeadShapeArrowLeft.width) - 10, btnHeadShapeOutline.height);
+            if (!AlienRaceCompat.AlienRacesIsActive)
+            {
+                //head shape
+                lblHeadShape = new Rect(leftOffset, returnYfromPrevious(lblSkinColour), labelWidth, buttonHeight);
+                btnHeadShapeOutline = lblHeadShape;
+                btnHeadShapeOutline.x += returnButtonOffset(lblHeadShape);
+                btnHeadShapeOutline.width = buttonWidth * 2 + buttonOffsetFromButton;
+                btnHeadShapeArrowLeft = new Rect(btnHeadShapeOutline.x + 2, btnHeadShapeOutline.y, btnHeadShapeOutline.height, btnHeadShapeOutline.height);
+                btnHeadShapeArrowRight = new Rect(btnHeadShapeOutline.x + btnHeadShapeOutline.width - btnHeadShapeOutline.height - 2, btnHeadShapeOutline.y, btnHeadShapeOutline.height, btnHeadShapeOutline.height);
+                btnHeadShapeSelection = new Rect(btnHeadShapeOutline.x + 5 + btnHeadShapeArrowLeft.width, btnHeadShapeOutline.y, btnHeadShapeOutline.width - 2 * (btnHeadShapeArrowLeft.width) - 10, btnHeadShapeOutline.height);
+            }
+            else
+            {
+                //alien race
+                lblRaceChange = new Rect(leftOffset, returnYfromPrevious(lblSkinColour), labelWidth, buttonHeight);
+                btnRaceChangeOutline = lblRaceChange;
+                btnRaceChangeOutline.x += returnButtonOffset(lblRaceChange);
+                btnRaceChangeOutline.width = buttonWidth * 2 + buttonOffsetFromButton;
+                btnRaceChangeArrowLeft = new Rect(btnRaceChangeOutline.x + 2, btnRaceChangeOutline.y, btnRaceChangeOutline.height, btnRaceChangeOutline.height);
+                btnRaceChangeArrowRight = new Rect(btnRaceChangeOutline.x + btnRaceChangeOutline.width - btnRaceChangeOutline.height - 2, btnRaceChangeOutline.y, btnRaceChangeOutline.height, btnRaceChangeOutline.height);
+                btnRaceChangeSelection = new Rect(btnRaceChangeOutline.x + 5 + btnRaceChangeArrowLeft.width, btnRaceChangeOutline.y, btnRaceChangeOutline.width - 2 * (btnRaceChangeArrowLeft.width) - 10, btnRaceChangeOutline.height);
+
+                //head shape
+                lblHeadShape = new Rect(leftOffset, returnYfromPrevious(lblRaceChange), labelWidth, buttonHeight);
+                btnHeadShapeOutline = lblHeadShape;
+                btnHeadShapeOutline.x += returnButtonOffset(lblHeadShape);
+                btnHeadShapeOutline.width = buttonWidth * 2 + buttonOffsetFromButton;
+                btnHeadShapeArrowLeft = new Rect(btnHeadShapeOutline.x + 2, btnHeadShapeOutline.y, btnHeadShapeOutline.height, btnHeadShapeOutline.height);
+                btnHeadShapeArrowRight = new Rect(btnHeadShapeOutline.x + btnHeadShapeOutline.width - btnHeadShapeOutline.height - 2, btnHeadShapeOutline.y, btnHeadShapeOutline.height, btnHeadShapeOutline.height);
+                btnHeadShapeSelection = new Rect(btnHeadShapeOutline.x + 5 + btnHeadShapeArrowLeft.width, btnHeadShapeOutline.y, btnHeadShapeOutline.width - 2 * (btnHeadShapeArrowLeft.width) - 10, btnHeadShapeOutline.height);
+            }
 
 
             //body shape
@@ -498,42 +546,164 @@ namespace AlteredCarbon
                     newSleeve = GetNewPawn(Gender.Female);
                 }
 
+                if (AlienRaceCompat.AlienRacesIsActive)
+                {
+                    //Alien races
+                    Widgets.Label(lblRaceChange, "SelectRace".Translate().CapitalizeFirst() + ":");
+                    Widgets.DrawHighlight(btnRaceChangeOutline);
+                    if (ButtonTextSubtleCentered(btnRaceChangeArrowLeft, "<"))
+                    {
+                        var allDefs = DefDatabase<ThingDef_AlienRace>.AllDefs.Where(x => !this.raceOptions.racesToExclude.Contains(x.defName)).ToList();
+
+                        if (raceTypeIndex == 0)
+                        {
+                            raceTypeIndex = allDefs.Count() - 1;
+                        }
+                        else
+                        {
+                            raceTypeIndex--;
+                        }
+                        currentPawnKindDef.race = allDefs.ElementAt(raceTypeIndex); ;
+                        newSleeve = GetNewPawn(newSleeve.gender);
+                        UpdateSleeveGraphic();
+                    }
+                    if (ButtonTextSubtleCentered(btnRaceChangeSelection, "RaceTypeReplace".Translate()))
+                    {
+                        var allDefs = DefDatabase<ThingDef_AlienRace>.AllDefs.Where(x => !this.raceOptions.racesToExclude.Contains(x.defName)).ToList();
+
+                        IEnumerable<ThingDef_AlienRace> races =
+                                from racedef in allDefs select racedef;
+                        FloatMenuUtility.MakeMenu<ThingDef_AlienRace>(races, raceDef => raceDef.LabelCap, (ThingDef_AlienRace raceDef) => delegate
+                        {
+                            currentPawnKindDef.race = raceDef;
+                            newSleeve = GetNewPawn(newSleeve.gender);
+                            UpdateSleeveGraphic();
+                        });
+                    }
+                    if (ButtonTextSubtleCentered(btnRaceChangeArrowRight, ">"))
+                    {
+                        var allDefs = DefDatabase<ThingDef_AlienRace>.AllDefs.Where(x => !this.raceOptions.racesToExclude.Contains(x.defName)).ToList();
+                        if (raceTypeIndex == allDefs.Count() - 1)
+                        {
+                            raceTypeIndex = 0;
+                        }
+                        else
+                        {
+                            raceTypeIndex++;
+                        }
+                        currentPawnKindDef.race = allDefs.ElementAt(raceTypeIndex); ;
+                        newSleeve = GetNewPawn(newSleeve.gender);
+                        UpdateSleeveGraphic();
+                    }
+                }
+
                 //Skin Colour
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(lblSkinColour, "SkinColour".Translate().CapitalizeFirst() + ":");
                 Widgets.DrawMenuSection(btnSkinColourOutline);
                 Widgets.DrawShadowAround(btnSkinColourOutline);
+
+                switch (selectedBtn)
+                {
+                    case 1:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnSkinColour1, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 2:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnSkinColour2, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 3:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnSkinColour3, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 4:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnSkinColour4, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 5:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnSkinColour5, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    default: break;
+                }
+
                 if (Widgets.ButtonInvisible(btnSkinColour1))
                 {
-                    newSleeve.story.melanin = 0.1f;
+                    selectedBtn = 1;
+                    if (AlienRaceCompat.AlienRacesIsActive)
+                    {
+                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(242, 237, 224));
+                    }
+                    else
+                    {
+                        newSleeve.story.melanin = 0.1f;
+                    }
                     UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour1, rgbConvert(242, 237, 224));
 
                 if (Widgets.ButtonInvisible(btnSkinColour2))
                 {
-                    newSleeve.story.melanin = 0.3f;
+                    selectedBtn = 2;
+                    if (AlienRaceCompat.AlienRacesIsActive)
+                    {
+                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(255, 239, 213));
+                    }
+                    else
+                    {
+                        newSleeve.story.melanin = 0.3f;
+                    }
                     UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour2, rgbConvert(255, 239, 213));
 
                 if (Widgets.ButtonInvisible(btnSkinColour3))
                 {
-                    newSleeve.story.melanin = 0.5f;
+                    selectedBtn = 3;
+                    if (AlienRaceCompat.AlienRacesIsActive)
+                    {
+                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(255, 239, 189));
+                    }
+                    else
+                    {
+                        newSleeve.story.melanin = 0.5f;
+                    }
                     UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour3, rgbConvert(255, 239, 189));
 
                 if (Widgets.ButtonInvisible(btnSkinColour4))
                 {
-                    newSleeve.story.melanin = 0.7f;
+                    selectedBtn = 4;
+                    if (AlienRaceCompat.AlienRacesIsActive)
+                    {
+                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(228, 158, 90));
+                    }
+                    else
+                    {
+                        newSleeve.story.melanin = 0.7f;
+                    }
                     UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour4, rgbConvert(228, 158, 90));
 
                 if (Widgets.ButtonInvisible(btnSkinColour5))
                 {
-                    newSleeve.story.melanin = 0.9f;
+                    selectedBtn = 5;
+                    if (AlienRaceCompat.AlienRacesIsActive)
+                    {
+                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(130, 91, 48));
+                    }
+                    else
+                    {
+                        newSleeve.story.melanin = 0.9f;
+                    }
                     UpdateSleeveGraphic();
                 }
                 Widgets.DrawBoxSolid(btnSkinColour5, rgbConvert(130, 91, 48));

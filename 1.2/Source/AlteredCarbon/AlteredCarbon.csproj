@@ -36,6 +36,10 @@
       <HintPath>..\..\..\..\Harmony\Current\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AlienRace">
+      <HintPath>..\..\..\..\Humanoid Alien Races 2.0\1.2\Assemblies\AlienRace.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>D:\GAMES\RimWorld2\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -298,6 +302,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlienRaceCompat.cs" />
     <Compile Include="AlteredCarbonDefOf.cs" />
     <Compile Include="HarmonyPatches\RecipePatches.cs" />
     <Compile Include="HarmonyPatches\Patch_CheckRecalculateMoodThoughts.cs" />
@@ -308,6 +313,7 @@
     <Compile Include="HarmonyPatches\CheckForStateChange_Patch.cs" />
     <Compile Include="SleeveGrowing\Building_SleeveGrower.cs" />
     <Compile Include="SleeveGrowing\CustomizeSleeveWindow.cs" />
+    <Compile Include="ExcludeRacesModExtension.cs" />
     <Compile Include="Stacks\BackstoryDef.cs" />
     <Compile Include="Stacks\StacksData.cs" />
     <Compile Include="Jobs\JobDriver_CopyStack.cs" />
