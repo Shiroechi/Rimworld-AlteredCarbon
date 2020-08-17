@@ -414,7 +414,7 @@ namespace AlteredCarbon
 				}
 				if (!powerTrader.PowerOn && !isRunningOutPower)
                 {
-					Messages.Message("AlteredCarbon.IsRunningOutPower".Translate(), this, MessageTypeDefOf.NegativeEvent);
+					Messages.Message("AlteredCarbon.isRunningOutPower".Translate(), this, MessageTypeDefOf.NegativeEvent);
 					this.isRunningOutPower = true;
                 }
 				if (!base.GetComp<CompRefuelable>().HasFuel && !isRunningOutFuel)
