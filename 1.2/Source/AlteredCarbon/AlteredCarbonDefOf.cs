@@ -43,6 +43,8 @@ namespace AlteredCarbon
 
 		public static ThoughtDef AC_WrongGenderDouble;
 
+		public static ThoughtDef AC_WrongRace;
+
 		public static ThoughtDef AC_NewSleeve;
 
 		public static ThoughtDef AC_NewSleeveDouble;

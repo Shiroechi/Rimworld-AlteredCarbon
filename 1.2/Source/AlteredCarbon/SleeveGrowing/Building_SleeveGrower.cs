@@ -17,6 +17,10 @@ namespace AlteredCarbon
 
 		public int runningOutPowerInTicks;
 
+		public bool isRunningOutPower;
+
+		public bool isRunningOutFuel;
+
 		public bool innerPawnIsDead;
 		public bool HasAnyContents => innerContainer.Count > 0;
 
@@ -406,7 +410,18 @@ namespace AlteredCarbon
                 {
 					this.active = false;
 					this.KillInnerPawn();
+					Messages.Message("AlteredCarbon.SleeveInIncubatorIsDead".Translate(), MessageTypeDefOf.NegativeEvent);
+				}
+				if (!powerTrader.PowerOn && !isRunningOutPower)
+                {
+					Messages.Message("AlteredCarbon.IsRunningOutPower".Translate(), MessageTypeDefOf.NegativeEvent);
+					this.isRunningOutPower = true;
                 }
+				if (!base.GetComp<CompRefuelable>().HasFuel && !isRunningOutFuel)
+                {
+					Messages.Message("AlteredCarbon.isRunningOutFuel".Translate(), MessageTypeDefOf.NegativeEvent);
+					this.isRunningOutFuel = true;
+				}
 			}
 		}
 
@@ -445,6 +460,8 @@ namespace AlteredCarbon
 			Scribe_Values.Look<float>(ref this.totalGrowthCost, "totalGrowthCost", 0f, true);
 			Scribe_Values.Look<bool>(ref this.contentsKnown, "contentsKnown", false, true);
 			Scribe_Values.Look<bool>(ref this.active, "active", false, true);
+			Scribe_Values.Look<bool>(ref this.isRunningOutPower, "isRunningOutPower", false, true);
+			Scribe_Values.Look<bool>(ref this.isRunningOutFuel, "isRunningOutFuel", false, true);
 
 			Scribe_Values.Look<int>(ref this.runningOutPowerInTicks, "runningOutPowerInTicks", 0, true);
 			Scribe_Values.Look<bool>(ref this.innerPawnIsDead, "innerPawnIsDead", false, true);

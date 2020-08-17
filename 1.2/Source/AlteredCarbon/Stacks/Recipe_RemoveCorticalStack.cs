@@ -44,6 +44,8 @@ namespace AlteredCarbon
 						hediff.SavePawn(pawn);
 						corticalStack.SavePawnFromHediff(hediff);
 						corticalStack.gender = hediff.gender;
+						corticalStack.race = hediff.race;
+
 						GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
 						if (ACUtils.ACTracker.stacksIndex == null) ACUtils.ACTracker.stacksIndex = new Dictionary<string, CorticalStack>();
 						ACUtils.ACTracker.stacksIndex[pawn.ThingID + pawn.Name] = corticalStack;

@@ -35,6 +35,7 @@ namespace AlteredCarbon
         public bool hasPawn = false;
 
         public Gender gender;
+        public ThingDef race;
 
         public List<RoyalTitle> royalTitles;
         public Dictionary<Faction, int> favor = new Dictionary<Faction, int>();
@@ -182,6 +183,8 @@ namespace AlteredCarbon
         {
             base.PostAdd(dinfo);
             this.gender = pawn.gender;
+            this.race = pawn.kindDef.race;
+
             if (ACUtils.ACTracker.stacksRelationships != null)
             {
                 this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
@@ -244,6 +247,7 @@ namespace AlteredCarbon
             Scribe_Collections.Look<WorkTypeDef, int>(ref this.priorities, "priorities");
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
             Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);
+            Scribe_Defs.Look<ThingDef>(ref this.race, "race");
 
             if (ModLister.RoyaltyInstalled)
             {

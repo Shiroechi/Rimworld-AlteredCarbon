@@ -53,6 +53,7 @@ namespace AlteredCarbon
                 if (corticalStack.hasPawn)
                 {
                     hediff.gender = corticalStack.gender;
+                    hediff.race = corticalStack.race;
                     if (pawn.IsColonist)
                     {
                         Find.StoryWatcher.statsRecord.Notify_ColonistKilled();
@@ -82,6 +83,8 @@ namespace AlteredCarbon
                 {
                     corticalStack.gender = pawn.gender;
                     hediff.gender = pawn.gender;
+                    corticalStack.race = pawn.kindDef.race;
+                    hediff.race = pawn.kindDef.race;
                 }
             }
         }

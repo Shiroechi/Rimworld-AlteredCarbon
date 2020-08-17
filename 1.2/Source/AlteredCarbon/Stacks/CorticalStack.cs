@@ -37,6 +37,8 @@ namespace AlteredCarbon
         public bool hasPawn = false;
 
         public Gender gender;
+        public ThingDef race;
+
         public string pawnID;
 
         public List<RoyalTitle> royalTitles;
@@ -56,6 +58,8 @@ namespace AlteredCarbon
                 Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
                 this.SavePawnToCorticalStack(pawn);
                 this.gender = pawn.gender;
+                this.race = pawn.kindDef.race;
+
                 if (ACUtils.ACTracker.stacksRelationships != null)
                 {
                     this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
@@ -240,6 +244,10 @@ namespace AlteredCarbon
             {
                 this.gender = hediff.gender;
             }
+            if (this.race == null)
+            {
+                this.race = hediff.race;
+            }
 
 
             this.pawnID = hediff.pawnID;
@@ -383,6 +391,10 @@ namespace AlteredCarbon
             {
                 this.gender = otherStack.gender;
             }
+            if (this.race == null)
+            {
+                this.race = otherStack.race;
+            }
 
             this.pawnID = otherStack.pawnID;
 
@@ -457,8 +469,12 @@ namespace AlteredCarbon
                 {
                     this.thoughts.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_WrongGender);
                     this.thoughts.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_WrongGenderDouble);
-
                 }
+                if (this.race == pawn.kindDef.race)
+                {
+                    this.thoughts.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_WrongRace);
+                }
+
                 foreach (var thought in this.thoughts)
                 {
                     if (thought is Thought_MemorySocial && thought.otherPawn == null)
@@ -652,6 +668,11 @@ namespace AlteredCarbon
                     pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongGender);
                 }
             }
+
+            if (pawn.kindDef.race != this.race)
+            {
+                pawn.needs.mood.thoughts.memories.TryGainMemory(AlteredCarbonDefOf.AC_WrongRace);
+            }
             if (ModLister.RoyaltyInstalled)
             {
                 if (pawn.royalty == null) pawn.royalty = new Pawn_RoyaltyTracker(pawn);
@@ -704,7 +725,7 @@ namespace AlteredCarbon
             Scribe_Values.Look<MedicalCareCategory>(ref this.medicalCareCategory, "medicalCareCategory", 0, false);
             Scribe_Values.Look<bool>(ref this.selfTend, "selfTend", false, false);
             Scribe_Values.Look<long>(ref this.ageChronologicalTicks, "ageChronologicalTicks", 0, false);
-
+            Scribe_Defs.Look<ThingDef>(ref this.race, "race");
             Scribe_References.Look<Outfit>(ref this.outfit, "outfit", false);
             Scribe_References.Look<FoodRestriction>(ref this.foodRestriction, "foodPolicy", false);
             Scribe_References.Look<DrugPolicy>(ref this.drugPolicy, "drugPolicy", false);

@@ -37,19 +37,22 @@
     <AlteredCarbon.ReleaseSleeve>Release sleeve</AlteredCarbon.ReleaseSleeve>
     <AlteredCarbon.SleeveCustomization>Sleeve customization</AlteredCarbon.SleeveCustomization>
     <BodyShape>Body shape</BodyShape>
-    <BodyTypeReplace>Body type replace</BodyTypeReplace>
+    <BodyTypeReplace>Body type</BodyTypeReplace>
     <Cancel>Cancel</Cancel>
     <GrowthProgress>Growth progress: </GrowthProgress>
     <HairColour>Hair colour</HairColour>
     <HairType>Hair type</HairType>
     <HeadShape>Head shape</HeadShape>
-    <HeadTypeReplace>Head type replace</HeadTypeReplace>
+    <HeadTypeReplace>Head type</HeadTypeReplace>
     <LevelOfBeauty>Level of beauty</LevelOfBeauty>
     <LevelofQuality>Level of quality</LevelofQuality>
     <RequireBiomass>Require biomass</RequireBiomass>
     <SkinColour>Skin colour</SkinColour>
     <TimeToGrow>Time to grow</TimeToGrow>
 	<SelectRace>Select race</SelectRace>
-	<RaceTypeReplace>Race type replace</RaceTypeReplace>
-
+	<RaceTypeReplace>Race type</RaceTypeReplace>
+	
+	<AlteredCarbon.isRunningOutFuel>Sleeve incubator is running out fuel</AlteredCarbon.isRunningOutFuel>
+	<AlteredCarbon.isRunningOutPower>Sleeve incubator is running out power</AlteredCarbon.isRunningOutPower>
+	<AlteredCarbon.SleeveInIncubatorIsDead>Sleeve body in the incubator is dead</AlteredCarbon.SleeveInIncubatorIsDead>
 </LanguageData>

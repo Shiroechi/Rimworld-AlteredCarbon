@@ -29,6 +29,7 @@ namespace AlteredCarbon
                     BodyPartRecord neckRecord = pawn.def.race.body.AllParts.FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Neck);
                     var hediff = HediffMaker.MakeHediff(AlteredCarbonDefOf.AC_CorticalStack, pawn, neckRecord) as Hediff_CorticalStack;
                     hediff.gender = pawn.gender;
+                    hediff.race = pawn.kindDef.race;
                     pawn.health.AddHediff(hediff, neckRecord);
                     ACUtils.ACTracker.RegisterPawn(pawn);
                 }
