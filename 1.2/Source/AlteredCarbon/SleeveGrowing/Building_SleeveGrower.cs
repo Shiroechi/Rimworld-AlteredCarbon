@@ -410,16 +410,16 @@ namespace AlteredCarbon
                 {
 					this.active = false;
 					this.KillInnerPawn();
-					Messages.Message("AlteredCarbon.SleeveInIncubatorIsDead".Translate(), MessageTypeDefOf.NegativeEvent);
+					Messages.Message("AlteredCarbon.SleeveInIncubatorIsDead".Translate(), this, MessageTypeDefOf.NegativeEvent);
 				}
 				if (!powerTrader.PowerOn && !isRunningOutPower)
                 {
-					Messages.Message("AlteredCarbon.IsRunningOutPower".Translate(), MessageTypeDefOf.NegativeEvent);
+					Messages.Message("AlteredCarbon.IsRunningOutPower".Translate(), this, MessageTypeDefOf.NegativeEvent);
 					this.isRunningOutPower = true;
                 }
 				if (!base.GetComp<CompRefuelable>().HasFuel && !isRunningOutFuel)
                 {
-					Messages.Message("AlteredCarbon.isRunningOutFuel".Translate(), MessageTypeDefOf.NegativeEvent);
+					Messages.Message("AlteredCarbon.isRunningOutFuel".Translate(), this, MessageTypeDefOf.NegativeEvent);
 					this.isRunningOutFuel = true;
 				}
 			}
