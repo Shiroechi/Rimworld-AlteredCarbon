@@ -165,7 +165,10 @@ namespace AlteredCarbon
         public int beautyLevel = 2;
         public int qualityLevel = 2;
 
-        public int selectedBtn = -1;
+        public int selectedRaceBtn = -1;
+
+        public int selectedHairBtn = -1;
+
 
         //button text subtle copied from Rimworld basecode but with minor changes to fit this UI
         public static bool ButtonTextSubtleCentered(Rect rect, string label, Vector2 functionalSizeOffset = default(Vector2))
@@ -603,7 +606,7 @@ namespace AlteredCarbon
                 Widgets.DrawMenuSection(btnSkinColourOutline);
                 Widgets.DrawShadowAround(btnSkinColourOutline);
 
-                switch (selectedBtn)
+                switch (selectedRaceBtn)
                 {
                     case 1:
                         {
@@ -635,7 +638,7 @@ namespace AlteredCarbon
 
                 if (Widgets.ButtonInvisible(btnSkinColour1))
                 {
-                    selectedBtn = 1;
+                    selectedRaceBtn = 1;
                     if (AlienRaceCompat.AlienRacesIsActive)
                     {
                         AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(242, 237, 224));
@@ -650,7 +653,7 @@ namespace AlteredCarbon
 
                 if (Widgets.ButtonInvisible(btnSkinColour2))
                 {
-                    selectedBtn = 2;
+                    selectedRaceBtn = 2;
                     if (AlienRaceCompat.AlienRacesIsActive)
                     {
                         AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(255, 239, 213));
@@ -665,7 +668,7 @@ namespace AlteredCarbon
 
                 if (Widgets.ButtonInvisible(btnSkinColour3))
                 {
-                    selectedBtn = 3;
+                    selectedRaceBtn = 3;
                     if (AlienRaceCompat.AlienRacesIsActive)
                     {
                         AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(255, 239, 189));
@@ -680,7 +683,7 @@ namespace AlteredCarbon
 
                 if (Widgets.ButtonInvisible(btnSkinColour4))
                 {
-                    selectedBtn = 4;
+                    selectedRaceBtn = 4;
                     if (AlienRaceCompat.AlienRacesIsActive)
                     {
                         AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(228, 158, 90));
@@ -695,7 +698,7 @@ namespace AlteredCarbon
 
                 if (Widgets.ButtonInvisible(btnSkinColour5))
                 {
-                    selectedBtn = 5;
+                    selectedRaceBtn = 5;
                     if (AlienRaceCompat.AlienRacesIsActive)
                     {
                         AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(130, 91, 48));
@@ -894,6 +897,53 @@ namespace AlteredCarbon
                 Widgets.DrawShadowAround(btnHairColourOutlinePremade);
 
 
+
+                switch (selectedHairBtn)
+                {
+                    case 1:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnHairColour1, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 2:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnHairColour2, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 3:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnHairColour3, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 4:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnHairColour4, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 5:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnHairColour5, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 6:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnHairColour6, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 7:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnHairColour7, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+                    case 8:
+                        {
+                            GUI.DrawTexture(GenUI.ExpandedBy(btnHairColour8, 2f), BaseContent.GreyTex);
+                            break;
+                        }
+
+                    default: break;
+                }
+
                 Widgets.DrawBoxSolid(btnHairColour1, rgbConvert(51, 51, 51));
                 Widgets.DrawBoxSolid(btnHairColour2, rgbConvert(79, 71, 66));
                 Widgets.DrawBoxSolid(btnHairColour3, rgbConvert(64, 51, 38));
@@ -907,41 +957,56 @@ namespace AlteredCarbon
 
                 if (Widgets.ButtonInvisible(btnHairColour1))
                 {
+                    selectedHairBtn = 1;
                     setHair(rgbConvert(51, 51, 51));
                 }
                 else
                 if (Widgets.ButtonInvisible(btnHairColour2))
                 {
+                    selectedHairBtn = 2;
+
                     setHair(rgbConvert(79, 71, 66));
                 }
                 else
                 if (Widgets.ButtonInvisible(btnHairColour3))
                 {
+                    selectedHairBtn = 3;
+
                     setHair(rgbConvert(64, 51, 38));
                 }
                 else
                 if (Widgets.ButtonInvisible(btnHairColour4))
                 {
+                    selectedHairBtn = 4;
+
                     setHair(rgbConvert(77, 51, 26));
                 }
                 else
                 if (Widgets.ButtonInvisible(btnHairColour5))
                 {
+                    selectedHairBtn = 5;
+
                     setHair(rgbConvert(90, 58, 32));
                 }
                 else
                 if (Widgets.ButtonInvisible(btnHairColour6))
                 {
+                    selectedHairBtn = 6;
+
                     setHair(rgbConvert(132, 83, 47));
                 }
                 else
                 if (Widgets.ButtonInvisible(btnHairColour7))
                 {
+                    selectedHairBtn = 7;
+
                     setHair(rgbConvert(193, 146, 85));
                 }
                 else
                 if (Widgets.ButtonInvisible(btnHairColour8))
                 {
+                    selectedHairBtn = 8;
+
                     setHair(rgbConvert(237, 202, 156));
                 }
 
