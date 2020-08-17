@@ -7,7 +7,6 @@ using System.Text;
 using UnityEngine;
 using Verse;
 using System.Text.RegularExpressions;
-using AlienRace;
 
 namespace AlteredCarbon
 {
@@ -556,8 +555,7 @@ namespace AlteredCarbon
                     Widgets.DrawHighlight(btnRaceChangeOutline);
                     if (ButtonTextSubtleCentered(btnRaceChangeArrowLeft, "<"))
                     {
-                        var allDefs = DefDatabase<ThingDef_AlienRace>.AllDefs.Where(x => !this.raceOptions.racesToExclude.Contains(x.defName)).ToList();
-
+                        var allDefs = AlienRaceCompat.GetAllAlienRaces(this.raceOptions);
                         if (raceTypeIndex == 0)
                         {
                             raceTypeIndex = allDefs.Count() - 1;
@@ -572,11 +570,9 @@ namespace AlteredCarbon
                     }
                     if (ButtonTextSubtleCentered(btnRaceChangeSelection, "RaceTypeReplace".Translate()))
                     {
-                        var allDefs = DefDatabase<ThingDef_AlienRace>.AllDefs.Where(x => !this.raceOptions.racesToExclude.Contains(x.defName)).ToList();
-
-                        IEnumerable<ThingDef_AlienRace> races =
-                                from racedef in allDefs select racedef;
-                        FloatMenuUtility.MakeMenu<ThingDef_AlienRace>(races, raceDef => raceDef.LabelCap, (ThingDef_AlienRace raceDef) => delegate
+                        var allDefs = AlienRaceCompat.GetAllAlienRaces(this.raceOptions);
+                        IEnumerable<ThingDef> races = from racedef in allDefs select racedef;
+                        FloatMenuUtility.MakeMenu<ThingDef>(races, raceDef => raceDef.LabelCap, (ThingDef raceDef) => delegate
                         {
                             currentPawnKindDef.race = raceDef;
                             newSleeve = GetNewPawn(newSleeve.gender);
@@ -585,7 +581,7 @@ namespace AlteredCarbon
                     }
                     if (ButtonTextSubtleCentered(btnRaceChangeArrowRight, ">"))
                     {
-                        var allDefs = DefDatabase<ThingDef_AlienRace>.AllDefs.Where(x => !this.raceOptions.racesToExclude.Contains(x.defName)).ToList();
+                        var allDefs = AlienRaceCompat.GetAllAlienRaces(this.raceOptions);
                         if (raceTypeIndex == allDefs.Count() - 1)
                         {
                             raceTypeIndex = 0;
