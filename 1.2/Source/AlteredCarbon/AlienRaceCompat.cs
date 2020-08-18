@@ -12,7 +12,10 @@ namespace AlteredCarbon
 		public static void SetSkinColor(Pawn pawn, Color color)
 		{
 			var alienComp = ThingCompUtility.TryGetComp<AlienRace.AlienPartGenerator.AlienComp>(pawn);
-			alienComp.GetChannel("skin").first = color;
+			if (alienComp != null)
+            {
+				alienComp.GetChannel("skin").first = color;
+            }
 		}
 
 		public static List<ThingDef> GetAllAlienRaces(ExcludeRacesModExtension raceOptions)
