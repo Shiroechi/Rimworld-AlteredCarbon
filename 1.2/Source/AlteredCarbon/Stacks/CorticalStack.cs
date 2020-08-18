@@ -45,6 +45,8 @@ namespace AlteredCarbon
         public Dictionary<Faction, int> favor = new Dictionary<Faction, int>();
         public Dictionary<Faction, Pawn> heirs = new Dictionary<Faction, Pawn>();
         public List<Thing> bondedThings = new List<Thing>();
+        public List<FactionPermit> factionPermits = new List<FactionPermit>();
+        public Dictionary<Faction, int> permitPoints = new Dictionary<Faction, int>();
 
         public bool isCopied = false;
         public int stackGroupID;
@@ -258,6 +260,8 @@ namespace AlteredCarbon
                 this.favor = hediff.favor;
                 this.heirs = hediff.heirs;
                 this.bondedThings = hediff.bondedThings;
+                this.permitPoints = hediff.permitPoints;
+                this.factionPermits = hediff.factionPermits;
             }
             this.isCopied = hediff.isCopied;
             this.stackGroupID = hediff.stackGroupID;
@@ -316,9 +320,6 @@ namespace AlteredCarbon
                     foreach (var thing in map.listerThings.AllThings)
                     {
                         var comp = thing.TryGetComp<CompBladelinkWeapon>();
-                        if (comp != null)
-                        {
-                        }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
                             this.bondedThings.Add(thing);
@@ -327,9 +328,6 @@ namespace AlteredCarbon
                     foreach (var gear in pawn.apparel.WornApparel)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
-                        if (comp != null)
-                        {
-                        }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
                             this.bondedThings.Add(gear);
@@ -338,9 +336,6 @@ namespace AlteredCarbon
                     foreach (var gear in pawn.equipment.AllEquipmentListForReading)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
-                        if (comp != null)
-                        {
-                        }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
                             this.bondedThings.Add(gear);
@@ -349,15 +344,14 @@ namespace AlteredCarbon
                     foreach (var gear in pawn.inventory.innerContainer)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
-                        if (comp != null)
-                        {
-                        }
                         if (comp != null && comp.bondedPawn == pawn)
                         {
                             this.bondedThings.Add(gear);
                         }
                     }
                 }
+                this.factionPermits = Traverse.Create(pawn.royalty).Field("factionPermits").GetValue<List<FactionPermit>>();
+                this.permitPoints = Traverse.Create(pawn.royalty).Field("permitPoints").GetValue<Dictionary<Faction, int>>();
             }
         }
 
@@ -404,6 +398,8 @@ namespace AlteredCarbon
                 this.favor = otherStack.favor;
                 this.heirs = otherStack.heirs;
                 this.bondedThings = otherStack.bondedThings;
+                this.factionPermits = otherStack.factionPermits;
+                this.permitPoints = otherStack.permitPoints;
             }
             this.isCopied = true;
             this.stackGroupID = otherStack.stackGroupID;
@@ -710,6 +706,14 @@ namespace AlteredCarbon
                         }
                     }
                 }
+                if (this.factionPermits != null)
+                {
+                    Traverse.Create(pawn.royalty).Field("factionPermits").SetValue(this.factionPermits);
+                }
+                if (this.permitPoints != null)
+                {
+                    Traverse.Create(pawn.royalty).Field("permitPoints").SetValue(this.permitPoints);
+                }
             }
         }
 
@@ -760,6 +764,8 @@ namespace AlteredCarbon
 
                 Scribe_Collections.Look<Thing>(ref this.bondedThings, "bondedThings", LookMode.Reference);
                 Scribe_Collections.Look<RoyalTitle>(ref this.royalTitles, "royalTitles", LookMode.Deep);
+                Scribe_Collections.Look(ref permitPoints, "permitPoints", LookMode.Reference, LookMode.Value, ref tmpPermitFactions, ref tmpPermitPointsAmounts);
+                Scribe_Collections.Look(ref factionPermits, "permits", LookMode.Deep);
             }
         }
 
@@ -768,5 +774,8 @@ namespace AlteredCarbon
 
         private List<Faction> heirsKeys = new List<Faction>();
         private List<Pawn> heirsValues = new List<Pawn>();
+
+        private List<Faction> tmpPermitFactions;
+        private List<int> tmpPermitPointsAmounts;
     }
 }

@@ -36,7 +36,7 @@ namespace AlteredCarbon
 			}
 		}
 
-		public bool CanOpen => HasAnyContents && !this.active;
+		public bool CanOpen => HasAnyContents && !this.active && !this.innerPawnIsDead;
 
 		public Building_SleeveGrower()
 		{
@@ -109,7 +109,8 @@ namespace AlteredCarbon
 
 		public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
 		{
-			if (innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize) && !this.active && this.curTicksToGrow == this.totalTicksToGrow)
+			if (innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize) && !this.active 
+				&& this.curTicksToGrow == this.totalTicksToGrow && !this.innerPawnIsDead)
 			{
 				if (mode != DestroyMode.Deconstruct)
 				{
@@ -341,6 +342,7 @@ namespace AlteredCarbon
 			this.totalGrowthCost = 0;
 			this.totalTicksToGrow = 0;
 			this.curTicksToGrow = 0;
+			this.innerPawnIsDead = false;
 			this.innerContainer.ClearAndDestroyContents(DestroyMode.Vanish);
 			ResetGraphics();
 		}
