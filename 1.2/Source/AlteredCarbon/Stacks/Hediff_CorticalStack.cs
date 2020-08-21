@@ -69,7 +69,10 @@ namespace AlteredCarbon
                 this.medicalCareCategory = pawn.playerSettings.medCare;
                 this.selfTend = pawn.playerSettings.selfTend;
             }
-            this.ageChronologicalTicks = pawn.ageTracker.AgeChronologicalTicks;
+            if (pawn.ageTracker != null)
+            {
+                this.ageChronologicalTicks = pawn.ageTracker.AgeChronologicalTicks;
+            }
             this.foodRestriction = pawn.foodRestriction?.CurrentFoodRestriction;
             this.outfit = pawn.outfits?.CurrentOutfit;
             this.drugPolicy = pawn.drugs?.CurrentPolicy;
@@ -81,9 +84,8 @@ namespace AlteredCarbon
                 this.isFactionLeader = true;
             }
             this.traits = pawn.story?.traits?.allTraits;
-
             this.relations = pawn.relations?.DirectRelations;
-            this.relatedPawns = new HashSet<Pawn>();
+            this.relatedPawns = pawn.relations?.RelatedPawns?.ToHashSet();
             foreach (var otherPawn in pawn.relations.RelatedPawns)
             {
                 foreach (var rel2 in pawn.GetRelations(otherPawn))
@@ -99,7 +101,6 @@ namespace AlteredCarbon
                 }
                 relatedPawns.Add(otherPawn);
             }
-
             this.skills = pawn.skills?.skills;
             this.childhood = pawn.story?.childhood?.identifier;
             if (pawn.story?.adulthood != null)
@@ -116,7 +117,7 @@ namespace AlteredCarbon
             }
             this.hasPawn = true;
             this.pawnID = pawn.ThingID;
-            if (ModLister.RoyaltyInstalled)
+            if (ModLister.RoyaltyInstalled && pawn.royalty != null)
             {
                 this.royalTitles = pawn.royalty?.AllTitlesForReading;
                 this.favor = Traverse.Create(pawn.royalty).Field("favor").GetValue<Dictionary<Faction, int>>();
@@ -131,7 +132,7 @@ namespace AlteredCarbon
                             this.bondedThings.Add(thing);
                         }
                     }
-                    foreach (var gear in pawn.apparel.WornApparel)
+                    foreach (var gear in pawn.apparel?.WornApparel)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null && comp.bondedPawn == pawn)
@@ -139,7 +140,7 @@ namespace AlteredCarbon
                             this.bondedThings.Add(gear);
                         }
                     }
-                    foreach (var gear in pawn.equipment.AllEquipmentListForReading)
+                    foreach (var gear in pawn.equipment?.AllEquipmentListForReading)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null && comp.bondedPawn == pawn)
@@ -147,7 +148,7 @@ namespace AlteredCarbon
                             this.bondedThings.Add(gear);
                         }
                     }
-                    foreach (var gear in pawn.inventory.innerContainer)
+                    foreach (var gear in pawn.inventory?.innerContainer)
                     {
                         var comp = gear.TryGetComp<CompBladelinkWeapon>();
                         if (comp != null && comp.bondedPawn == pawn)
@@ -155,9 +156,9 @@ namespace AlteredCarbon
                             this.bondedThings.Add(gear);
                         }
                     }
-                    this.factionPermits = Traverse.Create(pawn.royalty).Field("factionPermits").GetValue<List<FactionPermit>>();
-                    this.permitPoints = Traverse.Create(pawn.royalty).Field("permitPoints").GetValue<Dictionary<Faction, int>>();
                 }
+                this.factionPermits = Traverse.Create(pawn.royalty).Field("factionPermits").GetValue<List<FactionPermit>>();
+                this.permitPoints = Traverse.Create(pawn.royalty).Field("permitPoints").GetValue<Dictionary<Faction, int>>();
             }
         }
 
