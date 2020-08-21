@@ -19,10 +19,14 @@ namespace AlteredCarbon
             if (__result == RotStage.Dessicated && __instance.parent is Corpse corpse
                 && (corpse.InnerPawn?.health?.hediffSet?.HasHediff(AlteredCarbonDefOf.AC_CorticalStack) ?? true))
             {
-                var corticalStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_FilledCorticalStack) as CorticalStack;
-                corticalStack.SavePawnToCorticalStack(corpse.InnerPawn);
-                GenPlace.TryPlaceThing(corticalStack, corpse.Position, corpse.Map, ThingPlaceMode.Near);
-                corpse.InnerPawn.health.hediffSet.hediffs.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_CorticalStack);
+                try
+                {
+                    var corticalStack = ThingMaker.MakeThing(AlteredCarbonDefOf.AC_FilledCorticalStack) as CorticalStack;
+                    corticalStack.SavePawnToCorticalStack(corpse.InnerPawn);
+                    GenPlace.TryPlaceThing(corticalStack, corpse.Position, corpse.Map, ThingPlaceMode.Near);
+                    corpse.InnerPawn.health.hediffSet.hediffs.RemoveAll(x => x.def == AlteredCarbonDefOf.AC_CorticalStack);
+                }
+                catch { }
             }
         }
     }
