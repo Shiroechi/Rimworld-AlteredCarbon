@@ -31,11 +31,9 @@
     <AlteredCarbon.CantWipeStackTooDumb>Wipe Stack (requires intellectual skill of 5 or higher)</AlteredCarbon.CantWipeStackTooDumb>
     <AlteredCarbon.CancelSleeveBodyGrowing>Cancel sleeve growing</AlteredCarbon.CancelSleeveBodyGrowing>
     <AlteredCarbon.CancelSleeveBodyGrowingDesc>Cancel sleeve growing</AlteredCarbon.CancelSleeveBodyGrowingDesc>
-    <Accept>Accept</Accept>
     <AlteredCarbon.CreateSleeveBody>Create sleeve</AlteredCarbon.CreateSleeveBody>
     <AlteredCarbon.CreateSleeveBodyDesc>Create sleeve</AlteredCarbon.CreateSleeveBodyDesc>
     <AlteredCarbon.ReleaseSleeve>Release sleeve</AlteredCarbon.ReleaseSleeve>
-    <AlteredCarbon.SleeveCustomization>Sleeve customization</AlteredCarbon.SleeveCustomization>
     <BodyShape>Body shape</BodyShape>
     <BodyTypeReplace>Body type replace</BodyTypeReplace>
     <Cancel>Cancel</Cancel>
