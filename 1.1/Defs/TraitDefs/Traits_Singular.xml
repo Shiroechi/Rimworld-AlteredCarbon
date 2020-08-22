@@ -30,7 +30,7 @@
     </TraitDef>
 	
     <TraitDef>
-        <defName></defName>
+        <defName>AC_AntiStack</defName>
         <commonality>0.4</commonality>
         <degreeDatas>
             <li>
