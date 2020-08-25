@@ -304,6 +304,8 @@
   <ItemGroup>
     <Compile Include="AlienRaceCompat.cs" />
     <Compile Include="AlteredCarbonDefOf.cs" />
+    <Compile Include="AlteredCarbonMod.cs" />
+    <Compile Include="AlteredCarbonSettings.cs" />
     <Compile Include="HarmonyPatches\RecipePatches.cs" />
     <Compile Include="HarmonyPatches\Patch_CheckRecalculateMoodThoughts.cs" />
     <Compile Include="SleeveGrowing\CompProperties_SleeveGrowerPostDraw.cs" />
