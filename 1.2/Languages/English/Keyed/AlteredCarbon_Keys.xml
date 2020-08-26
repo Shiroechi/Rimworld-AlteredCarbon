@@ -54,11 +54,11 @@
 	<AlteredCarbon.isRunningOutPower>Sleeve incubator is running out power</AlteredCarbon.isRunningOutPower>
 	<AlteredCarbon.SleeveInIncubatorIsDead>Sleeve body in the incubator is dead</AlteredCarbon.SleeveInIncubatorIsDead>
 	
-	<allowAC_Apparel_ProtectorateArmor>Allow Protectorate armor</allowAC_Apparel_ProtectorateArmor>
-	<allowAC_Gun_BullpupPistol>Allow Bullpup Pistol</allowAC_Gun_BullpupPistol>
-	<allowAC_Gun_MACRevolver>Allow MAC Revolver</allowAC_Gun_MACRevolver>
-	<allowAC_Gun_MACRifle>Allow MAC Rifle</allowAC_Gun_MACRifle>
-	<allowAC_Gun_QuickfirePistol>Allow Quickfire Pistol</allowAC_Gun_QuickfirePistol>
-	<allowAC_Gun_ShockPDW>Allow Shock PDW</allowAC_Gun_ShockPDW>
+	<allowAC_Apparel_ProtectorateArmor>Enable: Protectorate Armor (Body and Helmet)</allowAC_Apparel_ProtectorateArmor>
+	<allowAC_Gun_BullpupPistol>Enable: Bullpup Pistol</allowAC_Gun_BullpupPistol>
+	<allowAC_Gun_MACRevolver>Enable: MAC-Revolver</allowAC_Gun_MACRevolver>
+	<allowAC_Gun_MACRifle>Enable: MAC-Rifle</allowAC_Gun_MACRifle>
+	<allowAC_Gun_QuickfirePistol>Enable: Quickfire Pistol</allowAC_Gun_QuickfirePistol>
+	<allowAC_Gun_ShockPDW>Enable: Shock PDW</allowAC_Gun_ShockPDW>
 	<allowStacksToBeStacked>Allow stacks to be stacked</allowStacksToBeStacked>
 </LanguageData>

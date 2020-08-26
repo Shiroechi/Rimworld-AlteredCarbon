@@ -26,7 +26,9 @@ Find and install implants into your colonists to prevent their death when their 
     <loadAfter>
         <li>Ludeon.RimWorld</li>
         <li>Ludeon.RimWorld.Royalty</li>
-        <li>brrainz.harmony</li>
+        <li>brrainz.harmony</li>        
+		<li>OskarPotocki.VanillaFactionsExpanded.Core</li>
+		<li>OskarPotocki.VanillaExpandedFramework</li>
     </loadAfter>
 
 </ModMetaData>
