@@ -60,5 +60,4 @@
 	<allowAC_Gun_MACRifle>Enable: MAC-Rifle</allowAC_Gun_MACRifle>
 	<allowAC_Gun_QuickfirePistol>Enable: Quickfire Pistol</allowAC_Gun_QuickfirePistol>
 	<allowAC_Gun_ShockPDW>Enable: Shock PDW</allowAC_Gun_ShockPDW>
-	<allowStacksToBeStacked>Allow stacks to be stacked</allowStacksToBeStacked>
 </LanguageData>

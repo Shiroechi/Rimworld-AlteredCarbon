@@ -24,6 +24,14 @@ namespace AlteredCarbon
 
         }
 
+        public void ResetStackLimitIfNeeded(ThingDef def)
+        {
+            if (def.stackLimit > 1)
+            {
+                def.stackLimit = 1;
+                def.drawGUIOverlay = false;
+            }
+        }
         public override void StartedNewGame()
         {
             base.StartedNewGame();
@@ -32,12 +40,10 @@ namespace AlteredCarbon
             if (this.pawnsWithStacks == null) this.pawnsWithStacks = new HashSet<Pawn>();
             if (this.emptySleeves == null) this.emptySleeves = new HashSet<Pawn>();
             if (this.deadPawns == null) this.deadPawns = new HashSet<Pawn>();
-            if (AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit > 1)
-            {
-                AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit = 1;
-                AlteredCarbonDefOf.AC_EmptyCorticalStack.drawGUIOverlay = false;
-            }
+            ResetStackLimitIfNeeded(AlteredCarbonDefOf.AC_EmptyCorticalStack);
+            ResetStackLimitIfNeeded(AlteredCarbonDefOf.AC_FilledCorticalStack);
         }
+
         public override void LoadedGame()
         {
             base.LoadedGame();
@@ -46,11 +52,8 @@ namespace AlteredCarbon
             if (this.pawnsWithStacks == null) this.pawnsWithStacks = new HashSet<Pawn>();
             if (this.emptySleeves == null) this.emptySleeves = new HashSet<Pawn>();
             if (this.deadPawns == null) this.deadPawns = new HashSet<Pawn>();
-            if (AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit > 1)
-            {
-                AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit = 1;
-                AlteredCarbonDefOf.AC_EmptyCorticalStack.drawGUIOverlay = false;
-            }
+            ResetStackLimitIfNeeded(AlteredCarbonDefOf.AC_EmptyCorticalStack);
+            ResetStackLimitIfNeeded(AlteredCarbonDefOf.AC_FilledCorticalStack);
         }
 
         public void TryAddRelationships(Pawn pawn)
