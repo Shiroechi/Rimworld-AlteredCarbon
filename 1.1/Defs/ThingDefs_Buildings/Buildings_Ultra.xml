@@ -22,19 +22,18 @@
         </graphicData>
         <costList>
             <Steel>250</Steel>
-			<Plasteel>200</Plasteel>
-            <ComponentSpacer>8</ComponentSpacer>
-			<AIPersonaCore>1</AIPersonaCore>
+			<Plasteel>175</Plasteel>
+            <ComponentSpacer>6</ComponentSpacer>
         </costList>
         <altitudeLayer>Building</altitudeLayer>
         <neverMultiSelect>true</neverMultiSelect>
         <uiIconScale>1.2</uiIconScale>
         <useHitPoints>True</useHitPoints>
         <statBases>
-            <WorkToBuild>8000</WorkToBuild>
-            <MaxHitPoints>4000</MaxHitPoints>
+            <WorkToBuild>5500</WorkToBuild>
+            <MaxHitPoints>2500</MaxHitPoints>
             <Flammability>1.0</Flammability>
-            <Beauty>-5</Beauty>
+            <Beauty>-4</Beauty>
         </statBases>
 		<designationCategory>Misc</designationCategory>
         <size>(4,4)</size>
@@ -58,30 +57,40 @@
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
                 <shortCircuitInRain>true</shortCircuitInRain>
-                <basePowerConsumption>4500</basePowerConsumption>
+                <basePowerConsumption>2200</basePowerConsumption>
 				<transmitsPower>true</transmitsPower>
             </li>
 			<li Class="CompProperties_Refuelable">
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
 				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
-				<fuelCapacity>400.0</fuelCapacity>
+				<fuelCapacity>200.0</fuelCapacity>
 				<fuelConsumptionPerTickInRain>0</fuelConsumptionPerTickInRain>
 				<fuelFilter>
 					<thingDefs>
 						<li>Meat_Human</li>
 					</thingDefs>
 				</fuelFilter>
-				<initialFuelPercent>1</initialFuelPercent>
+				<initialFuelPercent>0</initialFuelPercent>
 				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 				<showFuelGizmo>true</showFuelGizmo>
 			</li>
 			<li Class="CompProperties_Glower">
-				<glowRadius>6</glowRadius>
+				<glowRadius>5</glowRadius>
 				<glowColor>(96,161,153,0)</glowColor>
 			</li>
             <li Class="CompProperties_Flickable" />
             <li Class="CompProperties_Breakdownable" />
         </comps>
+		<modExtensions>
+            <li Class="AlteredCarbon.ExcludeRacesModExtension">
+				<racesToExclude>
+					<li>Android1Tier</li>
+					<li>O21_Alien_MechadroidAlpha</li>
+					<li>O21_Alien_MechadroidDelta</li>
+					<li>O21_Alien_MechadroidGamma</li>
+				</racesToExclude> 
+            </li>
+        </modExtensions>
     </ThingDef>
 
 </Defs>
