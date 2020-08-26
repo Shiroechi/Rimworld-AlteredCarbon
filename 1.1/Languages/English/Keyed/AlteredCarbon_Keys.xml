@@ -35,17 +35,30 @@
     <AlteredCarbon.CreateSleeveBodyDesc>Create sleeve</AlteredCarbon.CreateSleeveBodyDesc>
     <AlteredCarbon.ReleaseSleeve>Release sleeve</AlteredCarbon.ReleaseSleeve>
     <BodyShape>Body shape</BodyShape>
-    <BodyTypeReplace>Body type replace</BodyTypeReplace>
+    <BodyTypeReplace>Body type</BodyTypeReplace>
     <Cancel>Cancel</Cancel>
     <GrowthProgress>Growth progress: </GrowthProgress>
     <HairColour>Hair colour</HairColour>
     <HairType>Hair type</HairType>
     <HeadShape>Head shape</HeadShape>
-    <HeadTypeReplace>Head type replace</HeadTypeReplace>
+    <HeadTypeReplace>Head type</HeadTypeReplace>
     <LevelOfBeauty>Level of beauty</LevelOfBeauty>
     <LevelofQuality>Level of quality</LevelofQuality>
     <RequireBiomass>Require biomass</RequireBiomass>
     <SkinColour>Skin colour</SkinColour>
     <TimeToGrow>Time to grow</TimeToGrow>
-
+	<SelectRace>Select race</SelectRace>
+	<RaceTypeReplace>Race type</RaceTypeReplace>
+	
+	<AlteredCarbon.isRunningOutFuel>Sleeve incubator is running out fuel</AlteredCarbon.isRunningOutFuel>
+	<AlteredCarbon.isRunningOutPower>Sleeve incubator is running out power</AlteredCarbon.isRunningOutPower>
+	<AlteredCarbon.SleeveInIncubatorIsDead>Sleeve body in the incubator is dead</AlteredCarbon.SleeveInIncubatorIsDead>
+	
+	<allowAC_Apparel_ProtectorateArmor>Enable: Protectorate Armor (Body and Helmet)</allowAC_Apparel_ProtectorateArmor>
+	<allowAC_Gun_BullpupPistol>Enable: Bullpup Pistol</allowAC_Gun_BullpupPistol>
+	<allowAC_Gun_MACRevolver>Enable: MAC Revolver</allowAC_Gun_MACRevolver>
+	<allowAC_Gun_MACRifle>Enable: Rifle</allowAC_Gun_MACRifle>
+	<allowAC_Gun_QuickfirePistol>Enable: Quickfire Pistol</allowAC_Gun_QuickfirePistol>
+	<allowAC_Gun_ShockPDW>Enable: Shock PDW</allowAC_Gun_ShockPDW>
+	<allowStacksToBeStacked>Allow stacks to be stacked</allowStacksToBeStacked>
 </LanguageData>
