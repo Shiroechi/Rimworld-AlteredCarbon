@@ -44,6 +44,14 @@ namespace AlteredCarbon
                             ACUtils.ACTracker.RegisterStack(corticalStack);
                             ACUtils.ACTracker.RegisterSleeve(corpse.InnerPawn);
                         }
+                        var head = corpse.InnerPawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
+                        if (head != null)
+                        {
+                            Hediff_MissingPart hediff_MissingPart = (Hediff_MissingPart)HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, corpse.InnerPawn, head);
+                            hediff_MissingPart.lastInjury = HediffDefOf.SurgicalCut;
+                            hediff_MissingPart.IsFresh = true;
+                            corpse.InnerPawn.health.AddHediff(hediff_MissingPart);
+                        }
                         corpse.InnerPawn.health.RemoveHediff(hediff);
                     }
                 }

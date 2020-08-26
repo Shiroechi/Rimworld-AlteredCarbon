@@ -153,7 +153,7 @@ namespace AlteredCarbon
         public int maleBodyTypeIndex = 0;
         public int femaleBodyTypeIndex = 0;
 
-        public int baseTicksToGrow = 1800000;
+        public int baseTicksToGrow = 900000;
         public int baseTicksToGrow2 = 0;
         public int baseTicksToGrow3 = 0;
 
@@ -1102,7 +1102,7 @@ namespace AlteredCarbon
                 {
                     RemoveAllTraits(newSleeve);
                     newSleeve.story.traits.GainTrait(new Trait(TraitDefOf.Beauty, -2));
-                    baseTicksToGrow2 = -420000;
+                    baseTicksToGrow2 = -210000;
                     baseMeatCost2 = -50;
                     beautyLevel = 1;
                 }
@@ -1117,9 +1117,7 @@ namespace AlteredCarbon
                 {
                     RemoveAllTraits(newSleeve);
                     newSleeve.story.traits.GainTrait(new Trait(TraitDefOf.Beauty, 2));
-                    baseTicksToGrow2 = 420000;
-                    baseTicksToGrow2 = 420;
-
+                    baseTicksToGrow2 = 210000;
                     baseMeatCost2 = 50;
                     beautyLevel = 3;
                 }
@@ -1129,7 +1127,7 @@ namespace AlteredCarbon
                 Widgets.Label(lblLevelOfQuality, "LevelofQuality".Translate().CapitalizeFirst() + ": " + qualityLevel);
                 if (Widgets.ButtonText(btnLevelOfQuality1, "1"))
                 {
-                    baseTicksToGrow3 = -420000;
+                    baseTicksToGrow3 = -210000;
                     baseMeatCost3 = -50;
                     RemoveAllHediffs(newSleeve);
                     newSleeve.health.AddHediff(AlteredCarbonDefOf.AC_Sleeve_Quality_Low, null);
@@ -1145,13 +1143,11 @@ namespace AlteredCarbon
                 }
                 if (Widgets.ButtonText(btnLevelOfQuality3, "3"))
                 {
-                    baseTicksToGrow3 = 420000;
-                    baseTicksToGrow3 = 420;
+                    baseTicksToGrow3 = 210000;
                     baseMeatCost3 = 50;
                     RemoveAllHediffs(newSleeve);
                     newSleeve.health.AddHediff(AlteredCarbonDefOf.AC_Sleeve_Quality_High, null);
                     qualityLevel = 3;
-
                 }
 
                 if (Widgets.ButtonText(btnAccept, "Accept".Translate().CapitalizeFirst()))

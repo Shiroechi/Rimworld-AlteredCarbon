@@ -52,9 +52,15 @@ namespace AlteredCarbon
 						ACUtils.ACTracker.RegisterSleeve(pawn);
 						ACUtils.ACTracker.ReplacePawnWithStack(pawn, corticalStack);
 					}
-					pawn.health.RemoveHediff(hediff);
 					ACUtils.ACTracker.deadPawns.Add(pawn);
+					var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
+					if (head != null)
+					{
+						pawn.TakeDamage(new DamageInfo(DamageDefOf.SurgicalCut, 99999f, 999f, -1f, null, head));
+					}
+					pawn.health.RemoveHediff(hediff);
 				}
+
 			}
 			if (flag)
 			{

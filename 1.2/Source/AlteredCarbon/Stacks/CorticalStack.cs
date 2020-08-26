@@ -52,7 +52,6 @@ namespace AlteredCarbon
         public int stackGroupID;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            base.SpawnSetup(map, respawningAfterLoad);
             if (!respawningAfterLoad && !hasPawn && this.def.defName == "AC_FilledCorticalStack")
             {
                 var pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
@@ -72,6 +71,11 @@ namespace AlteredCarbon
                 }
                 ACUtils.ACTracker.RegisterStack(this);
             }
+            if (respawningAfterLoad && AlteredCarbonMod.settings.allowStacksToBeStacked && this.stackCount == 0)
+            {
+                this.stackCount = 1;
+            }
+            base.SpawnSetup(map, respawningAfterLoad);
         }
 
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
