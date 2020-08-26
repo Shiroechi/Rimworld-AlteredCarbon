@@ -56,8 +56,8 @@
 	
 	<allowAC_Apparel_ProtectorateArmor>Enable: Protectorate Armor (Body and Helmet)</allowAC_Apparel_ProtectorateArmor>
 	<allowAC_Gun_BullpupPistol>Enable: Bullpup Pistol</allowAC_Gun_BullpupPistol>
-	<allowAC_Gun_MACRevolver>Enable: MAC Revolver</allowAC_Gun_MACRevolver>
-	<allowAC_Gun_MACRifle>Enable: Rifle</allowAC_Gun_MACRifle>
+	<allowAC_Gun_MACRevolver>Enable: MAC-Revolver</allowAC_Gun_MACRevolver>
+	<allowAC_Gun_MACRifle>Enable: MAC-Rifle</allowAC_Gun_MACRifle>
 	<allowAC_Gun_QuickfirePistol>Enable: Quickfire Pistol</allowAC_Gun_QuickfirePistol>
 	<allowAC_Gun_ShockPDW>Enable: Shock PDW</allowAC_Gun_ShockPDW>
 	<allowStacksToBeStacked>Allow stacks to be stacked</allowStacksToBeStacked>
