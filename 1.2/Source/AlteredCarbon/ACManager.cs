@@ -32,6 +32,11 @@ namespace AlteredCarbon
             if (this.pawnsWithStacks == null) this.pawnsWithStacks = new HashSet<Pawn>();
             if (this.emptySleeves == null) this.emptySleeves = new HashSet<Pawn>();
             if (this.deadPawns == null) this.deadPawns = new HashSet<Pawn>();
+            if (AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit > 1)
+            {
+                AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit = 1;
+                AlteredCarbonDefOf.AC_EmptyCorticalStack.drawGUIOverlay = false;
+            }
         }
         public override void LoadedGame()
         {
@@ -41,6 +46,11 @@ namespace AlteredCarbon
             if (this.pawnsWithStacks == null) this.pawnsWithStacks = new HashSet<Pawn>();
             if (this.emptySleeves == null) this.emptySleeves = new HashSet<Pawn>();
             if (this.deadPawns == null) this.deadPawns = new HashSet<Pawn>();
+            if (AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit > 1)
+            {
+                AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit = 1;
+                AlteredCarbonDefOf.AC_EmptyCorticalStack.drawGUIOverlay = false;
+            }
         }
 
         public void TryAddRelationships(Pawn pawn)

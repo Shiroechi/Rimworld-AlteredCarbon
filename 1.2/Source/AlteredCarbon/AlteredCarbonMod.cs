@@ -64,14 +64,6 @@ namespace AlteredCarbon
                 DefDatabase<ThingDef>.AllDefsListForReading.Remove(ThingDef.Named("AC_Gun_ShockPDW"));
                 DefDatabase<ThingDef>.AllDefsListForReading.Remove(ThingDef.Named("AC_Bullet_ShockPDW"));
             }
-            if (AlteredCarbonMod.settings.allowStacksToBeStacked)
-            {
-                AlteredCarbonDefOf.AC_EmptyCorticalStack.stackLimit = 25;
-                AlteredCarbonDefOf.AC_EmptyCorticalStack.drawGUIOverlay = true;
-
-                AlteredCarbonDefOf.AC_FilledCorticalStack.stackLimit = 25;
-                AlteredCarbonDefOf.AC_FilledCorticalStack.drawGUIOverlay = true;
-            }
         }
     }
 }

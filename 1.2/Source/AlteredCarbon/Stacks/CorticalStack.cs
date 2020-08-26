@@ -71,10 +71,6 @@ namespace AlteredCarbon
                 }
                 ACUtils.ACTracker.RegisterStack(this);
             }
-            if (respawningAfterLoad && AlteredCarbonMod.settings.allowStacksToBeStacked && this.stackCount == 0)
-            {
-                this.stackCount = 1;
-            }
             base.SpawnSetup(map, respawningAfterLoad);
         }
 

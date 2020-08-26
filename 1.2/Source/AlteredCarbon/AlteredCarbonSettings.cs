@@ -10,8 +10,6 @@ namespace AlteredCarbon
 {
     class AlteredCarbonSettings : ModSettings
     {
-        public bool allowStacksToBeStacked = false;
-
         public bool allowAC_Apparel_ProtectorateArmor = true;
         public bool allowAC_Gun_BullpupPistol = true;
         public bool allowAC_Gun_MACRevolver = true;
@@ -38,7 +36,6 @@ namespace AlteredCarbon
             Scribe_Values.Look(ref allowAC_Gun_MACRifle, "allowAC_Gun_MACRifle", true);
             Scribe_Values.Look(ref allowAC_Gun_QuickfirePistol, "allowAC_Gun_QuickfirePistol", true);
             Scribe_Values.Look(ref allowAC_Gun_ShockPDW, "allowAC_Gun_ShockPDW", true);
-            Scribe_Values.Look(ref allowStacksToBeStacked, "allowStacksToBeStacked", true);
 
         }
 
@@ -47,7 +44,6 @@ namespace AlteredCarbon
         {
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
-            listingStandard.CheckboxLabeled("allowStacksToBeStacked".Translate(), ref allowStacksToBeStacked);
             listingStandard.CheckboxLabeled("allowAC_Apparel_ProtectorateArmor".Translate(), ref allowAC_Apparel_ProtectorateArmor);
             listingStandard.CheckboxLabeled("allowAC_Gun_BullpupPistol".Translate(), ref allowAC_Gun_BullpupPistol);
             listingStandard.CheckboxLabeled("allowAC_Gun_MACRevolver".Translate(), ref allowAC_Gun_MACRevolver);
