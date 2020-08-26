@@ -13,7 +13,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>15</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
@@ -22,7 +22,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>15</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
@@ -31,7 +31,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>15</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
@@ -49,7 +49,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
@@ -67,7 +67,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
@@ -85,7 +85,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>5</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
@@ -103,7 +103,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>30</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>25</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
@@ -121,7 +121,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>65</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>10</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>

@@ -30,7 +30,7 @@
                     <value>
                         <li Class="AlteredCarbon.StackSpawnModExtension">
                             <SpawnsWithStack>true</SpawnsWithStack>
-                            <ChanceToSpawnWithStack>50</ChanceToSpawnWithStack>
+                            <ChanceToSpawnWithStack>60</ChanceToSpawnWithStack>
                         </li>
                     </value>
                 </li>
