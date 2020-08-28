@@ -171,6 +171,15 @@ namespace AlteredCarbon
                 this.KillInnerPawn();
             }
         }
+
+        public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
+        {
+            base.Destroy(mode);
+            if (this.hasPawn)
+            {
+                this.KillInnerPawn();
+            }
+        }
         public void KillInnerPawn(bool affectFactionRelationship = false, Pawn affecter = null)
         {
             if (this.hasPawn)
@@ -189,6 +198,7 @@ namespace AlteredCarbon
                 }
                 pawn.Kill(null);
             }
+            this.hasPawn = false;
         }
         public void EmptyStack(Pawn affecter, bool affectFactionRelationship = false)
         {
