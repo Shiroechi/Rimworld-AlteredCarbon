@@ -134,7 +134,16 @@ namespace AlteredCarbon
                     yield return floatMenuOption;
                 }
             }
-
+            string label2 = "AlteredCarbon.DestroyStack".Translate();
+            Action action2 = delegate ()
+            {
+                Job job = JobMaker.MakeJob(AlteredCarbonDefOf.AC_DestroyStack, this);
+                job.count = 1;
+                myPawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+            };
+            yield return FloatMenuUtility.DecoratePrioritizedTask(new FloatMenuOption
+                    (label2, action2, MenuOptionPriority.Default, null, null, 0f, null, null), myPawn,
+                    this, "ReservedBy");
             yield break;
         }
 
@@ -170,6 +179,16 @@ namespace AlteredCarbon
             {
                 this.KillInnerPawn();
             }
+        }
+
+        public void DestroyWithConfirmation()
+        {
+            Find.WindowStack.Add(new Dialog_MessageBox("AlteredCarbon.DestroyStackConfirmation".Translate(),
+                    "No".Translate(), null,
+                    "Yes".Translate(), delegate ()
+            {
+                this.Destroy();
+            }, null, false, null, null));
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)

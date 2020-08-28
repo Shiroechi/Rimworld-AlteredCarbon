@@ -308,6 +308,7 @@
     <Compile Include="AlteredCarbonSettings.cs" />
     <Compile Include="HarmonyPatches\RecipePatches.cs" />
     <Compile Include="HarmonyPatches\Patch_CheckRecalculateMoodThoughts.cs" />
+    <Compile Include="Jobs\JobDriver_DestroyStack.cs" />
     <Compile Include="SleeveGrowing\CompProperties_SleeveGrowerPostDraw.cs" />
     <Compile Include="SleeveGrowing\CompSleeveGrowerPostDraw.cs" />
     <Compile Include="SleeveGrowing\JobDriver_ReleaseSleeve.cs" />

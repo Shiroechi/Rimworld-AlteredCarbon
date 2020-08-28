@@ -14,6 +14,12 @@
 	</JobDef>
 	
 	<JobDef>
+		<defName>AC_DestroyStack</defName>
+		<driverClass>AlteredCarbon.JobDriver_DestroyStack</driverClass>
+		<reportString>destroys cortical stack</reportString>
+	</JobDef>
+	
+	<JobDef>
 		<defName>AC_CopyStack</defName>
 		<driverClass>AlteredCarbon.JobDriver_CopyStack</driverClass>
 		<reportString>copies cortical stack</reportString>
