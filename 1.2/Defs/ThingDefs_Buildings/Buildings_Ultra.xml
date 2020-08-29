@@ -5,9 +5,9 @@
         <defName>AC_SleeveIncubator</defName>
         <label>sleeve incubator</label>
         <description>An ultra-tech vat tank connected to advanced life support systems and an AI core. Used by the rich 1% on ultra-tech worlds and less trustworthy individuals on rimworlds to grow custom sleeves, the sleeve incubator is capable of growing any human body one can imagine.</description>
-		<thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
-		<tickerType>Normal</tickerType>
-		<drawerType>RealtimeOnly</drawerType>
+        <thingClass>AlteredCarbon.Building_SleeveGrower</thingClass>
+        <tickerType>Normal</tickerType>
+        <drawerType>RealtimeOnly</drawerType>
         <graphicData>
             <texPath>Things/Building/Misc/SleeveGrowingVatBottom</texPath>
             <graphicClass>Graphic_Single</graphicClass>
@@ -22,7 +22,7 @@
         </graphicData>
         <costList>
             <Steel>250</Steel>
-			<Plasteel>175</Plasteel>
+            <Plasteel>175</Plasteel>
             <ComponentSpacer>6</ComponentSpacer>
         </costList>
         <altitudeLayer>Building</altitudeLayer>
@@ -35,62 +35,115 @@
             <Flammability>1.0</Flammability>
             <Beauty>-4</Beauty>
         </statBases>
-		<designationCategory>Misc</designationCategory>
+        <designationCategory>Misc</designationCategory>
         <size>(4,4)</size>
         <techLevel>Ultra</techLevel>
         <passability>PassThroughOnly</passability>
         <pathCost>70</pathCost>
-		<rotatable>false</rotatable>
-		<blockWind>true</blockWind>
+        <rotatable>false</rotatable>
+        <blockWind>true</blockWind>
         <surfaceType>Item</surfaceType>
-		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
-		<constructEffect>ConstructMetal</constructEffect>
-		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
-		<researchPrerequisites>
-		  <li>AC_SleeveProduction</li>
-		</researchPrerequisites>
-		<placeWorkers>
-			<li>PlaceWorker_FuelingPort</li>
-		</placeWorkers>
+        <constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+        <constructEffect>ConstructMetal</constructEffect>
+        <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+        <researchPrerequisites>
+            <li>AC_SleeveProduction</li>
+        </researchPrerequisites>
+        <placeWorkers>
+            <li>PlaceWorker_FuelingPort</li>
+        </placeWorkers>
         <comps>
-			<li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw"></li>
+            <li Class="AlteredCarbon.CompProperties_SleeveGrowerPostDraw"></li>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
                 <shortCircuitInRain>true</shortCircuitInRain>
                 <basePowerConsumption>2200</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
+                <transmitsPower>true</transmitsPower>
             </li>
-			<li Class="CompProperties_Refuelable">
-				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-				<targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
-				<fuelCapacity>200.0</fuelCapacity>
-				<fuelConsumptionPerTickInRain>0</fuelConsumptionPerTickInRain>
-				<fuelFilter>
-					<thingDefs>
-						<li>Meat_Human</li>
-					</thingDefs>
-				</fuelFilter>
-				<initialFuelPercent>0</initialFuelPercent>
-				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
-				<showFuelGizmo>true</showFuelGizmo>
-			</li>
-			<li Class="CompProperties_Glower">
-				<glowRadius>5</glowRadius>
-				<glowColor>(96,161,153,0)</glowColor>
-			</li>
+            <li Class="CompProperties_Refuelable">
+                <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+                <targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
+                <fuelCapacity>200.0</fuelCapacity>
+                <fuelConsumptionPerTickInRain>0</fuelConsumptionPerTickInRain>
+                <fuelFilter>
+                    <thingDefs>
+                        <li>Meat_Human</li>
+                    </thingDefs>
+                </fuelFilter>
+                <initialFuelPercent>0</initialFuelPercent>
+                <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+                <showFuelGizmo>true</showFuelGizmo>
+            </li>
+            <li Class="CompProperties_Glower">
+                <glowRadius>5</glowRadius>
+                <glowColor>(96,161,153,0)</glowColor>
+            </li>
             <li Class="CompProperties_Flickable" />
             <li Class="CompProperties_Breakdownable" />
         </comps>
-		<modExtensions>
+        <modExtensions>
             <li Class="AlteredCarbon.ExcludeRacesModExtension">
-				<racesToExclude>
-					<li>Android1Tier</li>
-					<li>O21_Alien_MechadroidAlpha</li>
-					<li>O21_Alien_MechadroidDelta</li>
-					<li>O21_Alien_MechadroidGamma</li>
-				</racesToExclude> 
+                <racesToExclude>
+                    <li>Android1Tier</li>
+                    <li>O21_Alien_MechadroidAlpha</li>
+                    <li>O21_Alien_MechadroidDelta</li>
+                    <li>O21_Alien_MechadroidGamma</li>
+                </racesToExclude>
             </li>
         </modExtensions>
+    </ThingDef>
+
+    <ThingDef ParentName="BedWithQualityBase">
+        <defName>AC_SleeveCasket</defName>
+        <label>sleeve casket</label>
+        <description>test</description>
+        <graphicData>
+            <texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <shaderType>CutoutComplex</shaderType>
+            <drawSize>(2,2)</drawSize>
+        </graphicData>
+        <castEdgeShadows>True</castEdgeShadows>
+        <statBases>
+            <MaxHitPoints>150</MaxHitPoints>
+            <WorkToBuild>2800</WorkToBuild>
+            <Mass>35</Mass>
+            <Flammability>1.0</Flammability>
+            <Comfort>0.80</Comfort>
+			<BedRestEffectiveness>1</BedRestEffectiveness>
+            <ImmunityGainSpeedFactor>2.0</ImmunityGainSpeedFactor>
+            <MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+            <SurgerySuccessChanceFactor>2.0</SurgerySuccessChanceFactor>
+        </statBases>
+        <comps>
+            <li Class="CompProperties_AffectedByFacilities">
+                <linkableFacilities>
+                    <li>VitalsMonitor</li>
+                </linkableFacilities>
+            </li>
+        </comps>
+        <size>(1,2)</size>
+        <costList>
+            <Steel>80</Steel>
+            <ComponentIndustrial>5</ComponentIndustrial>
+        </costList>
+        <building>
+            <bed_showSleeperBody>True</bed_showSleeperBody>
+            <bed_healPerDay>20</bed_healPerDay>
+            <bed_defaultMedical>true</bed_defaultMedical>
+            <buildingSizeCategory>Small</buildingSizeCategory>
+        </building>
+        <fillPercent>0.4</fillPercent>
+        <pathCost>42</pathCost>
+        <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
+        <staticSunShadowHeight>0.17</staticSunShadowHeight>
+        <designationHotKey>Misc5</designationHotKey>
+        <researchPrerequisites>
+            <li>HospitalBed</li>
+        </researchPrerequisites>
+        <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+        <techLevel>Industrial</techLevel>
+        <uiIconScale>0.90</uiIconScale>
     </ThingDef>
 
 </Defs>
