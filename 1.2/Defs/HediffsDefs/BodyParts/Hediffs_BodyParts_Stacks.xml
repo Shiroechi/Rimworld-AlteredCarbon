@@ -13,8 +13,9 @@
         <tradeTags Inherit="False">
             <li>AC_StacksUltra</li>
         </tradeTags>
-        <stackLimit>1</stackLimit>
-        <tradeNeverStack>true</tradeNeverStack>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<stackLimit>25</stackLimit>
+		<tradeNeverStack>false</tradeNeverStack>
         <useHitPoints>true</useHitPoints>
         <techHediffsTags>
             <li>Ultra</li>
@@ -76,6 +77,10 @@
         <descriptionHyperlinks>
             <RecipeDef>AC_InstallCorticalStack</RecipeDef>
         </descriptionHyperlinks>
+		<uiIconForStackCount>1</uiIconForStackCount>
+		<healthAffectsPrice>false</healthAffectsPrice>
+		<stackLimit>1</stackLimit>
+		<tradeNeverStack>false</tradeNeverStack>
         <tickerType>Normal</tickerType>
         <thingClass>AlteredCarbon.CorticalStack</thingClass>
         <graphicData>
