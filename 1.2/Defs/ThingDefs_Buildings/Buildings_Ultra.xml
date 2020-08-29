@@ -27,7 +27,7 @@
         </costList>
         <altitudeLayer>Building</altitudeLayer>
         <neverMultiSelect>true</neverMultiSelect>
-        <uiIconScale>1.2</uiIconScale>
+        <uiIconScale>1.0</uiIconScale>
         <useHitPoints>True</useHitPoints>
         <statBases>
             <WorkToBuild>5500</WorkToBuild>
