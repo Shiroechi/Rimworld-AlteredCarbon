@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <ScenarioDef Name="Crashlanded">
+        <defName>AC_ExiledMeth</defName>
+        <label>Exiled Meth</label>
+        <description>The two of you  were exiled after an uprising on your home planet. Once rich and powerful meth, you now hear the sound of sirens as your prison ship sends your pods towards a rimworld. Some time later, you land on this unknown rimworld.</description>
+        <scenario>
+            <summary>Two exiled meths - a near classic Rimworld expierience with stacks.</summary>
+            <playerFaction>
+                <def>PlayerFaction</def>
+                <factionDef>PlayerColony</factionDef>
+            </playerFaction>
+            <parts>
+                <li Class="ScenPart_ConfigPage_ConfigureStartingPawns">
+                    <def>ConfigPage_ConfigureStartingPawns</def>
+                    <pawnCount>2</pawnCount>
+                    <pawnChoiceCount>5</pawnChoiceCount>
+                </li>
+                <li Class="ScenPart_PlayerPawnsArriveMethod">
+                    <def>PlayerPawnsArriveMethod</def>
+                    <method>DropPods</method>
+                    <visible>false</visible>
+                </li>
+                <li Class="ScenPart_ForcedHediff">
+                    <def>ForcedHediff</def>
+                    <visible>false</visible>
+                    <context>PlayerStarter</context>
+                    <chance>0.5</chance>
+                    <hediff>CryptosleepSickness</hediff>
+                    <hideOffMap>true</hideOffMap>
+                    <severityRange>1~1</severityRange>
+                </li>
+                <li Class="ScenPart_ForcedHediff">
+                    <def>ForcedHediff</def>
+                    <visible>true</visible>
+                    <context>PlayerStarter</context>
+                    <chance>1.0</chance>
+                    <hediff>AC_CorticalStack</hediff>
+                    <hideOffMap>true</hideOffMap>
+                </li>
+                <li Class="ScenPart_ForcedTrait">
+                    <def>ForcedTrait</def>
+                    <trait>AC_Sleever</trait>
+                    <chance>1.0</chance>
+                    <visible>true</visible>
+                </li>
+                <li Class="ScenPart_ForcedTrait">
+                    <def>ForcedTrait</def>
+                    <trait>Greedy</trait>
+                    <chance>1.0</chance>
+                    <visible>false</visible>
+                </li>
+                <li Class="ScenPart_StartingThing_Defined">
+                    <def>StartingThing_Defined</def>
+                    <thingDef>Silver</thingDef>
+                    <count>1600</count>
+                </li>
+                <li Class="ScenPart_StartingThing_Defined">
+                    <def>StartingThing_Defined</def>
+                    <thingDef>MealSurvivalPack</thingDef>
+                    <count>50</count>
+                </li>
+                <li Class="ScenPart_StartingThing_Defined">
+                    <def>StartingThing_Defined</def>
+                    <thingDef>MedicineIndustrial</thingDef>
+                    <count>25</count>
+                </li>
+                <li Class="ScenPart_StartingThing_Defined">
+                    <def>StartingThing_Defined</def>
+                    <thingDef>MedicineUltratech</thingDef>
+                    <count>5</count>
+                </li>
+                <li Class="ScenPart_StartingThing_Defined">
+                    <def>StartingThing_Defined</def>
+                    <thingDef>ComponentIndustrial</thingDef>
+                    <count>30</count>
+                </li>
+                <li Class="ScenPart_StartingThing_Defined">
+                    <def>StartingThing_Defined</def>
+                    <thingDef>AC_Gun_ShockPDW</thingDef>
+                </li>
+                <li Class="ScenPart_StartingThing_Defined">
+                    <def>StartingThing_Defined</def>
+                    <thingDef>AC_Gun_MACRevolver</thingDef>
+                </li>
+                <li Class="ScenPart_StartingThing_Defined">
+                    <def>StartingThing_Defined</def>
+                    <thingDef>AC_Gun_QuickfirePistol</thingDef>
+                </li>
+                <li Class="ScenPart_ScatterThingsNearPlayerStart">
+                    <def>ScatterThingsNearPlayerStart</def>
+                    <thingDef>Steel</thingDef>
+                    <count>450</count>
+                </li>
+                <li Class="ScenPart_ScatterThingsNearPlayerStart">
+                    <def>ScatterThingsNearPlayerStart</def>
+                    <thingDef>WoodLog</thingDef>
+                    <count>150</count>
+                </li>
+                <li Class="ScenPart_ScatterThingsAnywhere">
+                    <def>ScatterThingsAnywhere</def>
+                    <thingDef>Steel</thingDef>
+                    <count>410</count>
+                </li>
+                <li Class="ScenPart_ScatterThingsAnywhere">
+                    <def>ScatterThingsAnywhere</def>
+                    <thingDef>MealSurvivalPack</thingDef>
+                    <count>8</count>
+                </li>
+                <li Class="ScenPart_StartingResearch">
+                    <def>StartingResearch</def>
+                    <project>GunTurrets</project>
+                </li>
+                <li Class="ScenPart_StartingResearch">
+                    <def>StartingResearch</def>
+                    <project>AC_SleeveProduction</project>
+                </li>
+				<li Class="ScenPart_GameStartDialog">
+					<def>GameStartDialog</def>
+					<text>The two of you  were exiled after an uprising on your home planet. Once rich and powerful meth, you now hear the sound of sirens as your prison ship sends your pods towards a rimworld.\n\n Some time later, you land on this unknown rimworld.</text>
+					<closeSound>GameStartSting</closeSound>
+				</li>
+            </parts>
+        </scenario>
+    </ScenarioDef>
+
+</Defs>

@@ -3,10 +3,8 @@
 
   <ThingDef Name="AC_BrainTemplatesBase" ParentName="ResourceBase" Abstract="True">
     <graphicData>
-      <texPath>Things/Item/Health/HealthItem</texPath>
+      <texPath>Things/Item/BrainTemplates/BrainTemplate_Default</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>0.80</drawSize>
-      <color>(189,169,118)</color>
 	</graphicData>
     <soundInteract>Standard_Drop</soundInteract>
     <soundDrop>Standard_Drop</soundDrop>
@@ -18,7 +16,7 @@
       <DeteriorationRate>1</DeteriorationRate>
     </statBases>
     <thingCategories>
-      <li>Manufactured</li>
+      <li>AC_BrainTemplates</li>
     </thingCategories>
     <tickerType>Rare</tickerType>
     <comps>
