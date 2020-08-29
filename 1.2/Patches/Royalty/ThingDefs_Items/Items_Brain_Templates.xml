@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Royalty</li>
+		</mods>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs</xpath>
+			<value>
+				<ThingDef ParentName="AC_BrainTemplatesBase">
+					<defName>AC_BrainTemplatePsycaster</defName>
+					<label>brain template (psycaster)</label>
+					<comps>
+						<li Class="AlteredCarbon.CompProperties_BrainTemplate">
+							<hediffs>
+								<li>AC_BrainTemplatePsycaster</li>
+							</hediffs>
+						</li>
+					</comps>
+				</ThingDef>
+			</value>
+		</nomatch>
+	</Operation>
+	
+</Patch>

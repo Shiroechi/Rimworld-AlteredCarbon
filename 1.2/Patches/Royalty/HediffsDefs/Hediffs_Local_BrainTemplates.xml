@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Royalty</li>
+		</mods>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs</xpath>
+			<value>
+				<HediffDef ParentName="AC_BrainTemplate_Base">
+					<defName>AC_BrainTemplatePsycaster</defName>
+					<label>psycaster sleeve</label>
+					<description>This body was grown specifically for psycaster.</description>
+					<priceImpact>true</priceImpact>
+					<stages>
+						<li>
+							<statFactors>
+								<PsychicEntropyMax>2.0</PsychicEntropyMax>
+								<PsychicEntropyRecoveryRate>1.5</PsychicEntropyRecoveryRate>
+								<PsychicSensitivity>0.6</PsychicSensitivity>
+							</statFactors>
+						</li>
+					</stages>
+				</HediffDef>
+			</value>
+		</nomatch>
+	</Operation>
+	
+</Patch>

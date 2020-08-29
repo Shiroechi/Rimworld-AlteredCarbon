@@ -13,7 +13,7 @@
         <stages>
             <li>
 				<label>low</label>
-				<visible>false</visible>
+				<becomeVisible>false</becomeVisible>
             </li>
         </stages>
     </HediffDef>
@@ -89,26 +89,6 @@
                         <offset>0.5</offset>
                     </li>
                 </capMods>
-            </li>
-        </stages>
-    </HediffDef>
-	
-    <HediffDef ParentName="AC_BrainTemplate_Base">
-        <defName>AC_BrainTemplatePsycaster</defName>
-        <label>psycaster sleeve</label>
-        <description>This body was grown specifically for psycaster.</description>
-		<priceImpact>true</priceImpact>
-        <stages>
-            <li>
-				<statFactors>
-					<PsychicSensitivity>0.6</PsychicSensitivity>
-				</statFactors>
-            </li>
-            <li MayRequire="Ludeon.RimWorld.Royalty">
-				<statFactors>
-					<PsychicEntropyMax>2.0</PsychicEntropyMax>
-					<PsychicEntropyRecoveryRate>1.5</PsychicEntropyRecoveryRate>
-				</statFactors>
             </li>
         </stages>
     </HediffDef>
