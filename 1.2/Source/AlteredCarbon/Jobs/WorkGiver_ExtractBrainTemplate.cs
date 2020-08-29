@@ -41,7 +41,7 @@ namespace AlteredCarbon
                     {
                         return false;
                     }
-                    if (sleeveIncubator.removeActiveBrainTemplate && sleeveIncubator.ActiveBrainTemplate != null)
+                    if (sleeveIncubator.removeActiveBrainTemplate && sleeveIncubator.ActiveBrainTemplate != null && !sleeveIncubator.active)
                     {
                         return true;
                     }
