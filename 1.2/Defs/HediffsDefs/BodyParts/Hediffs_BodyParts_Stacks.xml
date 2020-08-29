@@ -27,6 +27,7 @@
             <Flammability>0</Flammability>
 			<MarketValue>1000</MarketValue>
         </statBases>
+		<countsAsAddedPartOrImplant>true</countsAsAddedPartOrImplant>
         <modExtensions>
             <li Class="AlteredCarbon.StackSavingOptionsModExtension">
 				<ignoresTraits>
