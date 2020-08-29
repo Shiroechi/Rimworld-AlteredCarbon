@@ -21,6 +21,8 @@ namespace AlteredCarbon
 
 		public static JobDef AC_CopyStack;
 
+		public static JobDef AC_InsertBrainTemplate;
+
 		public static TraitDef AC_Sleever;
 
 		public static TraitDef AC_AntiStack;
@@ -35,10 +37,13 @@ namespace AlteredCarbon
 
 		public static HediffDef AC_EmptySleeve;
 
+		public static HediffDef AC_SleeveBodyData;
+
 		public static ThingDef AC_EmptyCorticalStack;
 
 		public static ThingDef AC_FilledCorticalStack;
 
+		public static ThingDef AC_SleeveIncubator;
 		//public static ThingDef AC_SleeveCasket;
 
 		public static ThoughtDef AC_WrongGender;

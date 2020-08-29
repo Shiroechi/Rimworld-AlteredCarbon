@@ -40,10 +40,12 @@ namespace AlteredCarbon
                             GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
                         }
                     }
+                    Log.Message("Fail");
                     return;
                 }
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
             }
+
             var thing = ingredients.Where(x => x is CorticalStack).FirstOrDefault();
             if (thing is CorticalStack corticalStack)
             {
@@ -86,6 +88,12 @@ namespace AlteredCarbon
                     corticalStack.race = pawn.kindDef.race;
                     hediff.race = pawn.kindDef.race;
                 }
+
+                //var additionalSleeveBodyData = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_SleeveBodyData) as Hediff_SleeveBodyStats;
+                //if (additionalSleeveBodyData != null)
+                //{
+                //    additionalSleeveBodyData.ApplyEffects();
+                //}
             }
         }
     }

@@ -62,4 +62,9 @@
 	<allowAC_Gun_MACRifle>Enable: MAC-Rifle</allowAC_Gun_MACRifle>
 	<allowAC_Gun_QuickfirePistol>Enable: Quickfire Pistol</allowAC_Gun_QuickfirePistol>
 	<allowAC_Gun_ShockPDW>Enable: Shock PDW</allowAC_Gun_ShockPDW>
+	
+	<AlteredCarbon.NoBrainTemplatesFound>No brain templates found</AlteredCarbon.NoBrainTemplatesFound>
+	<AlteredCarbon.InsertBrainTemplate>Insert brain template</AlteredCarbon.InsertBrainTemplate>
+	<AlteredCarbon.InsertBrainTemplateDesc>Insert brain template desc</AlteredCarbon.InsertBrainTemplateDesc>
+
 </LanguageData>

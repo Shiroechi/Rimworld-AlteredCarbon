@@ -485,6 +485,7 @@ namespace AlteredCarbon
 
         public void OverwritePawn(Pawn pawn)
         {
+            Log.Message("OverwritePawn 1: " + this.name, true);
             var extension = this.def.GetModExtension<StackSavingOptionsModExtension>();
             if (pawn.Faction != this.faction)
             {
@@ -760,6 +761,7 @@ namespace AlteredCarbon
                     Traverse.Create(pawn.royalty).Field("permitPoints").SetValue(this.permitPoints);
                 }
             }
+            Log.Message("OverwritePawn 2: " + pawn.Name, true);
         }
 
         public override void ExposeData()

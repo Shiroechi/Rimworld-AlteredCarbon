@@ -17,9 +17,6 @@
             <partEfficiency>1.25</partEfficiency>
             <betterThanNatural>true</betterThanNatural>
         </addedPartProps>
-        <comps>
-            <li Class="AlteredCarbon.HediffCompProperties_CorticalStack" />
-        </comps>
     </HediffDef>
 
     <HediffDef ParentName="DiseaseBase">

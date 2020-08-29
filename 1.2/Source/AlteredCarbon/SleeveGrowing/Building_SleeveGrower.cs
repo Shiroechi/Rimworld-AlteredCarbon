@@ -24,17 +24,7 @@ namespace AlteredCarbon
 		public bool innerPawnIsDead;
 		public bool HasAnyContents => innerContainer.Count > 0;
 
-		public Thing ContainedThing
-		{
-			get
-			{
-				if (innerContainer.Count != 0)
-				{
-					return innerContainer[0];
-				}
-				return null;
-			}
-		}
+		public ThingDef activeBrainTemplateToBeProcessed;
 
 		public bool CanOpen => HasAnyContents && !this.active && !this.innerPawnIsDead;
 
@@ -156,7 +146,15 @@ namespace AlteredCarbon
 		{
 			get
 			{
-				return this.innerContainer.FirstOrDefault<Thing>() as Pawn;
+				return this.innerContainer.Where(x => x is Pawn).FirstOrDefault() as Pawn;
+			}
+		}
+
+		public Thing ActiveBrainTemplate
+		{
+			get
+			{
+				return this.innerContainer.Where(x => x.TryGetComp<CompBrainTemplate>() != null).FirstOrDefault();
 			}
 		}
 
@@ -177,38 +175,59 @@ namespace AlteredCarbon
 			{
 				yield return gizmo;
 			}
-			if (base.Faction == Faction.OfPlayer && innerContainer.Count > 0 && this.active)
-			{
-				Command_Action command_Action = new Command_Action();
-				command_Action.action = this.CancelGrowing;
-				command_Action.defaultLabel = "AlteredCarbon.CancelSleeveBodyGrowing".Translate();
-				command_Action.defaultDesc = "AlteredCarbon.CancelSleeveBodyGrowingDesc".Translate();
-				command_Action.hotKey = KeyBindingDefOf.Misc8;
-				command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/CancelSleeve");
-				yield return command_Action;
-			}
-			if (base.Faction == Faction.OfPlayer && (this.ContainedThing == null || this.innerPawnIsDead))
+			if (base.Faction == Faction.OfPlayer)
             {
-				Command_Action command_Action2 = new Command_Action();
-				command_Action2.action = new Action(this.CreateSleeve);
-				command_Action2.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
-				command_Action2.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
-				command_Action2.hotKey = KeyBindingDefOf.Misc8;
-				command_Action2.icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true);
-				yield return command_Action2;
-			}
-			if (Prefs.DevMode && active)
-			{
-				Command_Action command_Action = new Command_Action();
-				command_Action.defaultLabel = "Debug: Instant grow";
-				command_Action.action = InstantGrowth;
-				yield return command_Action;
+				if (innerContainer.Count > 0 && this.active)
+				{
+					Command_Action command_Action = new Command_Action();
+					command_Action.action = this.CancelGrowing;
+					command_Action.defaultLabel = "AlteredCarbon.CancelSleeveBodyGrowing".Translate();
+					command_Action.defaultDesc = "AlteredCarbon.CancelSleeveBodyGrowingDesc".Translate();
+					command_Action.hotKey = KeyBindingDefOf.Misc8;
+					command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/CancelSleeve");
+					yield return command_Action;
+				}
+				if (this.InnerPawn == null || this.innerPawnIsDead)
+				{
+					Command_Action command_Action = new Command_Action();
+					command_Action.action = new Action(this.CreateSleeve);
+					command_Action.defaultLabel = "AlteredCarbon.CreateSleeveBody".Translate();
+					command_Action.defaultDesc = "AlteredCarbon.CreateSleeveBodyDesc".Translate();
+					command_Action.hotKey = KeyBindingDefOf.Misc8;
+					command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true);
+					yield return command_Action;
+				}
+				if (Prefs.DevMode && active)
+				{
+					Command_Action command_Action = new Command_Action();
+					command_Action.defaultLabel = "Debug: Instant grow";
+					command_Action.action = InstantGrowth;
+					yield return command_Action;
+				}
+				if (this.activeBrainTemplateToBeProcessed == null && this.ActiveBrainTemplate == null && !this.active)
+                {
+					var command_Action = new Command_SetBrainTemplate(this);
+					command_Action.defaultLabel = "AlteredCarbon.InsertBrainTemplate".Translate();
+					command_Action.defaultDesc = "AlteredCarbon.InsertBrainTemplateDesc".Translate();
+					command_Action.hotKey = KeyBindingDefOf.Misc8;
+					command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true);
+					yield return command_Action;
+				}
+				if (this.ActiveBrainTemplate != null && this.active)
+                {
+					var command_Action = new Command_Action();
+					command_Action.defaultLabel = "AlteredCarbon.ActiveBrainTemplate".Translate() + this.ActiveBrainTemplate.LabelCap;
+					command_Action.defaultDesc = "AlteredCarbon.ActiveBrainTemplateDesc".Translate() + this.ActiveBrainTemplate.LabelCap;
+					command_Action.hotKey = KeyBindingDefOf.Misc8;
+					command_Action.icon = this.ActiveBrainTemplate.def.uiIcon;
+					yield return command_Action;
+				}
 			}
 			yield break;
 		}
 		public override string GetInspectString()
 		{
-			if (this.ContainedThing != null)
+			if (this.InnerPawn != null)
 			{
 				return base.GetInspectString() + "\n" + "GrowthProgress".Translate() +
 					Math.Round(((float)this.curTicksToGrow / this.totalTicksToGrow) * 100f, 2).ToString() + "%";
@@ -287,7 +306,7 @@ namespace AlteredCarbon
 		{
 			base.DrawAt(drawLoc, flip);
 
-			if (this.ContainedThing is Pawn)
+			if (this.InnerPawn != null)
 			{
 				Vector3 newPos = drawLoc;
 				newPos.z += 0.5f;
@@ -304,8 +323,8 @@ namespace AlteredCarbon
 					}
 					else
 					{
-						this.ContainedThing.Rotation = Rot4.South;
-						this.ContainedThing.DrawAt(newPos, flip);
+						this.InnerPawn.Rotation = Rot4.South;
+						this.InnerPawn.DrawAt(newPos, flip);
 					}
 				}
 				else if (this.innerPawnIsDead)
@@ -354,6 +373,12 @@ namespace AlteredCarbon
 		public void StartGrowth(Pawn newSleeve, int totalTicksToGrow, int totalGrowthCost)
         {
 			this.ResetGraphics();
+			if (this.ActiveBrainTemplate != null)
+			{
+				var comp = this.ActiveBrainTemplate.TryGetComp<CompBrainTemplate>();
+				comp.SaveBodyData(newSleeve);
+				Log.Message("SAVING");
+			}
 			this.innerContainer.ClearAndDestroyContents();
 			this.TryAcceptThing(newSleeve);
 			this.totalTicksToGrow = totalTicksToGrow;
@@ -362,6 +387,7 @@ namespace AlteredCarbon
 			this.active = true;
 			this.innerPawnIsDead = false;
 			this.runningOutPowerInTicks = 0;
+
 		}
 
 		public void InstantGrowth()
@@ -375,20 +401,24 @@ namespace AlteredCarbon
 			if (ACUtils.ACTracker.emptySleeves == null) ACUtils.ACTracker.emptySleeves = new HashSet<Pawn>();
 			ACUtils.ACTracker.emptySleeves.Add(this.InnerPawn);
 		}
-
 		public void KillInnerPawn()
         {
 			this.innerPawnIsDead = true;
 		}
 
+		public void AcceptBrainTemplate(Thing brainTemplate)
+        {
+			this.innerContainer.TryAddOrTransfer(brainTemplate);
+			this.activeBrainTemplateToBeProcessed = null;
+        }
 		public override void Tick()
 		{
 			base.Tick();
-			if (this.ContainedThing == null && this.curTicksToGrow > 0)
+			if (this.InnerPawn == null && this.curTicksToGrow > 0)
 			{
 				curTicksToGrow = 0;
 			}
-			if (this.ContainedThing is Pawn)
+			if (this.InnerPawn != null)
             {
 				if (this.active && base.GetComp<CompRefuelable>().HasFuel && powerTrader.PowerOn)
 				{

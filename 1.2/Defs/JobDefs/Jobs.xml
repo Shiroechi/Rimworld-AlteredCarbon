@@ -30,5 +30,24 @@
 		<driverClass>AlteredCarbon.JobDriver_ReleaseSleeve</driverClass>
 		<reportString>releasing sleeve</reportString>
 	</JobDef>
+	
+	<JobDef>
+		<defName>AC_InsertBrainTemplate</defName>
+		<driverClass>AlteredCarbon.JobDriver_InsertBrainTemplate</driverClass>
+		<reportString>inserting brain template</reportString>
+	</JobDef>
+	
+	<WorkGiverDef>
+		<defName>AC_InsertBrainTemplate</defName>
+		<label>inserting brain template in incubator</label>
+		<giverClass>AlteredCarbon.WorkGiver_InsertBrainTemplate</giverClass>
+		<workType>Hauling</workType>
+		<verb>insert brain template in incubator</verb>
+		<gerund>inserting brain template in incubator</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+  </WorkGiverDef>
 
 </Defs>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingDef Name="AC_BrainTemplatesBase" ParentName="ResourceBase" Abstract="True">
+    <graphicData>
+      <texPath>Things/Item/Health/HealthItem</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.80</drawSize>
+      <color>(189,169,118)</color>
+	</graphicData>
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <statBases>
+      <MaxHitPoints>10</MaxHitPoints>
+      <MarketValue>500</MarketValue>
+      <Mass>0.10</Mass>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>1</DeteriorationRate>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>2</daysToRotStart>
+        <rotDestroys>true</rotDestroys>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="AC_BrainTemplatesBase">
+    <defName>AC_BrainTemplateWarrior</defName>
+    <label>brain template warrior</label>
+    <description>brain template warrior</description>
+    <statBases>
+      <MarketValue>100</MarketValue>
+    </statBases>
+	<comps>
+      <li Class="AlteredCarbon.CompProperties_BrainTemplate">
+		<hediffs>
+			<li>AC_Test</li>
+		</hediffs>
+		<skillsOffsets>
+			<Melee>1</Melee>
+			<Shooting>1</Shooting>
+		</skillsOffsets>
+		<skillPassionsOffsets>
+			<Melee>1</Melee>
+			<Shooting>1</Shooting>
+		</skillPassionsOffsets>
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>
