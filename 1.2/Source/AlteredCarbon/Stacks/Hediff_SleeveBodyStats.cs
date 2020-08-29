@@ -14,12 +14,6 @@ namespace AlteredCarbon
         public List<SkillOffsets> skillsOffsets;
 
         public List<SkillOffsets> skillPassionsOffsets;
-
-        public void CopyStatsFromBrainTemplate(Thing brainTemplate)
-        {
-
-        }
-
         public void ApplyEffects()
         {
             foreach (var hediff in this.hediffs)
@@ -40,27 +34,31 @@ namespace AlteredCarbon
             foreach (var skillPassionOffset in this.skillPassionsOffsets)
             {
                 var skill = pawn.skills.GetSkill(skillPassionOffset.skill);
-                var offset = ((int)skill.passion - skillPassionOffset.offset) + 2;
-                Log.Message("offset: " + offset, true);
-                if (offset > 0)
+                Log.Message("(int)skill.passion: " + (int)skill.passion, true);
+                var finalValue = (int)skill.passion + skillPassionOffset.offset;
+                Log.Message("finalValue: " + finalValue, true);
+                Log.Message(skill + " - skill.passion: " + skill.passion, true);
+                switch (finalValue)
                 {
-                    var finalValue = (int)skill.passion + offset;
-                    Log.Message("finalValue: " + finalValue, true);
-                    Log.Message("skill.passion: " + skill.passion, true);
-                    switch (finalValue)
-                    {
-                        case 0:
-                            skill.passion = Passion.None;
-                            break;
-                        case 1:
-                            skill.passion = Passion.Minor;
-                            break;
-                        case 2:
-                            skill.passion = Passion.Major;
-                            break;
-                    }
-                    Log.Message("skill.passion: " + skill.passion, true);
+                    case 0:
+                        skill.passion = Passion.None;
+                        Log.Message("skill.passion = Passion.None");
+                        break;
+                    case 1:
+                        skill.passion = Passion.Minor;
+                        Log.Message("skill.passion = Passion.Minor");
+                        break;
+                    case 2:
+                        skill.passion = Passion.Major;
+                        Log.Message("skill.passion = Passion.Major");
+                        break;
+                    default:
+                        skill.passion = Passion.None;
+                        Log.Message("skill.passion = Passion.Major");
+                        break;
                 }
+                Log.Message(skill + " - skill.passion: " + skill.passion, true);
+                Log.Message("----------------", true);
             }
         }
         public override void ExposeData()

@@ -25,6 +25,15 @@ namespace AlteredCarbon
             });
         }
 
+        public override void ConsumeIngredient(Thing ingredient, RecipeDef recipe, Map map)
+        {
+            if (ingredient is CorticalStack c)
+            {
+                c.dontKillThePawn = true;
+            }
+            base.ConsumeIngredient(ingredient, recipe, map);
+        }
+
         public override void ApplyOnPawn(Pawn pawn, BodyPartRecord part, Pawn billDoer, List<Thing> ingredients, Bill bill)
         {
             if (billDoer != null)
@@ -40,7 +49,6 @@ namespace AlteredCarbon
                             GenPlace.TryPlaceThing(c, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
                         }
                     }
-                    Log.Message("Fail");
                     return;
                 }
                 TaleRecorder.RecordTale(TaleDefOf.DidSurgery, billDoer, pawn);
@@ -89,11 +97,11 @@ namespace AlteredCarbon
                     hediff.race = pawn.kindDef.race;
                 }
 
-                //var additionalSleeveBodyData = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_SleeveBodyData) as Hediff_SleeveBodyStats;
-                //if (additionalSleeveBodyData != null)
-                //{
-                //    additionalSleeveBodyData.ApplyEffects();
-                //}
+                var additionalSleeveBodyData = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_SleeveBodyData) as Hediff_SleeveBodyStats;
+                if (additionalSleeveBodyData != null)
+                {
+                    additionalSleeveBodyData.ApplyEffects();
+                }
             }
         }
     }

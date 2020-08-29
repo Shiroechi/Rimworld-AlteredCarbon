@@ -191,14 +191,17 @@ namespace AlteredCarbon
             }, null, false, null, null));
         }
 
+        public bool dontKillThePawn = false;
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
             base.Destroy(mode);
-            if (this.hasPawn)
+            if (this.hasPawn && !dontKillThePawn)
             {
+                Log.Message("Kill inner pawn");
                 this.KillInnerPawn();
             }
         }
+
         public void KillInnerPawn(bool affectFactionRelationship = false, Pawn affecter = null)
         {
             if (this.hasPawn)

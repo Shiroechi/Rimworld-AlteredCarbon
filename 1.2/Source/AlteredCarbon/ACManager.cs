@@ -120,27 +120,39 @@ namespace AlteredCarbon
 
         public void ReplacePawnWithStack(Pawn pawn, CorticalStack stack)
         {
+            Log.Message(" - ReplacePawnWithStack - if (this.stacksRelationships == null) this.stacksRelationships = new Dictionary<int, StacksData>(); - 1", true);
             if (this.stacksRelationships == null) this.stacksRelationships = new Dictionary<int, StacksData>();
+            Log.Message(" - ReplacePawnWithStack - var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack; - 2", true);
             var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
+            Log.Message(" - ReplacePawnWithStack - if (hediff != null) - 3", true);
             if (hediff != null)
             {
+                Log.Message(" - ReplacePawnWithStack - stack.stackGroupID = hediff.stackGroupID; - 4", true);
                 stack.stackGroupID = hediff.stackGroupID;
+                Log.Message(" - ReplacePawnWithStack - if (this.stacksRelationships.ContainsKey(hediff.stackGroupID)) - 5", true);
                 if (this.stacksRelationships.ContainsKey(hediff.stackGroupID))
                 {
+                    Log.Message(" - ReplacePawnWithStack - if (this.stacksRelationships[hediff.stackGroupID].originalPawn == pawn) - 6", true);
                     if (this.stacksRelationships[hediff.stackGroupID].originalPawn == pawn)
                     {
+                        Log.Message(" - ReplacePawnWithStack - this.stacksRelationships[hediff.stackGroupID].originalPawn = null; - 7", true);
                         this.stacksRelationships[hediff.stackGroupID].originalPawn = null;
+                        Log.Message(" - ReplacePawnWithStack - this.stacksRelationships[hediff.stackGroupID].originalStack = stack; - 8", true);
                         this.stacksRelationships[hediff.stackGroupID].originalStack = stack;
                     }
                     else if (this.stacksRelationships[hediff.stackGroupID].copiedPawns.Contains(pawn))
                     {
+                        Log.Message(" - ReplacePawnWithStack - this.stacksRelationships[hediff.stackGroupID].copiedPawns.Remove(pawn); - 10", true);
                         this.stacksRelationships[hediff.stackGroupID].copiedPawns.Remove(pawn);
+                        Log.Message(" - ReplacePawnWithStack - if (this.stacksRelationships[hediff.stackGroupID].copiedStacks == null) this.stacksRelationships[hediff.stackGroupID].copiedStacks = new List<CorticalStack>(); - 11", true);
                         if (this.stacksRelationships[hediff.stackGroupID].copiedStacks == null) this.stacksRelationships[hediff.stackGroupID].copiedStacks = new List<CorticalStack>();
+                        Log.Message(" - ReplacePawnWithStack - this.stacksRelationships[hediff.stackGroupID].copiedStacks.Add(stack); - 12", true);
                         this.stacksRelationships[hediff.stackGroupID].copiedStacks.Add(stack);
                     }
                 }
             }
         }
+
 
         public void ReplaceStackWithPawn(CorticalStack stack, Pawn pawn)
         {
