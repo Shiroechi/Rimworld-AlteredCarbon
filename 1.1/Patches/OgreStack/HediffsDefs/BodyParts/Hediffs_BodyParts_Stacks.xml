@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>OgreStack</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <success>Always</success>
+            <operations>
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="AC_EmptyCorticalStack"]</xpath>
+                    <value>
+						<item defName="AC_EmptyCorticalStack" stackLimit="25" />
+                    </value>
+                </li>
+                <li Class="PatchOperationAdd">
+                    <xpath>/Defs/ThingDef[defName="AC_FilledCorticalStack"]</xpath>
+                    <value>
+						<item defName="AC_FilledCorticalStack" stackLimit="1" />
+                    </value>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+
+</Patch>
