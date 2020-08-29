@@ -14,6 +14,8 @@ namespace AlteredCarbon
         public List<SkillOffsets> skillsOffsets;
 
         public List<SkillOffsets> skillPassionsOffsets;
+
+
         public void ApplyEffects()
         {
             foreach (var hediff in this.hediffs)
@@ -24,13 +26,22 @@ namespace AlteredCarbon
                     pawn.health.AddHediff(HediffMaker.MakeHediff(hediffDef, pawn));
                 }
             }
-
+            List<SkillOffsets> negativeSkillsOffset = new List<SkillOffsets>();
             foreach (var skillOffset in this.skillsOffsets)
             {
+
                 var curLevel = pawn.skills.GetSkill(skillOffset.skill).Level + skillOffset.offset;
                 if (curLevel > 20) curLevel = 20;
+
+                var negativeSkillOffset = new SkillOffsets
+                {
+                    skill = skillOffset.skill,
+                    offset = curLevel - pawn.skills.GetSkill(skillOffset.skill).Level
+                };
+                negativeSkillsOffset.Add(negativeSkillOffset);
                 pawn.skills.GetSkill(skillOffset.skill).Level = curLevel;
             }
+            List<SkillOffsets> negativeSkillsPassionOffset = new List<SkillOffsets>();
 
             foreach (var skillPassionOffset in this.skillPassionsOffsets)
             {
@@ -41,6 +52,13 @@ namespace AlteredCarbon
                 Log.Message(skill + " - skill.passion: " + skill.passion, true);
                 if (finalValue <= 2)
                 {
+                    var negativeSkillOffset = new SkillOffsets
+                    {
+                        skill = skillPassionOffset.skill,
+                        offset = (int)skill.passion - skillPassionOffset.offset
+                    };
+                    negativeSkillsPassionOffset.Add(negativeSkillOffset);
+
                     switch (finalValue)
                     {
                         case 0:
@@ -61,6 +79,16 @@ namespace AlteredCarbon
                             break;
                     }
                 }
+                foreach (var c1 in negativeSkillsOffset)
+                {
+                    Log.Message("1 Negative: " + c1.skill + " - " + c1.offset, true);
+                }
+
+                foreach (var c2 in negativeSkillsPassionOffset)
+                {
+                    Log.Message("2 Negative: " + c2.skill + " - " + c2.offset, true);
+                }
+
                 Log.Message(skill + " - skill.passion: " + skill.passion, true);
                 Log.Message("----------------", true);
             }

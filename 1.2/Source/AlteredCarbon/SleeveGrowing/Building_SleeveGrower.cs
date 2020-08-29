@@ -206,7 +206,8 @@ namespace AlteredCarbon
 					command_Action.action = InstantGrowth;
 					yield return command_Action;
 				}
-				if (this.activeBrainTemplateToBeProcessed == null && this.ActiveBrainTemplate == null && !this.active)
+
+				if (this.activeBrainTemplateToBeProcessed == null && this.ActiveBrainTemplate == null)
                 {
 					var command_Action = new Command_SetBrainTemplate(this);
 					command_Action.defaultLabel = "AlteredCarbon.InsertBrainTemplate".Translate();
@@ -215,13 +216,22 @@ namespace AlteredCarbon
 					command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/None", true);
 					yield return command_Action;
 				}
-				if (this.ActiveBrainTemplate != null && !this.active)
+				if (this.ActiveBrainTemplate != null)
                 {
 					var command_Action = new Command_SetBrainTemplate(this, true);
 					command_Action.defaultLabel = this.ActiveBrainTemplate.LabelCap;
 					command_Action.defaultDesc = "AlteredCarbon.ActiveBrainTemplateDesc".Translate() + this.ActiveBrainTemplate.LabelCap;
 					command_Action.hotKey = KeyBindingDefOf.Misc8;
 					command_Action.icon = this.ActiveBrainTemplate.def.uiIcon;
+					yield return command_Action;
+				}
+				else if (this.activeBrainTemplateToBeProcessed != null)
+                {
+					var command_Action = new Command_SetBrainTemplate(this, true);
+					command_Action.defaultLabel = this.activeBrainTemplateToBeProcessed.LabelCap;
+					command_Action.defaultDesc = "AlteredCarbon.AwaitingBrainTemplateDesc".Translate() + this.activeBrainTemplateToBeProcessed.LabelCap;
+					command_Action.hotKey = KeyBindingDefOf.Misc8;
+					command_Action.icon = this.activeBrainTemplateToBeProcessed.uiIcon;
 					yield return command_Action;
 				}
 			}

@@ -33,14 +33,14 @@ namespace AlteredCarbon
                         this.InsertBrainTemplate(brainTemplate);
                     }, MenuOptionPriority.Default, null, null, 29f, null, null));
                 }
-                Log.Message("allowRemoveActiveBrain: " + allowRemoveActiveBrain, true);
-                if (allowRemoveActiveBrain && building.ActiveBrainTemplate != null)
+            }
+
+            if (allowRemoveActiveBrain && building.ActiveBrainTemplate != null)
+            {
+                list.Add(new FloatMenuOption("AlteredCarbon.RemoveCurrentBrainTemplate".Translate(), delegate
                 {
-                    list.Add(new FloatMenuOption("AlteredCarbon.RemoveCurrentBrainTemplate".Translate(), delegate
-                    {
-                        this.RemoveActiveBrainTemplate();
-                    }, MenuOptionPriority.Default, null, null, 29f, null, null));
-                }
+                    this.RemoveActiveBrainTemplate();
+                }, MenuOptionPriority.Default, null, null, 29f, null, null));
             }
 
             if (list.Count == 0)
