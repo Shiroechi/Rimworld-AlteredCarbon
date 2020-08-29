@@ -210,13 +210,13 @@ namespace AlteredCarbon
 					command_Action.defaultLabel = "AlteredCarbon.InsertBrainTemplate".Translate();
 					command_Action.defaultDesc = "AlteredCarbon.InsertBrainTemplateDesc".Translate();
 					command_Action.hotKey = KeyBindingDefOf.Misc8;
-					command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/CreateSleeve", true);
+					command_Action.icon = ContentFinder<Texture2D>.Get("UI/Icons/None", true);
 					yield return command_Action;
 				}
-				if (this.ActiveBrainTemplate != null && this.active)
+				if (this.ActiveBrainTemplate != null && !this.active)
                 {
-					var command_Action = new Command_Action();
-					command_Action.defaultLabel = "AlteredCarbon.ActiveBrainTemplate".Translate() + this.ActiveBrainTemplate.LabelCap;
+					var command_Action = new Command_SetBrainTemplate(this, true);
+					command_Action.defaultLabel = this.ActiveBrainTemplate.LabelCap;
 					command_Action.defaultDesc = "AlteredCarbon.ActiveBrainTemplateDesc".Translate() + this.ActiveBrainTemplate.LabelCap;
 					command_Action.hotKey = KeyBindingDefOf.Misc8;
 					command_Action.icon = this.ActiveBrainTemplate.def.uiIcon;
@@ -406,8 +406,16 @@ namespace AlteredCarbon
 			this.innerPawnIsDead = true;
 		}
 
+		public void DropActiveBrainTemplate()
+        {
+			this.innerContainer.TryDrop(this.ActiveBrainTemplate, ThingPlaceMode.Near, out Thing result);
+		}
 		public void AcceptBrainTemplate(Thing brainTemplate)
         {
+			if (this.ActiveBrainTemplate != null)
+            {
+				this.DropActiveBrainTemplate();
+			}
 			this.innerContainer.TryAddOrTransfer(brainTemplate);
 			this.activeBrainTemplateToBeProcessed = null;
         }

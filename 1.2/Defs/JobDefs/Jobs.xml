@@ -37,6 +37,25 @@
 		<reportString>inserting brain template</reportString>
 	</JobDef>
 	
+	<JobDef>
+		<defName>AC_ExtractActiveBrainTemplate</defName>
+		<driverClass>AlteredCarbon.JobDriver_ExtractActiveBrainTemplate</driverClass>
+		<reportString>extracting brain template from incubator</reportString>
+	</JobDef>
+	
+	<WorkGiverDef>
+		<defName>AC_ExtractActiveBrainTemplate</defName>
+		<label>extracting brain template from incubator</label>
+		<giverClass>AlteredCarbon.WorkGiver_ExtractBrainTemplate</giverClass>
+		<workType>Hauling</workType>
+		<verb>extract brain template from incubator</verb>
+		<gerund>extracting brain template from incubator</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+	</WorkGiverDef>
+  
 	<WorkGiverDef>
 		<defName>AC_InsertBrainTemplate</defName>
 		<label>inserting brain template in incubator</label>

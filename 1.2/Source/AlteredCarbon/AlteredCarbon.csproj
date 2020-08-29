@@ -313,7 +313,9 @@
     <Compile Include="HarmonyPatches\RecipePatches.cs" />
     <Compile Include="HarmonyPatches\Patch_CheckRecalculateMoodThoughts.cs" />
     <Compile Include="Jobs\JobDriver_DestroyStack.cs" />
+    <Compile Include="Jobs\JobDriver_ExtractActiveBrainTemplate.cs" />
     <Compile Include="Jobs\JobDriver_InsertBrainTemplate.cs" />
+    <Compile Include="Jobs\WorkGiver_ExtractBrainTemplate.cs" />
     <Compile Include="Jobs\WorkGiver_InsertBrainTemplate.cs" />
     <Compile Include="SleeveGrowing\CompProperties_SleeveGrowerPostDraw.cs" />
     <Compile Include="SleeveGrowing\CompSleeveGrowerPostDraw.cs" />

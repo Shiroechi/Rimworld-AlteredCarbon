@@ -38,24 +38,27 @@ namespace AlteredCarbon
                 var finalValue = (int)skill.passion + skillPassionOffset.offset;
                 Log.Message("finalValue: " + finalValue, true);
                 Log.Message(skill + " - skill.passion: " + skill.passion, true);
-                switch (finalValue)
+                if (finalValue <= 2)
                 {
-                    case 0:
-                        skill.passion = Passion.None;
-                        Log.Message("skill.passion = Passion.None");
-                        break;
-                    case 1:
-                        skill.passion = Passion.Minor;
-                        Log.Message("skill.passion = Passion.Minor");
-                        break;
-                    case 2:
-                        skill.passion = Passion.Major;
-                        Log.Message("skill.passion = Passion.Major");
-                        break;
-                    default:
-                        skill.passion = Passion.None;
-                        Log.Message("skill.passion = Passion.Major");
-                        break;
+                    switch (finalValue)
+                    {
+                        case 0:
+                            skill.passion = Passion.None;
+                            Log.Message("skill.passion = Passion.None");
+                            break;
+                        case 1:
+                            skill.passion = Passion.Minor;
+                            Log.Message("skill.passion = Passion.Minor");
+                            break;
+                        case 2:
+                            skill.passion = Passion.Major;
+                            Log.Message("skill.passion = Passion.Major");
+                            break;
+                        default:
+                            skill.passion = Passion.None;
+                            Log.Message("skill.passion = Passion.Major");
+                            break;
+                    }
                 }
                 Log.Message(skill + " - skill.passion: " + skill.passion, true);
                 Log.Message("----------------", true);
