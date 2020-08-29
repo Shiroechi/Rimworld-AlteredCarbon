@@ -8,14 +8,18 @@
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>SleeveBodyData</description>
 		<isBad>false</isBad>
-		<visible>false<visible>
 		<makesSickThought>false</makesSickThought>
 		<priceImpact>false</priceImpact>
+        <stages>
+            <li>
+				<label>low</label>
+				<visible>false</visible>
+            </li>
+        </stages>
     </HediffDef>
 	
     <HediffDef Name="AC_BrainTemplate_Base" ParentName="DiseaseBase" Abstract="True">
 		<isBad>false</isBad>
-		<visible>false<visible>
 		<makesSickThought>false</makesSickThought>
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
     </HediffDef>
