@@ -5,7 +5,7 @@
 		<mods>
 			<li>Royalty</li>
 		</mods>
-		<nomatch Class="PatchOperationAdd">
+		<match Class="PatchOperationAdd">
 			<xpath>/Defs</xpath>
 			<value>
 				<HediffDef ParentName="AC_BrainTemplate_Base">
@@ -24,7 +24,7 @@
 					</stages>
 				</HediffDef>
 			</value>
-		</nomatch>
+		</match>
 	</Operation>
 	
 </Patch>

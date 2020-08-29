@@ -5,7 +5,7 @@
 		<mods>
 			<li>Royalty</li>
 		</mods>
-		<nomatch Class="PatchOperationAdd">
+		<match Class="PatchOperationAdd">
 			<xpath>/Defs</xpath>
 			<value>
 				<ThingDef ParentName="AC_BrainTemplatesBase">
@@ -20,7 +20,7 @@
 					</comps>
 				</ThingDef>
 			</value>
-		</nomatch>
+		</match>
 	</Operation>
 	
 </Patch>
