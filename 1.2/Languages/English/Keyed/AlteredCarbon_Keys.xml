@@ -66,5 +66,5 @@
 	<AlteredCarbon.NoBrainTemplatesFound>No brain templates found</AlteredCarbon.NoBrainTemplatesFound>
 	<AlteredCarbon.InsertBrainTemplate>Insert brain template</AlteredCarbon.InsertBrainTemplate>
 	<AlteredCarbon.InsertBrainTemplateDesc>Insert brain template desc</AlteredCarbon.InsertBrainTemplateDesc>
-
+	<AlteredCarbon.RemoveCurrentBrainTemplate>Remove current brain template</AlteredCarbon.RemoveCurrentBrainTemplate>
 </LanguageData>

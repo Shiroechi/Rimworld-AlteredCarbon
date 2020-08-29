@@ -5,7 +5,7 @@ using RimWorld;
 
 namespace AlteredCarbon
 {
-    public class WorkGiver_InsertBrainTemplate : WorkGiver_Scanner
+    public class WorkGiver_ExtractBrainTemplate : WorkGiver_Scanner
     {
         public override ThingRequest PotentialWorkThingRequest
         {
@@ -28,6 +28,10 @@ namespace AlteredCarbon
             var sleeveIncubator = t as Building_SleeveGrower;
             if (sleeveIncubator == null) return false;
                 
+            if (sleeveIncubator.activeBrainTemplateToBeProcessed == null && sleeveIncubator.ActiveBrainTemplate == null)
+            {
+                return false;
+            }
             if (!t.IsForbidden(pawn) && !t.IsBurning())
             {
                 LocalTargetInfo target = t;
@@ -37,12 +41,10 @@ namespace AlteredCarbon
                     {
                         return false;
                     }
-                    if (this.FindBrainTemplate(pawn, sleeveIncubator.activeBrainTemplateToBeProcessed) == null)
+                    if (sleeveIncubator.activeBrainTemplateToBeProcessed == null && sleeveIncubator.ActiveBrainTemplate != null)
                     {
-                        JobFailReason.Is("AlteredCarbon.NoBrainTemplatesFound".Translate(), null);
-                        return false;
+                        return true;
                     }
-                    return true;
                 }
             }
             return false;
@@ -51,20 +53,7 @@ namespace AlteredCarbon
         public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
         {
             var sleeveIncubator = t as Building_SleeveGrower;
-            Thing brainTemplate = this.FindBrainTemplate(pawn, sleeveIncubator.activeBrainTemplateToBeProcessed);
-            return new Job(AlteredCarbonDefOf.AC_InsertBrainTemplate, sleeveIncubator, brainTemplate);
-        }
-
-        private Thing FindBrainTemplate(Pawn pawn, ThingDef brainTemplate)
-        {
-            Predicate<Thing> predicate = (Thing x) => !x.IsForbidden(pawn) && pawn.CanReserve(x, 1, 1, null, false);
-            IntVec3 position = pawn.Position;
-            Map map = pawn.Map;
-            ThingRequest thingReq = ThingRequest.ForDef(brainTemplate);
-            PathEndMode peMode = PathEndMode.ClosestTouch;
-            TraverseParms traverseParams = TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false);
-            Predicate<Thing> validator = predicate;
-            return GenClosest.ClosestThingReachable(position, map, thingReq, peMode, traverseParams, 9999f, validator, null, 0, -1, false, RegionType.Set_Passable, false);
+            return new Job(AlteredCarbonDefOf.AC_ExtractActiveBrainTemplate, sleeveIncubator);
         }
     }
 }

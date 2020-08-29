@@ -23,6 +23,8 @@ namespace AlteredCarbon
 
 		public static JobDef AC_InsertBrainTemplate;
 
+		public static JobDef AC_ExtractActiveBrainTemplate;
+
 		public static TraitDef AC_Sleever;
 
 		public static TraitDef AC_AntiStack;

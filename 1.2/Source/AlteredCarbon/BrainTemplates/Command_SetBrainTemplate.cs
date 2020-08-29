@@ -11,10 +11,12 @@ namespace AlteredCarbon
         public Map map;
         public List<Thing> brainTemplates;
         public Building_SleeveGrower building;
-        public Command_SetBrainTemplate(Building_SleeveGrower building)
+        public bool allowRemoveActiveBrain = false;
+        public Command_SetBrainTemplate(Building_SleeveGrower building, bool removeActiveBrain = false)
         {
             this.building = building;
             this.map = building.Map;
+            this.allowRemoveActiveBrain = removeActiveBrain;
         }
         public override void ProcessInput(Event ev)
         {
@@ -24,11 +26,23 @@ namespace AlteredCarbon
             brainTemplates.AddRange(this.map.listerThings.AllThings.Where(x => x.TryGetComp<CompBrainTemplate>() != null).Select(x => x.def));
             foreach (ThingDef brainTemplate in brainTemplates)
             {
-                list.Add(new FloatMenuOption(brainTemplate.LabelCap, delegate
+                if (brainTemplate != building.ActiveBrainTemplate?.def)
                 {
-                    this.InsertBrainTemplate(brainTemplate);
-                }, MenuOptionPriority.Default, null, null, 29f, null, null));
+                    list.Add(new FloatMenuOption(brainTemplate.LabelCap, delegate
+                    {
+                        this.InsertBrainTemplate(brainTemplate);
+                    }, MenuOptionPriority.Default, null, null, 29f, null, null));
+                }
+                Log.Message("allowRemoveActiveBrain: " + allowRemoveActiveBrain, true);
+                if (allowRemoveActiveBrain && building.ActiveBrainTemplate != null)
+                {
+                    list.Add(new FloatMenuOption("AlteredCarbon.RemoveCurrentBrainTemplate".Translate(), delegate
+                    {
+                        this.RemoveActiveBrainTemplate();
+                    }, MenuOptionPriority.Default, null, null, 29f, null, null));
+                }
             }
+
             if (list.Count == 0)
             {
                 list.Add(new FloatMenuOption("None".Translate(), null, MenuOptionPriority.Default, null, null, 29f, null, null));
@@ -38,6 +52,11 @@ namespace AlteredCarbon
         private void InsertBrainTemplate(ThingDef brainTemplate)
         {
             building.activeBrainTemplateToBeProcessed = brainTemplate;
+        }
+
+        private void RemoveActiveBrainTemplate()
+        {
+            building.activeBrainTemplateToBeProcessed = null;
         }
     }
 }
