@@ -59,12 +59,6 @@
             <Plasteel>15</Plasteel>
             <ComponentSpacer>4</ComponentSpacer>
         </costList>
-        <statBases>
-            <Mass>0.3</Mass>
-            <DeteriorationRate>0</DeteriorationRate>
-            <MaxHitPoints>125</MaxHitPoints>
-            <Flammability>0</Flammability>
-        </statBases>
         <thingSetMakerTags>
             <li>RewardStandardLowFreq</li>
         </thingSetMakerTags>

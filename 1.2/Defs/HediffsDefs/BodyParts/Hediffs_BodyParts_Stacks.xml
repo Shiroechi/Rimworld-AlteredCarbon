@@ -34,7 +34,6 @@
 					<li>Immunity</li>
 					<li>AnnoyingVoice</li>
 					<li>CreepyBreathing</li>
-					<li>PsychicSensitivity</li>
 				</ignoresTraits> 
             </li>
         </modExtensions>
@@ -61,12 +60,6 @@
             <Plasteel>15</Plasteel>
             <ComponentSpacer>4</ComponentSpacer>
         </costList>
-        <statBases>
-            <Mass>0.3</Mass>
-            <DeteriorationRate>0</DeteriorationRate>
-            <MaxHitPoints>125</MaxHitPoints>
-            <Flammability>0</Flammability>
-        </statBases>
         <thingSetMakerTags>
             <li>RewardStandardLowFreq</li>
         </thingSetMakerTags>
