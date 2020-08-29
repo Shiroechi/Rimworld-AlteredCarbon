@@ -4,7 +4,7 @@
     <ScenarioDef Name="Crashlanded">
         <defName>AC_ExiledMeth</defName>
         <label>Exiled Meth</label>
-        <description>The two of you  were exiled after an uprising on your home planet. Once rich and powerful meth, you now hear the sound of sirens as your prison ship sends your pods towards a rimworld. Some time later, you land on this unknown rimworld.</description>
+        <description>The two of you were exiled after an uprising on your home planet. Once rich and powerful meth, you now hear the sound of sirens as your prison ship ejects your pods.</description>
         <scenario>
             <summary>Two exiled meths - a near classic Rimworld expierience with stacks.</summary>
             <playerFaction>
@@ -118,7 +118,7 @@
                 </li>
 				<li Class="ScenPart_GameStartDialog">
 					<def>GameStartDialog</def>
-					<text>The two of you  were exiled after an uprising on your home planet. Once rich and powerful meth, you now hear the sound of sirens as your prison ship sends your pods towards a rimworld.\n\n Some time later, you land on this unknown rimworld.</text>
+					<text>The two of you were exiled after an uprising on your home planet. Once rich and powerful meth, you now hear the sound of sirens as your prison ship ejects your pods.</text>
 					<closeSound>GameStartSting</closeSound>
 				</li>
             </parts>
