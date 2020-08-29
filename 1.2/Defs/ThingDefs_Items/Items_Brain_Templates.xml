@@ -86,17 +86,5 @@
             </li>
         </comps>
     </ThingDef>
-	
-    <ThingDef ParentName="AC_BrainTemplatesBase">
-        <defName>AC_BrainTemplatePsycaster</defName>
-        <label>brain template (psycaster)</label>
-        <comps>
-            <li Class="AlteredCarbon.CompProperties_BrainTemplate">
-                <hediffs>
-                    <li>AC_BrainTemplatePsycaster</li>
-                </hediffs>
-            </li>
-        </comps>
-    </ThingDef>
 
 </Defs>
