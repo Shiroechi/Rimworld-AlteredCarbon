@@ -57,6 +57,7 @@ namespace AlteredCarbon
         private void RemoveActiveBrainTemplate()
         {
             building.activeBrainTemplateToBeProcessed = null;
+            building.removeActiveBrainTemplate = true;
         }
     }
 }
