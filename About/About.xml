@@ -2,7 +2,7 @@
 <ModMetaData>
 
     <name>Rimworld: Altered Carbon</name>
-    <author>Helixien, Taranchuk, OskarPotocki</author>
+    <author>Helixien, Taranchuk, Luizi, Saakra, OskarPotocki</author>
     <supportedVersions>
         <li>1.1</li>
 		<li>1.2</li>
@@ -15,7 +15,8 @@ But on Rimworld's, this tech is rare, but it still can be found from time to tim
 
 With this mod we bring the concept of Stacks and Sleeves from the popular Netflix show and book series by Richard K. Morgan to Rimworld.
 Find and install implants into your colonists to prevent their death when their bodies die, grow high quality, custom bodies for your colonists, enjoy amazing new weapons and the beautiful Protectorate Armour. All implemented without contradicting Vanilla Rimworld Lore, vanilla friendly and with textures made by Oskar Potocki.</description>
-    <modDependencies>
+	<url>https://steamcommunity.com/sharedfiles/filedetails/?id=2196278117</url>
+	<modDependencies>
         <li>
             <packageId>brrainz.harmony</packageId>
             <displayName>Harmony</displayName>

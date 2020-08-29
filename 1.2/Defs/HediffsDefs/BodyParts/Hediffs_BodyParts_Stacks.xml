@@ -34,6 +34,7 @@
 					<li>Immunity</li>
 					<li>AnnoyingVoice</li>
 					<li>CreepyBreathing</li>
+					<li>PsychicSensitivity</li>
 				</ignoresTraits> 
             </li>
         </modExtensions>
@@ -46,6 +47,7 @@
         <descriptionHyperlinks>
         <RecipeDef>AC_InstallCorticalStack</RecipeDef>
         </descriptionHyperlinks>
+		<drawGUIOverlay>true</drawGUIOverlay>
         <thingClass>AlteredCarbon.CorticalStack</thingClass>
         <graphicData>
             <texPath>Things/Item/Stacks/EmptyStack</texPath>
