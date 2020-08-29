@@ -26,6 +26,8 @@ namespace AlteredCarbon
 
 		public ThingDef activeBrainTemplateToBeProcessed;
 
+		public bool removeActiveBrainTemplate;
+
 		public bool CanOpen => HasAnyContents && !this.active && !this.innerPawnIsDead;
 
 		public Building_SleeveGrower()
@@ -409,6 +411,7 @@ namespace AlteredCarbon
 		public void DropActiveBrainTemplate()
         {
 			this.innerContainer.TryDrop(this.ActiveBrainTemplate, ThingPlaceMode.Near, out Thing result);
+			this.removeActiveBrainTemplate = false;
 		}
 		public void AcceptBrainTemplate(Thing brainTemplate)
         {
@@ -418,7 +421,9 @@ namespace AlteredCarbon
 			}
 			this.innerContainer.TryAddOrTransfer(brainTemplate);
 			this.activeBrainTemplateToBeProcessed = null;
+			this.removeActiveBrainTemplate = false;
         }
+
 		public override void Tick()
 		{
 			base.Tick();
@@ -493,6 +498,9 @@ namespace AlteredCarbon
 			base.ExposeData();
 			Scribe_Deep.Look(ref innerContainer, "innerContainer", this);
 			Scribe_Values.Look(ref contentsKnown, "contentsKnown", defaultValue: false);
+
+			Scribe_Defs.Look(ref activeBrainTemplateToBeProcessed, "activeBrainTemplateToBeProcessed");
+			Scribe_Values.Look(ref removeActiveBrainTemplate, "removeActiveBrainTemplate", false);
 
 			Scribe_Values.Look<int>(ref this.totalTicksToGrow, "totalTicksToGrow", 0, true);
 			Scribe_Values.Look<int>(ref this.curTicksToGrow, "curTicksToGrow", 0, true);

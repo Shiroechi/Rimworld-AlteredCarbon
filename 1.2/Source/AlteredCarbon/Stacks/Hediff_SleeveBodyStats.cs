@@ -27,8 +27,9 @@ namespace AlteredCarbon
 
             foreach (var skillOffset in this.skillsOffsets)
             {
-
-                pawn.skills.GetSkill(skillOffset.skill).Level += skillOffset.offset;
+                var curLevel = pawn.skills.GetSkill(skillOffset.skill).Level + skillOffset.offset;
+                if (curLevel > 20) curLevel = 20;
+                pawn.skills.GetSkill(skillOffset.skill).Level = curLevel;
             }
 
             foreach (var skillPassionOffset in this.skillPassionsOffsets)
