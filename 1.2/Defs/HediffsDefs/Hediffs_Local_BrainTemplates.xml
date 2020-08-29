@@ -10,9 +10,17 @@
 		<isBad>false</isBad>
 		<visible>false<visible>
 		<makesSickThought>false</makesSickThought>
+		<priceImpact>false</priceImpact>
+    </HediffDef>
+	
+    <HediffDef Name="AC_BrainTemplate_Base" ParentName="DiseaseBase" Abstract="True">
+		<isBad>false</isBad>
+		<visible>false<visible>
+		<makesSickThought>false</makesSickThought>
+		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
     </HediffDef>
 
-    <HediffDef ParentName="DiseaseBase">
+    <HediffDef ParentName="AC_BrainTemplate_Base">
         <defName>AC_BrainTemplateCombat</defName>
         <label>combat sleeve</label>
         <description>This body was grown specifically for combat.</description>
@@ -35,7 +43,7 @@
         </stages>
     </HediffDef>
 
-    <HediffDef ParentName="DiseaseBase">
+    <HediffDef ParentName="AC_BrainTemplate_Base">
         <defName>AC_BrainTemplateWorker</defName>
         <label>worker sleeve</label>
         <description>This body was grown specifically for manual labour.</description>
@@ -56,7 +64,7 @@
         </stages>
     </HediffDef>
 	
-    <HediffDef ParentName="DiseaseBase">
+    <HediffDef ParentName="AC_BrainTemplate_Base">
         <defName>AC_BrainTemplateInfiltrator</defName>
         <label>infiltrator sleeve</label>
         <description>This body was grown specifically for stealth and infiltration.</description>
@@ -81,7 +89,7 @@
         </stages>
     </HediffDef>
 	
-    <HediffDef ParentName="DiseaseBase" MayRequire="Ludeon.RimWorld.Royalty">
+    <HediffDef ParentName="AC_BrainTemplate_Base" MayRequire="Ludeon.RimWorld.Royalty">
         <defName>AC_BrainTemplatePsycaster</defName>
         <label>psycaster sleeve</label>
         <description>This body was grown specifically for psycaster.</description>
