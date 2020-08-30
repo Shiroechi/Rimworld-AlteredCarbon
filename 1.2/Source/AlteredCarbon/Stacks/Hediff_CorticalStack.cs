@@ -45,6 +45,10 @@ namespace AlteredCarbon
         public Dictionary<Faction, int> permitPoints = new Dictionary<Faction, int>();
         public bool isCopied = false;
         public int stackGroupID;
+
+        public List<SkillOffsets> negativeSkillsOffsets;
+        public List<SkillOffsets> negativeSkillPassionsOffsets;
+
         public override void PostMake()
         {
             base.PostMake();
@@ -249,6 +253,8 @@ namespace AlteredCarbon
             Scribe_Values.Look<bool>(ref this.hasPawn, "hasPawn", false, false);
             Scribe_Values.Look<Gender>(ref this.gender, "gender", 0, false);
             Scribe_Defs.Look<ThingDef>(ref this.race, "race");
+            Scribe_Collections.Look<SkillOffsets>(ref negativeSkillsOffsets, "negativeSkillsOffsets", LookMode.Deep);
+            Scribe_Collections.Look<SkillOffsets>(ref negativeSkillPassionsOffsets, "negativeSkillPassionsOffsets", LookMode.Deep);
 
             if (ModLister.RoyaltyInstalled)
             {

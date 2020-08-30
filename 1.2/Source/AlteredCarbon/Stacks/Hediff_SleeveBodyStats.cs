@@ -29,14 +29,13 @@ namespace AlteredCarbon
             List<SkillOffsets> negativeSkillsOffset = new List<SkillOffsets>();
             foreach (var skillOffset in this.skillsOffsets)
             {
-
                 var curLevel = pawn.skills.GetSkill(skillOffset.skill).Level + skillOffset.offset;
                 if (curLevel > 20) curLevel = 20;
 
                 var negativeSkillOffset = new SkillOffsets
                 {
                     skill = skillOffset.skill,
-                    offset = curLevel - pawn.skills.GetSkill(skillOffset.skill).Level
+                    offset = pawn.skills.GetSkill(skillOffset.skill).Level - curLevel
                 };
                 negativeSkillsOffset.Add(negativeSkillOffset);
                 pawn.skills.GetSkill(skillOffset.skill).Level = curLevel;
@@ -45,20 +44,21 @@ namespace AlteredCarbon
 
             foreach (var skillPassionOffset in this.skillPassionsOffsets)
             {
+                Log.Message("skillPassionOffset: " + skillPassionOffset.offset, true);
                 var skill = pawn.skills.GetSkill(skillPassionOffset.skill);
                 Log.Message("(int)skill.passion: " + (int)skill.passion, true);
                 var finalValue = (int)skill.passion + skillPassionOffset.offset;
                 Log.Message("finalValue: " + finalValue, true);
-                Log.Message(skill + " - skill.passion: " + skill.passion, true);
+                Log.Message("1: " + pawn.skills.GetSkill(skillPassionOffset.skill) + " - skill.passion: " + pawn.skills.GetSkill(skillPassionOffset.skill).passion, true);
+
+                var negativeSkillOffset = new SkillOffsets
+                {
+                    skill = skillPassionOffset.skill,
+                    offset = (int)skill.passion - skillPassionOffset.offset
+                };
+                negativeSkillsPassionOffset.Add(negativeSkillOffset);
                 if (finalValue <= 2)
                 {
-                    var negativeSkillOffset = new SkillOffsets
-                    {
-                        skill = skillPassionOffset.skill,
-                        offset = (int)skill.passion - skillPassionOffset.offset
-                    };
-                    negativeSkillsPassionOffset.Add(negativeSkillOffset);
-
                     switch (finalValue)
                     {
                         case 0:
@@ -75,23 +75,33 @@ namespace AlteredCarbon
                             break;
                         default:
                             skill.passion = Passion.None;
-                            Log.Message("skill.passion = Passion.Major");
+                            Log.Message("default: skill.passion = Passion.None;");
                             break;
                     }
                 }
-                foreach (var c1 in negativeSkillsOffset)
+                else
                 {
-                    Log.Message("1 Negative: " + c1.skill + " - " + c1.offset, true);
+                    skill.passion = Passion.Major;
+                    Log.Message("2 skill.passion = Passion.Major");
                 }
-
-                foreach (var c2 in negativeSkillsPassionOffset)
-                {
-                    Log.Message("2 Negative: " + c2.skill + " - " + c2.offset, true);
-                }
-
-                Log.Message(skill + " - skill.passion: " + skill.passion, true);
-                Log.Message("----------------", true);
             }
+            foreach (var c1 in negativeSkillsOffset)
+            {
+                Log.Message("1 Negative: " + c1.skill + " - " + c1.offset, true);
+            }
+
+            foreach (var c2 in negativeSkillsPassionOffset)
+            {
+                Log.Message("2 Negative: " + c2.skill + " - " + c2.offset, true);
+            }
+            var corticalHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
+            if (corticalHediff != null)
+            {
+                corticalHediff.negativeSkillsOffsets = negativeSkillsOffset;
+                corticalHediff.negativeSkillPassionsOffsets = negativeSkillsPassionOffset;
+            }
+            Log.Message("corticalHediff: " + corticalHediff, true);
+            Log.Message("----------------", true);
         }
         public override void ExposeData()
         {
