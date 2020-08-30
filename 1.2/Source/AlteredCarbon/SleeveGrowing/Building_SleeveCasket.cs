@@ -20,7 +20,7 @@ namespace AlteredCarbon
                 {
 					Log.Message(this.Rotation.ToStringWord().ToLower());
 					glass = GraphicDatabase.Get<Graphic_Single>("Things/Building/Misc/SleeveCasketTop_" + this.Rotation.ToStringWord().ToLower(), ShaderDatabase.MetaOverlay,
-						this.def.graphicData.drawSize, Color.white);
+						new Vector2(1, 2), Color.white);
 				}
 				return glass;
             }

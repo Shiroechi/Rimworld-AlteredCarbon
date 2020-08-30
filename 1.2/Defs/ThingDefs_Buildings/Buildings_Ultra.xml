@@ -97,6 +97,8 @@
         <defName>AC_SleeveCasket</defName>
         <label>sleeve casket</label>
         <description>test</description>
+		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
+        <drawerType>RealtimeOnly</drawerType>
         <graphicData>
             <texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
             <graphicClass>Graphic_Multi</graphicClass>

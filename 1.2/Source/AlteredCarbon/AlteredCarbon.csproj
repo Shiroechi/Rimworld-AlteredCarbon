@@ -317,6 +317,7 @@
     <Compile Include="Jobs\JobDriver_InsertBrainTemplate.cs" />
     <Compile Include="Jobs\WorkGiver_ExtractBrainTemplate.cs" />
     <Compile Include="Jobs\WorkGiver_InsertBrainTemplate.cs" />
+    <Compile Include="SleeveGrowing\Building_SleeveCasket.cs" />
     <Compile Include="SleeveGrowing\CompProperties_SleeveGrowerPostDraw.cs" />
     <Compile Include="SleeveGrowing\CompSleeveGrowerPostDraw.cs" />
     <Compile Include="Jobs\JobDriver_ReleaseSleeve.cs" />
