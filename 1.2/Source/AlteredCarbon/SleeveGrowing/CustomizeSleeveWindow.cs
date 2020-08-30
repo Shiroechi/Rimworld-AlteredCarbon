@@ -36,7 +36,7 @@ namespace AlteredCarbon
         {
             get
             {
-                if (!AlienRaceCompat.AlienRacesIsActive)
+                if (!ModCompatibility.AlienRacesIsActive)
                 {
                     return new Vector2(728f, 538f);   //860x570
                 }
@@ -247,7 +247,7 @@ namespace AlteredCarbon
             btnSkinColour4 = new Rect(btnSkinColour3.x + 5 + smallButtonOptionWidth, btnSkinColourOutline.y + 5, smallButtonOptionWidth, btnSkinColourOutline.height - 10);
             btnSkinColour5 = new Rect(btnSkinColour4.x + 5 + smallButtonOptionWidth, btnSkinColourOutline.y + 5, smallButtonOptionWidth, btnSkinColourOutline.height - 10);
 
-            if (!AlienRaceCompat.AlienRacesIsActive)
+            if (!ModCompatibility.AlienRacesIsActive)
             {
                 //head shape
                 lblHeadShape = new Rect(leftOffset, returnYfromPrevious(lblSkinColour), labelWidth, buttonHeight);
@@ -548,14 +548,14 @@ namespace AlteredCarbon
                     newSleeve = GetNewPawn(Gender.Female);
                 }
 
-                if (AlienRaceCompat.AlienRacesIsActive)
+                if (ModCompatibility.AlienRacesIsActive)
                 {
                     //Alien races
                     Widgets.Label(lblRaceChange, "SelectRace".Translate().CapitalizeFirst() + ":");
                     Widgets.DrawHighlight(btnRaceChangeOutline);
                     if (ButtonTextSubtleCentered(btnRaceChangeArrowLeft, "<"))
                     {
-                        var allDefs = AlienRaceCompat.GetAllAlienRaces(this.raceOptions);
+                        var allDefs = ModCompatibility.GetAllAlienRaces(this.raceOptions);
                         if (raceTypeIndex == 0)
                         {
                             raceTypeIndex = allDefs.Count() - 1;
@@ -570,7 +570,7 @@ namespace AlteredCarbon
                     }
                     if (ButtonTextSubtleCentered(btnRaceChangeSelection, "RaceTypeReplace".Translate()))
                     {
-                        var allDefs = AlienRaceCompat.GetAllAlienRaces(this.raceOptions);
+                        var allDefs = ModCompatibility.GetAllAlienRaces(this.raceOptions);
                         IEnumerable<ThingDef> races = from racedef in allDefs select racedef;
                         FloatMenuUtility.MakeMenu<ThingDef>(races, raceDef => raceDef.LabelCap, (ThingDef raceDef) => delegate
                         {
@@ -581,7 +581,7 @@ namespace AlteredCarbon
                     }
                     if (ButtonTextSubtleCentered(btnRaceChangeArrowRight, ">"))
                     {
-                        var allDefs = AlienRaceCompat.GetAllAlienRaces(this.raceOptions);
+                        var allDefs = ModCompatibility.GetAllAlienRaces(this.raceOptions);
                         if (raceTypeIndex == allDefs.Count() - 1)
                         {
                             raceTypeIndex = 0;
@@ -635,9 +635,9 @@ namespace AlteredCarbon
                 if (Widgets.ButtonInvisible(btnSkinColour1))
                 {
                     selectedRaceBtn = 1;
-                    if (AlienRaceCompat.AlienRacesIsActive)
+                    if (ModCompatibility.AlienRacesIsActive)
                     {
-                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(242, 237, 224));
+                        ModCompatibility.SetSkinColor(newSleeve, rgbConvert(242, 237, 224));
                     }
                     else
                     {
@@ -650,9 +650,9 @@ namespace AlteredCarbon
                 if (Widgets.ButtonInvisible(btnSkinColour2))
                 {
                     selectedRaceBtn = 2;
-                    if (AlienRaceCompat.AlienRacesIsActive)
+                    if (ModCompatibility.AlienRacesIsActive)
                     {
-                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(255, 239, 213));
+                        ModCompatibility.SetSkinColor(newSleeve, rgbConvert(255, 239, 213));
                     }
                     else
                     {
@@ -665,9 +665,9 @@ namespace AlteredCarbon
                 if (Widgets.ButtonInvisible(btnSkinColour3))
                 {
                     selectedRaceBtn = 3;
-                    if (AlienRaceCompat.AlienRacesIsActive)
+                    if (ModCompatibility.AlienRacesIsActive)
                     {
-                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(255, 239, 189));
+                        ModCompatibility.SetSkinColor(newSleeve, rgbConvert(255, 239, 189));
                     }
                     else
                     {
@@ -680,9 +680,9 @@ namespace AlteredCarbon
                 if (Widgets.ButtonInvisible(btnSkinColour4))
                 {
                     selectedRaceBtn = 4;
-                    if (AlienRaceCompat.AlienRacesIsActive)
+                    if (ModCompatibility.AlienRacesIsActive)
                     {
-                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(228, 158, 90));
+                        ModCompatibility.SetSkinColor(newSleeve, rgbConvert(228, 158, 90));
                     }
                     else
                     {
@@ -695,9 +695,9 @@ namespace AlteredCarbon
                 if (Widgets.ButtonInvisible(btnSkinColour5))
                 {
                     selectedRaceBtn = 5;
-                    if (AlienRaceCompat.AlienRacesIsActive)
+                    if (ModCompatibility.AlienRacesIsActive)
                     {
-                        AlienRaceCompat.SetSkinColor(newSleeve, rgbConvert(130, 91, 48));
+                        ModCompatibility.SetSkinColor(newSleeve, rgbConvert(130, 91, 48));
                     }
                     else
                     {

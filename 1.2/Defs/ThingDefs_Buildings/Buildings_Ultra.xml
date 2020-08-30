@@ -118,6 +118,7 @@
             <SurgerySuccessChanceFactor>2.0</SurgerySuccessChanceFactor>
         </statBases>
         <comps>
+			<li Class="AlteredCarbon.CompProperties_SleeveCasketPostDraw"></li>
             <li Class="CompProperties_AffectedByFacilities">
                 <linkableFacilities>
                     <li>VitalsMonitor</li>

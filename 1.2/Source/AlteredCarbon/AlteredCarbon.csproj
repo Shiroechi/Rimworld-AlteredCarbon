@@ -44,6 +44,10 @@
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SyrTraits">
+      <HintPath>..\..\..\..\[SYR] Individuality\Assemblies\SyrTraits.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -310,6 +314,7 @@
     <Compile Include="BrainTemplates\SkillOffsets.cs" />
     <Compile Include="BrainTemplates\CompProperties_BrainTemplate.cs" />
     <Compile Include="BrainTemplates\CompBrainTemplate.cs" />
+    <Compile Include="HarmonyPatches\Patch_FindBedFor.cs" />
     <Compile Include="HarmonyPatches\RecipePatches.cs" />
     <Compile Include="HarmonyPatches\Patch_CheckRecalculateMoodThoughts.cs" />
     <Compile Include="Jobs\JobDriver_DestroyStack.cs" />
@@ -318,7 +323,9 @@
     <Compile Include="Jobs\WorkGiver_ExtractBrainTemplate.cs" />
     <Compile Include="Jobs\WorkGiver_InsertBrainTemplate.cs" />
     <Compile Include="SleeveGrowing\Building_SleeveCasket.cs" />
+    <Compile Include="SleeveGrowing\CompProperties_SleeveCasketPostDraw.cs" />
     <Compile Include="SleeveGrowing\CompProperties_SleeveGrowerPostDraw.cs" />
+    <Compile Include="SleeveGrowing\CompSleeveCasketPostDraw.cs" />
     <Compile Include="SleeveGrowing\CompSleeveGrowerPostDraw.cs" />
     <Compile Include="Jobs\JobDriver_ReleaseSleeve.cs" />
     <Compile Include="SleeveGrowing\GraphicDatabaseHeadRecords.cs" />

@@ -46,6 +46,9 @@ namespace AlteredCarbon
         public bool isCopied = false;
         public int stackGroupID;
 
+        public int sexuality;
+        public float romanceFactor;
+
         public List<SkillOffsets> negativeSkillsOffsets;
         public List<SkillOffsets> negativeSkillPassionsOffsets;
 
@@ -164,6 +167,12 @@ namespace AlteredCarbon
                 this.factionPermits = Traverse.Create(pawn.royalty).Field("factionPermits").GetValue<List<FactionPermit>>();
                 this.permitPoints = Traverse.Create(pawn.royalty).Field("permitPoints").GetValue<Dictionary<Faction, int>>();
             }
+
+            if (ModCompatibility.IndividualityIsActive)
+            {
+                this.sexuality = ModCompatibility.GetSexuality(pawn);
+                this.romanceFactor = ModCompatibility.GetRomanceFactor(pawn);
+            }
         }
 
         public override void Notify_PawnDied()
@@ -270,6 +279,8 @@ namespace AlteredCarbon
                 Scribe_Collections.Look(ref permitPoints, "permitPoints", LookMode.Reference, LookMode.Value, ref tmpPermitFactions, ref tmpPermitPointsAmounts);
                 Scribe_Collections.Look(ref factionPermits, "permits", LookMode.Deep);
             }
+            Scribe_Values.Look<int>(ref this.sexuality, "sexuality", -1);
+            Scribe_Values.Look<float>(ref this.romanceFactor, "romanceFactor", -1f);
         }
 
         private List<Faction> favorKeys = new List<Faction>();

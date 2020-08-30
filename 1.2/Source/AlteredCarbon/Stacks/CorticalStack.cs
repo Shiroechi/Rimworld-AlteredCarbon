@@ -41,12 +41,18 @@ namespace AlteredCarbon
 
         public string pawnID;
 
+        // Royalty
         public List<RoyalTitle> royalTitles;
         public Dictionary<Faction, int> favor = new Dictionary<Faction, int>();
         public Dictionary<Faction, Pawn> heirs = new Dictionary<Faction, Pawn>();
         public List<Thing> bondedThings = new List<Thing>();
         public List<FactionPermit> factionPermits = new List<FactionPermit>();
         public Dictionary<Faction, int> permitPoints = new Dictionary<Faction, int>();
+
+        // [SYR] Individuality
+        public int sexuality;
+        public float romanceFactor;
+
 
         public bool isCopied = false;
         public int stackGroupID;
@@ -351,6 +357,9 @@ namespace AlteredCarbon
             }
             this.isCopied = hediff.isCopied;
             this.stackGroupID = hediff.stackGroupID;
+
+            this.sexuality = hediff.sexuality;
+            this.romanceFactor = hediff.romanceFactor;
         }
 
         public void SavePawnToCorticalStack(Pawn pawn)
@@ -455,6 +464,12 @@ namespace AlteredCarbon
                 this.factionPermits = Traverse.Create(pawn.royalty).Field("factionPermits").GetValue<List<FactionPermit>>();
                 this.permitPoints = Traverse.Create(pawn.royalty).Field("permitPoints").GetValue<Dictionary<Faction, int>>();
             }
+
+            if (ModCompatibility.IndividualityIsActive)
+            {
+                this.sexuality = ModCompatibility.GetSexuality(pawn);
+                this.romanceFactor = ModCompatibility.GetRomanceFactor(pawn);
+            }
         }
 
         public void CopyFromOtherStack(CorticalStack otherStack)
@@ -505,6 +520,9 @@ namespace AlteredCarbon
             }
             this.isCopied = true;
             this.stackGroupID = otherStack.stackGroupID;
+
+            this.sexuality = otherStack.sexuality;
+            this.romanceFactor = otherStack.romanceFactor;
         }
 
         public Pawn GetOriginalPawn(Pawn pawn)
@@ -817,6 +835,11 @@ namespace AlteredCarbon
                     Traverse.Create(pawn.royalty).Field("permitPoints").SetValue(this.permitPoints);
                 }
             }
+            if (ModCompatibility.IndividualityIsActive)
+            {
+                ModCompatibility.SetSexuality(pawn, this.sexuality);
+                ModCompatibility.SetRomanceFactor(pawn, this.romanceFactor);
+            }
         }
 
         public override void ExposeData()
@@ -869,6 +892,8 @@ namespace AlteredCarbon
                 Scribe_Collections.Look(ref permitPoints, "permitPoints", LookMode.Reference, LookMode.Value, ref tmpPermitFactions, ref tmpPermitPointsAmounts);
                 Scribe_Collections.Look(ref factionPermits, "permits", LookMode.Deep);
             }
+            Scribe_Values.Look<int>(ref this.sexuality, "sexuality", -1);
+            Scribe_Values.Look<float>(ref this.romanceFactor, "romanceFactor", -1f);
         }
 
         private List<Faction> favorKeys = new List<Faction>();
