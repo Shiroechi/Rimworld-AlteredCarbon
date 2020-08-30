@@ -103,7 +103,7 @@
             <texPath>Things/Building/Furniture/Bed/SleeveCasket</texPath>
             <graphicClass>Graphic_Multi</graphicClass>
             <shaderType>CutoutComplex</shaderType>
-            <drawSize>(2.2,2.2)</drawSize>
+            <drawSize>(2,2)</drawSize>
         </graphicData>
         <castEdgeShadows>True</castEdgeShadows>
         <statBases>
@@ -117,7 +117,7 @@
             <MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
             <SurgerySuccessChanceFactor>2.0</SurgerySuccessChanceFactor>
         </statBases>
-        <size>(1.2,2.2)</size>
+        <size>(1,2)</size>
         <costList>
             <Steel>80</Steel>
             <ComponentIndustrial>5</ComponentIndustrial>
