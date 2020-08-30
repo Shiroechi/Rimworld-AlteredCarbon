@@ -24,6 +24,42 @@ namespace AlteredCarbon
 
         }
 
+        public override void GameComponentTick()
+        {
+            base.GameComponentTick();
+            if (Find.TickManager.TicksGame % 60 == 0 && this.stacksRelationships != null)
+            {
+                foreach (var stackGroup in this.stacksRelationships)
+                {
+                    Log.Message("stackGroup: " + stackGroup.Key, true);
+                    Log.Message("originalPawn: " + stackGroup.Value.originalPawn + " - " + stackGroup.Value.originalPawn?.GetHashCode());
+                    Log.Message("originalStack: " + stackGroup.Value.originalStack);
+                    if (stackGroup.Value.copiedPawns != null)
+                    {
+                        foreach (var p in stackGroup.Value.copiedPawns)
+                        {
+                            Log.Message("copiedPawns: " + p);
+                        }
+                    }
+                    if (stackGroup.Value.copiedStacks != null)
+                    {
+                        foreach (var p in stackGroup.Value.copiedStacks)
+                        {
+                            Log.Message("copiedStacks: " + p);
+                        }
+                    }
+                    if (stackGroup.Value.deadPawns != null)
+                    {
+                        foreach (var p in stackGroup.Value.deadPawns)
+                        {
+                            Log.Message("deadPawns: " + p);
+                        }
+                    }
+                }
+
+                Log.Message("-----------", true);
+            }
+        }
         public void ResetStackLimitIfNeeded(ThingDef def)
         {
             if (def.stackLimit > 1)
@@ -40,7 +76,6 @@ namespace AlteredCarbon
             if (this.pawnsWithStacks == null) this.pawnsWithStacks = new HashSet<Pawn>();
             if (this.emptySleeves == null) this.emptySleeves = new HashSet<Pawn>();
             if (this.deadPawns == null) this.deadPawns = new HashSet<Pawn>();
-            ResetStackLimitIfNeeded(AlteredCarbonDefOf.AC_EmptyCorticalStack);
             ResetStackLimitIfNeeded(AlteredCarbonDefOf.AC_FilledCorticalStack);
         }
 
@@ -52,7 +87,6 @@ namespace AlteredCarbon
             if (this.pawnsWithStacks == null) this.pawnsWithStacks = new HashSet<Pawn>();
             if (this.emptySleeves == null) this.emptySleeves = new HashSet<Pawn>();
             if (this.deadPawns == null) this.deadPawns = new HashSet<Pawn>();
-            ResetStackLimitIfNeeded(AlteredCarbonDefOf.AC_EmptyCorticalStack);
             ResetStackLimitIfNeeded(AlteredCarbonDefOf.AC_FilledCorticalStack);
         }
 
@@ -127,8 +161,14 @@ namespace AlteredCarbon
             Log.Message(" - ReplacePawnWithStack - if (hediff != null) - 3", true);
             if (hediff != null)
             {
+                Log.Message("1 stack.stackGroupID: " + stack.stackGroupID, true);
+                Log.Message("1 hediff.stackGroupID: " + hediff.stackGroupID, true);
+
                 Log.Message(" - ReplacePawnWithStack - stack.stackGroupID = hediff.stackGroupID; - 4", true);
                 stack.stackGroupID = hediff.stackGroupID;
+                Log.Message("2 stack.stackGroupID: " + stack.stackGroupID, true);
+                Log.Message("2 hediff.stackGroupID: " + hediff.stackGroupID, true);
+
                 Log.Message(" - ReplacePawnWithStack - if (this.stacksRelationships.ContainsKey(hediff.stackGroupID)) - 5", true);
                 if (this.stacksRelationships.ContainsKey(hediff.stackGroupID))
                 {
@@ -222,11 +262,32 @@ namespace AlteredCarbon
 
 
 
-        public void RegisterSleeve(Pawn pawn)
+        public void RegisterSleeve(Pawn pawn, int stackGroupID = -1)
         {
             ACUtils.ACTracker.pawnsWithStacks.Remove(pawn);
             if (ACUtils.ACTracker.emptySleeves == null) ACUtils.ACTracker.emptySleeves = new HashSet<Pawn>();
             ACUtils.ACTracker.emptySleeves.Add(pawn);
+            if (stackGroupID != -1)
+            {
+                Log.Message("stackGroupID: " + stackGroupID, true);
+                if (this.stacksRelationships[stackGroupID].deadPawns == null) 
+                    this.stacksRelationships[stackGroupID].deadPawns = new List<Pawn>();
+                this.stacksRelationships[stackGroupID].deadPawns.Add(pawn);
+            }
+        }
+
+        public int GetStackGroupID(CorticalStack corticalStack)
+        {
+            if (corticalStack.stackGroupID != 0) return corticalStack.stackGroupID;
+
+            if (ACUtils.ACTracker.stacksRelationships != null)
+            {
+                return ACUtils.ACTracker.stacksRelationships.Count + 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public override void ExposeData()

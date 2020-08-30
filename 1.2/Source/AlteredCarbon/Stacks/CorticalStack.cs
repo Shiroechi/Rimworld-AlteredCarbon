@@ -66,15 +66,7 @@ namespace AlteredCarbon
                 this.SavePawnToCorticalStack(pawn);
                 this.gender = pawn.gender;
                 this.race = pawn.kindDef.race;
-
-                if (ACUtils.ACTracker.stacksRelationships != null)
-                {
-                    this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
-                }
-                else
-                {
-                    this.stackGroupID = 0;
-                }
+                this.stackGroupID = ACUtils.ACTracker.GetStackGroupID(this);
                 ACUtils.ACTracker.RegisterStack(this);
             }
             base.SpawnSetup(map, respawningAfterLoad);
@@ -846,6 +838,10 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                Log.Message(this + " - " + this.stackGroupID, true);
+            }
             Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
             Scribe_References.Look<Pawn>(ref this.origPawn, "origPawn", true);

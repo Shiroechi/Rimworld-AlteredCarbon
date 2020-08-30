@@ -314,6 +314,7 @@
     <Compile Include="BrainTemplates\SkillOffsets.cs" />
     <Compile Include="BrainTemplates\CompProperties_BrainTemplate.cs" />
     <Compile Include="BrainTemplates\CompBrainTemplate.cs" />
+    <Compile Include="HarmonyPatches\Resurrect_Patch.cs" />
     <Compile Include="HarmonyPatches\LayingFacing_Patch.cs" />
     <Compile Include="HarmonyPatches\Patch_Bed.cs" />
     <Compile Include="HarmonyPatches\RecipePatches.cs" />
@@ -334,7 +335,7 @@
     <Compile Include="SleeveGrowing\Building_SleeveGrower.cs" />
     <Compile Include="SleeveGrowing\CustomizeSleeveWindow.cs" />
     <Compile Include="ExcludeRacesModExtension.cs" />
-    <Compile Include="StackSpawnModExtension - Copy.cs" />
+    <Compile Include="RoyalTitlePermitWorker_CallNeuroformers.cs" />
     <Compile Include="Stacks\BackstoryDef.cs" />
     <Compile Include="Stacks\Hediff_SleeveBodyStats.cs" />
     <Compile Include="Stacks\StacksData.cs" />

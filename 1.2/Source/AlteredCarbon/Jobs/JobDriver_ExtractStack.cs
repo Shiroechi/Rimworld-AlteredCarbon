@@ -42,7 +42,7 @@ namespace AlteredCarbon
                             }
                             GenPlace.TryPlaceThing(corticalStack, TargetThingA.Position, GetActor().Map, ThingPlaceMode.Near);
                             ACUtils.ACTracker.RegisterStack(corticalStack);
-                            ACUtils.ACTracker.RegisterSleeve(corpse.InnerPawn);
+                            ACUtils.ACTracker.RegisterSleeve(corpse.InnerPawn, corticalStack.stackGroupID);
                         }
                         var head = corpse.InnerPawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);
                         if (head != null)

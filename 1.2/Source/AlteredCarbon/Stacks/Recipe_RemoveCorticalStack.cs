@@ -45,12 +45,16 @@ namespace AlteredCarbon
 						corticalStack.SavePawnFromHediff(hediff);
 						corticalStack.gender = hediff.gender;
 						corticalStack.race = hediff.race;
-
+						//if (hediff.stackGroupID == 0)
+                        //{
+						//	corticalStack.stackGroupID = ACUtils.ACTracker.GetStackGroupID(corticalStack);
+						//}
 						GenPlace.TryPlaceThing(corticalStack, billDoer.Position, billDoer.Map, ThingPlaceMode.Near);
 						if (ACUtils.ACTracker.stacksIndex == null) ACUtils.ACTracker.stacksIndex = new Dictionary<string, CorticalStack>();
 						ACUtils.ACTracker.stacksIndex[pawn.ThingID + pawn.Name] = corticalStack;
-						ACUtils.ACTracker.RegisterSleeve(pawn);
 						ACUtils.ACTracker.ReplacePawnWithStack(pawn, corticalStack);
+						ACUtils.ACTracker.RegisterSleeve(pawn);
+						Log.Message("corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
 					}
 					ACUtils.ACTracker.deadPawns.Add(pawn);
 					var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);

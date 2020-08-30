@@ -59,9 +59,14 @@ namespace AlteredCarbon
             {
                 var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
                 pawn.health.AddHediff(hediff, part);
-                hediff.stackGroupID = corticalStack.stackGroupID;
+                Log.Message("hediff.stackGroupID: " + hediff.stackGroupID, true);
+                Log.Message("hediff.stackGroupID: " + hediff.stackGroupID, true);
+
+                Log.Message("1 hediff.stackGroupID: " + hediff.stackGroupID, true);
+                Log.Message("1 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
                 if (corticalStack.hasPawn)
                 {
+                    hediff.stackGroupID = corticalStack.stackGroupID;
                     hediff.gender = corticalStack.gender;
                     hediff.race = corticalStack.race;
                     if (pawn.IsColonist)
@@ -91,10 +96,11 @@ namespace AlteredCarbon
                 }
                 else
                 {
-                    corticalStack.gender = pawn.gender;
+                    Log.Message("1.5 hediff.stackGroupID: " + hediff.stackGroupID, true);
+                    Log.Message("1.5 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
                     hediff.gender = pawn.gender;
-                    corticalStack.race = pawn.kindDef.race;
                     hediff.race = pawn.kindDef.race;
+                    hediff.stackGroupID = ACUtils.ACTracker.GetStackGroupID(corticalStack);
                 }
 
                 var additionalSleeveBodyData = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_SleeveBodyData) as Hediff_SleeveBodyStats;
@@ -102,6 +108,9 @@ namespace AlteredCarbon
                 {
                     additionalSleeveBodyData.ApplyEffects();
                 }
+
+                Log.Message("2 hediff.stackGroupID: " + hediff.stackGroupID, true);
+                Log.Message("2 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
             }
         }
     }
