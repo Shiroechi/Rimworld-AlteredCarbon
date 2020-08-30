@@ -96,7 +96,7 @@
     <ThingDef ParentName="BedWithQualityBase">
         <defName>AC_SleeveCasket</defName>
         <label>sleeve casket</label>
-        <description>test</description>
+        <description>An ultra-tech casket used for storing grown sleeves before their stack is installed. It uses crypto tech technology to suspend the needs of the sleeves body, while still allowing for the installation of implants or bionics.</description>
 		<thingClass>AlteredCarbon.Building_SleeveCasket</thingClass>
         <drawerType>RealtimeOnly</drawerType>
         <graphicData>
@@ -117,14 +117,6 @@
             <MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
             <SurgerySuccessChanceFactor>2.0</SurgerySuccessChanceFactor>
         </statBases>
-        <comps>
-			<li Class="AlteredCarbon.CompProperties_SleeveCasketPostDraw"></li>
-            <li Class="CompProperties_AffectedByFacilities">
-                <linkableFacilities>
-                    <li>VitalsMonitor</li>
-                </linkableFacilities>
-            </li>
-        </comps>
         <size>(1,2)</size>
         <costList>
             <Steel>80</Steel>
@@ -142,11 +134,19 @@
         <staticSunShadowHeight>0.17</staticSunShadowHeight>
         <designationHotKey>Misc5</designationHotKey>
         <researchPrerequisites>
-            <li>HospitalBed</li>
+            <li>AC_SleeveProduction</li>
         </researchPrerequisites>
-        <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
-        <techLevel>Industrial</techLevel>
-        <uiIconScale>0.90</uiIconScale>
+        <constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+        <techLevel>Ultra</techLevel>
+        <uiIconScale>1.0</uiIconScale>
+        <comps>
+			<li Class="AlteredCarbon.CompProperties_SleeveCasketPostDraw"></li>
+            <li Class="CompProperties_AffectedByFacilities">
+                <linkableFacilities>
+                    <li>VitalsMonitor</li>
+                </linkableFacilities>
+            </li>
+        </comps>
     </ThingDef>
 
 </Defs>
