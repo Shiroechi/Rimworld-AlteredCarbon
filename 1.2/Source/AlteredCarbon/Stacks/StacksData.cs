@@ -18,9 +18,9 @@ namespace AlteredCarbon
         {
             Scribe_References.Look<Pawn>(ref originalPawn, "originalPawn", true);
             Scribe_References.Look<CorticalStack>(ref originalStack, "originalStack", true);
-            Scribe_Collections.Look<Pawn>(ref copiedPawns, "copiedPawns", LookMode.Reference);
+            Scribe_Collections.Look<Pawn>(ref copiedPawns, saveDestroyedThings: true, "copiedPawns", LookMode.Reference);
             Scribe_Collections.Look<CorticalStack>(ref copiedStacks, "copiedStacks", LookMode.Reference);
-            Scribe_Collections.Look<Pawn>(ref deadPawns, "deadPawns", LookMode.Reference);
+            Scribe_Collections.Look<Pawn>(ref deadPawns, saveDestroyedThings: true, "deadPawns", LookMode.Reference);
 
         }
     }

@@ -52,19 +52,16 @@ namespace AlteredCarbon
         public List<SkillOffsets> negativeSkillsOffsets;
         public List<SkillOffsets> negativeSkillPassionsOffsets;
 
-        public override void PostMake()
+        public override void PostAdd(DamageInfo? dinfo)
         {
-            base.PostMake();
-            if (ACUtils.ACTracker.stacksRelationships != null)
+            base.PostAdd(dinfo);
+            var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_EmptySleeve);
+            if (emptySleeveHediff != null)
             {
-                this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
+                pawn.health.RemoveHediff(emptySleeveHediff);
             }
-            else
-            {
-                this.stackGroupID = 0;
-            }
-            Log.Message("this.stackGroupID: " + this.stackGroupID, true);
         }
+
         public override bool ShouldRemove => false;
         public void SavePawn(Pawn pawn)
         {
@@ -194,30 +191,6 @@ namespace AlteredCarbon
             base.Notify_PawnKilled();
         }
 
-        public override void PostAdd(DamageInfo? dinfo)
-        {
-            base.PostAdd(dinfo);
-            this.gender = pawn.gender;
-            this.race = pawn.kindDef.race;
-
-            if (ACUtils.ACTracker.stacksRelationships != null)
-            {
-                this.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
-            }
-            else
-            {
-                this.stackGroupID = 0;
-            }
-            var emptySleeveHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_EmptySleeve);
-            if (emptySleeveHediff != null)
-            {
-                pawn.health.RemoveHediff(emptySleeveHediff);
-            }
-
-            ACUtils.ACTracker.RegisterPawn(pawn);
-            ACUtils.ACTracker.TryAddRelationships(pawn);
-        }
-
         public override void PostRemoved()
         {
             base.PostRemoved();
@@ -227,6 +200,7 @@ namespace AlteredCarbon
                 this.pawn.Kill(null);
                 Notify_ColonistKilled_Patch.DisableKilledEffect = false;
             }
+            Log.Message("2 Killing the pawn: " + this.stackGroupID, true);
         }
         public override void ExposeData()
         {

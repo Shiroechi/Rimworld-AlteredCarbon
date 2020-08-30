@@ -66,7 +66,6 @@ namespace AlteredCarbon
                 Log.Message("1 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
                 if (corticalStack.hasPawn)
                 {
-                    hediff.stackGroupID = corticalStack.stackGroupID;
                     hediff.gender = corticalStack.gender;
                     hediff.race = corticalStack.race;
                     if (pawn.IsColonist)
@@ -77,6 +76,7 @@ namespace AlteredCarbon
                     pawn.health.NotifyPlayerOfKilled(null, null, null);
                     ACUtils.ACTracker.stacksIndex.Remove(corticalStack.pawnID + corticalStack.name);
                     corticalStack.OverwritePawn(pawn);
+                    hediff.stackGroupID = corticalStack.stackGroupID;
                     ACUtils.ACTracker.ReplaceStackWithPawn(corticalStack, pawn);
 
                     var naturalMood = pawn.story.traits.GetTrait(TraitDefOf.NaturalMood);
@@ -96,11 +96,18 @@ namespace AlteredCarbon
                 }
                 else
                 {
-                    Log.Message("1.5 hediff.stackGroupID: " + hediff.stackGroupID, true);
-                    Log.Message("1.5 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
                     hediff.gender = pawn.gender;
                     hediff.race = pawn.kindDef.race;
-                    hediff.stackGroupID = ACUtils.ACTracker.GetStackGroupID(corticalStack);
+                    if (ACUtils.ACTracker.stacksRelationships != null)
+                    {
+                        hediff.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
+                    }
+                    else
+                    {
+                        hediff.stackGroupID = 0;
+                    }
+                    ACUtils.ACTracker.RegisterPawn(pawn);
+                    ACUtils.ACTracker.TryAddRelationships(pawn);
                 }
 
                 var additionalSleeveBodyData = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_SleeveBodyData) as Hediff_SleeveBodyStats;
@@ -108,7 +115,6 @@ namespace AlteredCarbon
                 {
                     additionalSleeveBodyData.ApplyEffects();
                 }
-
                 Log.Message("2 hediff.stackGroupID: " + hediff.stackGroupID, true);
                 Log.Message("2 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
             }

@@ -30,8 +30,17 @@ namespace AlteredCarbon
                     var hediff = HediffMaker.MakeHediff(AlteredCarbonDefOf.AC_CorticalStack, pawn, neckRecord) as Hediff_CorticalStack;
                     hediff.gender = pawn.gender;
                     hediff.race = pawn.kindDef.race;
+                    if (ACUtils.ACTracker.stacksRelationships != null)
+                    {
+                        hediff.stackGroupID = ACUtils.ACTracker.stacksRelationships.Count + 1;
+                    }
+                    else
+                    {
+                        hediff.stackGroupID = 0;
+                    }
                     pawn.health.AddHediff(hediff, neckRecord);
                     ACUtils.ACTracker.RegisterPawn(pawn);
+                    ACUtils.ACTracker.TryAddRelationships(pawn);
                 }
             }
         }

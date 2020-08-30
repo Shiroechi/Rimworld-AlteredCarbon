@@ -28,9 +28,9 @@ namespace AlteredCarbon
         public static bool IsCopy(this Pawn pawn)
         {
             var hediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
-            if (ACTracker.stacksRelationships.ContainsKey(hediff.stackGroupID))
+            if (hediff != null && ACTracker.stacksRelationships.ContainsKey(hediff.stackGroupID))
             {
-                if (ACTracker.stacksRelationships[hediff.stackGroupID].originalPawn != null 
+                if (ACTracker.stacksRelationships[hediff.stackGroupID].originalPawn != null
                     && pawn != ACTracker.stacksRelationships[hediff.stackGroupID].originalPawn)
                 {
                     return true;
@@ -42,6 +42,22 @@ namespace AlteredCarbon
                         if (pawn == copiedPawn)
                         {
                             return true;
+                        }
+                    }
+                }
+            }
+            else if (ACTracker.stacksRelationships != null)
+            {
+                foreach (var stackGroup in ACTracker.stacksRelationships)
+                {
+                    if (stackGroup.Value.copiedPawns != null)
+                    {
+                        foreach (var copiedPawn in stackGroup.Value.copiedPawns)
+                        {
+                            if (pawn == copiedPawn)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }

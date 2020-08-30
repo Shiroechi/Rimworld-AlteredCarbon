@@ -74,10 +74,10 @@ namespace AlteredCarbon
 
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
         {
-            foreach (var skill in this.skills)
-            {
-                Log.Message(skill.def + " - " + skill.levelInt + " - " + skill.passion, true);
-            }
+            //foreach (var skill in this.skills)
+            //{
+            //    Log.Message(skill.def + " - " + skill.levelInt + " - " + skill.passion, true);
+            //}
             if (!ReachabilityUtility.CanReach(myPawn, this, PathEndMode.InteractionCell, Danger.Deadly, false, 0))
             {
                 FloatMenuOption floatMenuOption = new FloatMenuOption(Translator.Translate("CannotUseNoPath"), null,

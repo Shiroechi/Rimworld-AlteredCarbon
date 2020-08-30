@@ -24,28 +24,28 @@ namespace AlteredCarbon
             {
                 foreach (var stackGroup in ACUtils.ACTracker.stacksRelationships)
                 {
-                    Log.Message("stackGroup: " + stackGroup.Key, true);
-                    Log.Message("originalPawn: " + stackGroup.Value.originalPawn + " - " + stackGroup.Value.originalPawn?.GetHashCode());
-                    Log.Message("originalStack: " + stackGroup.Value.originalStack);
+                    Log.Message("2 stackGroup: " + stackGroup.Key, true);
+                    Log.Message("2 originalPawn: " + stackGroup.Value.originalPawn + " - " + stackGroup.Value.originalPawn?.GetHashCode());
+                    Log.Message("2 originalStack: " + stackGroup.Value.originalStack);
                     if (stackGroup.Value.copiedPawns != null)
                     {
                         foreach (var p in stackGroup.Value.copiedPawns)
                         {
-                            Log.Message("copiedPawns: " + p);
+                            Log.Message("2 copiedPawns: " + p);
                         }
                     }
                     if (stackGroup.Value.copiedStacks != null)
                     {
                         foreach (var p in stackGroup.Value.copiedStacks)
                         {
-                            Log.Message("copiedStacks: " + p);
+                            Log.Message("2 copiedStacks: " + p);
                         }
                     }
                     if (stackGroup.Value.deadPawns != null)
                     {
                         foreach (var p in stackGroup.Value.deadPawns)
                         {
-                            Log.Message("deadPawns: " + p);
+                            Log.Message("2 deadPawns: " + p);
                         }
                     }
 
@@ -53,11 +53,12 @@ namespace AlteredCarbon
                     {
                         Log.Message("Found stackGroup");
                         stackGroup.Value.deadPawns.Remove(___pawn);
-                        stackGroup.Value.copiedPawns.Remove(___pawn);
+                        stackGroup.Value.copiedPawns.Add(___pawn);
                         if (ACUtils.ACTracker.emptySleeves != null && ACUtils.ACTracker.emptySleeves.Contains(___pawn))
                         {
                             ACUtils.ACTracker.emptySleeves.Remove(___pawn);
                         }
+                        ACUtils.ACTracker.TryAddRelationships(___pawn);
                     }
                 }
             }
