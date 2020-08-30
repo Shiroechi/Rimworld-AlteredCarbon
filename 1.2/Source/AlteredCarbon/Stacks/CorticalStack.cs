@@ -76,6 +76,10 @@ namespace AlteredCarbon
 
         public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
         {
+            foreach (var skill in this.skills)
+            {
+                Log.Message(skill.def + " - " + skill.levelInt + " - " + skill.passion, true);
+            }
             if (!ReachabilityUtility.CanReach(myPawn, this, PathEndMode.InteractionCell, Danger.Deadly, false, 0))
             {
                 FloatMenuOption floatMenuOption = new FloatMenuOption(Translator.Translate("CannotUseNoPath"), null,
@@ -197,7 +201,6 @@ namespace AlteredCarbon
             base.Destroy(mode);
             if (this.hasPawn && !dontKillThePawn)
             {
-                Log.Message("Kill inner pawn");
                 this.KillInnerPawn();
             }
         }
@@ -269,6 +272,57 @@ namespace AlteredCarbon
             this.relations = hediff.relations;
             this.relatedPawns = hediff.relatedPawns;
             this.skills = hediff.skills;
+            if (hediff.negativeSkillsOffsets != null)
+            {
+                foreach (var negativeOffset in hediff.negativeSkillsOffsets)
+                {
+                    var skill = this.skills.Where(x => x.def == negativeOffset.skill).FirstOrDefault();
+                    if (skill != null)
+                    {
+                        skill.Level += negativeOffset.offset;
+                    }
+                }
+            }
+            if (hediff.negativeSkillPassionsOffsets != null)
+            {
+                foreach (var negativeOffset in hediff.negativeSkillPassionsOffsets)
+                {
+                    var skill = this.skills.Where(x => x.def == negativeOffset.skill).FirstOrDefault();
+                    if (skill != null)
+                    {
+                        var finalValue = (int)skill.passion + negativeOffset.offset + 1;
+                        Log.Message("finalValue: " + finalValue, true);
+                        if (finalValue <= 2)
+                        {
+                            switch (finalValue)
+                            {
+                                case 0:
+                                    skill.passion = Passion.None;
+                                    Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
+                                    break;
+                                case 1:
+                                    skill.passion = Passion.Minor;
+                                    Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.Minor");
+                                    break;
+                                case 2:
+                                    skill.passion = Passion.Major;
+                                    Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.Major");
+                                    break;
+                                default:
+                                    skill.passion = Passion.None;
+                                    Log.Message("default: " + skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            skill.passion = Passion.None;
+                            Log.Message("2 default: " + skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
+                        }
+                    }
+                }
+            }
+
             this.childhood = hediff.childhood;
             this.adulthood = hediff.adulthood;
             this.priorities = hediff.priorities;
@@ -488,7 +542,6 @@ namespace AlteredCarbon
 
         public void OverwritePawn(Pawn pawn)
         {
-            Log.Message("OverwritePawn 1: " + this.name, true);
             var extension = this.def.GetModExtension<StackSavingOptionsModExtension>();
             if (pawn.Faction != this.faction)
             {
@@ -764,7 +817,6 @@ namespace AlteredCarbon
                     Traverse.Create(pawn.royalty).Field("permitPoints").SetValue(this.permitPoints);
                 }
             }
-            Log.Message("OverwritePawn 2: " + pawn.Name, true);
         }
 
         public override void ExposeData()
