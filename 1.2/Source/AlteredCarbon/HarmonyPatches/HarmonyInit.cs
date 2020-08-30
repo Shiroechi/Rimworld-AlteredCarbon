@@ -11,11 +11,13 @@ namespace AlteredCarbon
 {
 
     [StaticConstructorOnStartup]
-    internal static class HarmonyInit
+    public static class HarmonyInit
     {
+        public static Harmony harmonyInstance;
         static HarmonyInit()
         {
-            new Harmony("Altered.Carbon").PatchAll();
+            harmonyInstance = new Harmony("Altered.Carbon");
+            harmonyInstance.PatchAll();
         }
     }
 }
