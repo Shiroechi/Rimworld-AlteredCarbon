@@ -107,6 +107,7 @@
                     <li MayRequire="neceros.androidsexpanded">NEngiDrone</li>
                     <li MayRequire="neceros.androidsexpanded">NChefDrone</li>
                     <li MayRequire="neceros.androidsexpanded">ChjSpacerDroid</li>
+                    <li MayRequire="neceros.androidsexpanded">ChjSpacerBattleDroid</li>
                     <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidAlpha</li>
                     <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidDelta</li>
                     <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidGamma</li>
