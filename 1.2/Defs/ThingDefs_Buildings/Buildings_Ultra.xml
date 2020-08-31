@@ -111,6 +111,7 @@
                     <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidAlpha</li>
                     <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidDelta</li>
                     <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidGamma</li>
+                    <li MayRequire="goudaquiche.CrystalRace">Alien_Crystal</li>
                 </racesToExclude>
             </li>
         </modExtensions>
