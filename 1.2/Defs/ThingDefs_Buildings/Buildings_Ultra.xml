@@ -49,6 +49,11 @@
         <researchPrerequisites>
             <li>AC_SleeveProduction</li>
         </researchPrerequisites>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+			<soundAmbient>AC_SleeveGrowingVat_Ambience</soundAmbient>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+		</building>
         <placeWorkers>
             <li>PlaceWorker_FuelingPort</li>
         </placeWorkers>
@@ -84,10 +89,15 @@
         <modExtensions>
             <li Class="AlteredCarbon.ExcludeRacesModExtension">
                 <racesToExclude>
-                    <li>Android1Tier</li>
-                    <li>O21_Alien_MechadroidAlpha</li>
-                    <li>O21_Alien_MechadroidDelta</li>
-                    <li>O21_Alien_MechadroidGamma</li>
+                    <li MayRequire="Atlas.AndroidTiers">Android1Tier</li>
+                    <li MayRequire="Atlas.AndroidTiers">Android2Tier</li>
+                    <li MayRequire="Atlas.AndroidTiers">Android3Tier</li>
+                    <li MayRequire="Atlas.AndroidTiers">Android4Tier</li>
+                    <li MayRequire="Atlas.AndroidTiers">Android6Tier</li>
+                    <li MayRequire="Atlas.AndroidTiers">M7Mech</li>
+                    <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidAlpha</li>
+                    <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidDelta</li>
+                    <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidGamma</li>
                 </racesToExclude>
             </li>
         </modExtensions>
@@ -106,13 +116,14 @@
             <drawSize>(2,2)</drawSize>
         </graphicData>
         <castEdgeShadows>True</castEdgeShadows>
+        <designationCategory>Misc</designationCategory>
         <statBases>
             <MaxHitPoints>150</MaxHitPoints>
             <WorkToBuild>2800</WorkToBuild>
             <Mass>35</Mass>
             <Flammability>1.0</Flammability>
             <Comfort>0.80</Comfort>
-			<BedRestEffectiveness>1</BedRestEffectiveness>
+			<BedRestEffectiveness>0.5</BedRestEffectiveness>
             <ImmunityGainSpeedFactor>2.0</ImmunityGainSpeedFactor>
             <MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
             <SurgerySuccessChanceFactor>2.0</SurgerySuccessChanceFactor>
@@ -120,7 +131,8 @@
         <size>(1,2)</size>
         <costList>
             <Steel>80</Steel>
-            <ComponentIndustrial>5</ComponentIndustrial>
+            <Plasteel>25</Plasteel>
+            <ComponentIndustrial>3</ComponentIndustrial>
         </costList>
         <building>
             <bed_showSleeperBody>True</bed_showSleeperBody>
@@ -132,7 +144,6 @@
         <pathCost>42</pathCost>
         <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
         <staticSunShadowHeight>0.17</staticSunShadowHeight>
-        <designationHotKey>Misc5</designationHotKey>
         <researchPrerequisites>
             <li>AC_SleeveProduction</li>
         </researchPrerequisites>
@@ -144,6 +155,8 @@
             <li Class="CompProperties_AffectedByFacilities">
                 <linkableFacilities>
                     <li>VitalsMonitor</li>
+					<li MayRequire="VanillaExpanded.VFEMedical">Facility_VitalsCentre</li>
+					<li MayRequire="VanillaExpanded.VFEMedical">Facility_IVDrip</li>
                 </linkableFacilities>
             </li>
         </comps>
