@@ -2,8 +2,8 @@
 <Defs>
 
     <ScenarioDef Name="Crashlanded">
-        <defName>AC_ExiledMeth</defName>
-        <label>Exiled Meth</label>
+        <defName>AC_ExiledMeths</defName>
+        <label>Exiled Meths</label>
         <description>The two of you were exiled after an uprising on your home planet. Once rich and powerful meth, you now hear the sound of sirens as your prison ship ejects your pods.</description>
         <scenario>
             <summary>Two exiled meths - a near classic Rimworld expierience with stacks.</summary>
