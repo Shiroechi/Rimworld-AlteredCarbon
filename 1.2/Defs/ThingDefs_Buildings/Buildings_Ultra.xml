@@ -69,13 +69,12 @@
                 <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
                 <targetFuelLevelConfigurable>false</targetFuelLevelConfigurable>
                 <fuelCapacity>200.0</fuelCapacity>
-                <fuelConsumptionPerTickInRain>0</fuelConsumptionPerTickInRain>
                 <fuelFilter>
                     <thingDefs>
                         <li>Meat_Human</li>
                     </thingDefs>
                 </fuelFilter>
-                <initialFuelPercent>0</initialFuelPercent>
+                <initialFuelPercent>1</initialFuelPercent>
                 <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
                 <showFuelGizmo>true</showFuelGizmo>
             </li>
