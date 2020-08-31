@@ -34,6 +34,9 @@
 					<li>Immunity</li>
 					<li>AnnoyingVoice</li>
 					<li>CreepyBreathing</li>
+					<li MayRequire="syrchalis.individuality">SYR_Agile</li>
+					<li MayRequire="syrchalis.individuality">SYR_KeenEye</li>
+					<li MayRequire="syrchalis.individuality">SYR_StrongBack</li>
 				</ignoresTraits> 
             </li>
         </modExtensions>
