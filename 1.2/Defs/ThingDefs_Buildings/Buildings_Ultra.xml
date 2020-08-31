@@ -93,7 +93,7 @@
                     <li MayRequire="Atlas.AndroidTiers">Android2Tier</li>
                     <li MayRequire="Atlas.AndroidTiers">Android3Tier</li>
                     <li MayRequire="Atlas.AndroidTiers">Android4Tier</li>
-                    <li MayRequire="Atlas.AndroidTiers">Android6Tier</li>
+                    <li MayRequire="Atlas.AndroidTiers">Android5Tier</li>
                     <li MayRequire="Atlas.AndroidTiers">M7Mech</li>
                     <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidAlpha</li>
                     <li MayRequire="neronix17.mechadroids">O21_Alien_MechadroidDelta</li>
