@@ -21,6 +21,13 @@
             <li>AC_BrainTemplates</li>
         </thingCategories>
         <tickerType>Rare</tickerType>
+        <tradeTags Inherit="False">
+            <li>AC_TemplatesUltra</li>
+            <li>ExoticMisc</li>
+        </tradeTags>
+        <thingSetMakerTags>
+            <li>RewardStandardLowFreq</li>
+        </thingSetMakerTags>
     </ThingDef>
 
     <ThingDef ParentName="AC_BrainTemplatesBase">

@@ -10,9 +10,6 @@
             <texPath>Things/Item/Health/HealthItem</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
-        <tradeTags Inherit="False">
-            <li>AC_StacksUltra</li>
-        </tradeTags>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<stackLimit>25</stackLimit>
 		<tradeNeverStack>false</tradeNeverStack>
@@ -57,6 +54,7 @@
         </graphicData>
         <tradeTags Inherit="False">
             <li>AC_StacksUltra</li>
+			<li MayRequire="Ludeon.RimWorld.Royalty">ImplantEmpireRoyal</li>
             <li>ExoticMisc</li>
         </tradeTags>
         <costList>
@@ -81,6 +79,7 @@
 		<tradeNeverStack>false</tradeNeverStack>
         <tickerType>Normal</tickerType>
         <thingClass>AlteredCarbon.CorticalStack</thingClass>
+        <tradeTags Inherit="False"/>
         <graphicData>
             <texPath>Things/Item/Stacks/FilledStack</texPath>
             <graphicClass>Graphic_Single</graphicClass>
