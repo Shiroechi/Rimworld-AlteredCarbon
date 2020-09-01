@@ -33,7 +33,7 @@
                 </li>
                 <li Class="ScenPart_ForcedHediff">
                     <def>ForcedHediff</def>
-                    <visible>true</visible>
+                    <visible>false</visible>
                     <context>PlayerStarter</context>
                     <chance>1.0</chance>
                     <hediff>AC_CorticalStack</hediff>
@@ -41,15 +41,11 @@
                 </li>
                 <li Class="ScenPart_ForcedTrait">
                     <def>ForcedTrait</def>
+					<visible>false</visible>
                     <trait>AC_Sleever</trait>
+					<context>PlayerStarter</context>
                     <chance>1.0</chance>
                     <visible>true</visible>
-                </li>
-                <li Class="ScenPart_ForcedTrait">
-                    <def>ForcedTrait</def>
-                    <trait>Greedy</trait>
-                    <chance>1.0</chance>
-                    <visible>false</visible>
                 </li>
                 <li Class="ScenPart_StartingThing_Defined">
                     <def>StartingThing_Defined</def>
