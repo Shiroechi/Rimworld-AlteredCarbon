@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
     <Operation Class="PatchOperationFindMod">
@@ -9,15 +9,7 @@
             <success>Always</success>
             <operations>
                 <li Class="PatchOperationAdd">
-                    <xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TributeCollector"]/stockGenerators</xpath>
-                    <value>
-						<li Class="StockGenerator_BuySingleDef">
-							<thingDef>AC_EmptyCorticalStack</thingDef>
-						</li>
-                    </value>
-                </li>
-                <li Class="PatchOperationAdd">
-                    <xpath>/Defs/TraderKindDef[defName="Empire_Caravan_TraderGeneral"]/stockGenerators</xpath>
+                    <xpath>/Defs/TraderKindDef[defName="Orbital_Empire"]/stockGenerators</xpath>
                     <value>
 						<li Class="StockGenerator_BuySingleDef">
 							<thingDef>AC_EmptyCorticalStack</thingDef>

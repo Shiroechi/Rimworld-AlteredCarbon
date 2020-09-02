@@ -3,7 +3,7 @@
 
     <HediffDef>
         <defName>AC_SleeveBodyData</defName>
-        <label>SleeveBodyData</label>
+        <label>Dev_SleeveBodyData</label>
 		<hediffClass>AlteredCarbon.Hediff_SleeveBodyStats</hediffClass>
 		<defaultLabelColor>(0.44, 0.81, 0.81)</defaultLabelColor>
         <description>SleeveBodyData</description>
@@ -26,11 +26,12 @@
 
     <HediffDef ParentName="AC_BrainTemplate_Base">
         <defName>AC_BrainTemplateCombat</defName>
-        <label>combat sleeve</label>
+        <label>sleeve type (combat)</label>
         <description>This body was grown specifically for combat.</description>
 		<priceImpact>true</priceImpact>
         <stages>
             <li>
+				<becomeVisible>true</becomeVisible>
 				<painOffset>-0.15</painOffset>
                 <capMods>
                     <li>
@@ -49,11 +50,12 @@
 
     <HediffDef ParentName="AC_BrainTemplate_Base">
         <defName>AC_BrainTemplateWorker</defName>
-        <label>worker sleeve</label>
+        <label>sleeve type (worker)</label>
         <description>This body was grown specifically for manual labour.</description>
 		<priceImpact>true</priceImpact>
         <stages>
             <li>
+				<becomeVisible>true</becomeVisible>
                 <capMods>
                     <li>
                         <capacity>Moving</capacity>
@@ -70,11 +72,12 @@
 	
     <HediffDef ParentName="AC_BrainTemplate_Base">
         <defName>AC_BrainTemplateInfiltrator</defName>
-        <label>infiltrator sleeve</label>
+        <label>sleeve type (infiltrator)</label>
         <description>This body was grown specifically for stealth and infiltration.</description>
 		<priceImpact>true</priceImpact>
         <stages>
             <li>
+				<becomeVisible>true</becomeVisible>
                 <capMods>
                     <li>
                         <capacity>Sight</capacity>

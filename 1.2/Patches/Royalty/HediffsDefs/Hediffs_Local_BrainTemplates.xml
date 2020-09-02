@@ -10,11 +10,12 @@
 			<value>
 				<HediffDef ParentName="AC_BrainTemplate_Base">
 					<defName>AC_BrainTemplatePsycaster</defName>
-					<label>psycaster sleeve</label>
+					<label>sleeve type (psycaster)</label>
 					<description>This body was grown specifically for psycaster.</description>
 					<priceImpact>true</priceImpact>
 					<stages>
 						<li>
+							<becomeVisible>true</becomeVisible>
 							<statFactors>
 								<PsychicEntropyMax>2.0</PsychicEntropyMax>
 								<PsychicEntropyRecoveryRate>1.5</PsychicEntropyRecoveryRate>
