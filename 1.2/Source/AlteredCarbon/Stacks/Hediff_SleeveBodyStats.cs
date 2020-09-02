@@ -9,23 +9,11 @@ namespace AlteredCarbon
 {
     public class Hediff_SleeveBodyStats : Hediff
     {
-        public List<string> hediffs;
-
         public List<SkillOffsets> skillsOffsets;
 
         public List<SkillOffsets> skillPassionsOffsets;
-
-
         public void ApplyEffects()
         {
-            foreach (var hediff in this.hediffs)
-            {
-                var hediffDef = DefDatabase<HediffDef>.GetNamedSilentFail(hediff);
-                if (hediffDef != null)
-                {
-                    pawn.health.AddHediff(HediffMaker.MakeHediff(hediffDef, pawn));
-                }
-            }
             List<SkillOffsets> negativeSkillsOffset = new List<SkillOffsets>();
             foreach (var skillOffset in this.skillsOffsets)
             {
@@ -106,10 +94,8 @@ namespace AlteredCarbon
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Collections.Look(ref hediffs, "hediffs", LookMode.Value);
             Scribe_Collections.Look(ref skillsOffsets, "skillsOffsets", LookMode.Deep);
             Scribe_Collections.Look(ref skillPassionsOffsets, "skillPassionsOffsets", LookMode.Deep);
-
         }
     }
 }

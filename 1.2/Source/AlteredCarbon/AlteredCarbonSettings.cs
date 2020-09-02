@@ -52,5 +52,6 @@ namespace AlteredCarbon
             listingStandard.CheckboxLabeled("allowAC_Gun_ShockPDW".Translate(), ref allowAC_Gun_ShockPDW);
             listingStandard.End();
         }
+
     }
 }

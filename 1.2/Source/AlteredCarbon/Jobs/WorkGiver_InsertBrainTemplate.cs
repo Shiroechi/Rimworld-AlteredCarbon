@@ -28,7 +28,7 @@ namespace AlteredCarbon
             var sleeveIncubator = t as Building_SleeveGrower;
             if (sleeveIncubator == null || sleeveIncubator.active) return false;
                 
-            if (!t.IsForbidden(pawn) && !t.IsBurning())
+            if (sleeveIncubator.activeBrainTemplateToBeProcessed != null && !t.IsForbidden(pawn) && !t.IsBurning())
             {
                 LocalTargetInfo target = t;
                 if (pawn.CanReserve(target, 1, 1, null, forced))

@@ -22,7 +22,7 @@ namespace AlteredCarbon
 		public bool isRunningOutFuel;
 
 		public bool innerPawnIsDead;
-		public bool HasAnyContents => innerContainer.Count > 0;
+		public bool HasAnyContents => this.InnerPawn != null;
 
 		public ThingDef activeBrainTemplateToBeProcessed;
 
@@ -101,7 +101,7 @@ namespace AlteredCarbon
 
 		public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
 		{
-			if (innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize) && !this.active 
+			if (innerContainer.Count > 0 && (mode == DestroyMode.Deconstruct || mode == DestroyMode.KillFinalize) && !this.active
 				&& this.curTicksToGrow == this.totalTicksToGrow && !this.innerPawnIsDead)
 			{
 				if (mode != DestroyMode.Deconstruct)
@@ -142,7 +142,7 @@ namespace AlteredCarbon
 
 		public bool Accepts(Thing thing)
 		{
-			return this.innerContainer.Count == 0;
+			return this.InnerPawn == null;
 		}
 		public Pawn InnerPawn
 		{
@@ -178,7 +178,7 @@ namespace AlteredCarbon
 				yield return gizmo;
 			}
 			if (base.Faction == Faction.OfPlayer)
-            {
+			{
 				if (innerContainer.Count > 0 && this.active)
 				{
 					Command_Action command_Action = new Command_Action();
@@ -208,7 +208,7 @@ namespace AlteredCarbon
 				}
 
 				if (this.activeBrainTemplateToBeProcessed == null && this.ActiveBrainTemplate == null)
-                {
+				{
 					var command_Action = new Command_SetBrainTemplate(this);
 					command_Action.defaultLabel = "AlteredCarbon.InsertBrainTemplate".Translate();
 					command_Action.defaultDesc = "AlteredCarbon.InsertBrainTemplateDesc".Translate();
@@ -217,7 +217,7 @@ namespace AlteredCarbon
 					yield return command_Action;
 				}
 				if (this.ActiveBrainTemplate != null)
-                {
+				{
 					var command_Action = new Command_SetBrainTemplate(this, true);
 					command_Action.defaultLabel = this.ActiveBrainTemplate.LabelCap;
 					command_Action.defaultDesc = "AlteredCarbon.ActiveBrainTemplateDesc".Translate() + this.ActiveBrainTemplate.LabelCap;
@@ -226,7 +226,7 @@ namespace AlteredCarbon
 					yield return command_Action;
 				}
 				else if (this.activeBrainTemplateToBeProcessed != null)
-                {
+				{
 					var command_Action = new Command_SetBrainTemplate(this, true);
 					command_Action.defaultLabel = this.activeBrainTemplateToBeProcessed.LabelCap;
 					command_Action.defaultDesc = "AlteredCarbon.AwaitingBrainTemplateDesc".Translate() + this.activeBrainTemplateToBeProcessed.LabelCap;
@@ -360,7 +360,7 @@ namespace AlteredCarbon
 
 
 		public void ResetGraphics()
-        {
+		{
 			this.fetus = null;
 			this.child = null;
 			this.fetus_dead = null;
@@ -381,17 +381,21 @@ namespace AlteredCarbon
 		{
 			Find.WindowStack.Add(new CustomizeSleeveWindow(this));
 		}
-
 		public void StartGrowth(Pawn newSleeve, int totalTicksToGrow, int totalGrowthCost)
-        {
+		{
 			this.ResetGraphics();
 			if (this.ActiveBrainTemplate != null)
 			{
 				var comp = this.ActiveBrainTemplate.TryGetComp<CompBrainTemplate>();
 				comp.SaveBodyData(newSleeve);
-				Log.Message("SAVING");
 			}
-			this.innerContainer.ClearAndDestroyContents();
+			Pawn pawn = this.InnerPawn;
+			if (pawn != null)
+			{
+				this.innerContainer.Remove(this.InnerPawn);
+				pawn.Destroy(DestroyMode.Vanish);
+			}
+
 			this.TryAcceptThing(newSleeve);
 			this.totalTicksToGrow = totalTicksToGrow;
 			this.curTicksToGrow = 0;
@@ -399,40 +403,39 @@ namespace AlteredCarbon
 			this.active = true;
 			this.innerPawnIsDead = false;
 			this.runningOutPowerInTicks = 0;
-
 		}
 
 		public void InstantGrowth()
-        {
+		{
 			this.curTicksToGrow = this.totalTicksToGrow;
 			FinishGrowth();
 		}
 		public void FinishGrowth()
-        {
+		{
 			this.active = false;
 			if (ACUtils.ACTracker.emptySleeves == null) ACUtils.ACTracker.emptySleeves = new HashSet<Pawn>();
 			ACUtils.ACTracker.emptySleeves.Add(this.InnerPawn);
 		}
 		public void KillInnerPawn()
-        {
+		{
 			this.innerPawnIsDead = true;
 		}
 
 		public void DropActiveBrainTemplate()
-        {
+		{
 			this.innerContainer.TryDrop(this.ActiveBrainTemplate, ThingPlaceMode.Near, out Thing result);
 			this.removeActiveBrainTemplate = false;
 		}
 		public void AcceptBrainTemplate(Thing brainTemplate)
-        {
+		{
 			if (this.ActiveBrainTemplate != null)
-            {
+			{
 				this.DropActiveBrainTemplate();
 			}
 			this.innerContainer.TryAddOrTransfer(brainTemplate);
 			this.activeBrainTemplateToBeProcessed = null;
 			this.removeActiveBrainTemplate = false;
-        }
+		}
 
 		public override void Tick()
 		{
@@ -442,7 +445,7 @@ namespace AlteredCarbon
 				curTicksToGrow = 0;
 			}
 			if (this.InnerPawn != null)
-            {
+			{
 				if (this.active && base.GetComp<CompRefuelable>().HasFuel && powerTrader.PowerOn)
 				{
 					if (runningOutPowerInTicks > 0) runningOutPowerInTicks = 0;
@@ -458,22 +461,22 @@ namespace AlteredCarbon
 					}
 				}
 				else if (this.active && !powerTrader.PowerOn && runningOutPowerInTicks < 60000)
-                {
+				{
 					runningOutPowerInTicks++;
-                }
+				}
 				else if (runningOutPowerInTicks >= 60000 && this.active)
-                {
+				{
 					this.active = false;
 					this.KillInnerPawn();
 					Messages.Message("AlteredCarbon.SleeveInIncubatorIsDead".Translate(), this, MessageTypeDefOf.NegativeEvent);
 				}
 				if (!powerTrader.PowerOn && !isRunningOutPower)
-                {
+				{
 					Messages.Message("AlteredCarbon.isRunningOutPower".Translate(), this, MessageTypeDefOf.NegativeEvent);
 					this.isRunningOutPower = true;
-                }
+				}
 				if (!base.GetComp<CompRefuelable>().HasFuel && !isRunningOutFuel)
-                {
+				{
 					Messages.Message("AlteredCarbon.isRunningOutFuel".Translate(), this, MessageTypeDefOf.NegativeEvent);
 					this.isRunningOutFuel = true;
 				}
@@ -498,7 +501,7 @@ namespace AlteredCarbon
 				SoundStarter.PlayOneShot(SoundDefOf.CryptosleepCasket_Eject,
 					SoundInfo.InMap(new TargetInfo(base.Position, base.Map, false), 0));
 			}
-			this.innerContainer.TryDropAll(this.InteractionCell, base.Map, ThingPlaceMode.Near, null, null);
+			this.innerContainer.TryDrop(this.InnerPawn, ThingPlaceMode.Near, 1, out Thing resultingThing);
 			this.contentsKnown = true;
 			ResetGraphics();
 		}
@@ -537,4 +540,3 @@ namespace AlteredCarbon
 
 	}
 }
-

@@ -27,7 +27,7 @@ namespace AlteredCarbon
         public override void GameComponentTick()
         {
             base.GameComponentTick();
-            if (Find.TickManager.TicksGame % 60 == 0 && this.stacksRelationships != null)
+            if (Find.TickManager.TicksGame % 60 == 0 && this.stacksRelationships != null && this.stacksRelationships.Count > 0)
             {
                 foreach (var stackGroup in this.stacksRelationships)
                 {
