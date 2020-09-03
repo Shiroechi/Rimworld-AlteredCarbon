@@ -32,12 +32,12 @@ namespace AlteredCarbon
 
             foreach (var skillPassionOffset in this.skillPassionsOffsets)
             {
-                Log.Message("skillPassionOffset: " + skillPassionOffset.offset, true);
+                //Log.Message("skillPassionOffset: " + skillPassionOffset.offset, true);
                 var skill = pawn.skills.GetSkill(skillPassionOffset.skill);
-                Log.Message("(int)skill.passion: " + (int)skill.passion, true);
+                //Log.Message("(int)skill.passion: " + (int)skill.passion, true);
                 var finalValue = (int)skill.passion + skillPassionOffset.offset;
-                Log.Message("finalValue: " + finalValue, true);
-                Log.Message("1: " + pawn.skills.GetSkill(skillPassionOffset.skill) + " - skill.passion: " + pawn.skills.GetSkill(skillPassionOffset.skill).passion, true);
+                //Log.Message("finalValue: " + finalValue, true);
+                //Log.Message("1: " + pawn.skills.GetSkill(skillPassionOffset.skill) + " - skill.passion: " + pawn.skills.GetSkill(skillPassionOffset.skill).passion, true);
 
                 var negativeSkillOffset = new SkillOffsets
                 {
@@ -51,45 +51,45 @@ namespace AlteredCarbon
                     {
                         case 0:
                             skill.passion = Passion.None;
-                            Log.Message("skill.passion = Passion.None");
+                            //Log.Message("skill.passion = Passion.None");
                             break;
                         case 1:
                             skill.passion = Passion.Minor;
-                            Log.Message("skill.passion = Passion.Minor");
+                            //Log.Message("skill.passion = Passion.Minor");
                             break;
                         case 2:
                             skill.passion = Passion.Major;
-                            Log.Message("skill.passion = Passion.Major");
+                            //Log.Message("skill.passion = Passion.Major");
                             break;
                         default:
                             skill.passion = Passion.None;
-                            Log.Message("default: skill.passion = Passion.None;");
+                            //Log.Message("default: skill.passion = Passion.None;");
                             break;
                     }
                 }
                 else
                 {
                     skill.passion = Passion.Major;
-                    Log.Message("2 skill.passion = Passion.Major");
+                    //Log.Message("2 skill.passion = Passion.Major");
                 }
             }
-            foreach (var c1 in negativeSkillsOffset)
-            {
-                Log.Message("1 Negative: " + c1.skill + " - " + c1.offset, true);
-            }
-
-            foreach (var c2 in negativeSkillsPassionOffset)
-            {
-                Log.Message("2 Negative: " + c2.skill + " - " + c2.offset, true);
-            }
+            //foreach (var c1 in negativeSkillsOffset)
+            //{
+            //    //Log.Message("1 Negative: " + c1.skill + " - " + c1.offset, true);
+            //}
+            //
+            //foreach (var c2 in negativeSkillsPassionOffset)
+            //{
+            //    //Log.Message("2 Negative: " + c2.skill + " - " + c2.offset, true);
+            //}
             var corticalHediff = pawn.health.hediffSet.GetFirstHediffOfDef(AlteredCarbonDefOf.AC_CorticalStack) as Hediff_CorticalStack;
             if (corticalHediff != null)
             {
                 corticalHediff.negativeSkillsOffsets = negativeSkillsOffset;
                 corticalHediff.negativeSkillPassionsOffsets = negativeSkillsPassionOffset;
             }
-            Log.Message("corticalHediff: " + corticalHediff, true);
-            Log.Message("----------------", true);
+            //Log.Message("corticalHediff: " + corticalHediff, true);
+            //Log.Message("----------------", true);
         }
         public override void ExposeData()
         {

@@ -289,33 +289,33 @@ namespace AlteredCarbon
                     if (skill != null)
                     {
                         var finalValue = (int)skill.passion + negativeOffset.offset + 1;
-                        Log.Message("finalValue: " + finalValue, true);
+                        //Log.Message("finalValue: " + finalValue, true);
                         if (finalValue <= 2)
                         {
                             switch (finalValue)
                             {
                                 case 0:
                                     skill.passion = Passion.None;
-                                    Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
+                                    //Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
                                     break;
                                 case 1:
                                     skill.passion = Passion.Minor;
-                                    Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.Minor");
+                                    //Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.Minor");
                                     break;
                                 case 2:
                                     skill.passion = Passion.Major;
-                                    Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.Major");
+                                    //Log.Message(skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.Major");
                                     break;
                                 default:
                                     skill.passion = Passion.None;
-                                    Log.Message("default: " + skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
+                                    //Log.Message("default: " + skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
                                     break;
                             }
                         }
                         else
                         {
                             skill.passion = Passion.None;
-                            Log.Message("2 default: " + skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
+                            //Log.Message("2 default: " + skill.def + " - finalValue: " + finalValue + " - skill.passion = Passion.None");
                         }
                     }
                 }
@@ -838,10 +838,10 @@ namespace AlteredCarbon
         {
             base.ExposeData();
             Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
-            {
-                Log.Message(this + " - " + this.stackGroupID, true);
-            }
+            //if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            //{
+            //    Log.Message(this + " - " + this.stackGroupID, true);
+            //}
             Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
             Scribe_References.Look<Pawn>(ref this.origPawn, "origPawn", true);

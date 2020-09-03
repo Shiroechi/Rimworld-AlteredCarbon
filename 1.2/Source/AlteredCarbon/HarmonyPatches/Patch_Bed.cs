@@ -16,7 +16,6 @@ namespace AlteredCarbon
     {
 		static BedPatches()
         {
-			Log.Message("TEST");
 			MethodInfo method = typeof(BedPatches).GetMethod("Prefix");
 			foreach (Type type in GenTypes.AllSubclassesNonAbstract(typeof(Need)))
 			{

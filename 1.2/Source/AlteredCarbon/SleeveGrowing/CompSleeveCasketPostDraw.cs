@@ -20,8 +20,6 @@ namespace AlteredCarbon
 				{
 					glass = GraphicDatabase.Get<Graphic_Multi>("Things/Building/Furniture/Bed/SleeveCasketTop",
 						ShaderDatabase.CutoutComplex, this.parent.def.graphicData.drawSize, Color.white);
-					Log.Message(this.parent.Rotation.ToStringWord().ToLower() + " - " + glass, true);
-
 				}
 				return glass;
 			}

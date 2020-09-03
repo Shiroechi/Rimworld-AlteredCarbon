@@ -54,8 +54,8 @@ namespace AlteredCarbon
 						ACUtils.ACTracker.stacksIndex[pawn.ThingID + pawn.Name] = corticalStack;
 						ACUtils.ACTracker.ReplacePawnWithStack(pawn, corticalStack);
 						ACUtils.ACTracker.RegisterSleeve(pawn, hediff.stackGroupID);
-						Log.Message("corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
-						Log.Message("hediff.stackGroupID: " + hediff.stackGroupID, true);
+						//Log.Message("corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
+						//Log.Message("hediff.stackGroupID: " + hediff.stackGroupID, true);
 					}
 					ACUtils.ACTracker.deadPawns.Add(pawn);
 					var head = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault((BodyPartRecord x) => x.def == BodyPartDefOf.Head);

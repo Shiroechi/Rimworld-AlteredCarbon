@@ -84,14 +84,14 @@ namespace AlteredCarbon
             this.times = pawn.timetable?.times;
             this.thoughts = pawn.needs?.mood?.thoughts?.memories?.Memories;
             this.faction = pawn.Faction;
-            if (pawn.Faction.leader == pawn)
+            if (pawn.Faction?.leader == pawn)
             {
                 this.isFactionLeader = true;
             }
             this.traits = pawn.story?.traits?.allTraits;
             this.relations = pawn.relations?.DirectRelations;
             this.relatedPawns = pawn.relations?.RelatedPawns?.ToHashSet();
-            foreach (var otherPawn in pawn.relations.RelatedPawns)
+            foreach (var otherPawn in pawn.relations?.RelatedPawns)
             {
                 foreach (var rel2 in pawn.GetRelations(otherPawn))
                 {
@@ -200,16 +200,16 @@ namespace AlteredCarbon
                 this.pawn.Kill(null);
                 Notify_ColonistKilled_Patch.DisableKilledEffect = false;
             }
-            Log.Message("2 Killing the pawn: " + this.stackGroupID, true);
+            //Log.Message("2 Killing the pawn: " + this.stackGroupID, true);
         }
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Values.Look<int>(ref this.stackGroupID, "stackGroupID", 0);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
-            {
-                Log.Message(this + " - " + this.stackGroupID, true);
-            }
+            //if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            //{
+            //    Log.Message(this + " - " + this.stackGroupID, true);
+            //}
             Scribe_Values.Look<bool>(ref this.isCopied, "isCopied", false, false);
             Scribe_Deep.Look<Name>(ref this.name, "name", new object[0]);
             Scribe_References.Look<Pawn>(ref this.origPawn, "origPawn", true);

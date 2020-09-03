@@ -59,11 +59,6 @@ namespace AlteredCarbon
             {
                 var hediff = HediffMaker.MakeHediff(recipe.addsHediff, pawn) as Hediff_CorticalStack;
                 pawn.health.AddHediff(hediff, part);
-                Log.Message("hediff.stackGroupID: " + hediff.stackGroupID, true);
-                Log.Message("hediff.stackGroupID: " + hediff.stackGroupID, true);
-
-                Log.Message("1 hediff.stackGroupID: " + hediff.stackGroupID, true);
-                Log.Message("1 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
                 if (corticalStack.hasPawn)
                 {
                     hediff.gender = corticalStack.gender;
@@ -115,8 +110,8 @@ namespace AlteredCarbon
                 {
                     additionalSleeveBodyData.ApplyEffects();
                 }
-                Log.Message("2 hediff.stackGroupID: " + hediff.stackGroupID, true);
-                Log.Message("2 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
+                //Log.Message("2 hediff.stackGroupID: " + hediff.stackGroupID, true);
+                //Log.Message("2 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
             }
         }
     }

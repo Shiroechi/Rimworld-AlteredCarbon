@@ -22,7 +22,7 @@ namespace AlteredCarbon
                 {
                     var selectedStack = pawn.Map.listerThings.ThingsOfDef(AlteredCarbonDefOf
                         .AC_EmptyCorticalStack)
-                        .Where(x => pawn.CanReserveAndReach(x, PathEndMode.ClosestTouch, Danger.Deadly))
+                        .Where(x => pawn.CanReserveAndReach(x, PathEndMode.ClosestTouch, Danger.Deadly) && !x.IsForbidden(pawn))
                         .MinBy(x => IntVec3Utility.DistanceTo(pawn.Position, x.Position));
                     //var selectedStack = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, 
                     //    ThingRequest.ForDef(AlteredCarbonDefOf.AC_EmptyCorticalStack), PathEndMode
@@ -58,7 +58,14 @@ namespace AlteredCarbon
                     float damageChance = Mathf.Abs((pawn.skills.GetSkill(SkillDefOf.Intellectual).levelInt / 2f) - 11f) / 10f;
                     if (Rand.Chance(damageChance))
                     {
-                        TargetThingB.Destroy(DestroyMode.Vanish);
+                        if (TargetThingB.stackCount == 0)
+                        {
+                            TargetThingB.Destroy(DestroyMode.Vanish);
+                        }
+                        else
+                        {
+                            TargetThingB.stackCount--;
+                        }
                         Find.LetterStack.ReceiveLetter("AlteredCarbon.DestroyedStack".Translate(),
                             "AlteredCarbon.DestroyedStackDesc".Translate(pawn.Named("PAWN")), 
                             LetterDefOf.NegativeEvent, pawn);
@@ -66,11 +73,17 @@ namespace AlteredCarbon
                     else
                     {
                         var pos = TargetThingB.Position;
-                        TargetThingB.Destroy(DestroyMode.Vanish);
+                        if (TargetThingB.stackCount == 0)
+                        {
+                            TargetThingB.Destroy(DestroyMode.Vanish);
+                        }
+                        else
+                        {
+                            TargetThingB.stackCount--;
+                        }
                         var stackCopyTo = (CorticalStack)ThingMaker.MakeThing(AlteredCarbonDefOf.AC_FilledCorticalStack);
                         stackCopyTo.hasPawn = true;
                         GenSpawn.Spawn(stackCopyTo, pos, pawn.Map);
-                        pawn.CurJob.targetB = stackCopyTo;
                         var stackCopyFrom = (CorticalStack)TargetThingA;
                         stackCopyTo.CopyFromOtherStack(stackCopyFrom);
                         ACUtils.ACTracker.RegisterStack(stackCopyTo);
