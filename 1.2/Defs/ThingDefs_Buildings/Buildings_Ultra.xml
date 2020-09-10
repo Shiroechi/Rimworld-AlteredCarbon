@@ -136,9 +136,9 @@
             <Mass>35</Mass>
             <Flammability>1.0</Flammability>
             <Comfort>0.80</Comfort>
-			<BedRestEffectiveness>0.5</BedRestEffectiveness>
+	    <BedRestEffectiveness>1.05</BedRestEffectiveness>
             <ImmunityGainSpeedFactor>2.0</ImmunityGainSpeedFactor>
-            <MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+            <MedicalTendQualityOffset>0.15</MedicalTendQualityOffset>
             <SurgerySuccessChanceFactor>2.0</SurgerySuccessChanceFactor>
         </statBases>
         <size>(1,2)</size>
