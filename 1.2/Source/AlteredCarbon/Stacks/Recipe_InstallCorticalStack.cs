@@ -110,8 +110,10 @@ namespace AlteredCarbon
                 {
                     additionalSleeveBodyData.ApplyEffects();
                 }
-                //Log.Message("2 hediff.stackGroupID: " + hediff.stackGroupID, true);
-                //Log.Message("2 corticalStack.stackGroupID: " + corticalStack.stackGroupID, true);
+                if (ACUtils.ACTracker.emptySleeves != null && ACUtils.ACTracker.emptySleeves.Contains(pawn))
+                {
+                    ACUtils.ACTracker.emptySleeves.Remove(pawn);
+                }
             }
         }
     }

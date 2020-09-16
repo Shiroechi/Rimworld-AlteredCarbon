@@ -617,7 +617,6 @@ namespace AlteredCarbon
                     {
                         if (this.name == rel.otherPawn?.Name)
                         {
-                            //Log.Message("1 Changing Rel: " + pawn.Name + " - " + rel.def + " - " + otherPawn.Name + " - " + rel.otherPawn.Name, true);
                             rel.otherPawn = pawn;
                         }
                     }
@@ -634,7 +633,6 @@ namespace AlteredCarbon
                         {
                             if (rel.def == rel2.def && rel2.otherPawn?.Name == pawn.Name)
                             {
-                                //Log.Message("2 Changing Rel: " + pawn.Name + " - " + rel.def + " - " + otherPawn.Name + " - " + rel.otherPawn.Name, true);
                                 rel2.otherPawn = pawn;
                             }
                         }
@@ -645,70 +643,16 @@ namespace AlteredCarbon
 
             foreach (var rel in this.relations)
             {
-                //Log.Message("Adding Rel: " + pawn.Name + " - " + rel.def + " - " + rel.otherPawn.Name, true);
                 if (rel.otherPawn != null)
                 {
                     var oldRelation = rel.otherPawn.relations.DirectRelations.Where(r => r.def == rel.def && r.otherPawn.Name == pawn.Name).FirstOrDefault();
                     if (oldRelation != null)
                     {
-                        //Log.Message("3 Changing Rel: " + pawn.Name + " - " + rel.def + " - " + oldRelation.otherPawn.Name + " - " + rel.otherPawn.Name, true);
                         oldRelation.otherPawn = pawn;
                     }
                 }
-
-                //foreach (var child in rel.otherPawn.relations.Children)
-                //{
-                //    if (child != null)
-                //    {
-                //        if (child.Name == pawn.Name)
-                //        {
-                //            var oldRelation2 = child.relations.DirectRelations.Where(r => r.def == rel.def && r.otherPawn == rel.otherPawn).FirstOrDefault();
-                //            if (oldRelation2 != null)
-                //            {
-                //                var otherRelation = oldRelation2.otherPawn.relations.GetDirectRelation(oldRelation2.def, child);
-                //                Log.Message("4 Changing Rel: " + pawn.Name + " - " + rel.def + " - " + otherRelation.otherPawn.Name + " - " + rel.otherPawn.Name, true);
-                //                otherRelation.otherPawn = pawn;
-                //            }
-                //        }
-                //    }
-                //}
-
-                //foreach (var rel2 in rel.otherPawn.relations.DirectRelations)
-                //{
-                //    if (rel2.def == rel.def)
-                //    {
-                //        Log.Message("Check rel: " + rel.otherPawn.Name + " - " + rel2.def + " - " + rel2.otherPawn.Name, true);
-                //    }
-                //}
-
                 pawn.relations.AddDirectRelation(rel.def, rel.otherPawn);
-
-                //foreach (var children in rel.otherPawn.relations.Children)
-                //{
-                //    //Log.Message("1.5: " + rel.otherPawn.Name + " - child: " + children.Name, true);
-                //}
-                //Log.Message("-------------");
             }
-
-            //foreach (var otherPawn in pawn.relations.RelatedPawns)
-            //{
-            //    for (int num = otherPawn.relations.DirectRelations.Count - 1; num >= 0; num--)
-            //    {
-            //        if (pawn.Name == otherPawn.relations.DirectRelations[num].otherPawn.Name)
-            //        {
-            //            if (pawn != otherPawn.relations.DirectRelations[num].otherPawn)
-            //            {
-            //                Log.Message("5 Rel: " + pawn.Name + " - " + otherPawn.relations.DirectRelations[num].def + " - " + otherPawn.Name + " - " + otherPawn.relations.DirectRelations[num].otherPawn.Name, true);
-            //                Log.Message("6 pawn != otherPawn: " + pawn + " - " + otherPawn.relations.DirectRelations[num].otherPawn, true);
-            //            }
-            //        }
-            //    } 
-            //}
-            //
-            //foreach (var children in pawn.relations.Children)
-            //{
-            //    Log.Message("7: " + pawn.Name + " - child: " + children.Name, true);
-            //}
 
             if (origPawn != null)
             {

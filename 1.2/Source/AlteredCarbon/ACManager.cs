@@ -233,6 +233,7 @@ namespace AlteredCarbon
                         this.stacksRelationships[hediff.stackGroupID].copiedPawns.Add(pawn);
                     }
                 }
+                this.pawnsWithStacks.Add(pawn);
             }
         }
 
@@ -284,10 +285,11 @@ namespace AlteredCarbon
 
         public void RegisterSleeve(Pawn pawn, int stackGroupID = -1)
         {
-            ACUtils.ACTracker.pawnsWithStacks.Remove(pawn);
+            if (ACUtils.ACTracker.pawnsWithStacks == null) ACUtils.ACTracker.pawnsWithStacks = new HashSet<Pawn>();
             if (ACUtils.ACTracker.emptySleeves == null) ACUtils.ACTracker.emptySleeves = new HashSet<Pawn>();
+            ACUtils.ACTracker.pawnsWithStacks.Remove(pawn);
             ACUtils.ACTracker.emptySleeves.Add(pawn);
-            if (stackGroupID != -1)
+            if (stackGroupID != -1 && this.stacksRelationships.ContainsKey(stackGroupID))
             {
                 if (this.stacksRelationships[stackGroupID].deadPawns == null)
                     this.stacksRelationships[stackGroupID].deadPawns = new List<Pawn>();
