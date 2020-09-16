@@ -306,7 +306,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlienRaceCompat.cs" />
+    <Compile Include="ModCompatibility.cs" />
     <Compile Include="AlteredCarbonDefOf.cs" />
     <Compile Include="AlteredCarbonMod.cs" />
     <Compile Include="AlteredCarbonSettings.cs" />

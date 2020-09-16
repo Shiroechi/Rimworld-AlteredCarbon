@@ -18,6 +18,19 @@ namespace AlteredCarbon
             }
 		}
 
+		public static void SetAlienHead(Pawn pawn, string head)
+		{
+			var alienComp = ThingCompUtility.TryGetComp<AlienRace.AlienPartGenerator.AlienComp>(pawn);
+			if (alienComp != null)
+			{
+				alienComp.crownType = head;
+			}
+		}
+		public static List<string> GetAlienHeadPaths(Pawn pawn)
+        {
+			var alienDef = pawn.def as AlienRace.ThingDef_AlienRace;
+			return alienDef.alienRace.generalSettings.alienPartGenerator.aliencrowntypes;
+		}
 		public static int GetSexuality(Pawn pawn)
         {
 			var comp = ThingCompUtility.TryGetComp<SyrTraits.CompIndividuality>(pawn);

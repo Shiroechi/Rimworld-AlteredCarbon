@@ -150,6 +150,7 @@ namespace AlteredCarbon
         public int raceTypeIndex = 0;
         public int maleHeadTypeIndex = 0;
         public int femaleHeadTypeIndex = 0;
+        public int alienHeadtypeIndex = 0;
         public int maleBodyTypeIndex = 0;
         public int femaleBodyTypeIndex = 0;
 
@@ -712,50 +713,76 @@ namespace AlteredCarbon
                 Widgets.DrawHighlight(btnHeadShapeOutline);
                 if (ButtonTextSubtleCentered(btnHeadShapeArrowLeft, "<"))
                 {
-                    if (newSleeve.gender == Gender.Male)
+                    if (ModCompatibility.AlienRacesIsActive)
                     {
-                        if (maleHeadTypeIndex == 0)
+                        var list = ModCompatibility.GetAlienHeadPaths(newSleeve);
+                        if (alienHeadtypeIndex == 0)
                         {
-                            maleHeadTypeIndex = GraphicDatabaseHeadRecords.maleHeads.Count - 1;
+                            alienHeadtypeIndex = list.Count - 1;
                         }
                         else
                         {
-                            maleHeadTypeIndex--;
+                            alienHeadtypeIndex--;
                         }
-
-                        typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
-                            GraphicDatabaseHeadRecords.maleHeads.ElementAt(maleHeadTypeIndex).graphicPath);
+                        ModCompatibility.SetAlienHead(newSleeve, list[alienHeadtypeIndex]);
                     }
-                    else if (newSleeve.gender == Gender.Female)
+                    else
                     {
-                        if (femaleHeadTypeIndex == 0)
+                        if (newSleeve.gender == Gender.Male)
                         {
-                            femaleHeadTypeIndex = GraphicDatabaseHeadRecords.femaleHeads.Count - 1;
+                            if (maleHeadTypeIndex == 0)
+                            {
+                                maleHeadTypeIndex = GraphicDatabaseHeadRecords.maleHeads.Count - 1;
+                            }
+                            else
+                            {
+                                maleHeadTypeIndex--;
+                            }
+                            typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                                GraphicDatabaseHeadRecords.maleHeads.ElementAt(maleHeadTypeIndex).graphicPath);
                         }
-                        else
+                        else if (newSleeve.gender == Gender.Female)
                         {
-                            femaleHeadTypeIndex--;
-                        }
+                            if (femaleHeadTypeIndex == 0)
+                            {
+                                femaleHeadTypeIndex = GraphicDatabaseHeadRecords.femaleHeads.Count - 1;
+                            }
+                            else
+                            {
+                                femaleHeadTypeIndex--;
+                            }
 
-                        typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
-                            GraphicDatabaseHeadRecords.femaleHeads.ElementAt(femaleHeadTypeIndex).graphicPath);
+                            typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                                GraphicDatabaseHeadRecords.femaleHeads.ElementAt(femaleHeadTypeIndex).graphicPath);
+                        }
                     }
-
                     UpdateSleeveGraphic();
                 }
                 if (ButtonTextSubtleCentered(btnHeadShapeSelection, "HeadTypeReplace".Translate()))
                 {
-                    if (newSleeve.gender == Gender.Male)
+                    if (ModCompatibility.AlienRacesIsActive)
                     {
-                        FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.maleHeads, head => ExtractHeadLabels(head.graphicPath), 
-                            (GraphicDatabaseHeadRecords.HeadGraphicRecord head) => delegate
+                        var list = ModCompatibility.GetAlienHeadPaths(newSleeve);
+                        FloatMenuUtility.MakeMenu<string>(list, head => head,
+                        (string head) => delegate
                         {
-                            typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
-                            head.graphicPath);
+                            ModCompatibility.SetAlienHead(newSleeve, head);
                             UpdateSleeveGraphic();
                         });
                     }
-                    else if (newSleeve.gender == Gender.Female)
+                    else
+                    {
+                        if (newSleeve.gender == Gender.Male)
+                        {
+                            FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.maleHeads, head => ExtractHeadLabels(head.graphicPath),
+                            (GraphicDatabaseHeadRecords.HeadGraphicRecord head) => delegate
+                            {
+                                typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                                head.graphicPath);
+                                UpdateSleeveGraphic();
+                            });
+                        }
+                        else if (newSleeve.gender == Gender.Female)
                         {
                             FloatMenuUtility.MakeMenu<GraphicDatabaseHeadRecords.HeadGraphicRecord>(GraphicDatabaseHeadRecords.femaleHeads, head => ExtractHeadLabels(head.graphicPath),
                                 (GraphicDatabaseHeadRecords.HeadGraphicRecord head) => delegate
@@ -765,35 +792,52 @@ namespace AlteredCarbon
                                     UpdateSleeveGraphic();
                                 });
                         }
-
+                    }
                 }
                 if (ButtonTextSubtleCentered(btnHeadShapeArrowRight, ">"))
                 {
-                    if (newSleeve.gender == Gender.Male)
+                    if (ModCompatibility.AlienRacesIsActive)
                     {
-                        if (maleHeadTypeIndex == GraphicDatabaseHeadRecords.maleHeads.Count - 1)
+                        var list = ModCompatibility.GetAlienHeadPaths(newSleeve);
+
+                        if (alienHeadtypeIndex == list.Count - 1)
                         {
-                            maleHeadTypeIndex = 0;
+                            alienHeadtypeIndex = 0;
                         }
                         else
                         {
-                            maleHeadTypeIndex++;
+                            alienHeadtypeIndex++;
                         }
-                        typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
-                            GraphicDatabaseHeadRecords.maleHeads.ElementAt(maleHeadTypeIndex).graphicPath);
+                        ModCompatibility.SetAlienHead(newSleeve, list[alienHeadtypeIndex]);
                     }
-                    else if (newSleeve.gender == Gender.Female)
+                    else
                     {
-                        if (femaleHeadTypeIndex == GraphicDatabaseHeadRecords.femaleHeads.Count - 1)
+                        if (newSleeve.gender == Gender.Male)
                         {
-                            femaleHeadTypeIndex = 0;
+                            if (maleHeadTypeIndex == GraphicDatabaseHeadRecords.maleHeads.Count - 1)
+                            {
+                                maleHeadTypeIndex = 0;
+                            }
+                            else
+                            {
+                                maleHeadTypeIndex++;
+                            }
+                            typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                                GraphicDatabaseHeadRecords.maleHeads.ElementAt(maleHeadTypeIndex).graphicPath);
                         }
-                        else
+                        else if (newSleeve.gender == Gender.Female)
                         {
-                            femaleHeadTypeIndex++;
+                            if (femaleHeadTypeIndex == GraphicDatabaseHeadRecords.femaleHeads.Count - 1)
+                            {
+                                femaleHeadTypeIndex = 0;
+                            }
+                            else
+                            {
+                                femaleHeadTypeIndex++;
+                            }
+                            typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
+                                GraphicDatabaseHeadRecords.femaleHeads.ElementAt(femaleHeadTypeIndex).graphicPath);
                         }
-                        typeof(Pawn_StoryTracker).GetField("headGraphicPath", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(newSleeve.story,
-                            GraphicDatabaseHeadRecords.femaleHeads.ElementAt(femaleHeadTypeIndex).graphicPath);
                     }
                     UpdateSleeveGraphic();
                 }
@@ -1170,6 +1214,7 @@ namespace AlteredCarbon
             hairTypeIndex = 0;
             femaleHeadTypeIndex = 0;
             maleHeadTypeIndex = 0;
+            alienHeadtypeIndex = 0;
             Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(currentPawnKindDef, Faction.OfAncients, PawnGenerationContext.NonPlayer,
             -1, true, false, false, false, false, false, 0f, false, true, true, false, false, false, true, fixedGender: gender, fixedBiologicalAge: 20, 
             fixedChronologicalAge: 20));
