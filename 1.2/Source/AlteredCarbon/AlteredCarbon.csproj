@@ -45,7 +45,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="SyrTraits">
-      <HintPath>..\..\..\..\[SYR] Individuality\Assemblies\SyrTraits.dll</HintPath>
+      <HintPath>..\..\..\..\..\Mods2\[SYR] Individuality\Assemblies\SyrTraits.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

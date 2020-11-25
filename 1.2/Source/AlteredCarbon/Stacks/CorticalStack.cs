@@ -58,16 +58,23 @@ namespace AlteredCarbon
         public int stackGroupID;
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            if (!respawningAfterLoad && !hasPawn && this.def.defName == "AC_FilledCorticalStack")
+            try
             {
-                var pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
-                var faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
-                Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
-                this.SavePawnToCorticalStack(pawn);
-                this.gender = pawn.gender;
-                this.race = pawn.kindDef.race;
-                this.stackGroupID = ACUtils.ACTracker.GetStackGroupID(this);
-                ACUtils.ACTracker.RegisterStack(this);
+                if (!respawningAfterLoad && !hasPawn && this.def.defName == "AC_FilledCorticalStack")
+                {
+                    var pawnKind = DefDatabase<PawnKindDef>.AllDefs.Where(x => x.RaceProps.Humanlike).RandomElement();
+                    var faction = Find.FactionManager.AllFactions.Where(x => x.def.humanlikeFaction).RandomElement();
+                    Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(pawnKind, faction));
+                    this.SavePawnToCorticalStack(pawn);
+                    this.gender = pawn.gender;
+                    this.race = pawn.kindDef.race;
+                    this.stackGroupID = ACUtils.ACTracker.GetStackGroupID(this);
+                    ACUtils.ACTracker.RegisterStack(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Exception spawning " + this + ": " + ex);
             }
             base.SpawnSetup(map, respawningAfterLoad);
         }

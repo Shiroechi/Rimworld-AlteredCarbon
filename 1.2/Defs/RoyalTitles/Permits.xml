@@ -9,7 +9,7 @@
 		<minTitle>Baron</minTitle>
 		<faction>Empire</faction>
 		<permitPointCost>1</permitPointCost>
-		<uiPosition>(0,6)</uiPosition>
+		<uiPosition>(0,9)</uiPosition>
 		<royalAid>
 			<favorCost>4</favorCost>
 			<targetingRange>39.9</targetingRange>

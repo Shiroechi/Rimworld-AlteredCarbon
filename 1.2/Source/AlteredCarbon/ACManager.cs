@@ -27,37 +27,15 @@ namespace AlteredCarbon
         //public override void GameComponentTick()
         //{
         //    base.GameComponentTick();
-        //    if (Find.TickManager.TicksGame % 60 == 0 && this.stacksRelationships != null && this.stacksRelationships.Count > 0)
+        //    if (Find.TickManager.TicksGame % 60 == 0 && pawnsWithStacks != null)
         //    {
-        //        foreach (var stackGroup in this.stacksRelationships)
+        //        foreach (var p in pawnsWithStacks)
         //        {
-        //            Log.Message("stackGroup: " + stackGroup.Key, true);
-        //            Log.Message("originalPawn: " + stackGroup.Value.originalPawn + " - " + stackGroup.Value.originalPawn?.GetHashCode());
-        //            Log.Message("originalStack: " + stackGroup.Value.originalStack);
-        //            if (stackGroup.Value.copiedPawns != null)
+        //            foreach (var skill in p.skills?.skills)
         //            {
-        //                foreach (var p in stackGroup.Value.copiedPawns)
-        //                {
-        //                    Log.Message("copiedPawns: " + p);
-        //                }
-        //            }
-        //            if (stackGroup.Value.copiedStacks != null)
-        //            {
-        //                foreach (var p in stackGroup.Value.copiedStacks)
-        //                {
-        //                    Log.Message("copiedStacks: " + p);
-        //                }
-        //            }
-        //            if (stackGroup.Value.deadPawns != null)
-        //            {
-        //                foreach (var p in stackGroup.Value.deadPawns)
-        //                {
-        //                    Log.Message("deadPawns: " + p);
-        //                }
+        //                Log.Message(p + " - " + skill.Level + " - " + skill.def + " - " + p.skills.GetSkill(skill.def)?.Level);
         //            }
         //        }
-        //
-        //        Log.Message("-----------", true);
         //    }
         //}
         public void ResetStackLimitIfNeeded(ThingDef def)
