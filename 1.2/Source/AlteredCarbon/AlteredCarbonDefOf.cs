@@ -80,6 +80,8 @@ namespace AlteredCarbon
 
 		public static PawnRelationDef AC_Copy;
 
+		public static DesignationDef AC_ExtractStackDesignation;
+
 	}
 }
 

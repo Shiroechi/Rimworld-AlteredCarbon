@@ -44,8 +44,12 @@
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Psychology">
+      <HintPath>..\..\..\..\Psychology (unofficial 1.1 1.2)\v1.2\Assemblies\Psychology.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="SyrTraits">
-      <HintPath>..\..\..\..\..\Mods2\[SYR] Individuality\Assemblies\SyrTraits.dll</HintPath>
+      <HintPath>..\..\..\..\[SYR] Individuality\Assemblies\SyrTraits.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -306,6 +310,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Designators\Designator_ExtractStack.cs" />
+    <Compile Include="Jobs\WorkGiver_ExtractStack.cs" />
     <Compile Include="ModCompatibility.cs" />
     <Compile Include="AlteredCarbonDefOf.cs" />
     <Compile Include="AlteredCarbonMod.cs" />

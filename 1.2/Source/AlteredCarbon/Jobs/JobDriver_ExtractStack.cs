@@ -10,7 +10,7 @@ namespace AlteredCarbon
     {
         public override bool TryMakePreToilReservations(bool errorOnFailed)
         {
-            return true;
+            return pawn.Reserve(job.targetA, job, 1, -1, null, errorOnFailed);
         }
         protected override IEnumerable<Toil> MakeNewToils()
         {
@@ -53,6 +53,10 @@ namespace AlteredCarbon
                             corpse.InnerPawn.health.AddHediff(hediff_MissingPart);
                         }
                         corpse.InnerPawn.health.RemoveHediff(hediff);
+                        if (pawn.Map.designationManager.DesignationOn(corpse).def == AlteredCarbonDefOf.AC_ExtractStackDesignation)
+                        {
+                            pawn.Map.designationManager.TryRemoveDesignationOn(corpse, AlteredCarbonDefOf.AC_ExtractStackDesignation);
+                        }
                     }
                 }
             };

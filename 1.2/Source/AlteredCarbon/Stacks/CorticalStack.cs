@@ -11,6 +11,29 @@ using Verse.AI;
 
 namespace AlteredCarbon
 {
+    public class PsychologyData : IExposable
+    {
+        public int kinseyRating;
+        public float sexDrive;
+        public float romanticDrive;
+        public Dictionary<Pawn, int> knownSexualities;
+        public PsychologyData()
+        {
+
+        }
+
+        public void ExposeData()
+        {
+            Scribe_Values.Look<int>(ref this.kinseyRating, "kinseyRating", 0, false);
+            Scribe_Values.Look<float>(ref this.sexDrive, "sexDrive", 1f, false);
+            Scribe_Values.Look<float>(ref this.romanticDrive, "romanticDrive", 1f, false);
+            Scribe_Collections.Look<Pawn, int>(ref this.knownSexualities, "knownSexualities", LookMode.Reference, LookMode.Value, ref this.knownSexualitiesWorkingKeys, ref this.knownSexualitiesWorkingValues);
+        }
+
+        private List<Pawn> knownSexualitiesWorkingKeys;
+        private List<int> knownSexualitiesWorkingValues;
+    }
+
     public class CorticalStack : ThingWithComps
     {
         public Name name;
@@ -53,6 +76,8 @@ namespace AlteredCarbon
         public int sexuality;
         public float romanceFactor;
 
+        // Psychology
+        public PsychologyData psychologyData;
 
         public bool isCopied = false;
         public int stackGroupID;
@@ -359,6 +384,8 @@ namespace AlteredCarbon
 
             this.sexuality = hediff.sexuality;
             this.romanceFactor = hediff.romanceFactor;
+
+            this.psychologyData = hediff.psychologyData;
         }
 
         public void SavePawnToCorticalStack(Pawn pawn)
@@ -466,8 +493,12 @@ namespace AlteredCarbon
 
             if (ModCompatibility.IndividualityIsActive)
             {
-                this.sexuality = ModCompatibility.GetSexuality(pawn);
-                this.romanceFactor = ModCompatibility.GetRomanceFactor(pawn);
+                this.sexuality = ModCompatibility.GetSyrTraitsSexuality(pawn);
+                this.romanceFactor = ModCompatibility.GetSyrTraitsRomanceFactor(pawn);
+            }
+            if (ModCompatibility.PsychologyIsActive)
+            {
+                this.psychologyData = ModCompatibility.GetPsychologyData(pawn);
             }
         }
 
@@ -522,6 +553,8 @@ namespace AlteredCarbon
 
             this.sexuality = otherStack.sexuality;
             this.romanceFactor = otherStack.romanceFactor;
+
+            this.psychologyData = otherStack.psychologyData;
         }
 
         public Pawn GetOriginalPawn(Pawn pawn)
@@ -780,8 +813,13 @@ namespace AlteredCarbon
             }
             if (ModCompatibility.IndividualityIsActive)
             {
-                ModCompatibility.SetSexuality(pawn, this.sexuality);
-                ModCompatibility.SetRomanceFactor(pawn, this.romanceFactor);
+                ModCompatibility.SetSyrTraitsSexuality(pawn, this.sexuality);
+                ModCompatibility.SetSyrTraitsRomanceFactor(pawn, this.romanceFactor);
+            }
+
+            if (ModCompatibility.PsychologyIsActive)
+            {
+                ModCompatibility.SetPsychologyData(pawn, this.psychologyData);
             }
         }
 
@@ -841,6 +879,7 @@ namespace AlteredCarbon
             }
             Scribe_Values.Look<int>(ref this.sexuality, "sexuality", -1);
             Scribe_Values.Look<float>(ref this.romanceFactor, "romanceFactor", -1f);
+            Scribe_Deep.Look<PsychologyData>(ref this.psychologyData, "psychologyData");
         }
 
         private List<Faction> favorKeys = new List<Faction>();

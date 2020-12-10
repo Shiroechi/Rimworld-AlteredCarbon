@@ -48,6 +48,7 @@ namespace AlteredCarbon
 
         public int sexuality;
         public float romanceFactor;
+        public PsychologyData psychologyData;
 
         public List<SkillOffsets> negativeSkillsOffsets;
         public List<SkillOffsets> negativeSkillPassionsOffsets;
@@ -169,8 +170,12 @@ namespace AlteredCarbon
 
             if (ModCompatibility.IndividualityIsActive)
             {
-                this.sexuality = ModCompatibility.GetSexuality(pawn);
-                this.romanceFactor = ModCompatibility.GetRomanceFactor(pawn);
+                this.sexuality = ModCompatibility.GetSyrTraitsSexuality(pawn);
+                this.romanceFactor = ModCompatibility.GetSyrTraitsRomanceFactor(pawn);
+            }
+            if (ModCompatibility.PsychologyIsActive)
+            {
+                this.psychologyData = ModCompatibility.GetPsychologyData(pawn);
             }
         }
 
@@ -261,6 +266,7 @@ namespace AlteredCarbon
             }
             Scribe_Values.Look<int>(ref this.sexuality, "sexuality", -1);
             Scribe_Values.Look<float>(ref this.romanceFactor, "romanceFactor", -1f);
+            Scribe_Deep.Look<PsychologyData>(ref this.psychologyData, "psychologyData");
         }
 
         private List<Faction> favorKeys = new List<Faction>();

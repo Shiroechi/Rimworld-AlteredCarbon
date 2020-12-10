@@ -45,7 +45,6 @@
                     <trait>AC_Sleever</trait>
 					<context>PlayerStarter</context>
                     <chance>1.0</chance>
-                    <visible>true</visible>
                 </li>
                 <li Class="ScenPart_StartingThing_Defined">
                     <def>StartingThing_Defined</def>

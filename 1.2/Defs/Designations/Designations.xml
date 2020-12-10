@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <DesignationDef>
+    <defName>AC_ExtractStackDesignation</defName>
+    <texturePath>Designations/Strip</texturePath>
+    <targetType>Thing</targetType>
+  </DesignationDef>
+  
+</Defs>

@@ -68,5 +68,18 @@
 			<li>Manipulation</li>
 		</requiredCapacities>
   </WorkGiverDef>
+  
+  	<WorkGiverDef>
+		<defName>AC_ExtractStack</defName>
+		<label>extracting cortical stack</label>
+		<giverClass>AlteredCarbon.WorkGiver_ExtractStack</giverClass>
+		<workType>Hauling</workType>
+		<verb>extract cortical stack</verb>
+		<gerund>extracting cortical stack</gerund>
+		<priorityInType>20</priorityInType>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+  </WorkGiverDef>
 
 </Defs>
