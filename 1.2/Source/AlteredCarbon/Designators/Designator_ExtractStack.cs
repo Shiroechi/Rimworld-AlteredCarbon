@@ -19,7 +19,7 @@ namespace AlteredCarbon
 		{
 			defaultLabel = "AC.DesignatorExtractStack".Translate();
 			defaultDesc = "AC.DesignatorExtractStackDesc".Translate();
-			icon = ContentFinder<Texture2D>.Get("UI/Designators/Strip");
+			icon = ContentFinder<Texture2D>.Get("UI/Icons/ExtractStacks");
 			soundDragSustain = SoundDefOf.Designate_DragStandard;
 			soundDragChanged = SoundDefOf.Designate_DragStandard_Changed;
 			useMouseIcon = true;
@@ -64,7 +64,6 @@ namespace AlteredCarbon
 		public override void DesignateThing(Thing t)
 		{
 			base.Map.designationManager.AddDesignation(new Designation(t, Designation));
-			StrippableUtility.CheckSendStrippingImpactsGoodwillMessage(t);
 		}
 
 		private IEnumerable<Thing> PawnsWithStacksInCell(IntVec3 c)

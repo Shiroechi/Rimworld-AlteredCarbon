@@ -3,7 +3,7 @@
 
   <DesignationDef>
     <defName>AC_ExtractStackDesignation</defName>
-    <texturePath>Designations/Strip</texturePath>
+    <texturePath>UI/Icons/ExtractStacks</texturePath>
     <targetType>Thing</targetType>
   </DesignationDef>
   
