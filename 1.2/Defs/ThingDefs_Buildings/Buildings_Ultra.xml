@@ -63,7 +63,6 @@
                 <compClass>CompPowerTrader</compClass>
                 <shortCircuitInRain>true</shortCircuitInRain>
                 <basePowerConsumption>2200</basePowerConsumption>
-                <transmitsPower>true</transmitsPower>
             </li>
             <li Class="CompProperties_Refuelable">
                 <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
